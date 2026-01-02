@@ -4,23 +4,28 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Faz de Conta Decorações</title>
+
   <style>
     :root{
-      --bg0:#070a16;
-      --bg1:#0b1230;
-      --glass: rgba(255,255,255,.08);
-      --glass2: rgba(255,255,255,.12);
+      --bg0:#070b18;
+      --bg1:#0b1636;
+
+      --glass: rgba(255,255,255,.10);
+      --glass2: rgba(255,255,255,.07);
       --stroke: rgba(255,255,255,.14);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.70);
+
+      --txt: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.72);
       --muted2: rgba(255,255,255,.55);
-      --shadow: 0 22px 70px rgba(0,0,0,.55);
+
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+
       --r: 26px;
       --r2: 20px;
+
       --grad: linear-gradient(135deg,#ff4fd8,#8b5cff,#35d6ff,#71ff7a);
-      --ok: rgba(60, 255, 170, .15);
-      --danger: rgba(255, 90, 90, .15);
-      --warn: rgba(255, 210, 85, .15);
+      --grad2: linear-gradient(135deg, rgba(255,79,216,.35), rgba(53,214,255,.25), rgba(113,255,122,.20));
+
       --tap: 48px;
     }
 
@@ -28,20 +33,21 @@
     html,body{height:100%}
     body{
       margin:0;
-      color:var(--text);
+      color:var(--txt);
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       background:
-        radial-gradient(1200px 700px at 10% 10%, rgba(255,79,216,.22), transparent 55%),
-        radial-gradient(900px 600px at 80% 20%, rgba(53,214,255,.18), transparent 55%),
-        radial-gradient(900px 700px at 70% 85%, rgba(113,255,122,.14), transparent 55%),
+        radial-gradient(1200px 700px at 12% 10%, rgba(255,79,216,.18), transparent 60%),
+        radial-gradient(900px 600px at 82% 22%, rgba(53,214,255,.14), transparent 60%),
+        radial-gradient(900px 700px at 70% 88%, rgba(113,255,122,.12), transparent 60%),
         linear-gradient(180deg, var(--bg1), var(--bg0));
       min-height:100%;
     }
 
     a{color:inherit; text-decoration:none}
-    .wrap{max-width:1100px; margin:0 auto; padding:14px 14px 120px}
+    .wrap{max-width: 980px; margin:0 auto; padding: 16px 14px 90px}
+
     .card{
-      background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.06));
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
       border: 1px solid var(--stroke);
       border-radius: var(--r);
       box-shadow: var(--shadow);
@@ -49,80 +55,109 @@
       -webkit-backdrop-filter: blur(10px);
     }
 
-    /* TOP APP BAR */
-    .topbar{
-      position: sticky;
-      top: 10px;
-      z-index: 50;
-      padding: 12px;
+    /* Topo */
+    .top{
+      padding: 14px;
       display:flex;
-      gap:12px;
       align-items:center;
       justify-content:space-between;
+      gap: 12px;
     }
+
     .brand{
       display:flex;
-      gap:10px;
       align-items:center;
-      min-width: 180px;
+      gap: 12px;
+      min-width: 0;
     }
-    .brandLogo{
-      width:42px; height:42px; border-radius: 16px;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.06);
-      display:grid; place-items:center;
+
+    .logoBox{
+      width: 62px;
+      height: 62px;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.12);
       overflow:hidden;
       flex:0 0 auto;
+      display:grid;
+      place-items:center;
     }
-    .brandLogo img{width:100%; height:100%; object-fit:cover; display:block}
-    .brandText{line-height:1.05}
-    .brandText .name{font-weight:800; letter-spacing:.2px}
-    .brandText .slogan{
-      margin-top:4px;
-      font-weight:700;
+    .logoBox img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+    }
+
+    .t{
+      min-width: 0;
+      line-height: 1.05;
+    }
+    .name{
+      font-weight: 950;
+      font-size: 20px;
+      letter-spacing: .2px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
+      max-width: 52vw;
+    }
+    .slogan{
+      margin-top: 6px;
+      font-weight: 900;
       background: var(--grad);
-      -webkit-background-clip: text;
-      background-clip: text;
+      -webkit-background-clip:text;
+      background-clip:text;
       color: transparent;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
+      max-width: 60vw;
+    }
+    .sub{
+      margin-top: 6px;
+      color: var(--muted);
+      font-weight: 650;
       font-size: 13px;
     }
 
-    .search{
-      flex:1;
+    .right{
       display:flex;
-      gap:10px;
+      flex-direction:column;
+      align-items:flex-end;
+      gap: 10px;
+      flex:0 0 auto;
+    }
+
+    .clock{
+      display:flex;
       align-items:center;
+      gap: 10px;
       padding: 10px 12px;
       border-radius: 999px;
-      border:1px solid var(--stroke);
-      background: rgba(0,0,0,.12);
-      min-height: var(--tap);
-    }
-    .search input{
-      width:100%;
-      border:0;
-      outline:0;
-      background: transparent;
-      color:var(--text);
-      font-size: 15px;
-    }
-    .pill{
-      display:flex;
-      gap:8px;
-      align-items:center;
-      padding: 10px 12px;
-      border-radius: 999px;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.06);
-      min-height: var(--tap);
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.10);
+      min-height: 42px;
+      color: var(--muted);
+      font-weight: 800;
+      font-size: 13px;
       white-space:nowrap;
+    }
+    .clock b{color:var(--txt)}
+
+    .rowBtns{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      flex-wrap: wrap;
+      justify-content:flex-end;
     }
 
     .btn{
       cursor:pointer;
-      border:1px solid var(--stroke);
+      border:1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.06);
-      color:var(--text);
+      color:var(--txt);
       border-radius: 18px;
       padding: 12px 14px;
       min-height: var(--tap);
@@ -132,130 +167,110 @@
       justify-content:center;
       user-select:none;
       transition: transform .08s ease, background .2s ease;
+      font-weight: 800;
     }
-    .btn:active{transform: scale(.98)}
+    .btn:active{transform:scale(.98)}
     .btnGrad{
       background: var(--grad);
       border:0;
-      color:#081014;
-      font-weight:800;
-    }
-    .btnGhost{
-      background: rgba(0,0,0,.10);
-    }
-    .btnSmall{
-      padding: 10px 12px;
-      border-radius: 16px;
-      min-height: 44px;
+      color:#091014;
+      font-weight: 950;
     }
 
-    /* HERO / BANNER */
-    .hero{
+    /* FOTO GRANDE */
+    .banner{
       margin-top: 14px;
       padding: 12px;
-      overflow:hidden;
     }
-    .heroGrid{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap: 14px;
-      align-items: stretch;
+    .bannerInner{
+      border-radius: calc(var(--r) - 6px);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.12);
+      overflow:hidden;
+      position:relative;
     }
 
-    .banner{
-      position:relative;
-      border-radius: calc(var(--r) - 6px);
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
-      min-height: 280px;
-    }
-    .banner img{
+    /* Ajuste aqui o tamanho da foto */
+    .bannerInner img{
       width:100%;
-      height: 420px;            /* <<< ALTURA DO BANNER (mude aqui) */
+      height: 360px;      /* <<< AUMENTA/REDUZ A FOTO AQUI */
       object-fit: cover;
       display:block;
       filter: saturate(1.05) contrast(1.03);
     }
-    .banner::after{
+
+    .bannerInner::after{
       content:"";
       position:absolute; inset:0;
-      background: linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.55));
+      background: linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.55));
       pointer-events:none;
     }
-    .bannerOverlay{
+
+    .bannerText{
       position:absolute;
-      left: 16px;
-      right: 16px;
-      bottom: 16px;
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:12px;
+      left: 14px; right: 14px; bottom: 14px;
       z-index:2;
+      display:flex;
+      flex-direction:column;
+      gap: 6px;
     }
     .bannerTitle{
       font-size: 22px;
-      font-weight: 900;
+      font-weight: 950;
       letter-spacing:.2px;
       margin:0;
     }
-    .bannerSub{
-      margin: 6px 0 0;
+    .bannerDesc{
+      margin:0;
       color: var(--muted);
-      font-weight: 600;
-      font-size: 14px;
-      max-width: 560px;
+      font-weight: 700;
+      font-size: 13px;
+      max-width: 700px;
     }
 
-    .infoBox{
-      padding: 14px;
-      border-radius: calc(var(--r) - 6px);
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.06);
-      display:flex;
-      flex-direction:column;
-      gap: 12px;
-      justify-content:space-between;
-    }
-    .infoLine{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      color:var(--muted);
-      font-weight:600;
-      flex-wrap:wrap;
-    }
-
-    /* CONTROLS */
-    .controls{
+    /* Conteúdo */
+    .section{
       margin-top: 14px;
       padding: 14px;
     }
-    .controls h2{
-      margin:0 0 6px;
+    .section h2{
+      margin:0 0 8px;
       font-size: 28px;
       font-weight: 950;
       letter-spacing:.2px;
     }
-    .controls p{margin:0 0 14px; color: var(--muted); font-weight:600}
-    .row{
-      display:flex; gap:12px; flex-wrap:wrap; align-items:center;
+    .section p{
+      margin:0 0 14px;
+      color: var(--muted);
+      font-weight: 650;
     }
+
+    .controls{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
     .toggle{
-      display:flex; gap:10px; align-items:center;
+      display:flex;
+      gap:10px;
+      align-items:center;
       padding: 10px 12px;
       border-radius: 18px;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.10);
       min-height: var(--tap);
+      font-weight: 800;
+      color: var(--muted);
     }
     .switch{
-      width: 54px; height: 30px;
+      width: 54px;
+      height: 30px;
       border-radius: 999px;
-      background: rgba(0,0,0,.25);
-      border:1px solid rgba(255,255,255,.15);
-      position: relative;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      position:relative;
       flex:0 0 auto;
     }
     .knob{
@@ -266,94 +281,84 @@
       top: 1px; left: 1px;
       transition: left .18s ease;
     }
-    .switch.on{background: rgba(75,255,180,.18)}
-    .switch.on .knob{left: 26px}
-    select, .input{
-      border:1px solid var(--stroke);
-      background: rgba(0,0,0,.15);
-      color: var(--text);
+    .switch.on{
+      background: rgba(113,255,122,.14);
+    }
+    .switch.on .knob{
+      left: 26px;
+    }
+
+    select, input{
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.10);
+      color: var(--txt);
       padding: 12px 14px;
       border-radius: 18px;
       min-height: var(--tap);
       outline:0;
+      font-weight: 750;
     }
     select{cursor:pointer}
+    input::placeholder{color: rgba(255,255,255,.45)}
+
     .hint{
       margin-top: 10px;
-      color: var(--muted2);
-      font-weight:600;
-      font-size: 13px;
-      background: rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.10);
       border-radius: 18px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.10);
       padding: 10px 12px;
+      color: var(--muted2);
+      font-weight: 700;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+    .mono{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-weight: 800;
+      color: var(--txt);
+      word-break: break-all;
     }
 
-    /* GRID */
+    /* Cards de categoria */
     .grid{
       margin-top: 14px;
       display:grid;
-      grid-template-columns: repeat(12, 1fr);
       gap: 14px;
+      grid-template-columns: repeat(12, 1fr);
     }
-
-    .catBar{
-      grid-column: 1 / -1;
-      padding: 10px 12px;
+    .catCard{
+      grid-column: span 6;
+      padding: 14px;
+      border-radius: var(--r2);
+      border:1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+      box-shadow: 0 10px 40px rgba(0,0,0,.35);
+      cursor:pointer;
+      transition: transform .08s ease;
       display:flex;
-      justify-content:space-between;
       align-items:center;
-      gap:10px;
+      justify-content:space-between;
+      gap: 12px;
     }
+    .catCard:active{transform:scale(.99)}
+    @media (min-width: 820px){
+      .catCard{grid-column: span 4;}
+    }
+    .catLeft{display:flex; flex-direction:column; gap:6px}
+    .catName{font-weight: 950; font-size: 18px}
+    .catDesc{color:var(--muted); font-weight:700; font-size: 13px}
     .badge{
       padding: 8px 10px;
       border-radius: 999px;
       border:1px solid rgba(255,255,255,.14);
       background: rgba(0,0,0,.10);
       color: var(--muted);
-      font-weight:800;
+      font-weight: 900;
       font-size: 12px;
-      letter-spacing:.2px;
+      white-space:nowrap;
     }
 
-    .product{
-      grid-column: span 6;
-      padding: 12px;
-      overflow:hidden;
-      position: relative;
-    }
-    @media (min-width: 820px){
-      .product{grid-column: span 4;}
-    }
-    .pImg{
-      border-radius: 18px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
-      aspect-ratio: 4/3;
-      position:relative;
-    }
-    .pImg img{
-      width:100%; height:100%;
-      object-fit: cover;
-      display:block;
-      filter: saturate(1.06) contrast(1.02);
-    }
-    .pMeta{padding: 10px 2px 0}
-    .pName{margin:0; font-weight:900; font-size: 16px}
-    .pDesc{margin:6px 0 0; color: var(--muted); font-weight:600; font-size: 13px; min-height: 34px}
-    .pBottom{
-      margin-top: 10px;
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
-    }
-    .price{
-      font-weight: 950;
-      font-size: 16px;
-      letter-spacing:.2px;
-    }
-    .price small{font-weight:800; color:var(--muted); margin-left:6px}
-
-    /* MODAL */
+    /* Modal simples */
     .backdrop{
       position: fixed; inset:0;
       background: rgba(0,0,0,.55);
@@ -365,7 +370,7 @@
     }
     .backdrop.show{display:flex}
     .modal{
-      width: min(720px, 100%);
+      width: min(760px, 100%);
       border-radius: 26px;
       border:1px solid rgba(255,255,255,.16);
       background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.08));
@@ -379,71 +384,53 @@
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap: 10px;
+      gap:10px;
       border-bottom:1px solid rgba(255,255,255,.10);
     }
-    .modalHead h3{margin:0; font-size: 16px; font-weight: 950}
+    .modalHead h3{margin:0; font-size:16px; font-weight:950}
     .modalBody{padding: 14px; max-height: 65vh; overflow:auto}
     .line{
       display:flex;
       justify-content:space-between;
       align-items:flex-start;
-      gap: 12px;
+      gap:12px;
       padding: 10px 0;
       border-bottom:1px dashed rgba(255,255,255,.12);
     }
     .line:last-child{border-bottom:0}
-    .line .left{display:flex; flex-direction:column; gap:3px}
-    .line .left b{font-weight: 950}
-    .line .left span{color:var(--muted); font-weight:600; font-size: 13px}
+    .line b{font-weight:950}
+    .line span{color:var(--muted); font-weight:700; font-size: 13px}
     .qty{
       display:flex; gap:8px; align-items:center;
+      flex:0 0 auto;
     }
-    .qty .qbtn{
-      width:42px; height:42px; border-radius: 14px;
+    .qbtn{
+      width:42px; height:42px;
+      border-radius: 14px;
       border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.12);
-      color:var(--text);
+      background: rgba(0,0,0,.10);
       display:grid; place-items:center;
       font-size: 18px;
       cursor:pointer;
+      user-select:none;
     }
-    .qty .num{min-width: 24px; text-align:center; font-weight: 900}
+    .num{min-width: 22px; text-align:center; font-weight:950}
     .modalFoot{
       padding: 14px;
       border-top:1px solid rgba(255,255,255,.10);
-      display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
     }
-    .total{
-      font-weight: 950;
-      font-size: 18px;
-    }
-    .copyBox{
-      margin-top: 10px;
-      padding: 12px;
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.12);
-      color: var(--muted);
-      font-weight:700;
-      font-size: 13px;
-      line-height:1.35;
-    }
-    .copyRow{
-      margin-top: 10px;
-      display:flex; gap:10px; flex-wrap:wrap;
-    }
-    .mono{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      font-weight:800;
-      color: var(--text);
-      word-break: break-all;
-    }
+    .total{font-weight:950; font-size: 18px}
 
-    /* FOOT FIXED ACTIONS (mobile feel) */
+    /* Barra inferior */
     .bottomBar{
       position: fixed;
-      left:0; right:0; bottom: 10px;
+      left:0; right:0;
+      bottom: 10px;
       display:flex;
       justify-content:center;
       z-index: 60;
@@ -451,7 +438,7 @@
     }
     .bottomInner{
       pointer-events:auto;
-      width: min(1100px, calc(100% - 20px));
+      width: min(980px, calc(100% - 20px));
       display:flex;
       gap: 10px;
       padding: 10px;
@@ -464,488 +451,443 @@
     .bottomInner .btn{flex:1}
   </style>
 </head>
+
 <body>
   <div class="wrap">
 
-    <!-- TOPBAR -->
-    <div class="topbar card">
+    <!-- TOPO FIXO (com relógio + data) -->
+    <div class="top card">
       <div class="brand">
-        <div class="brandLogo">
-          <!-- Logo pequeno (pode trocar o arquivo) -->
-          <img src="logo.jpg" alt="Logo" onerror="this.src=window.__placeholderLogo" />
+        <div class="logoBox" title="Logo">
+          <img id="logoImg" src="logo.jpg" alt="Logo"
+               onerror="this.src=window.__placeholderLogo">
         </div>
-        <div class="brandText">
+        <div class="t">
           <div class="name">Faz de Conta Decorações</div>
           <div class="slogan">Onde a imaginação vira festa</div>
+          <div class="sub">Decorações encantadoras para momentos especiais</div>
         </div>
       </div>
 
-      <div class="search">
-        🔎
-        <input id="q" type="search" placeholder="Buscar (ex: urso, arco, cortina)..." />
-      </div>
-
-      <div class="pill" title="Cidade">
-        📍 <span>Jaciara/MT</span>
-      </div>
-    </div>
-
-    <!-- HERO -->
-    <div class="hero card">
-      <div class="heroGrid">
-        <div class="banner">
-          <!-- FOTO GRANDE DO TOPO: troque o arquivo abaixo pelo nome da sua imagem -->
-          <img id="heroImg" src="banner.jpg" alt="Faz de Conta" onerror="this.src=window.__placeholderBanner" />
-          <div class="bannerOverlay">
-            <div>
-              <p class="bannerTitle">Catálogo de locação</p>
-              <p class="bannerSub">Escolha itens, veja detalhes e monte seu pedido. Finalize por Pix ou chame no WhatsApp.</p>
-            </div>
-          </div>
+      <div class="right">
+        <div class="clock" title="Data e hora">
+          🗓️ <b id="dateNow">—</b> ⏰ <b id="timeNow">—</b>
         </div>
 
-        <div class="infoBox">
-          <div class="infoLine">✨ <span><b>Decorações encantadoras</b> para momentos especiais</span></div>
-          <div class="infoLine">📱 <span><b>WhatsApp:</b> (66) 99622-3481</span></div>
-          <div class="infoLine">⏱️ <span>Montagem <b>inclusa</b> ou <b>separada</b> • Temas personalizados</span></div>
-
-          <div class="row">
-            <button class="btn btnGhost" id="btnWpp">💬 Falar no WhatsApp</button>
-            <button class="btn btnGrad" id="btnCart">🛒 Carrinho (<span id="cartCount">0</span>)</button>
-          </div>
+        <div class="rowBtns">
+          <a class="btn" id="btnWpp" href="#" rel="noopener">💬 Falar no WhatsApp</a>
+          <div class="btn btnGrad" id="btnCart">🛒 Carrinho (<span id="cartCount">0</span>)</div>
         </div>
       </div>
     </div>
 
-    <!-- CONTROLS -->
-    <div class="controls card">
+    <!-- FOTO GRANDE (banner) -->
+    <div class="banner card">
+      <div class="bannerInner">
+        <!-- >>> AQUI É A FOTO QUE VOCÊ QUER MUDAR / DEIXAR MAIOR <<< -->
+        <!-- Se você já tem o arquivo 20260102_130931.jpg, deixei ele aqui -->
+        <img id="bannerImg" src="20260102_130931.jpg" alt="Foto principal"
+             onerror="this.src=window.__placeholderBanner">
+        <div class="bannerText">
+          <p class="bannerTitle">Catálogo de locação</p>
+          <p class="bannerDesc">
+            Escolha itens, adicione ao carrinho e finalize por Pix ou WhatsApp.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTROLES -->
+    <div class="section card">
       <h2>Escolha o que você quer alugar</h2>
-      <p>Toque nos itens para ver e adicionar no carrinho. Você pode ligar/desligar a exibição de valores.</p>
+      <p>Toque nas categorias para ver as opções com fotos e preços. Você pode ligar/desligar a exibição de valores.</p>
 
-      <div class="row">
-        <div class="toggle" id="togglePrices" role="button" aria-label="Mostrar preços">
-          🔒 <b>Mostrar preços</b>
+      <div class="controls">
+        <div class="toggle" id="togglePrices" role="button">
+          🔒 Mostrar preços
           <div class="switch" id="sw"><div class="knob"></div></div>
         </div>
+
+        <input id="q" type="search" placeholder="Pesquisar (ex: urso, arco, cortina)..." />
 
         <select id="cat">
           <option value="">Todas as categorias</option>
         </select>
 
-        <button class="btn btnSmall" id="btnClear">🧹 Limpar</button>
-
-        <button class="btn btnGrad" id="btnPix">✅ Finalizar (Pix)</button>
+        <div class="btn" id="btnClear">🧹 Limpar</div>
+        <div class="btn btnGrad" id="btnPix">✅ Finalizar (Pix)</div>
       </div>
 
       <div class="hint">
-        <b>Fotos:</b> envie suas imagens para o GitHub (na raiz) e use nomes simples.
-        Ex.: <span class="mono">urso-rosa.jpg</span>, <span class="mono">arco-rosa.jpg</span>, <span class="mono">cortina-dourada.jpg</span><br>
-        <b>IMPORTANTE:</b> para o topo funcionar, coloque na raiz do repo:
-        <span class="mono">banner.jpg</span> (foto grande) e <span class="mono">logo.jpg</span> (logo pequena).
+        <b>IMPORTANTE (fotos):</b> envie suas imagens para o GitHub <b>na raiz</b> (mesma pasta do <span class="mono">index.html</span>).<br>
+        - Logo: <span class="mono">logo.jpg</span><br>
+        - Foto grande: <span class="mono">20260102_130931.jpg</span> (ou troque o nome no código)<br>
+        Se o nome do arquivo não bater 100%, o app não encontra e a foto some.
       </div>
     </div>
 
-    <!-- GRID -->
-    <div class="grid" id="grid"></div>
+    <!-- CATEGORIAS -->
+    <div class="grid" id="gridCats"></div>
+
   </div>
 
-  <!-- Bottom mobile bar -->
+  <!-- Barra inferior (atalhos) -->
   <div class="bottomBar">
     <div class="bottomInner">
-      <button class="btn btnGhost" id="btnWpp2">💬 WhatsApp</button>
-      <button class="btn btnGrad" id="btnCart2">🛒 Carrinho (<span id="cartCount2">0</span>)</button>
-      <button class="btn btnGrad" id="btnPix2">✅ Pix</button>
+      <a class="btn" id="btnWpp2" href="#" rel="noopener">💬 WhatsApp</a>
+      <div class="btn btnGrad" id="btnCart2">🛒 Carrinho (<span id="cartCount2">0</span>)</div>
+      <div class="btn btnGrad" id="btnPix2">✅ Pix</div>
     </div>
   </div>
 
-  <!-- CART MODAL -->
+  <!-- MODAL CARRINHO -->
   <div class="backdrop" id="cartModal">
     <div class="modal">
       <div class="modalHead">
         <h3>🛒 Seu carrinho</h3>
-        <button class="btn btnSmall" id="closeCart">✖</button>
+        <div class="btn" id="closeCart">✖</div>
       </div>
       <div class="modalBody" id="cartBody"></div>
       <div class="modalFoot">
         <div class="total">Total: <span id="cartTotal">R$ 0,00</span></div>
-        <div class="row" style="margin-left:auto">
-          <button class="btn btnSmall" id="clearCart">🗑️ Limpar</button>
-          <button class="btn btnGrad" id="goPix">✅ Finalizar (Pix)</button>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <div class="btn" id="clearCart">🗑️ Limpar</div>
+          <div class="btn btnGrad" id="goPix">✅ Finalizar (Pix)</div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- PIX MODAL -->
+  <!-- MODAL PIX -->
   <div class="backdrop" id="pixModal">
     <div class="modal">
       <div class="modalHead">
         <h3>✅ Finalizar (Pix)</h3>
-        <button class="btn btnSmall" id="closePix">✖</button>
+        <div class="btn" id="closePix">✖</div>
       </div>
       <div class="modalBody">
-        <div class="copyBox">
-          <div><b>1)</b> Copie a chave Pix abaixo e faça o pagamento no seu banco.</div>
-          <div><b>2)</b> Depois, clique em <b>“Enviar pedido no WhatsApp”</b> para confirmar.</div>
+        <div class="hint" style="margin-top:0">
+          <b>1)</b> Copie a chave Pix e faça o pagamento no seu banco.<br>
+          <b>2)</b> Depois, envie o pedido no WhatsApp para confirmar.
         </div>
 
-        <div class="copyBox" style="border-color: rgba(255,255,255,.16)">
-          <div><b>Chave Pix:</b></div>
-          <div class="mono" id="pixKey"></div>
-          <div class="copyRow">
-            <button class="btn btnSmall" id="copyPix">📋 Copiar chave</button>
-            <button class="btn btnSmall" id="copyMsg">📋 Copiar pedido</button>
+        <div class="hint" style="margin-top:12px">
+          <b>Chave Pix:</b><br>
+          <span class="mono" id="pixKey"></span><br><br>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <div class="btn" id="copyPix">📋 Copiar chave</div>
+            <div class="btn" id="copyMsg">📋 Copiar pedido</div>
+            <div class="btn btnGrad" id="pixWhats">💬 Enviar pedido no WhatsApp</div>
           </div>
         </div>
 
-        <div class="copyBox">
-          <div><b>Resumo do pedido:</b></div>
-          <div class="mono" id="pixSummary"></div>
+        <div class="hint" style="margin-top:12px">
+          <b>Resumo do pedido:</b><br>
+          <span class="mono" id="pixSummary"></span>
         </div>
       </div>
       <div class="modalFoot">
         <div class="total">Total: <span id="pixTotal">R$ 0,00</span></div>
-        <div class="row" style="margin-left:auto">
-          <button class="btn btnGhost" id="pixWhats">💬 Enviar pedido no WhatsApp</button>
-        </div>
       </div>
     </div>
   </div>
 
-<script>
-/* =========================
-   CONFIG (edite aqui)
-========================= */
-const WHATSAPP_PHONE = "5566996223481"; // 55 + DDD + número (sem espaços)
-const PIX_KEY = "SUA_CHAVE_PIX_AQUI";   // <- TROQUE pela sua chave Pix (CPF, CNPJ, e-mail, telefone ou aleatória)
+  <script>
+    /* ========= CONFIG (edite aqui) ========= */
+    const WHATSAPP_PHONE = "5566996223481"; // 55 + DDD + número (sem espaços)
+    const PIX_KEY = "SUA_CHAVE_PIX_AQUI";   // <- TROQUE pela sua chave Pix
 
-/* Fotos:
-   - banner.jpg  (imagem grande do topo)
-   - logo.jpg    (logo pequena no cabeçalho)
-   - fotos dos produtos: coloque na raiz do repo e use o nome no campo image
-*/
+    // Produtos (exemplo). Pode adicionar mais depois.
+    const PRODUCTS = [
+      { id:"cubo-1", cat:"Cubo", name:"Cubo Estrutural", desc:"Estrutura e suporte para painel/mesa.", price:80, image:"cubo.jpg" },
+      { id:"arco-1", cat:"Arco de balões", name:"Arco Orgânico (P)", desc:"Arco para entrada ou mesa.", price:180, image:"arco-rosa.jpg" },
+      { id:"arco-2", cat:"Arco de balões", name:"Arco Orgânico (M)", desc:"Tamanho médio para cenário.", price:260, image:"arco-colorido.jpg" },
+      { id:"cort-1", cat:"Cortina", name:"Cortina Dourada", desc:"Fundo e acabamento do painel.", price:20, image:"cortina-dourada.jpg" },
+      { id:"urso-1", cat:"Ursos", name:"Ursinho Decorativo", desc:"Ursinho para compor o cenário.", price:25, image:"urso-rosa.jpg" },
+    ];
 
-const PRODUCTS = [
-  { id:"arco-1", cat:"Arco de balões", name:"Arco Orgânico (P)", desc:"Arco orgânico para entrada ou mesa.", price:180, image:"arco-rosa.jpg" },
-  { id:"arco-2", cat:"Arco de balões", name:"Arco Orgânico (M)", desc:"Tamanho médio, ideal para cenário.", price:260, image:"arco-colorido.jpg" },
-  { id:"arco-3", cat:"Arco de balões", name:"Arco Orgânico (G)", desc:"Grande impacto visual (sob consulta).", price:0, image:"arco-grande.jpg" },
+    /* ========= Placeholders (se foto não carregar) ========= */
+    const PLACEHOLDER = (label) =>
+      "data:image/svg+xml;charset=utf-8," + encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800">
+          <defs>
+            <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#ff4fd8" stop-opacity=".35"/>
+              <stop offset="0.5" stop-color="#35d6ff" stop-opacity=".22"/>
+              <stop offset="1" stop-color="#71ff7a" stop-opacity=".18"/>
+            </linearGradient>
+          </defs>
+          <rect width="100%" height="100%" fill="#0b1636"/>
+          <rect x="50" y="50" width="1100" height="700" rx="50" fill="url(#g)"/>
+          <text x="90" y="210" fill="rgba(255,255,255,.9)" font-size="70" font-family="Arial" font-weight="800">${label}</text>
+          <text x="90" y="290" fill="rgba(255,255,255,.75)" font-size="34" font-family="Arial" font-weight="700">Faz de Conta Decorações</text>
+          <text x="90" y="345" fill="rgba(255,255,255,.65)" font-size="28" font-family="Arial" font-weight="700">Envie a foto para o GitHub com o nome certo</text>
+        </svg>
+      `);
 
-  { id:"cubo-1", cat:"Cubo", name:"Cubo Estrutural", desc:"Estrutura para painel/mesa e apoio.", price:80, image:"cubo.jpg" },
-  { id:"tap-1", cat:"Tapetes", name:"Tapete (Neutro)", desc:"Base para fotos e cenário.", price:35, image:"tapete.jpg" },
-  { id:"aran-1", cat:"Arandelas", name:"Arandela LED", desc:"Iluminação e destaque no painel.", price:30, image:"arandela.jpg" },
+    window.__placeholderLogo = PLACEHOLDER("Logo");
+    window.__placeholderBanner = PLACEHOLDER("Foto principal");
 
-  { id:"urso-1", cat:"Ursos", name:"Ursinho Decorativo (P)", desc:"Ursinho para compor o cenário.", price:25, image:"urso-rosa.jpg" },
-  { id:"urso-2", cat:"Ursos", name:"Ursinho Decorativo (G)", desc:"Ursinho maior para destaque.", price:45, image:"urso-grande.jpg" },
+    /* ========= Helpers ========= */
+    const money = (v) => new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"}).format(v);
 
-  { id:"cort-1", cat:"Cortina", name:"Cortina (Dourada)", desc:"Fundo e acabamento do painel.", price:20, image:"cortina-dourada.jpg" },
-  { id:"cort-2", cat:"Cortina", name:"Cortina (Prata)", desc:"Brilho e acabamento.", price:20, image:"cortina-prata.jpg" },
-];
+    let showPrices = false;
+    let q = "";
+    let cat = "";
+    const cart = new Map(); // id -> qty
 
-const PLACEHOLDER_SVG = (label) =>
-  "data:image/svg+xml;charset=utf-8," + encodeURIComponent(`
-    <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800">
-      <defs>
-        <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="#ff4fd8" stop-opacity=".35"/>
-          <stop offset="0.45" stop-color="#8b5cff" stop-opacity=".25"/>
-          <stop offset="0.75" stop-color="#35d6ff" stop-opacity=".22"/>
-          <stop offset="1" stop-color="#71ff7a" stop-opacity=".18"/>
-        </linearGradient>
-      </defs>
-      <rect width="100%" height="100%" fill="#0b1230"/>
-      <rect x="40" y="40" width="1120" height="720" rx="48" fill="url(#g)" />
-      <g fill="rgba(255,255,255,.85)" font-family="Arial" font-weight="800">
-        <text x="80" y="190" font-size="64">${label}</text>
-        <text x="80" y="260" font-size="32">Faz de Conta Decorações</text>
-        <text x="80" y="320" font-size="28">Onde a imaginação vira festa</text>
-      </g>
-      <g opacity=".25" fill="#fff">
-        <circle cx="980" cy="230" r="90"/>
-        <circle cx="1080" cy="330" r="60"/>
-        <circle cx="930" cy="380" r="40"/>
-      </g>
-    </svg>
-  `);
-
-window.__placeholderBanner = PLACEHOLDER_SVG("Banner");
-window.__placeholderLogo   = PLACEHOLDER_SVG("Logo");
-
-/* =========================
-   APP
-========================= */
-const money = (v) => new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"}).format(v);
-
-let showPrices = false;
-let q = "";
-let cat = "";
-const cart = new Map(); // id -> qty
-
-const els = {
-  grid: document.getElementById("grid"),
-  q: document.getElementById("q"),
-  cat: document.getElementById("cat"),
-  toggle: document.getElementById("togglePrices"),
-  sw: document.getElementById("sw"),
-  cartCount: document.getElementById("cartCount"),
-  cartCount2: document.getElementById("cartCount2"),
-  cartModal: document.getElementById("cartModal"),
-  cartBody: document.getElementById("cartBody"),
-  cartTotal: document.getElementById("cartTotal"),
-  pixModal: document.getElementById("pixModal"),
-  pixKey: document.getElementById("pixKey"),
-  pixSummary: document.getElementById("pixSummary"),
-  pixTotal: document.getElementById("pixTotal"),
-};
-
-function initCats(){
-  const cats = [...new Set(PRODUCTS.map(p => p.cat))].sort();
-  cats.forEach(c=>{
-    const o = document.createElement("option");
-    o.value = c; o.textContent = c;
-    els.cat.appendChild(o);
-  });
-}
-
-function filtered(){
-  return PRODUCTS.filter(p=>{
-    const okQ = !q || (p.name+" "+p.desc+" "+p.cat).toLowerCase().includes(q.toLowerCase());
-    const okC = !cat || p.cat === cat;
-    return okQ && okC;
-  });
-}
-
-function cartCount(){
-  let n=0;
-  cart.forEach(v=> n+=v);
-  return n;
-}
-
-function cartTotal(){
-  let t=0;
-  cart.forEach((qty,id)=>{
-    const p = PRODUCTS.find(x=>x.id===id);
-    if(!p) return;
-    t += (p.price||0) * qty;
-  });
-  return t;
-}
-
-function render(){
-  const items = filtered();
-
-  els.grid.innerHTML = "";
-
-  const bar = document.createElement("div");
-  bar.className = "catBar card";
-  bar.innerHTML = `
-    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
-      <div style="font-weight:950">✨ Itens disponíveis</div>
-      <span class="badge">${items.length} itens</span>
-      <span class="badge">${showPrices ? "Preço: visível" : "Preço: sob consulta"}</span>
-    </div>
-    <div style="display:flex;gap:10px;align-items:center">
-      <span class="badge">🛒 ${cartCount()} no carrinho</span>
-    </div>
-  `;
-  els.grid.appendChild(bar);
-
-  items.forEach(p=>{
-    const div = document.createElement("div");
-    div.className = "product card";
-
-    const img = p.image || "";
-    const priceTxt = (p.price && p.price > 0) ? money(p.price) : "Sob consulta";
-
-    div.innerHTML = `
-      <div class="pImg">
-        <img src="${img}"
-             alt="${p.name}"
-             onerror="this.src='${PLACEHOLDER_SVG(p.cat)}'">
-      </div>
-
-      <div class="pMeta">
-        <p class="pName">${p.name}</p>
-        <p class="pDesc">${p.desc}</p>
-
-        <div class="pBottom">
-          <div class="price">${showPrices ? priceTxt : "🔒 Preço" }
-            <small>${showPrices ? "/ unidade" : "sob consulta"}</small>
-          </div>
-          <button class="btn btnGrad btnSmall" data-add="${p.id}">＋ Adicionar</button>
-        </div>
-
-        <div style="margin-top:10px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
-          <span class="badge">${p.cat}</span>
-          <span class="badge">ID: ${p.id}</span>
-        </div>
-      </div>
-    `;
-    els.grid.appendChild(div);
-  });
-
-  // binds
-  document.querySelectorAll("[data-add]").forEach(b=>{
-    b.onclick = ()=>{
-      const id = b.getAttribute("data-add");
-      cart.set(id, (cart.get(id)||0)+1);
-      updateCartUI();
-      openCart();
+    const el = {
+      gridCats: document.getElementById("gridCats"),
+      q: document.getElementById("q"),
+      cat: document.getElementById("cat"),
+      sw: document.getElementById("sw"),
+      cartCount: document.getElementById("cartCount"),
+      cartCount2: document.getElementById("cartCount2"),
+      cartModal: document.getElementById("cartModal"),
+      cartBody: document.getElementById("cartBody"),
+      cartTotal: document.getElementById("cartTotal"),
+      pixModal: document.getElementById("pixModal"),
+      pixKey: document.getElementById("pixKey"),
+      pixSummary: document.getElementById("pixSummary"),
+      pixTotal: document.getElementById("pixTotal"),
+      dateNow: document.getElementById("dateNow"),
+      timeNow: document.getElementById("timeNow"),
     };
-  });
 
-  updateCartUI();
-}
+    function setWhatsappLinks(){
+      const base = `https://wa.me/${WHATSAPP_PHONE}?text=`;
+      const msg = encodeURIComponent("Olá! Vim pelo app Faz de Conta. Quero um orçamento 😊");
+      document.getElementById("btnWpp").href = base + msg;
+      document.getElementById("btnWpp2").href = base + msg;
+    }
 
-function updateCartUI(){
-  const n = cartCount();
-  els.cartCount.textContent = n;
-  els.cartCount2.textContent = n;
-}
+    function initCats(){
+      const cats = [...new Set(PRODUCTS.map(p => p.cat))].sort();
+      cats.forEach(c=>{
+        const o = document.createElement("option");
+        o.value = c; o.textContent = c;
+        el.cat.appendChild(o);
+      });
+    }
 
-function openCart(){
-  renderCart();
-  els.cartModal.classList.add("show");
-}
-function closeCart(){ els.cartModal.classList.remove("show"); }
+    function filtered(){
+      return PRODUCTS.filter(p=>{
+        const okQ = !q || (p.name+" "+p.desc+" "+p.cat).toLowerCase().includes(q.toLowerCase());
+        const okC = !cat || p.cat === cat;
+        return okQ && okC;
+      });
+    }
 
-function renderCart(){
-  const lines = [];
-  cart.forEach((qty,id)=>{
-    const p = PRODUCTS.find(x=>x.id===id);
-    if(!p) return;
-    const unit = (p.price && p.price>0) ? money(p.price) : "Sob consulta";
-    const subtotal = (p.price && p.price>0) ? money(p.price*qty) : "—";
-    lines.push({p,qty,unit,subtotal});
-  });
+    function cartCount(){
+      let n=0;
+      cart.forEach(v=> n+=v);
+      return n;
+    }
 
-  if(lines.length===0){
-    els.cartBody.innerHTML = `<div class="copyBox">Seu carrinho está vazio. Adicione itens no catálogo.</div>`;
-  } else {
-    els.cartBody.innerHTML = "";
-    lines.forEach(({p,qty,unit,subtotal})=>{
-      const row = document.createElement("div");
-      row.className = "line";
-      row.innerHTML = `
-        <div class="left">
-          <b>${p.name}</b>
-          <span>${p.cat} • ${showPrices ? ("Unidade: "+unit+" • Subtotal: "+subtotal) : "Preço sob consulta"}</span>
-        </div>
-        <div class="qty">
-          <div class="qbtn" data-dec="${p.id}">−</div>
-          <div class="num">${qty}</div>
-          <div class="qbtn" data-inc="${p.id}">+</div>
-        </div>
-      `;
-      els.cartBody.appendChild(row);
-    });
+    function cartTotal(){
+      let t=0;
+      cart.forEach((qty,id)=>{
+        const p = PRODUCTS.find(x=>x.id===id);
+        if(!p) return;
+        t += (p.price||0) * qty;
+      });
+      return t;
+    }
 
-    document.querySelectorAll("[data-dec]").forEach(x=>{
-      x.onclick = ()=>{
-        const id = x.getAttribute("data-dec");
-        const v = (cart.get(id)||0)-1;
-        if(v<=0) cart.delete(id); else cart.set(id,v);
-        updateCartUI();
-        renderCart();
-      };
-    });
-    document.querySelectorAll("[data-inc]").forEach(x=>{
-      x.onclick = ()=>{
-        const id = x.getAttribute("data-inc");
-        cart.set(id,(cart.get(id)||0)+1);
-        updateCartUI();
-        renderCart();
-      };
-    });
-  }
+    function updateCartUI(){
+      const n = cartCount();
+      el.cartCount.textContent = n;
+      el.cartCount2.textContent = n;
+    }
 
-  els.cartTotal.textContent = money(cartTotal());
-}
+    function renderCats(){
+      const items = filtered();
 
-function openPix(){
-  const total = cartTotal();
-  const summary = buildOrderText();
-  els.pixKey.textContent = PIX_KEY;
-  els.pixSummary.textContent = summary;
-  els.pixTotal.textContent = money(total);
-  els.pixModal.classList.add("show");
-}
-function closePix(){ els.pixModal.classList.remove("show"); }
+      // agrupa por categoria
+      const group = new Map();
+      items.forEach(p=>{
+        if(!group.has(p.cat)) group.set(p.cat, []);
+        group.get(p.cat).push(p);
+      });
 
-function buildOrderText(){
-  if(cartCount()===0) return "Carrinho vazio.";
-  const parts = [];
-  cart.forEach((qty,id)=>{
-    const p = PRODUCTS.find(x=>x.id===id);
-    if(!p) return;
-    const priceTxt = (p.price && p.price>0) ? money(p.price) : "Sob consulta";
-    parts.push(`${qty}x ${p.name} (${p.cat})${showPrices ? " — "+priceTxt : ""}`);
-  });
-  const totalTxt = money(cartTotal());
-  return `Pedido Faz de Conta:\n- ${parts.join("\n- ")}\n\nTotal: ${totalTxt}\nPagamento: Pix`;
-}
+      el.gridCats.innerHTML = "";
 
-function goWhats(){
-  const text = buildOrderText() + `\n\nChave Pix: ${PIX_KEY}`;
-  const url = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(text)}`;
-  window.open(url, "_blank");
-}
+      [...group.keys()].sort().forEach(category=>{
+        const list = group.get(category);
+        const div = document.createElement("div");
+        div.className = "catCard";
+        div.innerHTML = `
+          <div class="catLeft">
+            <div class="catName">✨ ${category}</div>
+            <div class="catDesc">${list.length} item(ns) disponível(is)</div>
+          </div>
+          <div class="badge">${showPrices ? "Preço visível" : "Preço sob consulta"}</div>
+        `;
+        div.onclick = ()=>{
+          // Ao clicar, abre uma listagem simples no carrinho (como “atalho”):
+          // adiciona 1 do primeiro item da categoria
+          const first = list[0];
+          cart.set(first.id, (cart.get(first.id)||0)+1);
+          updateCartUI();
+          openCart();
+        };
+        el.gridCats.appendChild(div);
+      });
 
-function copyText(text){
-  navigator.clipboard?.writeText(text).then(()=>alert("Copiado!")).catch(()=>alert("Não consegui copiar. Selecione e copie manualmente."));
-}
+      updateCartUI();
+    }
 
-/* EVENTS */
-initCats();
+    function openCart(){
+      renderCart();
+      el.cartModal.classList.add("show");
+    }
+    function closeCart(){ el.cartModal.classList.remove("show"); }
 
-els.q.addEventListener("input", e=>{ q=e.target.value.trim(); render(); });
-els.cat.addEventListener("change", e=>{ cat=e.target.value; render(); });
+    function renderCart(){
+      const lines = [];
+      cart.forEach((qty,id)=>{
+        const p = PRODUCTS.find(x=>x.id===id);
+        if(!p) return;
+        lines.push({p,qty});
+      });
 
-document.getElementById("btnClear").onclick = ()=>{
-  q=""; cat="";
-  els.q.value="";
-  els.cat.value="";
-  render();
-};
+      if(lines.length===0){
+        el.cartBody.innerHTML = `<div class="hint" style="margin-top:0">Seu carrinho está vazio. Toque numa categoria para adicionar itens (exemplo).</div>`;
+      } else {
+        el.cartBody.innerHTML = "";
+        lines.forEach(({p,qty})=>{
+          const unit = (p.price && p.price>0) ? money(p.price) : "Sob consulta";
+          const subtotal = (p.price && p.price>0) ? money(p.price*qty) : "—";
 
-document.getElementById("btnCart").onclick = openCart;
-document.getElementById("btnCart2").onclick = openCart;
-document.getElementById("closeCart").onclick = closeCart;
-els.cartModal.addEventListener("click", (e)=>{ if(e.target === els.cartModal) closeCart(); });
+          const row = document.createElement("div");
+          row.className = "line";
+          row.innerHTML = `
+            <div style="display:flex;flex-direction:column;gap:3px">
+              <b>${p.name}</b>
+              <span>${p.cat} • ${showPrices ? ("Unidade: "+unit+" • Subtotal: "+subtotal) : "Preço sob consulta"}</span>
+            </div>
+            <div class="qty">
+              <div class="qbtn" data-dec="${p.id}">−</div>
+              <div class="num">${qty}</div>
+              <div class="qbtn" data-inc="${p.id}">+</div>
+            </div>
+          `;
+          el.cartBody.appendChild(row);
+        });
 
-document.getElementById("clearCart").onclick = ()=>{
-  cart.clear(); updateCartUI(); renderCart(); render();
-};
+        document.querySelectorAll("[data-dec]").forEach(x=>{
+          x.onclick = ()=>{
+            const id = x.getAttribute("data-dec");
+            const v = (cart.get(id)||0)-1;
+            if(v<=0) cart.delete(id); else cart.set(id,v);
+            updateCartUI();
+            renderCart();
+          };
+        });
+        document.querySelectorAll("[data-inc]").forEach(x=>{
+          x.onclick = ()=>{
+            const id = x.getAttribute("data-inc");
+            cart.set(id,(cart.get(id)||0)+1);
+            updateCartUI();
+            renderCart();
+          };
+        });
+      }
 
-document.getElementById("goPix").onclick = ()=>{ closeCart(); openPix(); };
+      el.cartTotal.textContent = money(cartTotal());
+    }
 
-document.getElementById("btnPix").onclick = ()=>{
-  if(cartCount()===0){ alert("Seu carrinho está vazio."); return; }
-  openPix();
-};
-document.getElementById("btnPix2").onclick = document.getElementById("btnPix").onclick;
+    function buildOrderText(){
+      if(cartCount()===0) return "Carrinho vazio.";
+      const parts = [];
+      cart.forEach((qty,id)=>{
+        const p = PRODUCTS.find(x=>x.id===id);
+        if(!p) return;
+        const priceTxt = (p.price && p.price>0) ? money(p.price) : "Sob consulta";
+        parts.push(`${qty}x ${p.name} (${p.cat})${showPrices ? " — "+priceTxt : ""}`);
+      });
+      return `Pedido Faz de Conta:\n- ${parts.join("\n- ")}\n\nTotal: ${money(cartTotal())}\nPagamento: Pix\nChave Pix: ${PIX_KEY}`;
+    }
 
-document.getElementById("closePix").onclick = closePix;
-els.pixModal.addEventListener("click", (e)=>{ if(e.target === els.pixModal) closePix(); });
+    function copyText(text){
+      navigator.clipboard?.writeText(text)
+        .then(()=>alert("Copiado!"))
+        .catch(()=>alert("Não consegui copiar. Selecione e copie manualmente."));
+    }
 
-document.getElementById("btnWpp").onclick = ()=>{
-  const url = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent("Olá! Vim pelo app Faz de Conta. Quero um orçamento 😊")}`;
-  window.open(url, "_blank");
-};
-document.getElementById("btnWpp2").onclick = document.getElementById("btnWpp").onclick;
+    function openPix(){
+      if(cartCount()===0){ alert("Seu carrinho está vazio."); return; }
+      el.pixKey.textContent = PIX_KEY;
+      el.pixSummary.textContent = buildOrderText();
+      el.pixTotal.textContent = money(cartTotal());
+      el.pixModal.classList.add("show");
+    }
+    function closePix(){ el.pixModal.classList.remove("show"); }
 
-document.getElementById("pixWhats").onclick = goWhats;
+    function goWhatsOrder(){
+      const text = buildOrderText();
+      const url = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(text)}`;
+      window.open(url, "_blank");
+    }
 
-document.getElementById("copyPix").onclick = ()=> copyText(PIX_KEY);
-document.getElementById("copyMsg").onclick = ()=> copyText(buildOrderText());
+    /* Data e relógio */
+    function tick(){
+      const now = new Date();
+      const d = now.toLocaleDateString("pt-BR", { weekday:"short", day:"2-digit", month:"2-digit", year:"numeric" });
+      const t = now.toLocaleTimeString("pt-BR", { hour:"2-digit", minute:"2-digit", second:"2-digit" });
+      el.dateNow.textContent = d.replace(".", "");
+      el.timeNow.textContent = t;
+    }
 
-els.toggle.onclick = ()=>{
-  showPrices = !showPrices;
-  els.sw.classList.toggle("on", showPrices);
-  render();
-};
+    /* Eventos */
+    document.getElementById("togglePrices").onclick = ()=>{
+      showPrices = !showPrices;
+      el.sw.classList.toggle("on", showPrices);
+      renderCats();
+      renderCart();
+    };
 
-/* Primeira renderização */
-render();
-</script>
+    el.q.addEventListener("input", e=>{ q=e.target.value.trim(); renderCats(); });
+    el.cat.addEventListener("change", e=>{ cat=e.target.value; renderCats(); });
+
+    document.getElementById("btnClear").onclick = ()=>{
+      q=""; cat="";
+      el.q.value="";
+      el.cat.value="";
+      renderCats();
+    };
+
+    document.getElementById("btnCart").onclick = openCart;
+    document.getElementById("btnCart2").onclick = openCart;
+    document.getElementById("closeCart").onclick = closeCart;
+    el.cartModal.addEventListener("click", (e)=>{ if(e.target===el.cartModal) closeCart(); });
+
+    document.getElementById("clearCart").onclick = ()=>{
+      cart.clear();
+      updateCartUI();
+      renderCart();
+      renderCats();
+    };
+
+    document.getElementById("btnPix").onclick = openPix;
+    document.getElementById("btnPix2").onclick = openPix;
+    document.getElementById("goPix").onclick = ()=>{ closeCart(); openPix(); };
+
+    document.getElementById("closePix").onclick = closePix;
+    el.pixModal.addEventListener("click", (e)=>{ if(e.target===el.pixModal) closePix(); });
+
+    document.getElementById("copyPix").onclick = ()=> copyText(PIX_KEY);
+    document.getElementById("copyMsg").onclick = ()=> copyText(buildOrderText());
+    document.getElementById("pixWhats").onclick = goWhatsOrder;
+
+    /* Start */
+    setWhatsappLinks();
+    initCats();
+    renderCats();
+    updateCartUI();
+    renderCart();
+    tick();
+    setInterval(tick, 1000);
+  </script>
 </body>
 </html>
