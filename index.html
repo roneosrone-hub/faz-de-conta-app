@@ -2,643 +2,851 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Faz de Conta Decorações</title>
+
+  <!-- QR Code (gera QR no navegador) -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
 
   <style>
     :root{
-      --bg1:#050814;
-      --glass: rgba(255,255,255,.10);
-      --glass2: rgba(255,255,255,.08);
-      --stroke: rgba(255,255,255,.16);
+      --bg:#070b18;
+      --card: rgba(255,255,255,.08);
+      --card2: rgba(255,255,255,.06);
+      --stroke: rgba(255,255,255,.14);
       --txt: rgba(255,255,255,.92);
       --muted: rgba(255,255,255,.72);
-      --brandGrad: linear-gradient(90deg,#ff4ecd,#7cff00,#00c3ff,#f59e0b);
-      --btnGrad: linear-gradient(90deg,#ff4ecd,#7cff00);
+      --muted2: rgba(255,255,255,.56);
+      --grad: linear-gradient(90deg,#ff4fd8,#a855f7,#22c55e,#f59e0b);
+      --shadow: 0 16px 40px rgba(0,0,0,.45);
+      --radius: 18px;
     }
-
     *{box-sizing:border-box}
     body{
       margin:0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color: var(--txt);
+      color:var(--txt);
       background:
-        radial-gradient(circle at 18% 22%, rgba(168,85,247,.22), transparent 45%),
-        radial-gradient(circle at 85% 35%, rgba(34,197,94,.18), transparent 45%),
-        radial-gradient(circle at 40% 90%, rgba(59,130,246,.16), transparent 50%),
-        var(--bg1);
-      min-height: 100vh;
+        radial-gradient(1000px 600px at 20% 10%, rgba(168,85,247,.22), transparent 60%),
+        radial-gradient(900px 600px at 80% 20%, rgba(34,197,94,.18), transparent 55%),
+        radial-gradient(1000px 800px at 50% 90%, rgba(245,158,11,.12), transparent 60%),
+        var(--bg);
+      min-height:100vh;
     }
-
-    .wrap{
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 16px;
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:1100px; margin:0 auto; padding:20px 16px 80px}
+    .topbar{
+      position:sticky; top:0; z-index:20;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(7,11,24,.88), rgba(7,11,24,.55));
+      border-bottom:1px solid rgba(255,255,255,.08);
     }
-
-    .hero{
-      border-radius: 26px;
-      overflow: hidden;
-      border: 1px solid var(--stroke);
-      background: rgba(10,15,30,.55);
-      box-shadow: 0 18px 60px rgba(0,0,0,.35);
-      margin-top: 10px;
+    .topbar .inner{
+      max-width:1100px; margin:0 auto; padding:14px 16px;
+      display:flex; gap:12px; align-items:center; justify-content:space-between;
     }
-
-    .banner{
-      width:100%;
-      height: 260px;
-      background: url("fazdeconta.jpg") center/cover no-repeat;
-      position: relative;
+    .brand{
+      display:flex; align-items:center; gap:10px; min-width:210px;
     }
-
-    .heroBody{
-      padding: 16px;
-      display: grid;
-      gap: 12px;
+    .brand img{
+      width:38px; height:38px; border-radius:12px; object-fit:cover;
+      border:1px solid rgba(255,255,255,.15);
+      box-shadow: 0 10px 24px rgba(0,0,0,.35);
     }
-
-    .brandRow{
-      display:flex;
-      gap: 14px;
-      align-items:center;
-    }
-
-    .logo{
-      width:72px; height:72px;
-      border-radius: 18px;
-      object-fit: cover;
-      border: 1px solid var(--stroke);
+    .brand .name{font-weight:800; letter-spacing:.3px}
+    .pill{
+      padding:9px 12px; border-radius:999px;
       background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      color:var(--muted);
+      display:flex; gap:8px; align-items:center;
+      box-shadow: 0 10px 22px rgba(0,0,0,.22);
+      white-space:nowrap;
     }
-
-    .brandTitle{
+    .pill strong{color:var(--txt)}
+    .btn{
+      cursor:pointer;
+      border:none;
+      padding:10px 14px;
+      border-radius:999px;
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.14);
+      color:var(--txt);
+      box-shadow: 0 10px 24px rgba(0,0,0,.25);
+      display:inline-flex; gap:8px; align-items:center; justify-content:center;
+      transition:.15s transform ease, .15s background ease;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.10)}
+    .btn.grad{
+      background: var(--grad);
+      color:#071018;
+      border: none;
+      font-weight:800;
+    }
+    .btn.ghost{
+      background: transparent;
+      border:1px solid rgba(255,255,255,.16);
+      color:var(--txt);
+    }
+    .search{
+      flex:1;
+      display:flex; gap:10px; align-items:center;
+      padding:10px 12px;
+      border-radius:999px;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      color:var(--muted);
+      min-width: 0;
+    }
+    .search input{
+      width:100%;
+      border:none; outline:none;
+      background:transparent;
+      color:var(--txt);
+      font-size:14px;
+    }
+    .hero{
+      padding:22px 0 10px;
+      display:grid; grid-template-columns: 1.3fr .7fr; gap:14px;
+    }
+    .card{
+      background: linear-gradient(180deg, var(--card), var(--card2));
+      border:1px solid var(--stroke);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .hero .left{padding:18px}
+    .hero h1{
+      margin:0 0 8px;
       font-size: 28px;
-      font-weight: 1000;
-      line-height: 1.05;
-      background: var(--brandGrad);
+      line-height:1.1;
+      font-weight: 900;
+      background: var(--grad);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      margin: 0;
     }
-
-    .sub{
-      color: var(--muted);
-      margin: 0;
-      font-size: 14px;
-    }
-
-    .pillRow{display:flex; flex-wrap:wrap; gap:10px}
-    .pill{
-      font-size: 12px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--stroke);
-      background: rgba(255,255,255,.06);
-      color: var(--muted);
-    }
-
-    .toolbar{
-      display:flex;
-      gap: 10px;
-      align-items:center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      padding: 14px 0 6px;
-    }
-
-    .leftTools{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
-    .rightTools{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
-
-    .btn{
-      border: none;
-      cursor:pointer;
-      padding: 12px 14px;
-      border-radius: 999px;
-      font-weight: 800;
-      background: var(--btnGrad);
-      color: #111;
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-    }
-
-    .btnGhost{
-      border: 1px solid var(--stroke);
-      background: rgba(255,255,255,.06);
-      color: var(--txt);
-    }
-
-    .card{
-      border-radius: 22px;
-      border: 1px solid var(--stroke);
-      background: var(--glass2);
-      box-shadow: 0 14px 40px rgba(0,0,0,.25);
-      padding: 16px;
-      margin: 14px 0;
-    }
-
-    .sectionTitle{
-      display:flex;
-      align-items:center;
-      gap: 10px;
-      margin: 0 0 10px;
-      font-size: 18px;
-      font-weight: 900;
-    }
-
-    /* Menu de categorias */
+    .hero p{margin:0; color:var(--muted)}
+    .hero .right{padding:18px; display:flex; flex-direction:column; gap:10px; justify-content:center}
+    .kpi{display:flex; gap:10px; flex-wrap:wrap}
+    .kpi .pill{flex:1}
     .grid{
+      margin-top:14px;
       display:grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(4, 1fr);
+      gap:12px;
     }
-    @media(min-width:720px){
-      .grid{grid-template-columns: repeat(4, minmax(0, 1fr));}
-    }
-
     .cat{
-      border-radius: 18px;
-      border: 1px solid var(--stroke);
+      padding:14px;
+      border-radius:16px;
       background: rgba(255,255,255,.06);
-      padding: 14px;
+      border:1px solid rgba(255,255,255,.12);
       cursor:pointer;
-      transition: transform .12s ease;
-      min-height: 88px;
-      display:flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 6px;
+      transition:.15s transform ease, .15s background ease;
+      min-height:100px;
+      display:flex; flex-direction:column; justify-content:space-between;
     }
-    .cat:active{transform: scale(.98)}
-    .cat .emoji{font-size: 22px}
-    .cat .name{font-weight: 900}
-    .cat .hint{font-size: 12px; color: var(--muted)}
-
-    /* Lista de itens */
-    .items{
+    .cat:hover{transform: translateY(-2px); background: rgba(255,255,255,.09)}
+    .cat .icon{font-size:22px}
+    .cat .title{font-weight:800; margin-top:6px}
+    .cat .desc{color:var(--muted2); font-size:12.5px; margin-top:3px}
+    .sectionTitle{
+      margin:18px 0 10px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+    }
+    .sectionTitle h2{margin:0; font-size:18px}
+    .products{
       display:grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
     }
-    @media(min-width:720px){
-      .items{grid-template-columns: 1fr 1fr;}
-    }
-
-    .item{
-      border-radius: 18px;
-      border: 1px solid var(--stroke);
-      background: rgba(255,255,255,.06);
+    .prod{
       overflow:hidden;
-      display:flex;
-      flex-direction: column;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow: 0 16px 38px rgba(0,0,0,.35);
+      display:flex; flex-direction:column;
     }
-    .thumb{
-      height: 170px;
+    .prod .img{
+      aspect-ratio: 16/10;
       background: rgba(255,255,255,.05);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      position: relative;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      position:relative;
     }
-    .thumb img{
-      width:100%;
-      height:100%;
-      object-fit: cover;
+    .prod .img img{
+      width:100%; height:100%;
+      object-fit:cover;
       display:block;
     }
-    .itemBody{padding: 12px; display:grid; gap: 8px}
-    .itemName{font-weight: 950; font-size: 16px; margin:0}
-    .itemDesc{margin:0; color: var(--muted); font-size: 13px; line-height:1.35}
-    .row{
-      display:flex;
-      gap: 10px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content: space-between;
+    .badge{
+      position:absolute; top:10px; left:10px;
+      padding:7px 10px;
+      border-radius:999px;
+      background: rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.16);
+      font-size:12px;
+      color:rgba(255,255,255,.92);
+      backdrop-filter: blur(8px);
     }
-    .price{
-      font-weight: 1000;
-      background: var(--brandGrad);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      font-size: 16px;
+    .prod .body{padding:12px; display:flex; flex-direction:column; gap:8px}
+    .prod .name{font-weight:900}
+    .prod .meta{color:var(--muted2); font-size:12.5px}
+    .row{display:flex; align-items:center; justify-content:space-between; gap:10px}
+    .price{font-weight:900}
+    .muted{color:var(--muted2)}
+    .footerBar{
+      position:fixed; left:0; right:0; bottom:0;
+      padding:10px 12px;
+      background: linear-gradient(180deg, rgba(7,11,24,.0), rgba(7,11,24,.92));
+      backdrop-filter: blur(10px);
+      border-top:1px solid rgba(255,255,255,.08);
+      z-index:30;
     }
-    .small{font-size: 12px; color: var(--muted)}
+    .footerBar .inner{
+      max-width:1100px; margin:0 auto;
+      display:flex; gap:10px; align-items:center; justify-content:space-between;
+    }
 
-    /* Modal (galeria) */
-    .modalBack{
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.65);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding: 16px;
-      z-index: 999;
+    /* Drawer (Carrinho/Checkout) */
+    .drawerOverlay{
+      position:fixed; inset:0; background: rgba(0,0,0,.45);
+      display:none; z-index:50;
     }
-    .modal{
-      width: min(960px, 100%);
-      border-radius: 20px;
-      border: 1px solid var(--stroke);
-      background: rgba(10,15,30,.92);
-      overflow:hidden;
+    .drawer{
+      position:fixed; top:0; right:0; height:100%; width:min(420px, 92vw);
+      background: rgba(12,16,32,.92);
+      border-left:1px solid rgba(255,255,255,.12);
+      box-shadow: -20px 0 50px rgba(0,0,0,.45);
+      transform: translateX(110%);
+      transition: .2s transform ease;
+      z-index:60;
+      display:flex; flex-direction:column;
     }
-    .modalTop{
-      display:flex;
-      align-items:center;
-      justify-content: space-between;
-      padding: 12px 14px;
-      border-bottom: 1px solid rgba(255,255,255,.10);
+    .drawer.open{transform: translateX(0)}
+    .drawerOverlay.show{display:block}
+    .drawer header{
+      padding:14px 14px 10px;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      border-bottom:1px solid rgba(255,255,255,.10);
     }
-    .modalTitle{font-weight: 1000}
-    .close{
-      border: 1px solid var(--stroke);
+    .drawer header .t{font-weight:900}
+    .drawer .content{padding:12px 14px; overflow:auto; flex:1}
+    .line{
+      padding:10px;
+      border-radius:14px;
       background: rgba(255,255,255,.06);
-      color: var(--txt);
-      padding: 10px 12px;
-      border-radius: 12px;
+      border:1px solid rgba(255,255,255,.10);
+      display:flex; gap:10px; align-items:center; justify-content:space-between;
+      margin-bottom:10px;
+    }
+    .qty{
+      display:flex; align-items:center; gap:8px;
+    }
+    .qty button{
+      width:34px; height:34px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color:var(--txt);
       cursor:pointer;
     }
-    .modalGrid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-      padding: 14px;
+    .field{
+      display:flex; flex-direction:column; gap:6px; margin:10px 0;
     }
-    @media(min-width:720px){
-      .modalGrid{grid-template-columns: 1fr 1fr;}
+    .field input, .field textarea{
+      padding:12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color:var(--txt);
+      outline:none;
     }
-    .modalGrid img{
+    .qrBox{
+      padding:12px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      display:flex; flex-direction:column; gap:10px;
+      align-items:center;
+      margin-top:10px;
+    }
+    .copyRow{
       width:100%;
-      height: 240px;
-      object-fit: cover;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
+      display:flex; gap:10px;
+    }
+    .copyRow textarea{
+      flex:1;
+      min-height:64px;
+      resize: none;
+      font-size:12px;
     }
 
-    footer{
-      text-align:center;
-      color: var(--muted);
-      font-size: 12px;
-      padding: 18px 0 8px;
+    @media (max-width: 920px){
+      .hero{grid-template-columns: 1fr; }
+      .grid{grid-template-columns: repeat(2, 1fr)}
+      .products{grid-template-columns: 1fr}
+      .brand{min-width:auto}
     }
   </style>
 </head>
-
 <body>
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="inner">
+      <div class="brand">
+        <!-- Coloque sua imagem/logo no repositório e troque o src -->
+        <img src="Faz%20de%20Conta%20Decorações%20260102_13093.jpg" alt="Faz de Conta" onerror="this.style.display='none'">
+        <div>
+          <div class="name">Faz de Conta Decorações</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.62)">Onde a imaginação vira festa</div>
+        </div>
+      </div>
+
+      <div class="search" title="Buscar produtos">
+        🔎 <input id="searchInput" placeholder="Buscar (ex: urso, arco, tapete...)" />
+      </div>
+
+      <button class="btn" id="togglePricesBtn" title="Mostrar/ocultar preços">
+        🔒 <span id="togglePricesLabel">Mostrar preços</span>
+      </button>
+
+      <button class="btn grad" id="openCartBtn" title="Abrir carrinho">
+        🛒 <span id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+
   <div class="wrap">
+    <!-- Hero -->
     <div class="hero">
-      <div class="banner"></div>
-
-      <div class="heroBody">
-        <div class="brandRow">
-          <img class="logo" src="fazdeconta.jpg" alt="Faz de Conta" />
-          <div>
-            <h1 class="brandTitle">Onde a imaginação vira festa</h1>
-            <p class="sub">Decorações encantadoras • Catálogo com fotos • Orçamento no WhatsApp</p>
-          </div>
-        </div>
-
-        <div class="pillRow">
-          <span class="pill">Locação (24h)</span>
-          <span class="pill">Montagem inclusa ou separada</span>
-          <span class="pill">Preço visível ou sob consulta</span>
+      <div class="card left">
+        <h1>Catálogo Premium</h1>
+        <p>Escolha itens, monte seu kit e finalize com Pix + confirmação no WhatsApp.</p>
+        <div style="height:12px"></div>
+        <div class="kpi">
+          <div class="pill">⭐ <strong>Fotos</strong> por item</div>
+          <div class="pill">🧾 <strong>Orçamento</strong> automático</div>
+          <div class="pill">⚡ <strong>Pix</strong> na hora</div>
         </div>
       </div>
-    </div>
-
-    <div class="toolbar">
-      <div class="leftTools">
-        <button class="btn btnGhost" onclick="goHome()">🏠 Início</button>
-        <button class="btn btnGhost" onclick="openBudget()">📲 Pedir orçamento</button>
-      </div>
-
-      <div class="rightTools">
-        <button class="btn btnGhost" id="priceBtn" onclick="togglePrices()">🔒 Mostrar preços</button>
+      <div class="card right">
+        <button class="btn grad" id="goToCatalogBtn">✨ Ver opções</button>
+        <button class="btn" id="whatsBtn">💬 Falar no WhatsApp</button>
+        <div class="pill">📍 <strong>Atendimento</strong> Jaciara/MT e região</div>
       </div>
     </div>
 
-    <!-- MENU -->
-    <div class="card" id="homeCard">
-      <div class="sectionTitle">✨ Menu de opções</div>
-      <div class="grid" id="catGrid"></div>
-      <div class="small" style="margin-top:10px">
-        Dica: toque em uma opção para ver fotos e detalhes. Para ocultar valores, mantenha os preços bloqueados.
-      </div>
+    <div class="sectionTitle" id="catalogo">
+      <h2>✨ Menu de opções</h2>
+      <div class="muted" style="font-size:13px">Toque numa categoria para ver itens</div>
     </div>
 
-    <!-- ITENS DA CATEGORIA -->
-    <div class="card" id="catCard" style="display:none;">
-      <div class="row" style="margin-bottom:8px;">
-        <div class="sectionTitle" id="catTitle">Categoria</div>
-        <button class="btn btnGhost" onclick="goHome()">⬅ Voltar</button>
-      </div>
+    <!-- Categorias -->
+    <div class="grid" id="catsGrid"></div>
 
-      <div class="items" id="itemsGrid"></div>
+    <div class="sectionTitle">
+      <h2 id="prodTitle">🛍️ Itens</h2>
+      <div class="muted" id="prodSub" style="font-size:13px">Selecione uma categoria</div>
     </div>
 
-    <footer>© Faz de Conta Decorações • Todos os direitos reservados</footer>
+    <!-- Produtos -->
+    <div class="products" id="productsGrid"></div>
   </div>
 
-  <!-- MODAL GALERIA -->
-  <div class="modalBack" id="modalBack" onclick="closeModal(event)">
-    <div class="modal" onclick="event.stopPropagation()">
-      <div class="modalTop">
-        <div class="modalTitle" id="modalTitle">Fotos</div>
-        <button class="close" onclick="closeModal()">Fechar ✕</button>
-      </div>
-      <div class="modalGrid" id="modalGrid"></div>
+  <!-- Bottom bar -->
+  <div class="footerBar">
+    <div class="inner">
+      <div class="pill">💡 Dica: você pode ocultar preços e deixar “sob consulta”.</div>
+      <button class="btn grad" id="checkoutBtn">💳 Checkout Pix</button>
     </div>
   </div>
 
-  <script>
-    // ======= CONFIGURAÇÕES =======
-    const WHATSAPP_NUMBER = "5566996223481"; // seu número com DDI+DDD
-    const ADMIN_PIN = "3323"; // senha para mostrar preços
+  <!-- Drawer -->
+  <div class="drawerOverlay" id="overlay"></div>
+  <aside class="drawer" id="drawer">
+    <header>
+      <div class="t" id="drawerTitle">🛒 Carrinho</div>
+      <button class="btn ghost" id="closeDrawerBtn">✕</button>
+    </header>
+    <div class="content" id="drawerContent"></div>
+  </aside>
 
-    // Catálogo (você só troca fotos/nomes/preços aqui)
-    const CATEGORIES = [
-      {
-        id: "cubo",
-        name: "Cubo",
-        emoji: "🧊",
-        hint: "Estruturas e suportes",
-        items: [
-          {
-            name: "Cubo decorativo",
-            desc: "Ideal para compor cenário e painéis.",
-            price: 0, // coloque o valor (ex: 50) ou 0 se ainda não definiu
-            photos: ["img/cubo/cubo-01.jpg"]
-          }
-        ]
-      },
-      {
-        id: "arco-baloes",
-        name: "Arco de balões",
-        emoji: "🎈",
-        hint: "Arcos orgânicos e temáticos",
-        items: [
-          {
-            name: "Arco orgânico",
-            desc: "Montagem conforme tema e cores.",
-            price: 0,
-            photos: ["img/arco-baloes/arco-01.jpg","img/arco-baloes/arco-02.jpg"]
-          }
-        ]
-      },
-      {
-        id: "tapetes",
-        name: "Tapetes",
-        emoji: "🧺",
-        hint: "Base para fotos e cenário",
-        items: [
-          {
-            name: "Tapete para cenário",
-            desc: "Opções de tamanhos e cores.",
-            price: 0,
-            photos: ["img/tapetes/tapete-01.jpg"]
-          }
-        ]
-      },
-      {
-        id: "arandelas",
-        name: "Arandelas",
-        emoji: "💡",
-        hint: "Iluminação e destaque",
-        items: [
-          {
-            name: "Arandela decorativa",
-            desc: "Perfeita para dar charme ao painel.",
-            price: 0,
-            photos: ["img/arandelas/arandela-01.jpg"]
-          }
-        ]
-      },
-      {
-        id: "baloes",
-        name: "Balões",
-        emoji: "🎉",
-        hint: "Cores, temas e combos",
-        items: [
-          {
-            name: "Combo de balões",
-            desc: "Personalizado conforme tema.",
-            price: 0,
-            photos: ["img/baloes/baloes-01.jpg"]
-          }
-        ]
-      },
-      {
-        id: "ursos",
-        name: "Ursos",
-        emoji: "🧸",
-        hint: "Ursinhos e pelúcias decorativas",
-        items: [
-          {
-            name: "Urso de pelúcia (G)",
-            desc: "Excelente para aniversário infantil e chá de bebê.",
-            price: 0,
-            photos: ["img/ursos/urso-01.jpg","img/ursos/urso-02.jpg"]
-          }
-        ]
-      },
-      {
-        id: "arco-quadrado",
-        name: "Arco quadrado",
-        emoji: "🟦",
-        hint: "Estrutura quadrada para cenário",
-        items: [
-          {
-            name: "Arco quadrado (estrutura)",
-            desc: "Para painéis e decorações temáticas.",
-            price: 0,
-            photos: ["img/arco-quadrado/aq-01.jpg"]
-          }
-        ]
-      },
-      {
-        id: "cortina",
-        name: "Cortina",
-        emoji: "🎀",
-        hint: "Fundo e acabamento",
-        items: [
-          {
-            name: "Cortina decorativa",
-            desc: "Dá acabamento e brilho ao cenário.",
-            price: 0,
-            photos: ["img/cortina/cortina-01.jpg"]
-          }
-        ]
-      }
-    ];
+<script>
+  // =============================
+  // CONFIGURAÇÕES
+  // =============================
+  const WHATSAPP_NUMBER = "5566996223481"; // formato: 55 + DDD + número
+  const PIX_KEY = "66996223481";           // sua chave Pix (telefone)
+  const MERCHANT_NAME = "FAZ DE CONTA";    // sem acentos, até 25 chars
+  const MERCHANT_CITY = "JACIARA";         // sem acentos, até 15 chars
+  const TXID_DEFAULT = "FAZDECONTAAPP";    // até 25 chars
 
-    // ======= ESTADO =======
-    let pricesUnlocked = localStorage.getItem("fd_prices_unlocked") === "1";
+  // =============================
+  // DADOS (edite aqui depois)
+  // Troque img por suas fotos (pode enviar pro GitHub)
+  // =============================
+  const categories = [
+    { id:"cubo",        title:"Cubo",        icon:"🧊", desc:"Estruturas e suportes" },
+    { id:"arco",        title:"Arco de balões", icon:"🎈", desc:"Arcos orgânicos e temáticos" },
+    { id:"tapetes",     title:"Tapetes",     icon:"🧺", desc:"Base para fotos e cenário" },
+    { id:"arandelas",   title:"Arandelas",   icon:"💡", desc:"Iluminação e destaque" },
+    { id:"baloes",      title:"Balões",      icon:"🎊", desc:"Cores, temas e combos" },
+    { id:"ursos",       title:"Ursos",       icon:"🧸", desc:"Ursinhos e pelúcias decorativas" },
+    { id:"arcoq",       title:"Arco quadrado", icon:"🟦", desc:"Estrutura quadrada para cenário" },
+    { id:"cortina",     title:"Cortina",     icon:"🎀", desc:"Fundo e acabamento" },
+  ];
 
-    // ======= UI =======
-    const catGrid = document.getElementById("catGrid");
-    const homeCard = document.getElementById("homeCard");
-    const catCard = document.getElementById("catCard");
-    const catTitle = document.getElementById("catTitle");
-    const itemsGrid = document.getElementById("itemsGrid");
-    const priceBtn = document.getElementById("priceBtn");
+  // Exemplos (você pode aumentar/editar)
+  // Dica: suba fotos no GitHub e coloque o nome do arquivo em img.
+  const products = [
+    // Cubo
+    { id:"cubo1", cat:"cubo", name:"Cubo Acrílico (un)", price: 40, unit:"un", tags:["transparente"], img:"https://images.unsplash.com/photo-1526401485004-2fda9f6a2d4a?q=80&w=1200&auto=format&fit=crop" },
+    { id:"cubo2", cat:"cubo", name:"Cubo Colorido (un)", price: 35, unit:"un", tags:["colorido"], img:"https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop" },
 
-    const modalBack = document.getElementById("modalBack");
-    const modalTitle = document.getElementById("modalTitle");
-    const modalGrid = document.getElementById("modalGrid");
+    // Arco de balões
+    { id:"arco1", cat:"arco", name:"Arco Orgânico P", price: 180, unit:"kit", tags:["p"], img:"https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=1200&auto=format&fit=crop" },
+    { id:"arco2", cat:"arco", name:"Arco Orgânico M", price: 260, unit:"kit", tags:["m"], img:"https://images.unsplash.com/photo-1527529482837-4698179dc6ce?q=80&w=1200&auto=format&fit=crop" },
+    { id:"arco3", cat:"arco", name:"Arco Orgânico G", price: 340, unit:"kit", tags:["g"], img:"https://images.unsplash.com/photo-1521334726092-b509a19597c1?q=80&w=1200&auto=format&fit=crop" },
 
-    function moneyBR(v){
-      return v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+    // Tapetes
+    { id:"tap1", cat:"tapetes", name:"Tapete Redondo", price: 30, unit:"un", tags:["redondo"], img:"https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1200&auto=format&fit=crop" },
+    { id:"tap2", cat:"tapetes", name:"Tapete Retangular", price: 35, unit:"un", tags:["retangular"], img:"https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?q=80&w=1200&auto=format&fit=crop" },
+
+    // Arandelas
+    { id:"ara1", cat:"arandelas", name:"Arandela LED (par)", price: 50, unit:"par", tags:["led"], img:"https://images.unsplash.com/photo-1524484485831-a92ffc0de03f?q=80&w=1200&auto=format&fit=crop" },
+
+    // Balões
+    { id:"bal1", cat:"baloes", name:"Combo Balões (50 un)", price: 35, unit:"combo", tags:["cores"], img:"https://images.unsplash.com/photo-1527529482837-4698179dc6ce?q=80&w=1200&auto=format&fit=crop" },
+
+    // Ursos
+    { id:"urs1", cat:"ursos", name:"Urso Pelúcia M", price: 60, unit:"un", tags:["pelucia"], img:"https://images.unsplash.com/photo-1545558014-8692077e9b5c?q=80&w=1200&auto=format&fit=crop" },
+    { id:"urs2", cat:"ursos", name:"Urso Pelúcia G", price: 90, unit:"un", tags:["pelucia"], img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1200&auto=format&fit=crop" },
+
+    // Arco quadrado
+    { id:"aq1", cat:"arcoq", name:"Arco Quadrado (estrutura)", price: 120, unit:"un", tags:["estrutura"], img:"https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?q=80&w=1200&auto=format&fit=crop" },
+
+    // Cortina
+    { id:"cor1", cat:"cortina", name:"Cortina de LED", price: 55, unit:"un", tags:["led"], img:"https://images.unsplash.com/photo-1545239351-1141bd82e8a6?q=80&w=1200&auto=format&fit=crop" },
+    { id:"cor2", cat:"cortina", name:"Cortina Tecido Premium", price: 45, unit:"un", tags:["tecido"], img:"https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1200&auto=format&fit=crop" },
+  ];
+
+  // =============================
+  // ESTADO
+  // =============================
+  let selectedCat = null;
+  let showPrices = false;
+  let cart = {}; // { productId: qty }
+  let searchTerm = "";
+
+  // =============================
+  // HELPERS
+  // =============================
+  const brl = v => v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+  const el = id => document.getElementById(id);
+
+  function cartItems(){
+    return Object.entries(cart).map(([id,qty])=>{
+      const p = products.find(x=>x.id===id);
+      return { ...p, qty };
+    }).filter(x=>x.id);
+  }
+  function cartTotal(){
+    return cartItems().reduce((s,i)=> s + (i.price||0)*i.qty, 0);
+  }
+  function cartCount(){
+    return Object.values(cart).reduce((s,q)=>s+q,0);
+  }
+
+  // =============================
+  // RENDER
+  // =============================
+  function renderCats(){
+    const g = el("catsGrid");
+    g.innerHTML = "";
+    categories.forEach(c=>{
+      const d = document.createElement("div");
+      d.className = "cat";
+      d.onclick = ()=>{ selectedCat = c.id; renderProducts(); };
+      d.innerHTML = `
+        <div class="icon">${c.icon}</div>
+        <div>
+          <div class="title">${c.title}</div>
+          <div class="desc">${c.desc}</div>
+        </div>
+      `;
+      g.appendChild(d);
+    });
+  }
+
+  function renderProducts(){
+    const grid = el("productsGrid");
+    const title = el("prodTitle");
+    const sub = el("prodSub");
+
+    let list = products.slice();
+
+    if (selectedCat){
+      const catObj = categories.find(c=>c.id===selectedCat);
+      title.textContent = `🛍️ ${catObj ? catObj.title : "Itens"}`;
+      sub.textContent = "Toque em um item para adicionar ao carrinho";
+      list = list.filter(p=>p.cat===selectedCat);
+    } else {
+      title.textContent = "🛍️ Itens";
+      sub.textContent = "Selecione uma categoria";
+      list = [];
     }
 
-    function renderCats(){
-      catGrid.innerHTML = "";
-      CATEGORIES.forEach(c => {
-        const el = document.createElement("div");
-        el.className = "cat";
-        el.onclick = () => openCategory(c.id);
-        el.innerHTML = `
-          <div class="emoji">${c.emoji}</div>
-          <div class="name">${c.name}</div>
-          <div class="hint">${c.hint}</div>
-        `;
-        catGrid.appendChild(el);
+    if (searchTerm.trim()){
+      const q = searchTerm.toLowerCase();
+      list = (selectedCat ? list : products).filter(p=>{
+        return (p.name||"").toLowerCase().includes(q) ||
+               (p.tags||[]).join(" ").toLowerCase().includes(q);
       });
-      refreshPriceButton();
+      title.textContent = "🔎 Resultados";
+      sub.textContent = `Encontrados: ${list.length}`;
     }
 
-    function refreshPriceButton(){
-      if(pricesUnlocked){
-        priceBtn.textContent = "🔓 Ocultar preços";
-      } else {
-        priceBtn.textContent = "🔒 Mostrar preços";
+    grid.innerHTML = "";
+    list.forEach(p=>{
+      const div = document.createElement("div");
+      div.className = "prod";
+      div.innerHTML = `
+        <div class="img">
+          <img src="${p.img}" alt="${p.name}">
+          <div class="badge">${(categories.find(c=>c.id===p.cat)?.title) || ""}</div>
+        </div>
+        <div class="body">
+          <div class="name">${p.name}</div>
+          <div class="meta">${(p.tags||[]).map(t=>`#${t}`).join(" • ")}</div>
+          <div class="row">
+            <div class="price">${showPrices ? brl(p.price) : `<span class="muted">Sob consulta</span>`}</div>
+            <button class="btn grad" onclick="addToCart('${p.id}')">➕ Adicionar</button>
+          </div>
+        </div>
+      `;
+      grid.appendChild(div);
+    });
+  }
+
+  function renderCartDrawer(){
+    el("drawerTitle").textContent = "🛒 Carrinho";
+    const c = el("drawerContent");
+    const items = cartItems();
+    if (!items.length){
+      c.innerHTML = `
+        <div class="muted">Seu carrinho está vazio.</div>
+        <div style="height:12px"></div>
+        <button class="btn grad" onclick="closeDrawer()">✨ Ver opções</button>
+      `;
+      return;
+    }
+
+    c.innerHTML = items.map(i=>`
+      <div class="line">
+        <div style="min-width:0">
+          <div style="font-weight:900; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">${i.name}</div>
+          <div class="muted" style="font-size:12px">${showPrices ? brl(i.price) : "Preço sob consulta"} • ${i.unit || "un"}</div>
+        </div>
+        <div class="qty">
+          <button onclick="decQty('${i.id}')">−</button>
+          <div style="min-width:18px; text-align:center; font-weight:900">${i.qty}</div>
+          <button onclick="incQty('${i.id}')">+</button>
+        </div>
+      </div>
+    `).join("") + `
+      <div class="line">
+        <div>
+          <div style="font-weight:900">Total</div>
+          <div class="muted" style="font-size:12px">${showPrices ? "Pagamento via Pix" : "Valores sob consulta"}</div>
+        </div>
+        <div style="font-weight:900">${showPrices ? brl(cartTotal()) : "—"}</div>
+      </div>
+      <button class="btn grad" style="width:100%" onclick="openCheckout()">💳 Checkout Pix</button>
+      <div style="height:8px"></div>
+      <button class="btn" style="width:100%" onclick="clearCart()">🗑️ Limpar carrinho</button>
+    `;
+  }
+
+  // =============================
+  // AÇÕES DO CARRINHO
+  // =============================
+  function addToCart(id){
+    cart[id] = (cart[id] || 0) + 1;
+    updateCartUI();
+  }
+  function incQty(id){ cart[id] = (cart[id]||0) + 1; updateCartUI(true); }
+  function decQty(id){
+    cart[id] = (cart[id]||0) - 1;
+    if (cart[id] <= 0) delete cart[id];
+    updateCartUI(true);
+  }
+  function clearCart(){ cart = {}; updateCartUI(true); }
+
+  function updateCartUI(keepOpen=false){
+    el("cartCount").textContent = cartCount();
+    if (keepOpen) renderCartDrawer();
+  }
+
+  // =============================
+  // DRAWER OPEN/CLOSE
+  // =============================
+  const overlay = el("overlay");
+  const drawer = el("drawer");
+
+  function openDrawer(){
+    overlay.classList.add("show");
+    drawer.classList.add("open");
+  }
+  function closeDrawer(){
+    overlay.classList.remove("show");
+    drawer.classList.remove("open");
+  }
+
+  el("openCartBtn").onclick = ()=>{
+    renderCartDrawer();
+    openDrawer();
+  };
+  el("closeDrawerBtn").onclick = closeDrawer;
+  overlay.onclick = closeDrawer;
+
+  // =============================
+  // PREÇOS VISÍVEIS / SOB CONSULTA
+  // =============================
+  function setPricesVisible(v){
+    showPrices = v;
+    el("togglePricesLabel").textContent = showPrices ? "Ocultar preços" : "Mostrar preços";
+    el("togglePricesBtn").innerHTML = (showPrices ? "🔓" : "🔒") + " <span id='togglePricesLabel'>" + (showPrices ? "Ocultar preços" : "Mostrar preços") + "</span>";
+    renderProducts();
+    renderCartDrawer();
+  }
+  el("togglePricesBtn").onclick = ()=> setPricesVisible(!showPrices);
+
+  // =============================
+  // BUSCA
+  // =============================
+  el("searchInput").addEventListener("input", (e)=>{
+    searchTerm = e.target.value || "";
+    selectedCat = null; // busca global
+    renderProducts();
+  });
+
+  // =============================
+  // WHATSAPP
+  // =============================
+  function openWhatsApp(message){
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    window.open(url, "_blank");
+  }
+  el("whatsBtn").onclick = ()=>{
+    openWhatsApp("Olá! Quero um orçamento com a Faz de Conta Decorações 😊");
+  };
+
+  el("goToCatalogBtn").onclick = ()=>{
+    document.getElementById("catalogo").scrollIntoView({behavior:"smooth"});
+  };
+
+  // =============================
+  // PIX (BR Code / EMV) + CRC16
+  // =============================
+  function pad2(n){ return String(n).padStart(2,"0"); }
+  function emv(id, value){
+    const v = String(value);
+    return id + pad2(v.length) + v;
+  }
+  function crc16CCITT(str){
+    // CRC16/CCITT-FALSE
+    let crc = 0xFFFF;
+    for (let i=0; i<str.length; i++){
+      crc ^= (str.charCodeAt(i) << 8);
+      for (let j=0; j<8; j++){
+        crc = (crc & 0x8000) ? ((crc << 1) ^ 0x1021) : (crc << 1);
+        crc &= 0xFFFF;
       }
     }
+    return crc.toString(16).toUpperCase().padStart(4,"0");
+  }
 
-    function goHome(){
-      catCard.style.display = "none";
-      homeCard.style.display = "block";
-      window.scrollTo({top:0, behavior:"smooth"});
+  function buildPixPayload({key, name, city, amount, txid}){
+    // Merchant Account Information (26)
+    const gui = emv("00","BR.GOV.BCB.PIX");
+    const k = emv("01", key);
+    const desc = emv("02", "Pedido Faz de Conta"); // opcional
+    const mai = emv("26", gui + k + desc);
+
+    const mcc = emv("52","0000");
+    const currency = emv("53","986");
+    const amt = amount ? emv("54", Number(amount).toFixed(2)) : "";
+    const country = emv("58","BR");
+    const mname = emv("59", (name||"").slice(0,25));
+    const mcity = emv("60", (city||"").slice(0,15));
+
+    // Additional Data Field Template (62)
+    const tx = emv("05", (txid||"***").slice(0,25));
+    const add = emv("62", tx);
+
+    // Payload sem CRC
+    let payload =
+      emv("00","01") +
+      emv("01","12") +
+      mai +
+      mcc +
+      currency +
+      amt +
+      country +
+      mname +
+      mcity +
+      add +
+      "6304";
+
+    const crc = crc16CCITT(payload);
+    return payload + crc;
+  }
+
+  // =============================
+  // CHECKOUT PIX
+  // =============================
+  function openCheckout(){
+    const items = cartItems();
+    if (!items.length){
+      renderCartDrawer();
+      openDrawer();
+      return;
     }
 
-    function openCategory(catId){
-      const cat = CATEGORIES.find(c => c.id === catId);
-      if(!cat) return;
+    el("drawerTitle").textContent = "💳 Checkout Pix";
+    const c = el("drawerContent");
 
-      homeCard.style.display = "none";
-      catCard.style.display = "block";
-      catTitle.textContent = `${cat.emoji} ${cat.name}`;
+    const total = cartTotal();
+    const orderLines = items.map(i=>`- ${i.qty}x ${i.name}${showPrices ? ` (${brl(i.price)})` : ""}`).join("\n");
+    const summary = `${orderLines}\n\nTotal: ${showPrices ? brl(total) : "sob consulta"}`;
 
-      itemsGrid.innerHTML = "";
-      cat.items.forEach((it, idx) => {
-        const cover = (it.photos && it.photos[0]) ? it.photos[0] : "";
-        const priceText = (pricesUnlocked && it.price > 0) ? moneyBR(it.price) : (pricesUnlocked ? "Sob consulta" : "Sob consulta");
+    c.innerHTML = `
+      <div class="muted">Confira seu pedido e pague via Pix.</div>
 
-        const card = document.createElement("div");
-        card.className = "item";
-        card.innerHTML = `
-          <div class="thumb">
-            ${cover ? `<img src="${cover}" alt="${it.name}">` : `<div class="small">Sem foto ainda</div>`}
+      <div class="field">
+        <label class="muted">Seu nome</label>
+        <input id="custName" placeholder="Ex: Roni" />
+      </div>
+
+      <div class="field">
+        <label class="muted">Observações (opcional)</label>
+        <textarea id="obs" placeholder="Tema, cores, data, local..."></textarea>
+      </div>
+
+      <div class="line">
+        <div>
+          <div style="font-weight:900">Resumo</div>
+          <div class="muted" style="font-size:12px; white-space:pre-wrap">${summary.replaceAll("<","&lt;")}</div>
+        </div>
+      </div>
+
+      <div class="line">
+        <div>
+          <div style="font-weight:900">Total</div>
+          <div class="muted" style="font-size:12px">Pagamento via Pix</div>
+        </div>
+        <div style="font-weight:900">${showPrices ? brl(total) : "—"}</div>
+      </div>
+
+      <div id="pixArea"></div>
+
+      <div style="height:10px"></div>
+      <button class="btn grad" style="width:100%" onclick="confirmPaid()">✅ Já paguei (confirmar no WhatsApp)</button>
+      <div style="height:8px"></div>
+      <button class="btn" style="width:100%" onclick="renderCartDrawer()">⬅️ Voltar ao carrinho</button>
+    `;
+
+    // Se preços estiverem ocultos, ainda mostramos checkout,
+    // mas o Pix fica sem valor (sob consulta).
+    const pixArea = document.getElementById("pixArea");
+    if (!showPrices){
+      pixArea.innerHTML = `
+        <div class="qrBox">
+          <div style="font-weight:900">🔒 Preços ocultos</div>
+          <div class="muted" style="text-align:center">
+            Para gerar o Pix com valor, ative “Mostrar preços”.
           </div>
-          <div class="itemBody">
-            <p class="itemName">${it.name}</p>
-            <p class="itemDesc">${it.desc || ""}</p>
-
-            <div class="row">
-              <div>
-                <div class="price">${pricesUnlocked ? priceText : "Preço sob consulta"}</div>
-                <div class="small">Toque em “Ver fotos” para abrir a galeria.</div>
-              </div>
-            </div>
-
-            <div class="row">
-              <button class="btn btnGhost" onclick="openPhotos('${cat.id}', ${idx})">🖼 Ver fotos</button>
-              <button class="btn" onclick="sendWhats('${cat.name}','${it.name}', ${it.price})">📲 Pedir orçamento</button>
-            </div>
-          </div>
-        `;
-        itemsGrid.appendChild(card);
+          <button class="btn grad" onclick="setPricesVisible(true)">🔓 Mostrar preços</button>
+        </div>
+      `;
+    } else {
+      // Gerar payload e QR
+      const payload = buildPixPayload({
+        key: PIX_KEY,
+        name: MERCHANT_NAME,
+        city: MERCHANT_CITY,
+        amount: total,
+        txid: TXID_DEFAULT
       });
 
-      window.scrollTo({top:0, behavior:"smooth"});
+      pixArea.innerHTML = `
+        <div class="qrBox">
+          <div style="font-weight:900">📌 Pague com Pix</div>
+          <canvas id="qrCanvas"></canvas>
+          <div class="muted" style="font-size:12px; text-align:center">
+            Escaneie o QR no app do banco ou copie o código abaixo.
+          </div>
+          <div class="copyRow">
+            <textarea id="pixCode" readonly></textarea>
+            <button class="btn grad" onclick="copyPix()">📋 Copiar</button>
+          </div>
+        </div>
+      `;
+
+      document.getElementById("pixCode").value = payload;
+      QRCode.toCanvas(document.getElementById("qrCanvas"), payload, { margin: 1, width: 240 });
     }
 
-    function openPhotos(catId, itemIndex){
-      const cat = CATEGORIES.find(c => c.id === catId);
-      const it = cat?.items?.[itemIndex];
-      if(!it) return;
+    openDrawer();
+  }
 
-      modalTitle.textContent = `Fotos • ${it.name}`;
-      modalGrid.innerHTML = "";
+  function copyPix(){
+    const t = document.getElementById("pixCode");
+    t.select();
+    t.setSelectionRange(0, 99999);
+    document.execCommand("copy");
+    alert("Pix Copia e Cola copiado ✅");
+  }
 
-      const photos = it.photos || [];
-      if(photos.length === 0){
-        modalGrid.innerHTML = `<div class="small">Ainda não há fotos nessa opção. Suba imagens na pasta do GitHub e coloque os nomes aqui no código.</div>`;
-      } else {
-        photos.forEach(p => {
-          const img = document.createElement("img");
-          img.src = p;
-          img.alt = it.name;
-          modalGrid.appendChild(img);
-        });
-      }
-      modalBack.style.display = "flex";
-    }
+  function confirmPaid(){
+    const items = cartItems();
+    const total = cartTotal();
+    const name = (document.getElementById("custName")?.value || "").trim();
+    const obs = (document.getElementById("obs")?.value || "").trim();
 
-    function closeModal(e){
-      modalBack.style.display = "none";
-    }
+    const lines = items.map(i=>{
+      const pricePart = showPrices ? ` - ${brl(i.price)}` : "";
+      return `${i.qty}x ${i.name}${pricePart}`;
+    }).join("\n");
 
-    function togglePrices(){
-      if(pricesUnlocked){
-        pricesUnlocked = false;
-        localStorage.setItem("fd_prices_unlocked","0");
-        refreshPriceButton();
-        // se estiver em uma categoria aberta, re-renderiza
-        if(catCard.style.display === "block"){
-          const title = catTitle.textContent;
-          const found = CATEGORIES.find(c => title.includes(c.name));
-          if(found) openCategory(found.id);
-        }
-        return;
-      }
+    const msg =
+`Olá! 😊
+Sou ${name || "cliente"} e acabei de fazer um pedido pelo app.
 
-      const pin = prompt("Digite a senha para mostrar os preços:");
-      if(pin === ADMIN_PIN){
-        pricesUnlocked = true;
-        localStorage.setItem("fd_prices_unlocked","1");
-        refreshPriceButton();
-        if(catCard.style.display === "block"){
-          const title = catTitle.textContent;
-          const found = CATEGORIES.find(c => title.includes(c.name));
-          if(found) openCategory(found.id);
-        }
-      } else {
-        alert("Senha incorreta.");
-      }
-    }
+📦 Pedido:
+${lines}
 
-    function sendWhats(catName, itemName, price){
-      const base = `Olá! Quero um orçamento 😊\n\nCategoria: ${catName}\nOpção: ${itemName}\n`;
-      const p = (pricesUnlocked && price > 0) ? `Valor: ${moneyBR(price)}\n` : "";
-      const end = `\nData do evento:\nLocal:\nTema:\nObservações:\n`;
-      const msg = encodeURIComponent(base + p + end);
-      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, "_blank");
-    }
+💰 Total: ${showPrices ? brl(total) : "sob consulta"}
 
-    function openBudget(){
-      const msg = encodeURIComponent("Olá! Quero um orçamento 😊\n\nData do evento:\nLocal:\nTema:\nO que você precisa (ex: arco, urso, tapete...):\n");
-      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, "_blank");
-    }
+🧾 Obs:
+${obs || "—"}
 
-    // init
-    renderCats();
-    goHome();
-  </script>
+✅ Já efetuei o Pix. Vou enviar o comprovante aqui.`;
+
+    openWhatsApp(msg);
+  }
+
+  // Botão fixo Checkout
+  el("checkoutBtn").onclick = openCheckout;
+
+  // =============================
+  // INIT
+  // =============================
+  renderCats();
+  renderProducts();
+  updateCartUI();
+</script>
 </body>
 </html>
