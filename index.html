@@ -1,1269 +1,257 @@
-<!doctype html>
-<html lang="pt-br">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-  <title>Faz de Conta Decorações</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Faz de Conta Decorações</title>
+<meta name="color-scheme" content="dark light">
+<style>
+:root{
+  --bg:#0b1020;
+  --panel:rgba(255,255,255,.08);
+  --line:rgba(255,255,255,.12);
+  --text:#fff;
+  --muted:rgba(255,255,255,.70);
+  --ok:#22c55e;
+  --grad:linear-gradient(135deg,#8b5cf6,#22c55e);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;
+  background:radial-gradient(1200px 700px at top, #1b2347, var(--bg));
+  color:var(--text);
+}
+.wrap{max-width:980px;margin:auto;padding:16px}
 
-  <style>
-    :root{
-      --bg0:#070912;
-      --bg1:#0b1430;
-      --card: rgba(255,255,255,.06);
-      --stroke: rgba(255,255,255,.12);
-      --txt: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.70);
-      --muted2: rgba(255,255,255,.55);
-      --shadow: 0 18px 70px rgba(0,0,0,.55);
-      --r: 22px;
-      --r2: 16px;
-      --grad: linear-gradient(135deg,#ff4fd8,#5de7ff,#8bff7a);
-    }
-
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
-    body{
-      margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--txt);
-      background:
-        radial-gradient(900px 650px at 10% 12%, rgba(255,79,216,.20), transparent 58%),
-        radial-gradient(900px 650px at 90% 18%, rgba(93,231,255,.16), transparent 58%),
-        radial-gradient(900px 650px at 60% 92%, rgba(139,255,122,.12), transparent 60%),
-        linear-gradient(180deg, var(--bg1), var(--bg0));
-      overflow-x:hidden;
-    }
-
-    .wrap{
-      width:min(1120px, 100%);
-      margin:0 auto;
-      padding:16px 14px 110px;
-    }
-
-    /* ====== HEADER (NÃO FIXO / NÃO STICKY) ====== */
-    .header{
-      border:1px solid var(--stroke);
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
-      border-radius: var(--r);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-
-    .headTop{
-      padding:14px;
-      display:grid;
-      grid-template-columns: 90px 1fr;
-      gap:14px;
-      align-items:center;
-    }
-
-    .logo{
-      width:90px; height:90px;
-      border-radius: 22px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      box-shadow: 0 18px 60px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.10);
-    }
-    .logo img{ width:100%; height:100%; object-fit:cover; display:block; }
-
-    .brand h1{
-      margin:0;
-      font-size:20px;
-      font-weight: 950;
-      letter-spacing:.2px;
-      line-height:1.05;
-    }
-    .brand .slogan{
-      margin-top:6px;
-      font-size:15px;
-      font-weight: 900;
-      background: var(--grad);
-      -webkit-background-clip:text;
-      background-clip:text;
-      color: transparent;
-    }
-    .brand .sub{
-      margin-top:6px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height:1.25;
-    }
-
-    .meta{
-      margin-top:10px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-    }
-    .chip{
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
-      color: var(--muted);
-      font-size:12.5px;
-      display:inline-flex;
-      gap:8px;
-      align-items:center;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
-    }
-    .chip b{ color: var(--txt); }
-
-    .headActions{
-      padding:0 14px 14px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-
-    .btn{
-      cursor:pointer;
-      border:none;
-      border-radius: 999px;
-      padding:11px 14px;
-      background: rgba(255,255,255,.08);
-      color: var(--txt);
-      border: 1px solid rgba(255,255,255,.12);
-      box-shadow: 0 12px 35px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.08);
-      font-weight: 950;
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-    }
-    .btn.primary{
-      background: var(--grad);
-      color:#061017;
-      border:none;
-      box-shadow: 0 18px 55px rgba(0,0,0,.55);
-    }
-    .pill{
-      min-width:26px;
-      height:22px;
-      padding:0 8px;
-      border-radius:999px;
-      background: rgba(0,0,0,.25);
-      font-size:12px;
-      font-weight: 950;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-    }
-
-    /* ====== HERO ====== */
-    .hero{
-      border-top:1px solid rgba(255,255,255,.10);
-      padding:14px;
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:12px;
-    }
-    @media (max-width:900px){ .hero{ grid-template-columns: 1fr; } }
-
-    .heroMedia{
-      border-radius: var(--r);
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
-      box-shadow: 0 24px 80px rgba(0,0,0,.55);
-    }
-    .heroMedia img{
-      width:100%;
-      height: min(42vh, 420px);
-      object-fit: cover;
-      display:block;
-    }
-
-    .heroPanel{
-      border-radius: var(--r);
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      box-shadow: 0 18px 60px rgba(0,0,0,.45);
-      padding:14px;
-      display:grid;
-      gap:10px;
-      align-content:start;
-    }
-    .heroPanel h2{
-      margin:0;
-      font-size:22px;
-      font-weight: 950;
-      line-height:1.05;
-    }
-    .heroPanel p{
-      margin:0;
-      color: var(--muted);
-      font-size:13.5px;
-      line-height:1.25;
-    }
-
-    .inp, select{
-      width:100%;
-      padding:12px 14px;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
-      color: var(--txt);
-      outline:none;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
-    }
-    select option{ color:#111; }
-
-    .row{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
-    }
-
-    .toggleWrap{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      padding:10px 12px;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.12);
-    }
-    .toggleWrap small{ color: var(--muted); font-weight: 850; }
-
-    .toggle{
-      width:52px; height:30px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.08);
-      position:relative;
-      cursor:pointer;
-    }
-    .toggle i{
-      position:absolute;
-      top:50%;
-      transform: translateY(-50%);
-      left:4px;
-      width:22px; height:22px;
-      border-radius:999px;
-      background: rgba(255,255,255,.92);
-      transition: .18s;
-      box-shadow: 0 12px 30px rgba(0,0,0,.45);
-    }
-    .toggle.on{ background: rgba(67,230,165,.18); }
-    .toggle.on i{ left: 26px; }
-
-    .hint{
-      color: var(--muted2);
-      font-size:12.5px;
-      line-height:1.25;
-      padding:10px 12px;
-      border-radius: 16px;
-      border:1px dashed rgba(255,255,255,.16);
-      background: rgba(0,0,0,.12);
-    }
-
-    /* ====== GRID ====== */
-    .secHead{
-      margin:18px 2px 10px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-    .secHead h3{
-      margin:0;
-      font-size:18px;
-      font-weight: 950;
-      letter-spacing:.2px;
-    }
-    .tag{
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
-      color: var(--muted);
-      font-size:12.5px;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:12px;
-    }
-    @media (max-width:920px){ .grid{ grid-template-columns: repeat(2, 1fr);} }
-    @media (max-width:560px){ .grid{ grid-template-columns: 1fr;} }
-
-    .card{
-      border-radius: var(--r);
-      border:1px solid rgba(255,255,255,.12);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      box-shadow: 0 18px 60px rgba(0,0,0,.45);
-      overflow:hidden;
-      display:flex;
-      flex-direction:column;
-    }
-    .thumb{
-      height: 185px;
-      background: rgba(0,0,0,.18);
-      border-bottom:1px solid rgba(255,255,255,.10);
-      position:relative;
-    }
-    .thumb img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
-    .badge{
-      position:absolute;
-      left:10px; top:10px;
-      padding:8px 10px;
-      border-radius:999px;
-      background: rgba(0,0,0,.38);
-      border:1px solid rgba(255,255,255,.16);
-      font-weight: 950;
-      font-size:12px;
-      display:flex;
-      gap:8px;
-      align-items:center;
-      box-shadow: 0 14px 40px rgba(0,0,0,.45);
-    }
-    .cardBody{
-      padding:12px;
-      display:grid;
-      gap:8px;
-      flex:1;
-    }
-    .name{
-      margin:0;
-      font-size:16px;
-      font-weight: 950;
-      line-height:1.1;
-    }
-    .desc{
-      margin:0;
-      color: var(--muted);
-      font-size:13px;
-      line-height:1.25;
-      min-height: 34px;
-    }
-    .bottomRow{
-      margin-top:auto;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      padding-top:10px;
-      border-top:1px solid rgba(255,255,255,.10);
-    }
-    .money{
-      font-weight: 950;
-      font-size:15px;
-    }
-    .money small{ color: var(--muted2); font-weight: 850; }
-
-    .btnMini{
-      cursor:pointer;
-      border:none;
-      border-radius: 16px;
-      padding:10px 12px;
-      background: rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.12);
-      color: var(--txt);
-      font-weight: 950;
-      display:inline-flex;
-      gap:8px;
-      align-items:center;
-      box-shadow: 0 12px 35px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.08);
-    }
-    .btnMini.primary{
-      background: var(--grad);
-      border:none;
-      color:#061017;
-      box-shadow: 0 18px 50px rgba(0,0,0,.55);
-    }
-
-    /* ====== MODAIS (Carrinho + Contrato) ====== */
-    .modal{
-      position:fixed;
-      inset:0;
-      background: rgba(0,0,0,.68);
-      display:none;
-      align-items:flex-end;
-      justify-content:center;
-      padding:14px;
-      z-index:80;
-    }
-    .modal.on{ display:flex; }
-
-    .sheet{
-      width:min(820px, 100%);
-      border-radius: 28px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.16);
-      background: rgba(12,14,24,.92);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      box-shadow: 0 30px 110px rgba(0,0,0,.72);
-    }
-    .sheetHead{
-      padding:14px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      border-bottom:1px solid rgba(255,255,255,.12);
-      gap:10px;
-    }
-    .sheetHead b{ font-size:16px; }
-    .x{
-      cursor:pointer;
-      border:none;
-      width:42px; height:42px;
-      border-radius:999px;
-      background: rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.14);
-      color: var(--txt);
-      font-size:18px;
-      font-weight: 950;
-    }
-    .sheetBody{
-      padding:12px 14px;
-      max-height: 58vh;
-      overflow:auto;
-    }
-    .sheetFoot{
-      padding:12px 14px 14px;
-      border-top:1px solid rgba(255,255,255,.12);
-      display:grid;
-      gap:10px;
-    }
-
-    .line{
-      display:grid;
-      grid-template-columns: 58px 1fr auto;
-      gap:10px;
-      align-items:center;
-      padding:10px 0;
-      border-bottom:1px solid rgba(255,255,255,.10);
-    }
-    .miniImg{
-      width:58px; height:58px;
-      border-radius: 16px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
-    }
-    .miniImg img{ width:100%; height:100%; object-fit:cover; display:block; }
-    .line h4{ margin:0; font-size:14px; font-weight: 950; }
-    .line p{ margin:3px 0 0; font-size:12.5px; color: var(--muted); }
-
-    .qty{
-      display:flex; align-items:center; gap:8px;
-    }
-    .qbtn{
-      width:36px; height:36px;
-      border-radius: 14px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.08);
-      color: var(--txt);
-      cursor:pointer;
-      font-weight: 950;
-      font-size:16px;
-    }
-
-    .tot{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      font-weight: 950;
-    }
-    .tot span{ color: var(--muted); font-weight: 850; }
-
-    .box{
-      padding:12px;
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      display:grid;
-      gap:10px;
-    }
-    .note{
-      color: var(--muted);
-      font-size:12.5px;
-      line-height:1.25;
-    }
-    .pixKey{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      font-size:12.5px;
-      color: var(--txt);
-      background: rgba(0,0,0,.20);
-      border:1px solid rgba(255,255,255,.12);
-      padding:10px 12px;
-      border-radius: 16px;
-      word-break: break-all;
-    }
-
-    /* ===== CONTRATO (LEVE / SEM TEXTO GRANDE) ===== */
-    .formGrid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:10px;
-    }
-    @media (max-width:620px){ .formGrid{ grid-template-columns: 1fr; } }
-
-    .clabel{ color: var(--muted); font-size:12.5px; display:grid; gap:6px; }
-    .termsMini{
-      display:grid;
-      gap:8px;
-      padding:10px 12px;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.16);
-    }
-    .termsMini ul{ margin:0; padding-left:18px; color: rgba(255,255,255,.78); line-height:1.25; font-size:12.8px; }
-    .termsMini summary{ cursor:pointer; font-weight:950; color: var(--txt); }
-    details .termsFull{
-      margin-top:8px;
-      color: rgba(255,255,255,.74);
-      font-size:12.6px;
-      line-height:1.3;
-    }
-
-    .signBox{
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      overflow:hidden;
-    }
-    #signCanvas{
-      width:100%;
-      height: 220px;
-      display:block;
-      background: rgba(255,255,255,.02);
-      touch-action: none;
-    }
-    .signActions{
-      padding:10px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      border-top:1px solid rgba(255,255,255,.10);
-    }
-    .ok{
-      padding:10px 12px;
-      border-top:1px solid rgba(255,255,255,.10);
-      color: rgba(67,230,165,.95);
-      font-weight: 950;
-      display:none;
-    }
-
-    .agree{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      color: rgba(255,255,255,.78);
-      line-height:1.25;
-      font-size:13px;
-      margin-top:10px;
-    }
-
-    .paper{
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.14);
-      padding:12px;
-      color: rgba(255,255,255,.86);
-      line-height:1.35;
-      font-size:13px;
-      white-space: pre-wrap;
-      display:none;
-    }
-
-    .footer{
-      margin-top:18px;
-      color: rgba(255,255,255,.42);
-      font-size:12px;
-      text-align:center;
-      padding-top:10px;
-    }
-    .banner {
-  margin: 14px auto;
-  max-width: 420px;
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 14px 40px rgba(0,0,0,.45);
+/* card base */
+.card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,.25);
 }
 
-.banner img {
-  width: 100%;
-  display: block;
+/* header */
+.header{display:grid;gap:12px}
+.top{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:12px;
+  align-items:center;
 }
-  </style>
+.capa{
+  width:96px;height:96px;border-radius:14px;overflow:hidden;
+  background:#0e1430;border:1px solid var(--line);
+}
+.capa img{width:100%;height:100%;object-fit:cover;display:block}
+.brand h1{font-size:20px}
+.brand .slogan{font-size:13px;color:var(--muted);margin-top:2px}
+
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chip{
+  background:rgba(255,255,255,.1);
+  border:1px solid var(--line);
+  padding:6px 10px;border-radius:999px;font-size:12px
+}
+
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.btn{
+  flex:1;border:none;border-radius:12px;padding:10px 12px;cursor:pointer;
+  color:#fff;background:rgba(255,255,255,.12);font-size:14px
+}
+.primary{background:var(--grad)}
+
+/* layout */
+.grid{
+  display:grid;gap:14px;margin-top:14px;
+  grid-template-columns:1fr;
+}
+@media(min-width:900px){
+  .grid{grid-template-columns:1.3fr .7fr}
+}
+
+/* banner discreto */
+.banner{
+  height:180px;border-radius:14px;
+  border:1px dashed var(--line);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--muted);font-size:14px;background:rgba(255,255,255,.03)
+}
+
+/* catálogo */
+.toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.input, select{
+  background:rgba(255,255,255,.08);border:1px solid var(--line);
+  border-radius:10px;padding:10px 12px;color:#fff;flex:1;min-width:180px;
+}
+.switch{display:flex;gap:8px;align-items:center;margin-left:auto}
+.gridItems{
+  margin-top:12px;display:grid;gap:10px;
+  grid-template-columns:repeat(2,1fr);
+}
+@media(min-width:900px){.gridItems{grid-template-columns:repeat(3,1fr)}}
+.item{
+  background:rgba(255,255,255,.06);border:1px solid var(--line);
+  border-radius:14px;padding:10px;display:grid;gap:8px
+}
+.item img{
+  width:100%;height:140px;border-radius:10px;object-fit:cover;
+  background:#0f1534;border:1px solid var(--line)
+}
+.price{color:#a7f3d0;font-weight:600}
+.small{font-size:12px;color:var(--muted)}
+.item .btn{padding:8px}
+
+/* modal contrato */
+.modal{position:fixed;inset:0;display:none;place-items:center;background:rgba(0,0,0,.65)}
+.modal .box{width:min(92vw,460px);background:#121735;border-radius:16px;padding:16px}
+.modal h3{margin-bottom:6px}
+.modal p{color:var(--muted);font-size:13px}
+.modal .btn{width:100%;margin-top:12px}
+.footer{margin:18px 0 10px;text-align:center;color:var(--muted);font-size:12px}
+</style>
 </head>
-
 <body>
- </div>
+  <div class="wrap">
 
+    <!-- HEADER -->
+    <div class="card header">
+      <div class="top">
+        <div class="capa">
+          <!-- Troque o arquivo capa.jpg na raiz -->
+          <img src="capa.jpg" alt="Faz de Conta" onerror="this.src=place();">
+        </div>
         <div class="brand">
           <h1>Faz de Conta Decorações</h1>
           <div class="slogan">Onde a imaginação vira festa</div>
-          <div class="sub">Catálogo + carrinho + Pix + contrato com assinatura (leve e fácil de acessar).</div>
-
           <div class="meta">
-            <div class="chip">📍 <b>Jaciara/MT</b></div>
-            <div class="chip">📱 WhatsApp: <b>(66) 99622-3481</b></div>
-            <div class="chip">📅 <span id="today">--/--/----</span> • ⏰ <b id="clock">--:--</b></div>
+            <div class="chip">📍 Jaciara/MT</div>
+            <div class="chip">📱 (66) 99622-3481</div>
+            <div class="chip">📅 <span id="d"></span></div>
+            <div class="chip">⏰ <span id="t"></span></div>
           </div>
         </div>
       </div>
 
-      <div class="headActions">
-        <button class="btn" id="btnWhats">💬 WhatsApp</button>
-        <button class="btn" id="btnCart">🛒 Carrinho <span class="pill" id="cartCount">0</span></button>
-        <button class="btn" id="btnContract">📝 Contrato</button>
-        <button class="btn primary" id="btnFinish">✅ Finalizar (Pix)</button>
+      <div class="actions">
+        <button class="btn" onclick="goZap()">💬 WhatsApp</button>
+        <button class="btn" onclick="alert('Carrinho vazio')">🛒 Carrinho</button>
+        <button class="btn" onclick="openContract()">📄 Contrato</button>
+        <button class="btn primary" onclick="pix()">✅ Finalizar (Pix)</button>
+      </div>
+    </div>
+
+    <!-- GRID -->
+    <div class="grid">
+      <!-- Coluna esquerda -->
+      <div class="card">
+        <div class="banner">Banner leve • você pode colocar uma foto aqui depois</div>
       </div>
 
-    <!-- BANNER DA CAPA -->
-<div class="banner">
-  <img src="capa.jpg" alt="Faz de Conta Decorações">
-</div>
-
-        <div class="heroPanel">
-          <h2>Monte seu pedido</h2>
-          <p>Pesquise e filtre. Os preços podem ficar ocultos (sob consulta).</p>
-
-          <input class="inp" id="search" placeholder="🔎 Pesquisar (ex: arco, cortina, urso)..." />
-
-          <select id="filterCat">
-            <option value="all">Todas as categorias</option>
+      <!-- Coluna direita (catálogo) -->
+      <div class="card">
+        <strong>Monte seu pedido</strong>
+        <div class="toolbar" style="margin-top:8px">
+          <input class="input" id="q" placeholder="Pesquisar (ex: arco, urso, cortina)..." oninput="render()">
+          <select id="cat" onchange="render()">
+            <option value="">Todas as categorias</option>
+            <option>Ursos</option>
+            <option>Arcos</option>
+            <option>Cortinas</option>
           </select>
-
-          <div class="row">
-            <div class="toggleWrap">
-              <small>Mostrar preços</small>
-              <div class="toggle" id="togglePrices"><i></i></div>
-            </div>
-            <button class="btnMini" id="btnClear">🧽 Limpar</button>
-          </div>
-
-          <div class="hint" id="priceHint">Preço: sob consulta (ative “Mostrar preços” para exibir).</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="secHead">
-      <h3>✨ Itens</h3>
-      <div class="tag" id="countInfo">0 itens</div>
-    </div>
-
-    <div class="grid" id="grid"></div>
-
-    <div class="footer">© Faz de Conta Decorações • Catálogo demonstrativo (troque fotos e valores quando quiser)</div>
-  </div>
-
-  <!-- ===== MODAL CARRINHO ===== -->
-  <div class="modal" id="modalCart">
-    <div class="sheet">
-      <div class="sheetHead">
-        <b>🛒 Seu carrinho</b>
-        <button class="x" id="closeCart">✕</button>
-      </div>
-
-      <div class="sheetBody" id="cartBody"></div>
-
-      <div class="sheetFoot">
-        <div class="tot">
-          <span>Total</span>
-          <div id="totalTxt">R$ 0,00</div>
-        </div>
-
-        <div class="box">
-          <b>✅ Pagamento via Pix</b>
-          <div class="note">Toque para copiar a chave Pix (você troca depois).</div>
-          <div class="pixKey" id="pixKey">SUA-CHAVE-PIX-AQUI</div>
-
-          <div class="row">
-            <button class="btnMini primary" id="btnCopyPix">📋 Copiar Pix</button>
-            <button class="btnMini" id="btnEmpty">🗑️ Esvaziar</button>
-          </div>
-
-          <button class="btn primary" id="btnSendWhatsOrder">Enviar pedido no WhatsApp</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===== MODAL CONTRATO (LEVE) ===== -->
-  <div class="modal" id="modalContract">
-    <div class="sheet">
-      <div class="sheetHead">
-        <b>📝 Contrato (rápido)</b>
-        <button class="x" id="closeContract">✕</button>
-      </div>
-
-      <div class="sheetBody">
-        <div class="box">
-          <div class="row">
-            <div class="tag">Nº <b id="contractId">----</b></div>
-            <div class="tag">🕒 <b id="contractNow">--/--/---- --:--</b></div>
-          </div>
-
-          <div class="note">
-            Preencha os dados, assine e gere o contrato. O pedido vem do carrinho automaticamente.
-          </div>
-
-          <div class="formGrid">
-            <label class="clabel">Nome completo*
-              <input class="inp" id="c_name" placeholder="Ex: Maria Silva">
-            </label>
-            <label class="clabel">CPF*
-              <input class="inp" id="c_cpf" placeholder="000.000.000-00">
-            </label>
-            <label class="clabel">Telefone/WhatsApp*
-              <input class="inp" id="c_phone" placeholder="(66) 9xxxx-xxxx">
-            </label>
-            <label class="clabel">Endereço (entrega/retirada)*
-              <input class="inp" id="c_address" placeholder="Rua, número, bairro">
-            </label>
-
-            <label class="clabel">Retirada/Entrega (data e hora)*
-              <input class="inp" id="c_pickup" type="datetime-local">
-            </label>
-            <label class="clabel">Devolução (data e hora)*
-              <input class="inp" id="c_return" type="datetime-local">
-            </label>
-          </div>
-
-          <div class="termsMini">
-            <details>
-              <summary>✅ Termos essenciais (toque para ver)</summary>
-              <div class="termsFull">
-                <ul>
-                  <li>O cliente se responsabiliza por <b>cuidar</b> dos itens e devolver no <b>prazo combinado</b>.</li>
-                  <li>Danos, perdas, manchas, quebras ou falta de peças geram <b>ressarcimento</b>.</li>
-                  <li>Em atraso, pode haver <b>taxa</b> conforme combinado no atendimento.</li>
-                  <li>Retirada/entrega/devolução nos horários e local informados.</li>
-                </ul>
-              </div>
-            </details>
-            <div class="note">Isso é um modelo simples (leve). Você pode ajustar depois.</div>
-          </div>
-
-          <b>Assinatura do cliente (desenhe com o dedo)</b>
-          <div class="signBox">
-            <canvas id="signCanvas" width="900" height="260"></canvas>
-            <div class="signActions">
-              <button class="btnMini" id="btnClearSign">🧼 Limpar</button>
-              <button class="btnMini primary" id="btnSaveSign">💾 Salvar assinatura</button>
-            </div>
-            <div class="ok" id="signOk">✅ Assinatura salva.</div>
-          </div>
-
-          <label class="agree">
-            <input type="checkbox" id="c_agree">
-            Eu concordo e me comprometo a cuidar dos itens e devolver no prazo combinado.
+          <label class="switch">
+            <input type="checkbox" id="show" onchange="render()"> Mostrar preços
           </label>
-
-          <div class="row">
-            <button class="btnMini primary" id="btnGenerateContract">📄 Gerar contrato</button>
-            <button class="btnMini" id="btnPrintContract">🖨️ Salvar PDF</button>
-            <button class="btnMini" id="btnSendWhatsContract">💬 Enviar resumo no WhatsApp</button>
-          </div>
-
-          <div class="paper" id="paper"></div>
         </div>
+        <div id="list" class="gridItems"></div>
       </div>
+    </div>
+
+    <div class="footer">© Faz de Conta Decorações — Catálogo demonstrativo</div>
+  </div>
+
+  <!-- MODAL CONTRATO -->
+  <div class="modal" id="contract">
+    <div class="box">
+      <h3>📄 Termo de Responsabilidade</h3>
+      <p>
+        Ao finalizar o pedido, o(a) cliente declara que zelará pelos itens alugados
+        e devolverá no prazo e condições combinadas. Em caso de dano, perda ou
+        atraso, poderá haver cobrança conforme tabela interna.
+      </p>
+      <button class="btn primary" onclick="closeContract()">Entendi</button>
     </div>
   </div>
 
-  <script>
-    // ========= CONFIG =========
-    const PIX_KEY = "SUA-CHAVE-PIX-AQUI";        // troque depois
-    const WHATS_PHONE = "5566996223481";         // 55 + DDD + número
+<script>
+/* util – placeholder base64 caso a imagem não exista */
+function place(){
+  return 'data:image/svg+xml;utf8,'+encodeURIComponent(`
+  <svg xmlns="http://www.w3.org/2000/svg" width="800" height="600">
+    <defs><linearGradient id="g" x1="0" x2="1">
+      <stop offset="0" stop-color="#1e293b"/><stop offset="1" stop-color="#0b1020"/>
+    </linearGradient></defs>
+    <rect width="100%" height="100%" fill="url(#g)"/>
+    <text x="50%" y="52%" font-family="Arial,Segoe UI" font-size="28" fill="#94a3b8" text-anchor="middle">
+      foto não encontrada
+    </text>
+  </svg>`);
+}
 
-    // ========= “FOTOS” AUTOMÁTICAS (SVG) =========
-    function escapeXml(str){
-      return String(str)
-        .replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;").replaceAll("'","&apos;");
-    }
-    function svgPhoto(title, subtitle, emoji){
-      const palettes = [
-        ["#ff4fd8","#6a4dff","#0b1430"],
-        ["#5de7ff","#00d1a7","#0a122e"],
-        ["#8bff7a","#5de7ff","#0b0f24"],
-        ["#ffb84d","#ff4fd8","#0b0f24"],
-        ["#9a7bff","#5de7ff","#0a122e"],
-        ["#ff6d6d","#ffb84d","#0b1430"],
-      ];
-      const p = palettes[Math.floor(Math.random()*palettes.length)];
-      const a=p[0], b=p[1], base=p[2];
+/* data/hora */
+function tick(){
+  const d=new Date();
+  document.getElementById('d').textContent=d.toLocaleDateString('pt-BR');
+  document.getElementById('t').textContent=d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+}
+tick(); setInterval(tick, 30*1000);
 
-      const svg = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800">
-        <defs>
-          <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="${a}" stop-opacity=".55"/>
-            <stop offset="1" stop-color="${base}" stop-opacity="1"/>
-          </linearGradient>
-          <radialGradient id="l" cx="30%" cy="22%" r="70%">
-            <stop offset="0" stop-color="${b}" stop-opacity=".80"/>
-            <stop offset=".55" stop-color="${a}" stop-opacity=".22"/>
-            <stop offset="1" stop-color="${base}" stop-opacity="0"/>
-          </radialGradient>
-          <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-            <feDropShadow dx="0" dy="22" stdDeviation="18" flood-color="rgba(0,0,0,.55)"/>
-          </filter>
-        </defs>
+/* contrato */
+function openContract(){document.getElementById('contract').style.display='grid'}
+function closeContract(){document.getElementById('contract').style.display='none'}
 
-        <rect width="1200" height="800" fill="${base}"/>
-        <rect width="1200" height="800" fill="url(#g)"/>
-        <circle cx="260" cy="160" r="260" fill="url(#l)" opacity=".95"/>
-        <circle cx="980" cy="170" r="300" fill="url(#l)" opacity=".65"/>
+/* whatsapp */
+function goZap(){
+  const msg = encodeURIComponent('Olá! Quero fazer um orçamento do catálogo.');
+  location.href = 'https://wa.me/5566996223481?text='+msg;
+}
 
-        <g filter="url(#shadow)">
-          <rect x="90" y="90" width="1020" height="620" rx="56" fill="rgba(0,0,0,.22)" stroke="rgba(255,255,255,.16)"/>
-          <rect x="120" y="120" width="960" height="560" rx="46" fill="rgba(255,255,255,.06)"/>
-        </g>
+/* finalizar */
+function pix(){ alert('Demonstração: finalizar via Pix. (Depois conectamos o seu checkout)'); }
 
-        <text x="600" y="380" text-anchor="middle"
-              font-size="120" font-family="system-ui,Segoe UI,Arial"
-              fill="rgba(255,255,255,.92)">${escapeXml(emoji)}</text>
+/* catálogo simples */
+const items=[
+  {nome:'Urso de Pelúcia Rosa', cat:'Ursos', img:'urso-rosa.jpg', preco:70},
+  {nome:'Arco de Balões Rosa',  cat:'Arcos', img:'arco-rosa.jpg', preco:320},
+  {nome:'Cortina Dourada',      cat:'Cortinas', img:'cortina-dourada.jpg', preco:90},
+  {nome:'Urso Bege Gigante',    cat:'Ursos', img:'urso-bege.jpg', preco:140},
+  {nome:'Arco Orgânico Color',  cat:'Arcos', img:'arco-color.jpg', preco:420},
+  {nome:'Cortina Perolada',     cat:'Cortinas', img:'cortina-perola.jpg', preco:110},
+];
 
-        <text x="150" y="620" font-size="58" font-weight="900"
-              font-family="system-ui,Segoe UI,Arial" fill="rgba(255,255,255,.95)">${escapeXml(title)}</text>
-        <text x="150" y="680" font-size="30" font-weight="700"
-              font-family="system-ui,Segoe UI,Arial" fill="rgba(255,255,255,.72)">${escapeXml(subtitle)}</text>
-      </svg>`;
-      return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
-    }
-
-    // ========= DADOS =========
-    const CATS = [
-      {id:"estruturas", name:"Estruturas"},
-      {id:"baloes", name:"Balões"},
-      {id:"cenarios", name:"Cenários"},
-      {id:"iluminacao", name:"Iluminação"},
-      {id:"props", name:"Props / Acessórios"},
-    ];
-
-    // Preços sugeridos (você troca depois)
-    const ITEMS = [
-      {id:"cubo", cat:"estruturas", name:"Cubo (estrutura)", icon:"🧊", desc:"Estrutura para cenário e suporte.", price:80},
-      {id:"arcoP", cat:"baloes", name:"Arco de balões (P)", icon:"🎈", desc:"Arco orgânico simples (P).", price:180},
-      {id:"arcoM", cat:"baloes", name:"Arco de balões (M)", icon:"🎈", desc:"Arco médio com acabamento.", price:260},
-      {id:"arcoG", cat:"baloes", name:"Arco de balões (G)", icon:"🎈", desc:"Arco grande + variação de cores.", price:380},
-      {id:"cortina", cat:"cenarios", name:"Cortina (fundo)", icon:"🎀", desc:"Fundo para painel e fotos.", price:90},
-      {id:"tapete", cat:"cenarios", name:"Tapete para fotos", icon:"🧺", desc:"Base para fotos e cenário.", price:60},
-      {id:"arandela", cat:"iluminacao", name:"Arandela decorativa", icon:"💡", desc:"Destaque com luz no painel.", price:45},
-      {id:"luz", cat:"iluminacao", name:"Luzes decorativas", icon:"✨", desc:"Fairy lights para dar charme.", price:35},
-      {id:"ursos", cat:"props", name:"Kit Ursos", icon:"🧸", desc:"Ursinhos/props para tema.", price:70},
-      {id:"letras", cat:"props", name:"Letras/Números", icon:"🔤", desc:"Módulos decorativos.", price:40},
-      {id:"comboMesa", cat:"baloes", name:"Combo balões (mesa)", icon:"🎉", desc:"Combo rápido para mesa.", price:55},
-    ].map(it => ({...it, img: svgPhoto(it.name, it.desc, it.icon)}));
-
-    // ========= ESTADO =========
-    let showPrices = false;
-    let searchTxt = "";
-    let catFilter = "all";
-    const cart = new Map(); // id -> qty
-
-    // ========= ELEMENTOS =========
-    const grid = document.getElementById("grid");
-    const filterCat = document.getElementById("filterCat");
-    const search = document.getElementById("search");
-    const countInfo = document.getElementById("countInfo");
-    const toggle = document.getElementById("togglePrices");
-    const priceHint = document.getElementById("priceHint");
-    const cartCount = document.getElementById("cartCount");
-
-    const modalCart = document.getElementById("modalCart");
-    const cartBody = document.getElementById("cartBody");
-    const totalTxt = document.getElementById("totalTxt");
-
-    const modalContract = document.getElementById("modalContract");
-    const paper = document.getElementById("paper");
-
-    // topo
-    document.getElementById("logoImg").src = svgPhoto("Faz de Conta", "Decorações", "🧚");
-    document.getElementById("bannerImg").src = svgPhoto("Faz de Conta Decorações", "Catálogo + contrato com assinatura", "🎂");
-    document.getElementById("pixKey").textContent = PIX_KEY;
-
-    // categorias
-    CATS.forEach(c=>{
-      const o = document.createElement("option");
-      o.value = c.id;
-      o.textContent = c.name;
-      filterCat.appendChild(o);
+/* render */
+function render(){
+  const q=(document.getElementById('q').value||'').toLowerCase();
+  const cat=document.getElementById('cat').value;
+  const show=document.getElementById('show').checked;
+  const el=document.getElementById('list');
+  el.innerHTML='';
+  items
+    .filter(i=>!cat||i.cat===cat)
+    .filter(i=>!q||i.nome.toLowerCase().includes(q))
+    .forEach(i=>{
+      const div=document.createElement('div'); div.className='item';
+      div.innerHTML=`
+        <img src="${i.img}" alt="${i.nome}" onerror="this.src=place()">
+        <div><strong>${i.nome}</strong><div class="small">${i.cat}</div></div>
+        <div class="price" style="display:${show?'block':'none'}">R$ ${i.preco.toFixed(2).replace('.',',')}</div>
+        <button class="btn" onclick="alert('Adicionado: ${i.nome}')">Adicionar</button>
+      `;
+      el.appendChild(div);
     });
-
-    // relógio + data
-    function pad(n){ return String(n).padStart(2,"0"); }
-    function tick(){
-      const d = new Date();
-      document.getElementById("clock").textContent = pad(d.getHours()) + ":" + pad(d.getMinutes());
-      document.getElementById("today").textContent = pad(d.getDate()) + "/" + pad(d.getMonth()+1) + "/" + d.getFullYear();
-      document.getElementById("contractNow").textContent =
-        `${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
-    }
-    tick(); setInterval(tick, 1000);
-
-    // contrato id
-    document.getElementById("contractId").textContent = "FC-" + Date.now().toString().slice(-6);
-
-    // ========= AÇÕES =========
-    function openWhats(msg){
-      const url = `https://wa.me/${WHATS_PHONE}?text=${encodeURIComponent(msg)}`;
-      window.open(url, "_blank");
-    }
-
-    document.getElementById("btnWhats").addEventListener("click", ()=>{
-      openWhats("Olá! Quero fazer um orçamento com a Faz de Conta Decorações 😊");
-    });
-
-    // toggle preços
-    toggle.addEventListener("click", ()=>{
-      showPrices = !showPrices;
-      toggle.classList.toggle("on", showPrices);
-      priceHint.textContent = showPrices ? "Preço: visível (modo demonstração)." : "Preço: sob consulta (ative “Mostrar preços” para exibir).";
-      render();
-      renderCart();
-    });
-
-    // busca / filtro / limpar
-    search.addEventListener("input", (e)=>{ searchTxt = e.target.value.trim().toLowerCase(); render(); });
-    filterCat.addEventListener("change", (e)=>{ catFilter = e.target.value; render(); });
-    document.getElementById("btnClear").addEventListener("click", ()=>{
-      search.value=""; searchTxt="";
-      filterCat.value="all"; catFilter="all";
-      render();
-    });
-
-    // carrinho
-    function openCart(){ modalCart.classList.add("on"); renderCart(); }
-    function closeCart(){ modalCart.classList.remove("on"); }
-    document.getElementById("btnCart").addEventListener("click", openCart);
-    document.getElementById("btnFinish").addEventListener("click", openCart);
-    document.getElementById("closeCart").addEventListener("click", closeCart);
-    modalCart.addEventListener("click", (e)=>{ if(e.target===modalCart) closeCart(); });
-
-    // contrato (modal)
-    function openContract(){
-      modalContract.classList.add("on");
-      // se carrinho vazio, avisa
-      if(cart.size===0){
-        paper.style.display="block";
-        paper.textContent = "⚠️ Carrinho vazio. Adicione itens antes de gerar o contrato.";
-      } else {
-        paper.style.display="none";
-      }
-    }
-    function closeContract(){ modalContract.classList.remove("on"); }
-    document.getElementById("btnContract").addEventListener("click", openContract);
-    document.getElementById("closeContract").addEventListener("click", closeContract);
-    modalContract.addEventListener("click", (e)=>{ if(e.target===modalContract) closeContract(); });
-
-    // pix copiar
-    document.getElementById("btnCopyPix").addEventListener("click", async ()=>{
-      try{
-        await navigator.clipboard.writeText(PIX_KEY);
-        alert("Chave Pix copiada!");
-      }catch(e){
-        alert("Não consegui copiar automaticamente. Copie manualmente: " + PIX_KEY);
-      }
-    });
-
-    // esvaziar
-    document.getElementById("btnEmpty").addEventListener("click", ()=>{
-      cart.clear();
-      updateCartCount();
-      render();
-      renderCart();
-    });
-
-    // enviar pedido
-    document.getElementById("btnSendWhatsOrder").addEventListener("click", ()=>{
-      if(cart.size===0){
-        alert("Carrinho vazio.");
-        return;
-      }
-      const lines=[];
-      let total=0;
-      for(const [id,qty] of cart.entries()){
-        const it = ITEMS.find(x=>x.id===id);
-        const sub = it.price * qty;
-        total += sub;
-        lines.push(`• ${qty}x ${it.name}${showPrices ? ` — R$ ${sub.toFixed(2).replace(".",",")}` : ""}`);
-      }
-      const msg =
-        `Olá! Quero fazer um pedido na Faz de Conta Decorações 😊\n\n` +
-        lines.join("\n") +
-        (showPrices ? `\n\nTotal sugerido: R$ ${total.toFixed(2).replace(".",",")}` : "") +
-        `\n\nPagamento via Pix.`;
-      openWhats(msg);
-    });
-
-    // ========= RENDER =========
-    function money(v){ return "R$ " + v.toFixed(2).replace(".",","); }
-    function catName(id){ return (CATS.find(c=>c.id===id)||{name:id}).name; }
-
-    function addToCart(id){
-      cart.set(id, (cart.get(id)||0) + 1);
-      updateCartCount();
-    }
-    function decQty(id){
-      const q = cart.get(id)||0;
-      if(q<=1) cart.delete(id);
-      else cart.set(id, q-1);
-      updateCartCount();
-      renderCart();
-    }
-    function incQty(id){
-      cart.set(id, (cart.get(id)||0) + 1);
-      updateCartCount();
-      renderCart();
-    }
-    function updateCartCount(){
-      let n=0;
-      for(const q of cart.values()) n+=q;
-      cartCount.textContent = n;
-    }
-
-    function render(){
-      const filtered = ITEMS.filter(it=>{
-        const matchTxt =
-          !searchTxt ||
-          it.name.toLowerCase().includes(searchTxt) ||
-          it.desc.toLowerCase().includes(searchTxt);
-        const matchCat = (catFilter==="all") || (it.cat===catFilter);
-        return matchTxt && matchCat;
-      });
-
-      countInfo.textContent = `${filtered.length} itens`;
-      grid.innerHTML = "";
-
-      filtered.forEach(it=>{
-        const el = document.createElement("div");
-        el.className = "card";
-        el.innerHTML = `
-          <div class="thumb">
-            <img src="${it.img}" alt="${it.name}">
-            <div class="badge">${it.icon} ${catName(it.cat)}</div>
-          </div>
-          <div class="cardBody">
-            <p class="name">${it.name}</p>
-            <p class="desc">${it.desc}</p>
-            <div class="bottomRow">
-              <div class="money">${showPrices ? money(it.price) : "<small>Preço sob consulta</small>"}</div>
-              <button class="btnMini primary">➕ Adicionar</button>
-            </div>
-          </div>
-        `;
-        el.querySelector("button").addEventListener("click", ()=>addToCart(it.id));
-        grid.appendChild(el);
-      });
-    }
-
-    function renderCart(){
-      cartBody.innerHTML = "";
-      let total = 0;
-
-      if(cart.size===0){
-        cartBody.innerHTML = `<div class="note">Seu carrinho está vazio. Adicione itens 😊</div>`;
-        totalTxt.textContent = "R$ 0,00";
-        return;
-      }
-
-      for(const [id,qty] of cart.entries()){
-        const it = ITEMS.find(x=>x.id===id);
-        const sub = it.price * qty;
-        total += sub;
-
-        const row = document.createElement("div");
-        row.className = "line";
-        row.innerHTML = `
-          <div class="miniImg"><img src="${it.img}" alt="${it.name}"></div>
-          <div>
-            <h4>${it.name}</h4>
-            <p>${showPrices ? (money(it.price) + " • " + money(sub)) : "Preço sob consulta"}</p>
-          </div>
-          <div class="qty">
-            <button class="qbtn">−</button>
-            <b>${qty}</b>
-            <button class="qbtn">+</button>
-          </div>
-        `;
-        const btns = row.querySelectorAll(".qbtn");
-        btns[0].addEventListener("click", ()=>decQty(id));
-        btns[1].addEventListener("click", ()=>incQty(id));
-        cartBody.appendChild(row);
-      }
-
-      totalTxt.textContent = showPrices ? money(total) : "Sob consulta";
-    }
-
-    // ========= CONTRATO: ASSINATURA (CANVAS) =========
-    const canvas = document.getElementById("signCanvas");
-    const ctx = canvas.getContext("2d");
-    let drawing = false;
-    let savedSign = null;
-
-    function clearSign(){
-      const rect = canvas.getBoundingClientRect();
-      // desenha usando coordenadas CSS (não DPI perfeito, mas funciona bem no celular)
-      ctx.clearRect(0,0, canvas.width, canvas.height);
-      ctx.lineWidth = 3;
-      ctx.lineCap = "round";
-      ctx.strokeStyle = "rgba(255,255,255,.92)";
-      savedSign = null;
-      document.getElementById("signOk").style.display = "none";
-    }
-    clearSign();
-
-    function pos(e){
-      const r = canvas.getBoundingClientRect();
-      const t = e.touches ? e.touches[0] : e;
-      // converte para canvas interno
-      const scaleX = canvas.width / r.width;
-      const scaleY = canvas.height / r.height;
-      return { x: (t.clientX - r.left)*scaleX, y: (t.clientY - r.top)*scaleY };
-    }
-    function start(e){
-      drawing = true;
-      const p = pos(e);
-      ctx.beginPath();
-      ctx.moveTo(p.x,p.y);
-    }
-    function move(e){
-      if(!drawing) return;
-      e.preventDefault();
-      const p = pos(e);
-      ctx.lineTo(p.x,p.y);
-      ctx.stroke();
-    }
-    function end(){ drawing = false; }
-
-    canvas.addEventListener("mousedown", start);
-    canvas.addEventListener("mousemove", move);
-    canvas.addEventListener("mouseup", end);
-    canvas.addEventListener("mouseleave", end);
-
-    canvas.addEventListener("touchstart", start, {passive:false});
-    canvas.addEventListener("touchmove", move, {passive:false});
-    canvas.addEventListener("touchend", end);
-
-    document.getElementById("btnClearSign").addEventListener("click", clearSign);
-    document.getElementById("btnSaveSign").addEventListener("click", ()=>{
-      savedSign = canvas.toDataURL("image/png");
-      document.getElementById("signOk").style.display = "block";
-    });
-
-    // gerar contrato (resumo curto + assinatura)
-    document.getElementById("btnGenerateContract").addEventListener("click", ()=>{
-      const name = document.getElementById("c_name").value.trim();
-      const cpf  = document.getElementById("c_cpf").value.trim();
-      const phone= document.getElementById("c_phone").value.trim();
-      const addr = document.getElementById("c_address").value.trim();
-      const pickup = document.getElementById("c_pickup").value;
-      const ret    = document.getElementById("c_return").value;
-      const agree  = document.getElementById("c_agree").checked;
-
-      if(cart.size===0){ alert("Carrinho vazio. Adicione itens antes de gerar o contrato."); return; }
-      if(!name || !cpf || !phone || !addr || !pickup || !ret){
-        alert("Preencha os campos obrigatórios (*) e as datas/horas.");
-        return;
-      }
-      if(!agree){ alert("Marque o aceite do contrato."); return; }
-      if(!savedSign){ alert("Assine e clique em “Salvar assinatura”."); return; }
-
-      // itens
-      let lines=[];
-      let total=0;
-      for(const [id,qty] of cart.entries()){
-        const it = ITEMS.find(x=>x.id===id);
-        total += it.price * qty;
-        lines.push(`- ${qty}x ${it.name}${showPrices ? ` (R$ ${(it.price*qty).toFixed(2).replace(".",",")})` : ""}`);
-      }
-
-      const id = document.getElementById("contractId").textContent;
-      const now = document.getElementById("contractNow").textContent;
-
-      const text =
-`CONTRATO RÁPIDO — FAZ DE CONTA DECORAÇÕES
-Nº: ${id} | ${now}
-
-CLIENTE: ${name}
-CPF: ${cpf}
-TEL: ${phone}
-ENDEREÇO: ${addr}
-
-RETIRADA/ENTREGA: ${pickup}
-DEVOLUÇÃO: ${ret}
-
-ITENS:
-${lines.join("\n")}
-
-COMPROMISSO DO CLIENTE:
-• Cuidar dos itens e devolver no prazo combinado.
-• Ressarcir em caso de dano/perda/falta de peças.
-• Atraso pode gerar taxa conforme combinado.
-
-${showPrices ? `TOTAL SUGERIDO: R$ ${total.toFixed(2).replace(".",",")}` : "TOTAL: sob consulta"}
-
-ASSINATURA (registrada):`;
-
-      paper.style.display = "block";
-      paper.textContent = text;
-
-      // assinatura abaixo (imagem)
-      const img = document.createElement("img");
-      img.src = savedSign;
-      img.alt = "Assinatura";
-      img.style.width = "100%";
-      img.style.maxWidth = "520px";
-      img.style.marginTop = "10px";
-      img.style.border = "1px solid rgba(255,255,255,.12)";
-      img.style.borderRadius = "12px";
-
-      // evitar acumular várias imagens
-      const old = paper.querySelector("img");
-      if(old) old.remove();
-
-      paper.appendChild(document.createElement("div")).style.height="8px";
-      paper.appendChild(img);
-
-      paper.scrollIntoView({behavior:"smooth", block:"start"});
-    });
-
-    // salvar PDF (print)
-    document.getElementById("btnPrintContract").addEventListener("click", ()=>{
-      if(paper.style.display==="none"){
-        alert("Gere o contrato primeiro.");
-        return;
-      }
-      window.print(); // no celular: "Salvar em PDF"
-    });
-
-    // enviar resumo no WhatsApp
-    document.getElementById("btnSendWhatsContract").addEventListener("click", ()=>{
-      if(paper.style.display==="none"){
-        alert("Gere o contrato primeiro.");
-        return;
-      }
-      const id = document.getElementById("contractId").textContent;
-      const name = document.getElementById("c_name").value.trim() || "Cliente";
-      const msg =
-`Contrato gerado ✅
-Nº: ${id}
-Cliente: ${name}
-
-Você pode salvar o PDF (botão Salvar PDF) e me enviar o comprovante Pix.`;
-      openWhats(msg);
-    });
-
-    // iniciar
-    updateCartCount();
-    render();
-  </script>
+}
+render();
+</script>
 </body>
 </html>
