@@ -2,26 +2,30 @@
 <html lang="pt-br">
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
   <title>Faz de Conta Decorações</title>
 
   <style>
     :root{
-      --bg0:#070a14;
-      --bg1:#0b1430;
-      --glass: rgba(255,255,255,.08);
-      --glass2: rgba(255,255,255,.05);
+      --bg0:#050611;
+      --bg1:#070a1a;
+      --bg2:#0a1030;
+
+      --txt: rgba(255,255,255,.93);
+      --muted: rgba(255,255,255,.72);
+      --muted2: rgba(255,255,255,.56);
+
       --stroke: rgba(255,255,255,.12);
-      --txt: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.70);
-      --muted2: rgba(255,255,255,.55);
-      --shadow: 0 18px 60px rgba(0,0,0,.45);
-      --r: 24px;
+      --glass: rgba(255,255,255,.06);
+
+      --r: 26px;
+      --r2: 18px;
+
+      --shadow: 0 24px 80px rgba(0,0,0,.62);
+      --shadow2: 0 12px 30px rgba(0,0,0,.38);
+
       --grad: linear-gradient(135deg,#ff4fd8,#5de7ff,#8bff7a);
-      --ok: rgba(67,230,165,.16);
-      --warn: rgba(255,213,91,.16);
-      --bad: rgba(255,90,90,.16);
-      --btn: rgba(255,255,255,.10);
+      --grad2: linear-gradient(135deg, rgba(255,79,216,.22), rgba(93,231,255,.18), rgba(139,255,122,.14));
     }
 
     *{ box-sizing:border-box; }
@@ -31,110 +35,125 @@
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:var(--txt);
       background:
-        radial-gradient(1000px 700px at 18% 12%, rgba(255,79,216,.22), transparent 55%),
-        radial-gradient(900px 600px at 80% 20%, rgba(93,231,255,.18), transparent 55%),
-        radial-gradient(900px 700px at 55% 82%, rgba(139,255,122,.14), transparent 55%),
-        linear-gradient(180deg, var(--bg1), var(--bg0) 60%, #06070e);
-      min-height:100%;
+        radial-gradient(1100px 700px at 10% 12%, rgba(255,79,216,.22), transparent 60%),
+        radial-gradient(1000px 700px at 90% 18%, rgba(93,231,255,.18), transparent 60%),
+        radial-gradient(900px 700px at 60% 92%, rgba(139,255,122,.14), transparent 62%),
+        linear-gradient(180deg, var(--bg2), var(--bg1) 50%, var(--bg0));
       overflow-x:hidden;
     }
 
-    .wrap{
-      width:min(1060px, 100%);
-      margin:0 auto;
-      padding:18px 14px 80px;
+    /* “CAMADAS” para parallax (não sobrepõe conteúdo, só fundo) */
+    .bg{
+      position:fixed;
+      inset:-10vh -10vw;
+      z-index:-2;
+      pointer-events:none;
+      transform: translate3d(var(--px,0px), var(--py,0px), 0);
+      transition: transform .08s linear;
+      filter: saturate(1.05);
+    }
+    .bg:before,.bg:after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: var(--grad2);
+      opacity:.55;
+      filter: blur(60px);
+      border-radius: 40px;
+      transform: translate3d(calc(var(--px,0px)*.6), calc(var(--py,0px)*.6), 0) rotate(8deg);
+    }
+    .bg:after{
+      opacity:.35;
+      filter: blur(90px);
+      transform: translate3d(calc(var(--px,0px)*.3), calc(var(--py,0px)*.3), 0) rotate(-10deg);
     }
 
-    /* Topo */
-    .top{
-      position:sticky;
-      top:0;
-      z-index:20;
-      padding:10px 0 14px;
+    .wrap{
+      width:min(1100px, 100%);
+      margin:0 auto;
+      padding:16px 14px 110px;
+    }
+
+    /* Sem sticky/fixo: evita sobreposição */
+    .shell{
+      border:1px solid var(--stroke);
+      border-radius: var(--r);
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
+      box-shadow: var(--shadow);
+      overflow:hidden;
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
     }
 
-    .topCard{
+    .top{
       display:grid;
-      grid-template-columns: 86px 1fr;
-      gap:12px;
-      align-items:center;
+      grid-template-columns: 92px 1fr;
+      gap:14px;
       padding:14px;
-      border-radius: var(--r);
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
-      border: 1px solid var(--stroke);
-      box-shadow: var(--shadow);
-    }
-
-    .logoBox{
-      width:86px; height:86px;
-      border-radius: 22px;
-      overflow:hidden;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.06);
-      display:flex;
       align-items:center;
-      justify-content:center;
-    }
-    .logoBox img{ width:100%; height:100%; object-fit:cover; display:block; }
-
-    .brandLine{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:12px;
     }
 
-    .title{
-      font-size: 20px;
-      font-weight: 800;
+    .logo{
+      width:92px; height:92px;
+      border-radius: 26px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      box-shadow:
+        0 22px 70px rgba(0,0,0,.55),
+        inset 0 1px 0 rgba(255,255,255,.10);
+      transform-style: preserve-3d;
+    }
+    .logo img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+    .brand h1{
+      margin:0;
+      font-size:22px;
+      font-weight: 950;
       letter-spacing:.2px;
-      line-height:1.1;
+      line-height:1.05;
     }
-    .slogan{
-      margin-top:6px;
-      font-size: 15px;
-      font-weight: 700;
+    .brand .slogan{
+      margin-top:7px;
+      font-size:15px;
+      font-weight: 900;
       background: var(--grad);
       -webkit-background-clip:text;
       background-clip:text;
       color: transparent;
       line-height:1.2;
     }
-    .sub{
-      margin-top:6px;
+    .brand .sub{
+      margin-top:7px;
       color: var(--muted);
       font-size: 13px;
       line-height:1.25;
     }
 
-    .chips{
+    .meta{
       margin-top:10px;
       display:flex;
       flex-wrap:wrap;
       gap:8px;
     }
     .chip{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
       padding:8px 10px;
-      border-radius: 999px;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.06);
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
       color: var(--muted);
-      font-size: 12.5px;
-      white-space:nowrap;
+      font-size:12.5px;
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
     }
-    .chip b{ color:var(--txt); font-weight:700; }
+    .chip b{ color:var(--txt); }
 
     .actions{
+      padding:0 14px 14px;
       display:flex;
       gap:10px;
-      align-items:center;
-      justify-content:flex-end;
-      margin-top:10px;
       flex-wrap:wrap;
     }
 
@@ -142,78 +161,124 @@
       cursor:pointer;
       border:none;
       border-radius: 999px;
-      padding:10px 14px;
-      background: var(--btn);
+      padding:11px 14px;
+      background: rgba(255,255,255,.08);
       color: var(--txt);
-      border: 1px solid var(--stroke);
-      box-shadow: 0 12px 35px rgba(0,0,0,.25);
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: var(--shadow2), inset 0 1px 0 rgba(255,255,255,.08);
+      font-weight: 950;
       display:inline-flex;
       align-items:center;
       gap:10px;
-      font-weight:750;
-      letter-spacing:.2px;
+      transform: translateZ(0);
+      transition: transform .10s ease;
     }
     .btn:active{ transform: translateY(1px); }
     .btn.primary{
       background: var(--grad);
       color:#071018;
-      border: none;
-      box-shadow: 0 16px 45px rgba(0,0,0,.35);
+      border:none;
+      box-shadow: 0 18px 55px rgba(0,0,0,.55);
     }
-    .btn.ghost{
-      background: rgba(255,255,255,.06);
-    }
-    .pillCount{
+    .count{
       min-width:26px;
       height:22px;
       padding:0 8px;
       border-radius:999px;
       background: rgba(0,0,0,.25);
+      font-size:12px;
+      font-weight: 950;
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      font-size:12px;
-      font-weight:900;
     }
 
-    /* Banner (imagem grande) */
+    /* HERO (sem sobreposição) */
     .hero{
-      margin-top:14px;
+      padding:14px;
+      border-top:1px solid rgba(255,255,255,.10);
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:12px;
+    }
+    @media (max-width:880px){ .hero{ grid-template-columns: 1fr; } }
+
+    .heroMedia{
       border-radius: var(--r);
       overflow:hidden;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.05);
-      box-shadow: var(--shadow);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.20);
+      box-shadow: 0 30px 95px rgba(0,0,0,.55);
+      transform-style: preserve-3d;
     }
-    .hero img{
+    .heroMedia img{
       width:100%;
-      height: min(52vh, 520px); /* <<< A FOTO JÁ VEM GRANDE */
+      height:min(46vh, 460px);
       object-fit: cover;
       display:block;
     }
-    .heroCap{
+
+    .heroPanel{
+      border-radius: var(--r);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      box-shadow: 0 22px 70px rgba(0,0,0,.45);
+      padding:14px;
+      display:grid;
+      gap:10px;
+      align-content:start;
+    }
+    .heroPanel h2{
+      margin:0;
+      font-size:24px;
+      font-weight: 950;
+      line-height:1.05;
+    }
+    .heroPanel p{
+      margin:0;
+      color: var(--muted);
+      font-size:13.5px;
+      line-height:1.25;
+    }
+
+    .inp, select{
+      width:100%;
       padding:12px 14px;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      color:var(--txt);
+      outline:none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+    }
+    select option{ color:#111; }
+
+    .row{
       display:flex;
+      gap:10px;
+      flex-wrap:wrap;
       align-items:center;
       justify-content:space-between;
-      gap:10px;
-      background: rgba(0,0,0,.22);
-      border-top:1px solid rgba(255,255,255,.08);
     }
-    .heroCap small{ color:var(--muted); }
-    .toggleRow{
+
+    .toggleWrap{
       display:flex;
       align-items:center;
-      gap:8px;
+      gap:10px;
+      padding:10px 12px;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.12);
     }
+    .toggleWrap small{ color: var(--muted); font-weight:800; }
+
     .toggle{
-      width:50px; height:30px;
+      width:52px; height:30px;
       border-radius:999px;
-      border:1px solid var(--stroke);
+      border:1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.08);
       position:relative;
       cursor:pointer;
-      flex:0 0 auto;
     }
     .toggle i{
       position:absolute;
@@ -222,93 +287,46 @@
       left:4px;
       width:22px; height:22px;
       border-radius:999px;
-      background: rgba(255,255,255,.82);
+      background: rgba(255,255,255,.92);
       transition: .18s;
+      box-shadow: 0 12px 30px rgba(0,0,0,.45);
     }
     .toggle.on{ background: rgba(67,230,165,.18); }
-    .toggle.on i{ left: 24px; background: rgba(255,255,255,.92); }
+    .toggle.on i{ left: 26px; }
 
-    /* Controles */
-    .panel{
-      margin-top:14px;
-      padding:14px;
-      border-radius: var(--r);
-      border:1px solid var(--stroke);
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
-      box-shadow: var(--shadow);
-    }
-    .h1{
-      font-size: 28px;
-      font-weight: 950;
-      line-height:1.05;
-      margin:0;
-    }
     .hint{
-      color: var(--muted);
-      margin-top:8px;
+      color: var(--muted2);
+      font-size:12.5px;
       line-height:1.25;
+      padding:10px 12px;
+      border-radius: 18px;
+      border:1px dashed rgba(255,255,255,.16);
+      background: rgba(0,0,0,.12);
     }
 
-    .gridCtl{
-      margin-top:12px;
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:10px;
-    }
-
-    .row2{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:10px;
-    }
-    @media (max-width:520px){
-      .row2{ grid-template-columns: 1fr; }
-    }
-
-    .inp, select{
-      width:100%;
-      padding:12px 14px;
-      border-radius: 999px;
-      border:1px solid var(--stroke);
-      background: rgba(0,0,0,.18);
-      color: var(--txt);
-      outline:none;
-    }
-    select option{ color:#111; }
-
-    .mini{
+    /* GRID de produtos */
+    .section{ margin-top:14px; }
+    .secHead{
       display:flex;
-      gap:10px;
-      flex-wrap:wrap;
       align-items:center;
       justify-content:space-between;
-      margin-top:10px;
+      gap:10px;
+      margin:18px 2px 10px;
+      flex-wrap:wrap;
+    }
+    .secHead h3{
+      margin:0;
+      font-size:18px;
+      font-weight: 950;
+      letter-spacing:.2px;
     }
     .tag{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 12px;
+      padding:8px 10px;
       border-radius:999px;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
       color: var(--muted);
       font-size:12.5px;
-    }
-
-    /* Produtos */
-    .secTitle{
-      margin:18px 2px 10px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-    }
-    .secTitle h2{
-      margin:0;
-      font-size: 18px;
-      font-weight: 900;
-      letter-spacing:.2px;
     }
 
     .grid{
@@ -316,178 +334,188 @@
       grid-template-columns: repeat(3, 1fr);
       gap:12px;
     }
-    @media (max-width:860px){
-      .grid{ grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width:520px){
-      .grid{ grid-template-columns: 1fr; }
-    }
+    @media (max-width:920px){ .grid{ grid-template-columns: repeat(2, 1fr);} }
+    @media (max-width:560px){ .grid{ grid-template-columns: 1fr;} }
 
+    /* Card “4D”: perspectiva + tilt aplicado via JS */
     .card{
       border-radius: var(--r);
+      border:1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow: 0 22px 75px rgba(0,0,0,.50);
       overflow:hidden;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.05);
-      box-shadow: 0 14px 50px rgba(0,0,0,.32);
-      display:flex;
-      flex-direction:column;
-      min-height: 320px;
+      transform-style: preserve-3d;
+      perspective: 900px;
+      will-change: transform;
+      transition: transform .12s ease;
     }
     .thumb{
-      width:100%;
-      height: 170px;
+      height: 190px;
       background: rgba(0,0,0,.20);
+      border-bottom:1px solid rgba(255,255,255,.10);
       position:relative;
+      transform: translateZ(18px);
     }
     .thumb img{
       width:100%;
       height:100%;
       object-fit: cover;
       display:block;
+      filter: saturate(1.06) contrast(1.03);
+    }
+    .shine{
+      position:absolute;
+      inset:-40%;
+      background: radial-gradient(circle at var(--sx,40%) var(--sy,30%), rgba(255,255,255,.18), transparent 55%);
+      transform: translateZ(25px);
+      pointer-events:none;
+      mix-blend-mode: screen;
     }
     .badge{
       position:absolute;
       left:10px; top:10px;
       padding:8px 10px;
       border-radius:999px;
-      background: rgba(0,0,0,.35);
+      background: rgba(0,0,0,.38);
       border:1px solid rgba(255,255,255,.16);
-      font-weight:900;
+      font-weight: 950;
       font-size:12px;
       display:flex;
-      align-items:center;
       gap:8px;
+      align-items:center;
+      box-shadow: 0 14px 40px rgba(0,0,0,.45);
+      transform: translateZ(30px);
     }
 
     .cardBody{
       padding:12px;
-      display:flex;
-      flex-direction:column;
+      display:grid;
       gap:8px;
-      flex:1;
+      transform: translateZ(12px);
     }
     .name{
-      font-size: 16px;
-      font-weight: 950;
       margin:0;
+      font-size:16px;
+      font-weight: 950;
       line-height:1.1;
     }
     .desc{
-      color: var(--muted);
-      font-size: 13px;
-      line-height:1.25;
       margin:0;
+      color: var(--muted);
+      font-size:13px;
+      line-height:1.25;
+      min-height: 34px;
     }
-    .price{
-      margin-top:auto;
+    .bottomRow{
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:10px;
-      padding-top:8px;
-      border-top: 1px solid rgba(255,255,255,.10);
+      padding-top:10px;
+      border-top:1px solid rgba(255,255,255,.10);
     }
     .money{
-      font-size: 16px;
       font-weight: 950;
+      font-size:15px;
     }
-    .money small{ font-weight:800; color:var(--muted2); }
+    .money small{ color: var(--muted2); font-weight:850; }
 
-    .btnSmall{
-      padding:10px 12px;
-      border-radius: 999px;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.08);
-      color:var(--txt);
+    .btnMini{
       cursor:pointer;
-      font-weight:900;
+      border:none;
+      border-radius: 18px;
+      padding:10px 12px;
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+      color: var(--txt);
+      font-weight: 950;
       display:inline-flex;
-      align-items:center;
       gap:8px;
+      align-items:center;
+      box-shadow: 0 14px 35px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.08);
+      transform: translateZ(22px);
     }
-    .btnSmall.primary{
+    .btnMini.primary{
       background: var(--grad);
       border:none;
       color:#061017;
+      box-shadow: 0 18px 50px rgba(0,0,0,.55);
     }
 
     /* Modal carrinho */
     .modal{
       position:fixed;
       inset:0;
-      background: rgba(0,0,0,.55);
+      background: rgba(0,0,0,.65);
       display:none;
       align-items:flex-end;
       justify-content:center;
       padding:14px;
-      z-index:50;
+      z-index:80;
     }
     .modal.on{ display:flex; }
     .sheet{
-      width:min(720px, 100%);
-      border-radius: 28px;
+      width:min(780px, 100%);
+      border-radius: 30px;
       overflow:hidden;
       border:1px solid rgba(255,255,255,.16);
-      background: rgba(18,20,35,.86);
+      background: rgba(10,12,22,.92);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
-      box-shadow: 0 30px 90px rgba(0,0,0,.55);
+      box-shadow: 0 30px 110px rgba(0,0,0,.72);
     }
     .sheetHead{
-      padding:14px 14px 10px;
+      padding:14px;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:10px;
       border-bottom:1px solid rgba(255,255,255,.12);
     }
-    .sheetHead b{ font-size:16px; }
     .x{
       cursor:pointer;
       border:none;
-      width:40px; height:40px;
+      width:42px; height:42px;
       border-radius:999px;
       background: rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.12);
-      color:var(--txt);
+      border:1px solid rgba(255,255,255,.14);
+      color: var(--txt);
       font-size:18px;
-      font-weight:900;
+      font-weight: 950;
     }
     .sheetBody{
       padding:12px 14px;
-      max-height: 58vh;
+      max-height: 56vh;
       overflow:auto;
     }
     .line{
       display:grid;
-      grid-template-columns: 56px 1fr auto;
+      grid-template-columns: 60px 1fr auto;
       gap:10px;
       align-items:center;
       padding:10px 0;
       border-bottom:1px solid rgba(255,255,255,.10);
     }
-    .line:last-child{ border-bottom:none; }
     .miniImg{
-      width:56px; height:56px;
-      border-radius: 14px;
+      width:60px; height:60px;
+      border-radius: 18px;
       overflow:hidden;
       border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.20);
+      background: rgba(0,0,0,.18);
     }
     .miniImg img{ width:100%; height:100%; object-fit:cover; display:block; }
-    .line h4{ margin:0; font-size:14px; font-weight:950; }
-    .line p{ margin:3px 0 0; font-size:12.5px; color:var(--muted); }
-    .qty{
-      display:flex; align-items:center; gap:8px;
-    }
+
+    .line h4{ margin:0; font-size:14px; font-weight: 950; }
+    .line p{ margin:3px 0 0; font-size:12.5px; color: var(--muted); }
+
+    .qty{ display:flex; align-items:center; gap:8px; }
     .qbtn{
       width:36px; height:36px;
-      border-radius:999px;
+      border-radius: 16px;
       border:1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.08);
-      color:var(--txt);
+      color: var(--txt);
       cursor:pointer;
-      font-weight:950;
+      font-weight: 950;
       font-size:16px;
     }
     .sheetFoot{
@@ -500,21 +528,17 @@
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:10px;
-      font-weight:950;
+      font-weight: 950;
     }
-    .tot span{ color:var(--muted); font-weight:800; }
+    .tot span{ color:var(--muted); font-weight: 850; }
 
     .pixBox{
       padding:12px;
       border-radius: 18px;
       border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.06);
+      background: rgba(255,255,255,.05);
       display:grid;
       gap:10px;
-    }
-    .pixRow{
-      display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;
     }
     .pixKey{
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
@@ -523,111 +547,81 @@
       background: rgba(0,0,0,.20);
       border:1px solid rgba(255,255,255,.12);
       padding:10px 12px;
-      border-radius: 14px;
-      flex: 1 1 280px;
-      min-width: 220px;
+      border-radius: 16px;
+      word-break: break-all;
     }
     .note{
-      color:var(--muted);
+      color: var(--muted);
       font-size:12.5px;
       line-height:1.25;
-    }
-
-    .footer{
-      margin-top:18px;
-      color: rgba(255,255,255,.45);
-      font-size:12px;
-      text-align:center;
-      padding:10px 0 0;
     }
   </style>
 </head>
 
 <body>
+  <div class="bg"></div>
+
   <div class="wrap">
+    <div class="shell">
+      <div class="top">
+        <div class="logo"><img id="logoImg" alt="Logo"/></div>
 
-    <!-- TOP -->
-    <div class="top">
-      <div class="topCard">
-        <div class="logoBox">
-          <!-- Logo automática (se você não tiver logo, fica essa arte) -->
-          <img id="logoImg" alt="Logo Faz de Conta" />
-        </div>
+        <div class="brand">
+          <h1>Faz de Conta Decorações</h1>
+          <div class="slogan">Onde a imaginação vira festa</div>
+          <div class="sub">Catálogo demonstrativo com efeito “4D” (parallax + tilt) — sem sobreposição.</div>
 
-        <div>
-          <div class="brandLine">
-            <div>
-              <div class="title">Faz de Conta Decorações</div>
-              <div class="slogan">Onde a imaginação vira festa</div>
-              <div class="sub">Decorações encantadoras para momentos especiais</div>
-
-              <div class="chips">
-                <div class="chip">📍 <b>Jaciara/MT</b></div>
-                <div class="chip">📱 WhatsApp: <b>(66) 99622-3481</b></div>
-                <div class="chip">📅 <span id="today">--/--/----</span> • ⏰ <b id="clock">--:--</b></div>
-              </div>
-            </div>
-
-            <div class="actions">
-              <button class="btn ghost" id="btnWhats">💬 Falar no WhatsApp</button>
-              <button class="btn" id="btnCart">🛒 Carrinho <span class="pillCount" id="cartCount">0</span></button>
-              <button class="btn primary" id="btnPixTop">✅ Finalizar (Pix)</button>
-            </div>
+          <div class="meta">
+            <div class="chip">📍 <b>Jaciara/MT</b></div>
+            <div class="chip">📱 WhatsApp: <b>(66) 99622-3481</b></div>
+            <div class="chip">📅 <span id="today">--/--/----</span> • ⏰ <b id="clock">--:--</b></div>
           </div>
         </div>
       </div>
 
-      <!-- BANNER GRANDE -->
+      <div class="actions">
+        <button class="btn" id="btnWhats">💬 WhatsApp</button>
+        <button class="btn" id="btnCart">🛒 Carrinho <span class="count" id="cartCount">0</span></button>
+        <button class="btn primary" id="btnFinish">✅ Finalizar (Pix)</button>
+      </div>
+
       <div class="hero">
-        <img id="bannerImg" alt="Banner" />
-        <div class="heroCap">
-          <small>✨ Vitrine automática (troque depois por fotos reais quando quiser)</small>
-          <div class="toggleRow">
-            <span class="tag">🔒 Mostrar preços</span>
-            <div class="toggle" id="togglePrices"><i></i></div>
-          </div>
+        <div class="heroMedia" data-tilt>
+          <img id="bannerImg" alt="Banner"/>
         </div>
-      </div>
-    </div>
 
-    <!-- PAINEL -->
-    <div class="panel">
-      <h1 class="h1">Escolha o que você quer alugar</h1>
-      <div class="hint">
-        Toque nos itens para ver e adicionar no carrinho. Você pode ligar/desligar a exibição de valores.
-      </div>
+        <div class="heroPanel" data-tilt>
+          <h2>Escolha seus itens</h2>
+          <p>Pesquise, filtre por categoria e adicione ao carrinho. Os “cards” têm profundidade e brilho.</p>
 
-      <div class="gridCtl">
-        <input class="inp" id="search" placeholder="🔎 Pesquisar (ex: urso, arco, cortina)..." />
-
-        <div class="row2">
+          <input class="inp" id="search" placeholder="🔎 Pesquisar (ex: arco, cortina, urso)..." />
           <select id="filterCat">
             <option value="all">Todas as categorias</option>
           </select>
 
-          <button class="btnSmall" id="btnClear">🧽 Limpar filtros</button>
-        </div>
+          <div class="row">
+            <div class="toggleWrap">
+              <small>Mostrar preços</small>
+              <div class="toggle" id="togglePrices"><i></i></div>
+            </div>
+            <button class="btnMini" id="btnClear">🧽 Limpar</button>
+          </div>
 
-        <div class="mini">
-          <div class="tag" id="priceState">Preço: <b style="margin-left:6px;">sob consulta</b></div>
-          <div class="tag">⚡ Dica: depois você troca as imagens por fotos reais, mas aqui já aparece tudo automático.</div>
+          <div class="hint" id="priceHint">Preço: sob consulta (ative “Mostrar preços” se quiser ver).</div>
         </div>
       </div>
     </div>
 
-    <!-- LISTA -->
-    <div class="secTitle">
-      <h2>✨ Opções</h2>
-      <div class="tag" id="countInfo">0 itens</div>
+    <div class="section">
+      <div class="secHead">
+        <h3>✨ Itens</h3>
+        <div class="tag" id="countInfo">0 itens</div>
+      </div>
+      <div class="grid" id="grid"></div>
     </div>
-
-    <div class="grid" id="grid"></div>
-
-    <div class="footer">© Faz de Conta Decorações • Todos os direitos reservados</div>
-
   </div>
 
-  <!-- MODAL CARRINHO -->
+  <!-- MODAL -->
   <div class="modal" id="modal">
     <div class="sheet">
       <div class="sheetHead">
@@ -645,122 +639,150 @@
 
         <div class="pixBox">
           <b>✅ Finalizar via Pix</b>
-          <div class="note">
-            Toque em “Copiar chave Pix”. Depois você cola no app do banco e faz o pagamento.
-            (Você pode alterar a chave Pix e os preços depois.)
-          </div>
+          <div class="note">Troque a chave Pix quando quiser. Agora é só modelo.</div>
+          <div class="pixKey" id="pixKey">SUA-CHAVE-PIX-AQUI</div>
 
-          <div class="pixRow">
-            <div class="pixKey" id="pixKey">SUA-CHAVE-PIX-AQUI</div>
-            <button class="btnSmall primary" id="btnCopyPix">📋 Copiar chave</button>
+          <div class="row">
+            <button class="btnMini primary" id="btnCopyPix">📋 Copiar Pix</button>
+            <button class="btnMini" id="btnEmpty">🗑️ Esvaziar</button>
           </div>
 
           <button class="btn primary" id="btnWhats2">Enviar pedido no WhatsApp</button>
-          <button class="btnSmall" id="btnEmpty">🗑️ Esvaziar carrinho</button>
         </div>
       </div>
-
     </div>
   </div>
 
   <script>
-    // ========= UTIL: SVG automático como "foto" =========
-    function svgDataUrl(title, subtitle, emoji){
-      const bg1 = ["#ff4fd8","#5de7ff","#8bff7a","#ffb84d","#9a7bff","#ff6d6d"][Math.floor(Math.random()*6)];
-      const bg2 = ["#0b1430","#070a14","#101a3a","#091024"][Math.floor(Math.random()*4)];
-      const s = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700">
-          <defs>
-            <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="${bg1}" stop-opacity="0.55"/>
-              <stop offset="1" stop-color="${bg2}" stop-opacity="1"/>
-            </linearGradient>
-            <filter id="blur" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="18"/>
-            </filter>
-          </defs>
-          <rect width="1200" height="700" fill="${bg2}"/>
-          <circle cx="240" cy="140" r="170" fill="${bg1}" opacity="0.35" filter="url(#blur)"/>
-          <circle cx="960" cy="180" r="220" fill="#5de7ff" opacity="0.20" filter="url(#blur)"/>
-          <circle cx="740" cy="560" r="260" fill="#8bff7a" opacity="0.16" filter="url(#blur)"/>
-          <rect x="60" y="70" width="1080" height="560" rx="48" fill="url(#g)" stroke="rgba(255,255,255,.18)" />
-          <text x="120" y="210" font-size="96" font-family="system-ui,Segoe UI,Arial" fill="rgba(255,255,255,.92)">${emoji}</text>
-          <text x="120" y="330" font-size="68" font-weight="800" font-family="system-ui,Segoe UI,Arial" fill="rgba(255,255,255,.95)">${escapeXml(title)}</text>
-          <text x="120" y="400" font-size="34" font-weight="600" font-family="system-ui,Segoe UI,Arial" fill="rgba(255,255,255,.70)">${escapeXml(subtitle)}</text>
-          <text x="120" y="570" font-size="26" font-weight="700" font-family="system-ui,Segoe UI,Arial" fill="rgba(255,255,255,.55)">Faz de Conta Decorações • Onde a imaginação vira festa</text>
-        </svg>
-      `;
-      return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(s);
+    // ===== Fundo Parallax (não afeta layout, não sobrepõe) =====
+    const bg = document.querySelector(".bg");
+    function setParallax(x, y){
+      const px = (x - 0.5) * 30;
+      const py = (y - 0.5) * 30;
+      document.documentElement.style.setProperty("--px", px+"px");
+      document.documentElement.style.setProperty("--py", py+"px");
     }
+    window.addEventListener("mousemove", (e)=>{
+      setParallax(e.clientX / window.innerWidth, e.clientY / window.innerHeight);
+    }, {passive:true});
+    window.addEventListener("deviceorientation", (e)=>{
+      // no celular (se permitir), cria parallax leve
+      const x = (e.gamma || 0) / 60 + 0.5;
+      const y = (e.beta  || 0) / 120 + 0.5;
+      setParallax(Math.max(0,Math.min(1,x)), Math.max(0,Math.min(1,y)));
+    }, {passive:true});
+
+    // ===== “Fotos” automáticas com look pseudo-realista (textura + luz) =====
     function escapeXml(str){
-      return String(str)
-        .replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")
+      return String(str).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")
         .replaceAll('"',"&quot;").replaceAll("'","&apos;");
     }
+    function imgReal(title, sub, icon){
+      const palettes = [
+        ["#ff4fd8","#5de7ff","#0b0f24"],
+        ["#8bff7a","#5de7ff","#0a122e"],
+        ["#ffb84d","#ff4fd8","#0b1430"],
+        ["#9a7bff","#5de7ff","#0a122e"]
+      ];
+      const p = palettes[Math.floor(Math.random()*palettes.length)];
+      const a=p[0], b=p[1], base=p[2];
 
-    // ========= DADOS (VOCÊ MUDA DEPOIS) =========
-    const PIX_KEY = "SUA-CHAVE-PIX-AQUI"; // <-- troque depois (cpf, celular, e-mail ou aleatória)
+      const svg = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800">
+        <defs>
+          <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="${a}" stop-opacity=".55"/>
+            <stop offset="1" stop-color="${base}" stop-opacity="1"/>
+          </linearGradient>
+          <radialGradient id="light" cx="30%" cy="20%" r="70%">
+            <stop offset="0" stop-color="${b}" stop-opacity=".75"/>
+            <stop offset="0.55" stop-color="${a}" stop-opacity=".25"/>
+            <stop offset="1" stop-color="${base}" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="noise">
+            <feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="2" stitchTiles="stitch" />
+            <feColorMatrix type="saturate" values="0"/>
+            <feComponentTransfer>
+              <feFuncA type="table" tableValues="0 0.12"/>
+            </feComponentTransfer>
+          </filter>
+          <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="22" stdDeviation="18" flood-color="rgba(0,0,0,.55)"/>
+          </filter>
+        </defs>
+
+        <rect width="1200" height="800" fill="${base}"/>
+        <rect width="1200" height="800" fill="url(#g)"/>
+        <circle cx="260" cy="160" r="240" fill="url(#light)" opacity=".95"/>
+        <circle cx="980" cy="170" r="260" fill="url(#light)" opacity=".65"/>
+        <rect width="1200" height="800" filter="url(#noise)"/>
+
+        <g filter="url(#shadow)">
+          <rect x="90" y="90" width="1020" height="620" rx="56" fill="rgba(0,0,0,.22)" stroke="rgba(255,255,255,.16)"/>
+          <rect x="120" y="120" width="960" height="560" rx="46" fill="rgba(255,255,255,.06)" />
+        </g>
+
+        <text x="600" y="380" text-anchor="middle"
+              font-size="120" font-family="system-ui,Segoe UI,Arial"
+              fill="rgba(255,255,255,.92)">${escapeXml(icon)}</text>
+
+        <text x="150" y="620" font-size="58" font-weight="900"
+              font-family="system-ui,Segoe UI,Arial" fill="rgba(255,255,255,.95)">${escapeXml(title)}</text>
+        <text x="150" y="680" font-size="30" font-weight="700"
+              font-family="system-ui,Segoe UI,Arial" fill="rgba(255,255,255,.72)">${escapeXml(sub)}</text>
+      </svg>`;
+      return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+    }
+
+    // ===== Dados =====
+    const PIX_KEY = "SUA-CHAVE-PIX-AQUI";
+    const WHATS_PHONE = "5566996223481";
 
     const CATS = [
-      {id:"estruturas", name:"Estruturas e suportes"},
-      {id:"baloes", name:"Balões e combos"},
-      {id:"cenarios", name:"Cenários e fundos"},
+      {id:"estruturas", name:"Estruturas"},
+      {id:"baloes", name:"Balões"},
+      {id:"cenarios", name:"Cenários"},
       {id:"iluminacao", name:"Iluminação"},
-      {id:"props", name:"Acessórios / props"},
+      {id:"props", name:"Props / Acessórios"},
     ];
 
-    // Preços sugeridos (valores só para você ter um começo — você troca depois)
     const ITEMS = [
-      {id:"cubo", cat:"estruturas", name:"Cubo (estrutura)", emoji:"🧊", desc:"Estrutura para cenário e suporte de itens.", price:80},
-      {id:"arco-baloes", cat:"baloes", name:"Arco de balões (P)", emoji:"🎈", desc:"Arco orgânico simples (tamanho P).", price:180},
-      {id:"arco-baloes-m", cat:"baloes", name:"Arco de balões (M)", emoji:"🎈", desc:"Arco orgânico médio com acabamento.", price:260},
-      {id:"arco-baloes-g", cat:"baloes", name:"Arco de balões (G)", emoji:"🎈", desc:"Arco grande + variação de cores.", price:380},
+      {id:"cubo", cat:"estruturas", name:"Cubo (estrutura)", icon:"🧊", desc:"Estrutura para cenário e suporte.", price:80},
+      {id:"arcoP", cat:"baloes", name:"Arco de balões (P)", icon:"🎈", desc:"Arco orgânico simples (P).", price:180},
+      {id:"arcoM", cat:"baloes", name:"Arco de balões (M)", icon:"🎈", desc:"Arco médio com acabamento.", price:260},
+      {id:"arcoG", cat:"baloes", name:"Arco de balões (G)", icon:"🎈", desc:"Arco grande + variação de cores.", price:380},
+      {id:"cortina", cat:"cenarios", name:"Cortina (fundo)", icon:"🎀", desc:"Fundo para painel e fotos.", price:90},
+      {id:"tapete", cat:"cenarios", name:"Tapete para fotos", icon:"🧺", desc:"Base para fotos e cenário.", price:60},
+      {id:"arandela", cat:"iluminacao", name:"Arandela decorativa", icon:"💡", desc:"Destaque com luz no painel.", price:45},
+      {id:"luz", cat:"iluminacao", name:"Luzes decorativas", icon:"✨", desc:"Fairy lights para dar charme.", price:35},
+      {id:"ursos", cat:"props", name:"Kit Ursos", icon:"🧸", desc:"Ursinhos/props para tema.", price:70},
+      {id:"letras", cat:"props", name:"Letras/Números", icon:"🔤", desc:"Módulos decorativos.", price:40},
+      {id:"comboMesa", cat:"baloes", name:"Combo balões (mesa)", icon:"🎉", desc:"Combo rápido para mesa.", price:55},
+    ].map(it => ({...it, img: imgReal(it.name, it.desc, it.icon)}));
 
-      {id:"tapete", cat:"cenarios", name:"Tapete para fotos", emoji:"🧺", desc:"Base para fotos e cenário (várias cores).", price:60},
-      {id:"cortina", cat:"cenarios", name:"Cortina (fundo)", emoji:"🎀", desc:"Fundo e acabamento do cenário.", price:90},
-      {id:"arco-quadrado", cat:"estruturas", name:"Arco quadrado", emoji:"🟦", desc:"Estrutura quadrada para cenário.", price:120},
+    // ===== Elementos =====
+    document.getElementById("pixKey").textContent = PIX_KEY;
+    document.getElementById("logoImg").src = imgReal("Faz de Conta","Decorações","🧚");
+    document.getElementById("bannerImg").src = imgReal("Faz de Conta Decorações","Catálogo com efeito “4D”","🎂");
 
-      {id:"arandela", cat:"iluminacao", name:"Arandela decorativa", emoji:"💡", desc:"Iluminação para destaque do painel.", price:45},
-      {id:"luz-fairy", cat:"iluminacao", name:"Luzinha / fairy lights", emoji:"✨", desc:"Luzes decorativas para dar charme.", price:35},
-
-      {id:"ursos", cat:"props", name:"Ursos (kit)", emoji:"🧸", desc:"Ursinhos e pelúcias decorativas.", price:70},
-      {id:"baloes-kit", cat:"baloes", name:"Kit balões (mesa)", emoji:"🎉", desc:"Combo para mesa (cores e tema).", price:55},
-      {id:"numeros", cat:"props", name:"Números / letras (módulo)", emoji:"🔤", desc:"Números/letters para composição do tema.", price:40},
-    ].map(it => ({
-      ...it,
-      img: svgDataUrl(it.name, it.desc, it.emoji) // <<< FOTO AUTOMÁTICA AQUI
-    }));
-
-    // ========= ESTADO =========
-    let showPrices = false;
-    let searchTxt = "";
-    let catFilter = "all";
-    const cart = new Map(); // id -> qty
-
-    // ========= INIT =========
     const grid = document.getElementById("grid");
     const filterCat = document.getElementById("filterCat");
     const search = document.getElementById("search");
     const countInfo = document.getElementById("countInfo");
-    const priceState = document.getElementById("priceState");
     const toggle = document.getElementById("togglePrices");
+    const priceHint = document.getElementById("priceHint");
     const cartCount = document.getElementById("cartCount");
 
-    // imagens do topo (logo + banner) geradas automaticamente
-    document.getElementById("logoImg").src = svgDataUrl("Faz de Conta", "Decorações", "🧚");
-    document.getElementById("bannerImg").src = svgDataUrl("Faz de Conta Decorações", "Vitrine automática (troque por fotos reais depois)", "🎂");
+    const modal = document.getElementById("modal");
+    const cartBody = document.getElementById("cartBody");
+    const totalTxt = document.getElementById("totalTxt");
 
-    document.getElementById("pixKey").textContent = PIX_KEY;
-
-    // preencher select
-    (function(){
-      CATS.forEach(c=>{
-        const o = document.createElement("option");
-        o.value = c.id;
-        o.textContent = c.name;
-        filterCat.appendChild(o);
-      });
-    })();
+    // preencher categorias
+    CATS.forEach(c=>{
+      const o = document.createElement("option");
+      o.value = c.id; o.textContent = c.name;
+      filterCat.appendChild(o);
+    });
 
     // relógio + data
     function pad(n){ return String(n).padStart(2,"0"); }
@@ -771,180 +793,150 @@
     }
     tick(); setInterval(tick, 1000);
 
-    // toggle preços
-    toggle.addEventListener("click", ()=>{
-      showPrices = !showPrices;
-      toggle.classList.toggle("on", showPrices);
-      priceState.innerHTML = showPrices
-        ? 'Preço: <b style="margin-left:6px;">visível</b>'
-        : 'Preço: <b style="margin-left:6px;">sob consulta</b>';
-      render();
-    });
+    // ===== Estado =====
+    let showPrices = false;
+    let searchTxt = "";
+    let catFilter = "all";
+    const cart = new Map();
 
-    // busca + filtro
-    search.addEventListener("input", (e)=>{ searchTxt = e.target.value.trim().toLowerCase(); render(); });
-    filterCat.addEventListener("change", (e)=>{ catFilter = e.target.value; render(); });
-
-    document.getElementById("btnClear").addEventListener("click", ()=>{
-      search.value = ""; searchTxt = "";
-      filterCat.value = "all"; catFilter = "all";
-      render();
-    });
-
-    // Whats
+    // ===== Whats =====
     function openWhats(msg){
-      const phone = "5566996223481";
-      const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+      const url = `https://wa.me/${WHATS_PHONE}?text=${encodeURIComponent(msg)}`;
       window.open(url, "_blank");
     }
     document.getElementById("btnWhats").addEventListener("click", ()=>{
       openWhats("Olá! Quero fazer um orçamento com a Faz de Conta Decorações 😊");
     });
 
-    // Carrinho modal
-    const modal = document.getElementById("modal");
-    const cartBody = document.getElementById("cartBody");
-    const totalTxt = document.getElementById("totalTxt");
-
-    function openCart(){ modal.classList.add("on"); renderCart(); }
-    function closeCart(){ modal.classList.remove("on"); }
-    document.getElementById("btnCart").addEventListener("click", openCart);
-    document.getElementById("closeModal").addEventListener("click", closeCart);
-    modal.addEventListener("click", (e)=>{ if(e.target === modal) closeCart(); });
-
-    document.getElementById("btnPixTop").addEventListener("click", openCart);
-
-    // copiar pix
-    document.getElementById("btnCopyPix").addEventListener("click", async ()=>{
-      try{
-        await navigator.clipboard.writeText(PIX_KEY);
-        alert("Chave Pix copiada!");
-      }catch(e){
-        alert("Não consegui copiar automaticamente. Copie manualmente: " + PIX_KEY);
-      }
-    });
-
-    // esvaziar
-    document.getElementById("btnEmpty").addEventListener("click", ()=>{
-      cart.clear();
+    // ===== Toggle preços =====
+    toggle.addEventListener("click", ()=>{
+      showPrices = !showPrices;
+      toggle.classList.toggle("on", showPrices);
+      priceHint.textContent = showPrices ? "Preço: visível (modo demonstração)." : "Preço: sob consulta (ative “Mostrar preços” se quiser ver).";
       render();
       renderCart();
     });
 
-    // enviar pedido
+    // ===== Busca / filtro =====
+    search.addEventListener("input", (e)=>{ searchTxt = e.target.value.trim().toLowerCase(); render(); });
+    filterCat.addEventListener("change", (e)=>{ catFilter = e.target.value; render(); });
+    document.getElementById("btnClear").addEventListener("click", ()=>{
+      search.value=""; searchTxt="";
+      filterCat.value="all"; catFilter="all";
+      render();
+    });
+
+    // ===== Modal =====
+    function openCart(){ modal.classList.add("on"); renderCart(); }
+    function closeCart(){ modal.classList.remove("on"); }
+    document.getElementById("btnCart").addEventListener("click", openCart);
+    document.getElementById("btnFinish").addEventListener("click", openCart);
+    document.getElementById("closeModal").addEventListener("click", closeCart);
+    modal.addEventListener("click", (e)=>{ if(e.target===modal) closeCart(); });
+
+    document.getElementById("btnCopyPix").addEventListener("click", async ()=>{
+      try{ await navigator.clipboard.writeText(PIX_KEY); alert("Chave Pix copiada!"); }
+      catch(e){ alert("Copie manualmente: " + PIX_KEY); }
+    });
+    document.getElementById("btnEmpty").addEventListener("click", ()=>{
+      cart.clear(); updateCartCount(); render(); renderCart();
+    });
     document.getElementById("btnWhats2").addEventListener("click", ()=>{
-      const lines = [];
-      let total = 0;
-      for (const [id, qty] of cart.entries()){
-        const it = ITEMS.find(x=>x.id===id);
-        const sub = it.price * qty;
-        total += sub;
-        lines.push(`• ${qty}x ${it.name} — R$ ${sub.toFixed(2).replace(".",",")}`);
+      const lines=[]; let total=0;
+      for(const [id,qty] of cart.entries()){
+        const it=ITEMS.find(x=>x.id===id);
+        const sub=it.price*qty; total+=sub;
+        lines.push(`• ${qty}x ${it.name}${showPrices ? ` — R$ ${sub.toFixed(2).replace(".",",")}` : ""}`);
       }
       const msg =
         `Olá! Quero fechar um pedido na Faz de Conta Decorações 😊\n\n` +
-        (lines.length ? lines.join("\n") : "Carrinho vazio") +
-        (lines.length ? `\n\nTotal sugerido: R$ ${total.toFixed(2).replace(".",",")}\nPagamento via Pix.` : "");
+        (lines.length? lines.join("\n") : "Carrinho vazio") +
+        (lines.length && showPrices ? `\n\nTotal sugerido: R$ ${total.toFixed(2).replace(".",",")}` : "") +
+        `\n\nPagamento via Pix.`;
       openWhats(msg);
     });
 
-    // ========= RENDER =========
-    function money(v){
-      return "R$ " + v.toFixed(2).replace(".",",");
+    // ===== Helpers =====
+    function money(v){ return "R$ " + v.toFixed(2).replace(".",","); }
+    function catName(id){
+      const c=CATS.find(x=>x.id===id);
+      return c? c.name : id;
     }
-
     function addToCart(id){
-      cart.set(id, (cart.get(id)||0) + 1);
+      cart.set(id,(cart.get(id)||0)+1);
       updateCartCount();
-      // feedback rápido
-      const it = ITEMS.find(x=>x.id===id);
-      toast(`Adicionado: ${it.name}`);
     }
-
     function decQty(id){
-      const q = cart.get(id)||0;
+      const q=cart.get(id)||0;
       if(q<=1) cart.delete(id);
-      else cart.set(id, q-1);
-      updateCartCount();
-      renderCart();
+      else cart.set(id,q-1);
+      updateCartCount(); renderCart();
     }
     function incQty(id){
-      cart.set(id, (cart.get(id)||0) + 1);
-      updateCartCount();
-      renderCart();
+      cart.set(id,(cart.get(id)||0)+1);
+      updateCartCount(); renderCart();
     }
-
     function updateCartCount(){
-      let n = 0;
-      for (const q of cart.values()) n += q;
+      let n=0; for(const q of cart.values()) n+=q;
       cartCount.textContent = n;
     }
 
+    // ===== Render =====
     function render(){
       const filtered = ITEMS.filter(it=>{
-        const matchTxt =
-          !searchTxt ||
-          it.name.toLowerCase().includes(searchTxt) ||
-          it.desc.toLowerCase().includes(searchTxt) ||
-          it.id.toLowerCase().includes(searchTxt);
+        const matchTxt = !searchTxt || it.name.toLowerCase().includes(searchTxt) || it.desc.toLowerCase().includes(searchTxt);
         const matchCat = (catFilter==="all") || (it.cat===catFilter);
         return matchTxt && matchCat;
       });
-
       countInfo.textContent = `${filtered.length} itens`;
-
       grid.innerHTML = "";
+
       filtered.forEach(it=>{
         const el = document.createElement("div");
-        el.className = "card";
+        el.className = "card tilt";
+        el.setAttribute("data-tilt","1");
         el.innerHTML = `
           <div class="thumb">
-            <img src="${it.img}" alt="${it.name}"/>
-            <div class="badge">${it.emoji} ${catName(it.cat)}</div>
+            <img src="${it.img}" alt="${it.name}">
+            <div class="shine"></div>
+            <div class="badge">${it.icon} ${catName(it.cat)}</div>
           </div>
           <div class="cardBody">
             <p class="name">${it.name}</p>
             <p class="desc">${it.desc}</p>
-            <div class="price">
-              <div class="money">
-                ${showPrices ? money(it.price) : "<small>Preço sob consulta</small>"}
-              </div>
-              <button class="btnSmall primary">➕ Adicionar</button>
+            <div class="bottomRow">
+              <div class="money">${showPrices ? money(it.price) : "<small>Preço sob consulta</small>"}</div>
+              <button class="btnMini primary">➕ Adicionar</button>
             </div>
           </div>
         `;
         el.querySelector("button").addEventListener("click", ()=>addToCart(it.id));
         grid.appendChild(el);
       });
-    }
 
-    function catName(id){
-      const c = CATS.find(x=>x.id===id);
-      return c ? c.name : id;
+      // ativa tilt nos novos cards
+      initTilt();
     }
 
     function renderCart(){
-      cartBody.innerHTML = "";
-      let total = 0;
-
+      cartBody.innerHTML="";
+      let total=0;
       if(cart.size===0){
-        cartBody.innerHTML = `<div class="note">Seu carrinho está vazio. Volte e adicione itens 😊</div>`;
-        totalTxt.textContent = "R$ 0,00";
+        cartBody.innerHTML = `<div class="note">Seu carrinho está vazio. Adicione itens 😊</div>`;
+        totalTxt.textContent="R$ 0,00";
         return;
       }
+      for(const [id,qty] of cart.entries()){
+        const it=ITEMS.find(x=>x.id===id);
+        const sub=it.price*qty; total+=sub;
 
-      for(const [id, qty] of cart.entries()){
-        const it = ITEMS.find(x=>x.id===id);
-        const sub = it.price * qty;
-        total += sub;
-
-        const row = document.createElement("div");
-        row.className = "line";
-        row.innerHTML = `
-          <div class="miniImg"><img src="${it.img}" alt="${it.name}"/></div>
+        const row=document.createElement("div");
+        row.className="line";
+        row.innerHTML=`
+          <div class="miniImg"><img src="${it.img}" alt="${it.name}"></div>
           <div>
             <h4>${it.name}</h4>
-            <p>${showPrices ? (money(it.price) + " • " + money(sub)) : "Preço sob consulta"}</p>
+            <p>${showPrices ? (money(it.price)+" • "+money(sub)) : "Preço sob consulta"}</p>
           </div>
           <div class="qty">
             <button class="qbtn">−</button>
@@ -952,46 +944,58 @@
             <button class="qbtn">+</button>
           </div>
         `;
-        const btns = row.querySelectorAll(".qbtn");
+        const btns=row.querySelectorAll(".qbtn");
         btns[0].addEventListener("click", ()=>decQty(id));
         btns[1].addEventListener("click", ()=>incQty(id));
         cartBody.appendChild(row);
       }
-
       totalTxt.textContent = showPrices ? money(total) : "Sob consulta";
     }
 
-    // toast simples
-    let toastTimer = null;
-    function toast(msg){
-      let t = document.getElementById("toast");
-      if(!t){
-        t = document.createElement("div");
-        t.id = "toast";
-        t.style.position = "fixed";
-        t.style.left = "50%";
-        t.style.bottom = "22px";
-        t.style.transform = "translateX(-50%)";
-        t.style.padding = "12px 14px";
-        t.style.borderRadius = "999px";
-        t.style.background = "rgba(0,0,0,.55)";
-        t.style.border = "1px solid rgba(255,255,255,.16)";
-        t.style.color = "rgba(255,255,255,.92)";
-        t.style.fontWeight = "850";
-        t.style.boxShadow = "0 18px 60px rgba(0,0,0,.45)";
-        t.style.zIndex = "999";
-        t.style.backdropFilter = "blur(12px)";
-        document.body.appendChild(t);
-      }
-      t.textContent = msg;
-      t.style.opacity = "1";
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(()=>{ t.style.opacity="0"; }, 1400);
+    // ===== TILT “4D” (não mexe no layout, só transforma o card) =====
+    function initTilt(){
+      const els = document.querySelectorAll("[data-tilt]");
+      els.forEach(el=>{
+        if(el.__tiltBound) return;
+        el.__tiltBound = true;
+
+        const shine = el.querySelector(".shine");
+
+        function move(clientX, clientY){
+          const r = el.getBoundingClientRect();
+          const x = (clientX - r.left) / r.width;
+          const y = (clientY - r.top)  / r.height;
+
+          const rotY = (x - 0.5) * 12;
+          const rotX = (0.5 - y) * 10;
+
+          el.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) translateZ(0)`;
+          if(shine){
+            shine.style.setProperty("--sx", (x*100).toFixed(1)+"%");
+            shine.style.setProperty("--sy", (y*100).toFixed(1)+"%");
+          }
+        }
+
+        el.addEventListener("mousemove", (e)=> move(e.clientX, e.clientY));
+        el.addEventListener("mouseleave", ()=>{
+          el.style.transform = "rotateX(0deg) rotateY(0deg)";
+        });
+
+        // toque no celular (arrasta)
+        el.addEventListener("touchmove", (e)=>{
+          const t = e.touches[0];
+          move(t.clientX, t.clientY);
+        }, {passive:true});
+        el.addEventListener("touchend", ()=>{
+          el.style.transform = "rotateX(0deg) rotateY(0deg)";
+        });
+      });
     }
 
     // iniciar
     updateCartCount();
     render();
+    initTilt();
   </script>
 </body>
 </html>
