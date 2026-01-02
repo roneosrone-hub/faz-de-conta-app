@@ -6,100 +6,639 @@
   <title>Faz de Conta Decorações</title>
 
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: radial-gradient(circle at 20% 20%, #6a00ff33, #050814);
-      color: white;
-      text-align: center;
+    :root{
+      --bg1:#050814;
+      --glass: rgba(255,255,255,.10);
+      --glass2: rgba(255,255,255,.08);
+      --stroke: rgba(255,255,255,.16);
+      --txt: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.72);
+      --brandGrad: linear-gradient(90deg,#ff4ecd,#7cff00,#00c3ff,#f59e0b);
+      --btnGrad: linear-gradient(90deg,#ff4ecd,#7cff00);
     }
 
-    header {
-      padding: 20px;
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--txt);
+      background:
+        radial-gradient(circle at 18% 22%, rgba(168,85,247,.22), transparent 45%),
+        radial-gradient(circle at 85% 35%, rgba(34,197,94,.18), transparent 45%),
+        radial-gradient(circle at 40% 90%, rgba(59,130,246,.16), transparent 50%),
+        var(--bg1);
+      min-height: 100vh;
     }
 
-    .banner {
-      width: 100%;
-      max-height: 300px;
-      object-fit: cover;
-      border-radius: 12px;
-    }
-
-    .logo {
-      width: 120px;
-      margin-top: -60px;
-      border-radius: 20px;
-      border: 4px solid #fff;
-      background: white;
-    }
-
-    h1 {
-      margin-top: 10px;
-      font-size: 26px;
-      background: linear-gradient(90deg, #ff4ecd, #7cff00, #00c3ff);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .tagline {
-      margin-bottom: 20px;
-      opacity: 0.9;
-    }
-
-    .card {
-      background: rgba(255,255,255,0.08);
-      border-radius: 16px;
+    .wrap{
+      max-width: 980px;
+      margin: 0 auto;
       padding: 16px;
-      margin: 16px;
     }
 
-    .btn {
-      display: inline-block;
-      background: linear-gradient(90deg, #ff4ecd, #7cff00);
-      color: black;
-      padding: 14px 20px;
-      border-radius: 30px;
-      text-decoration: none;
-      font-weight: bold;
+    .hero{
+      border-radius: 26px;
+      overflow: hidden;
+      border: 1px solid var(--stroke);
+      background: rgba(10,15,30,.55);
+      box-shadow: 0 18px 60px rgba(0,0,0,.35);
       margin-top: 10px;
     }
 
-    footer {
+    .banner{
+      width:100%;
+      height: 260px;
+      background: url("fazdeconta.jpg") center/cover no-repeat;
+      position: relative;
+    }
+
+    .heroBody{
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .brandRow{
+      display:flex;
+      gap: 14px;
+      align-items:center;
+    }
+
+    .logo{
+      width:72px; height:72px;
+      border-radius: 18px;
+      object-fit: cover;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+    }
+
+    .brandTitle{
+      font-size: 28px;
+      font-weight: 1000;
+      line-height: 1.05;
+      background: var(--brandGrad);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin: 0;
+    }
+
+    .sub{
+      color: var(--muted);
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .pillRow{display:flex; flex-wrap:wrap; gap:10px}
+    .pill{
       font-size: 12px;
-      opacity: 0.7;
-      margin: 20px 0;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      color: var(--muted);
+    }
+
+    .toolbar{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      padding: 14px 0 6px;
+    }
+
+    .leftTools{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+    .rightTools{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+
+    .btn{
+      border: none;
+      cursor:pointer;
+      padding: 12px 14px;
+      border-radius: 999px;
+      font-weight: 800;
+      background: var(--btnGrad);
+      color: #111;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .btnGhost{
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      color: var(--txt);
+    }
+
+    .card{
+      border-radius: 22px;
+      border: 1px solid var(--stroke);
+      background: var(--glass2);
+      box-shadow: 0 14px 40px rgba(0,0,0,.25);
+      padding: 16px;
+      margin: 14px 0;
+    }
+
+    .sectionTitle{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      margin: 0 0 10px;
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    /* Menu de categorias */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    @media(min-width:720px){
+      .grid{grid-template-columns: repeat(4, minmax(0, 1fr));}
+    }
+
+    .cat{
+      border-radius: 18px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      padding: 14px;
+      cursor:pointer;
+      transition: transform .12s ease;
+      min-height: 88px;
+      display:flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+    }
+    .cat:active{transform: scale(.98)}
+    .cat .emoji{font-size: 22px}
+    .cat .name{font-weight: 900}
+    .cat .hint{font-size: 12px; color: var(--muted)}
+
+    /* Lista de itens */
+    .items{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    @media(min-width:720px){
+      .items{grid-template-columns: 1fr 1fr;}
+    }
+
+    .item{
+      border-radius: 18px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      overflow:hidden;
+      display:flex;
+      flex-direction: column;
+    }
+    .thumb{
+      height: 170px;
+      background: rgba(255,255,255,.05);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position: relative;
+    }
+    .thumb img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+    }
+    .itemBody{padding: 12px; display:grid; gap: 8px}
+    .itemName{font-weight: 950; font-size: 16px; margin:0}
+    .itemDesc{margin:0; color: var(--muted); font-size: 13px; line-height:1.35}
+    .row{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content: space-between;
+    }
+    .price{
+      font-weight: 1000;
+      background: var(--brandGrad);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-size: 16px;
+    }
+    .small{font-size: 12px; color: var(--muted)}
+
+    /* Modal (galeria) */
+    .modalBack{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.65);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 16px;
+      z-index: 999;
+    }
+    .modal{
+      width: min(960px, 100%);
+      border-radius: 20px;
+      border: 1px solid var(--stroke);
+      background: rgba(10,15,30,.92);
+      overflow:hidden;
+    }
+    .modalTop{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.10);
+    }
+    .modalTitle{font-weight: 1000}
+    .close{
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      color: var(--txt);
+      padding: 10px 12px;
+      border-radius: 12px;
+      cursor:pointer;
+    }
+    .modalGrid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      padding: 14px;
+    }
+    @media(min-width:720px){
+      .modalGrid{grid-template-columns: 1fr 1fr;}
+    }
+    .modalGrid img{
+      width:100%;
+      height: 240px;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+    }
+
+    footer{
+      text-align:center;
+      color: var(--muted);
+      font-size: 12px;
+      padding: 18px 0 8px;
     }
   </style>
 </head>
 
 <body>
+  <div class="wrap">
+    <div class="hero">
+      <div class="banner"></div>
 
-  <!-- Banner -->
-  <header>
-    <img src="fazdeconta.jpg" class="banner" alt="Faz de Conta">
-    <img src="fazdeconta.jpg" class="logo">
-    <h1>Onde a imaginação vira festa</h1>
-    <p class="tagline">Decorações encantadoras para momentos especiais</p>
-  </header>
+      <div class="heroBody">
+        <div class="brandRow">
+          <img class="logo" src="fazdeconta.jpg" alt="Faz de Conta" />
+          <div>
+            <h1 class="brandTitle">Onde a imaginação vira festa</h1>
+            <p class="sub">Decorações encantadoras • Catálogo com fotos • Orçamento no WhatsApp</p>
+          </div>
+        </div>
 
-  <!-- Conteúdo -->
-  <div class="card">
-    <h2>🎈 Nossos Serviços</h2>
-    <p>• Locação de decorações</p>
-    <p>• Montagem inclusa ou separada</p>
-    <p>• Temas personalizados</p>
+        <div class="pillRow">
+          <span class="pill">Locação (24h)</span>
+          <span class="pill">Montagem inclusa ou separada</span>
+          <span class="pill">Preço visível ou sob consulta</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <div class="leftTools">
+        <button class="btn btnGhost" onclick="goHome()">🏠 Início</button>
+        <button class="btn btnGhost" onclick="openBudget()">📲 Pedir orçamento</button>
+      </div>
+
+      <div class="rightTools">
+        <button class="btn btnGhost" id="priceBtn" onclick="togglePrices()">🔒 Mostrar preços</button>
+      </div>
+    </div>
+
+    <!-- MENU -->
+    <div class="card" id="homeCard">
+      <div class="sectionTitle">✨ Menu de opções</div>
+      <div class="grid" id="catGrid"></div>
+      <div class="small" style="margin-top:10px">
+        Dica: toque em uma opção para ver fotos e detalhes. Para ocultar valores, mantenha os preços bloqueados.
+      </div>
+    </div>
+
+    <!-- ITENS DA CATEGORIA -->
+    <div class="card" id="catCard" style="display:none;">
+      <div class="row" style="margin-bottom:8px;">
+        <div class="sectionTitle" id="catTitle">Categoria</div>
+        <button class="btn btnGhost" onclick="goHome()">⬅ Voltar</button>
+      </div>
+
+      <div class="items" id="itemsGrid"></div>
+    </div>
+
+    <footer>© Faz de Conta Decorações • Todos os direitos reservados</footer>
   </div>
 
-  <div class="card">
-    <h2>📲 Faça seu orçamento</h2>
-    <a class="btn" href="https://wa.me/5566996223481" target="_blank">
-      Falar no WhatsApp
-    </a>
+  <!-- MODAL GALERIA -->
+  <div class="modalBack" id="modalBack" onclick="closeModal(event)">
+    <div class="modal" onclick="event.stopPropagation()">
+      <div class="modalTop">
+        <div class="modalTitle" id="modalTitle">Fotos</div>
+        <button class="close" onclick="closeModal()">Fechar ✕</button>
+      </div>
+      <div class="modalGrid" id="modalGrid"></div>
+    </div>
   </div>
 
-  <footer>
-    © Faz de Conta Decorações • Todos os direitos reservados
-  </footer>
+  <script>
+    // ======= CONFIGURAÇÕES =======
+    const WHATSAPP_NUMBER = "5566996223481"; // seu número com DDI+DDD
+    const ADMIN_PIN = "3323"; // senha para mostrar preços
 
+    // Catálogo (você só troca fotos/nomes/preços aqui)
+    const CATEGORIES = [
+      {
+        id: "cubo",
+        name: "Cubo",
+        emoji: "🧊",
+        hint: "Estruturas e suportes",
+        items: [
+          {
+            name: "Cubo decorativo",
+            desc: "Ideal para compor cenário e painéis.",
+            price: 0, // coloque o valor (ex: 50) ou 0 se ainda não definiu
+            photos: ["img/cubo/cubo-01.jpg"]
+          }
+        ]
+      },
+      {
+        id: "arco-baloes",
+        name: "Arco de balões",
+        emoji: "🎈",
+        hint: "Arcos orgânicos e temáticos",
+        items: [
+          {
+            name: "Arco orgânico",
+            desc: "Montagem conforme tema e cores.",
+            price: 0,
+            photos: ["img/arco-baloes/arco-01.jpg","img/arco-baloes/arco-02.jpg"]
+          }
+        ]
+      },
+      {
+        id: "tapetes",
+        name: "Tapetes",
+        emoji: "🧺",
+        hint: "Base para fotos e cenário",
+        items: [
+          {
+            name: "Tapete para cenário",
+            desc: "Opções de tamanhos e cores.",
+            price: 0,
+            photos: ["img/tapetes/tapete-01.jpg"]
+          }
+        ]
+      },
+      {
+        id: "arandelas",
+        name: "Arandelas",
+        emoji: "💡",
+        hint: "Iluminação e destaque",
+        items: [
+          {
+            name: "Arandela decorativa",
+            desc: "Perfeita para dar charme ao painel.",
+            price: 0,
+            photos: ["img/arandelas/arandela-01.jpg"]
+          }
+        ]
+      },
+      {
+        id: "baloes",
+        name: "Balões",
+        emoji: "🎉",
+        hint: "Cores, temas e combos",
+        items: [
+          {
+            name: "Combo de balões",
+            desc: "Personalizado conforme tema.",
+            price: 0,
+            photos: ["img/baloes/baloes-01.jpg"]
+          }
+        ]
+      },
+      {
+        id: "ursos",
+        name: "Ursos",
+        emoji: "🧸",
+        hint: "Ursinhos e pelúcias decorativas",
+        items: [
+          {
+            name: "Urso de pelúcia (G)",
+            desc: "Excelente para aniversário infantil e chá de bebê.",
+            price: 0,
+            photos: ["img/ursos/urso-01.jpg","img/ursos/urso-02.jpg"]
+          }
+        ]
+      },
+      {
+        id: "arco-quadrado",
+        name: "Arco quadrado",
+        emoji: "🟦",
+        hint: "Estrutura quadrada para cenário",
+        items: [
+          {
+            name: "Arco quadrado (estrutura)",
+            desc: "Para painéis e decorações temáticas.",
+            price: 0,
+            photos: ["img/arco-quadrado/aq-01.jpg"]
+          }
+        ]
+      },
+      {
+        id: "cortina",
+        name: "Cortina",
+        emoji: "🎀",
+        hint: "Fundo e acabamento",
+        items: [
+          {
+            name: "Cortina decorativa",
+            desc: "Dá acabamento e brilho ao cenário.",
+            price: 0,
+            photos: ["img/cortina/cortina-01.jpg"]
+          }
+        ]
+      }
+    ];
+
+    // ======= ESTADO =======
+    let pricesUnlocked = localStorage.getItem("fd_prices_unlocked") === "1";
+
+    // ======= UI =======
+    const catGrid = document.getElementById("catGrid");
+    const homeCard = document.getElementById("homeCard");
+    const catCard = document.getElementById("catCard");
+    const catTitle = document.getElementById("catTitle");
+    const itemsGrid = document.getElementById("itemsGrid");
+    const priceBtn = document.getElementById("priceBtn");
+
+    const modalBack = document.getElementById("modalBack");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalGrid = document.getElementById("modalGrid");
+
+    function moneyBR(v){
+      return v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+    }
+
+    function renderCats(){
+      catGrid.innerHTML = "";
+      CATEGORIES.forEach(c => {
+        const el = document.createElement("div");
+        el.className = "cat";
+        el.onclick = () => openCategory(c.id);
+        el.innerHTML = `
+          <div class="emoji">${c.emoji}</div>
+          <div class="name">${c.name}</div>
+          <div class="hint">${c.hint}</div>
+        `;
+        catGrid.appendChild(el);
+      });
+      refreshPriceButton();
+    }
+
+    function refreshPriceButton(){
+      if(pricesUnlocked){
+        priceBtn.textContent = "🔓 Ocultar preços";
+      } else {
+        priceBtn.textContent = "🔒 Mostrar preços";
+      }
+    }
+
+    function goHome(){
+      catCard.style.display = "none";
+      homeCard.style.display = "block";
+      window.scrollTo({top:0, behavior:"smooth"});
+    }
+
+    function openCategory(catId){
+      const cat = CATEGORIES.find(c => c.id === catId);
+      if(!cat) return;
+
+      homeCard.style.display = "none";
+      catCard.style.display = "block";
+      catTitle.textContent = `${cat.emoji} ${cat.name}`;
+
+      itemsGrid.innerHTML = "";
+      cat.items.forEach((it, idx) => {
+        const cover = (it.photos && it.photos[0]) ? it.photos[0] : "";
+        const priceText = (pricesUnlocked && it.price > 0) ? moneyBR(it.price) : (pricesUnlocked ? "Sob consulta" : "Sob consulta");
+
+        const card = document.createElement("div");
+        card.className = "item";
+        card.innerHTML = `
+          <div class="thumb">
+            ${cover ? `<img src="${cover}" alt="${it.name}">` : `<div class="small">Sem foto ainda</div>`}
+          </div>
+          <div class="itemBody">
+            <p class="itemName">${it.name}</p>
+            <p class="itemDesc">${it.desc || ""}</p>
+
+            <div class="row">
+              <div>
+                <div class="price">${pricesUnlocked ? priceText : "Preço sob consulta"}</div>
+                <div class="small">Toque em “Ver fotos” para abrir a galeria.</div>
+              </div>
+            </div>
+
+            <div class="row">
+              <button class="btn btnGhost" onclick="openPhotos('${cat.id}', ${idx})">🖼 Ver fotos</button>
+              <button class="btn" onclick="sendWhats('${cat.name}','${it.name}', ${it.price})">📲 Pedir orçamento</button>
+            </div>
+          </div>
+        `;
+        itemsGrid.appendChild(card);
+      });
+
+      window.scrollTo({top:0, behavior:"smooth"});
+    }
+
+    function openPhotos(catId, itemIndex){
+      const cat = CATEGORIES.find(c => c.id === catId);
+      const it = cat?.items?.[itemIndex];
+      if(!it) return;
+
+      modalTitle.textContent = `Fotos • ${it.name}`;
+      modalGrid.innerHTML = "";
+
+      const photos = it.photos || [];
+      if(photos.length === 0){
+        modalGrid.innerHTML = `<div class="small">Ainda não há fotos nessa opção. Suba imagens na pasta do GitHub e coloque os nomes aqui no código.</div>`;
+      } else {
+        photos.forEach(p => {
+          const img = document.createElement("img");
+          img.src = p;
+          img.alt = it.name;
+          modalGrid.appendChild(img);
+        });
+      }
+      modalBack.style.display = "flex";
+    }
+
+    function closeModal(e){
+      modalBack.style.display = "none";
+    }
+
+    function togglePrices(){
+      if(pricesUnlocked){
+        pricesUnlocked = false;
+        localStorage.setItem("fd_prices_unlocked","0");
+        refreshPriceButton();
+        // se estiver em uma categoria aberta, re-renderiza
+        if(catCard.style.display === "block"){
+          const title = catTitle.textContent;
+          const found = CATEGORIES.find(c => title.includes(c.name));
+          if(found) openCategory(found.id);
+        }
+        return;
+      }
+
+      const pin = prompt("Digite a senha para mostrar os preços:");
+      if(pin === ADMIN_PIN){
+        pricesUnlocked = true;
+        localStorage.setItem("fd_prices_unlocked","1");
+        refreshPriceButton();
+        if(catCard.style.display === "block"){
+          const title = catTitle.textContent;
+          const found = CATEGORIES.find(c => title.includes(c.name));
+          if(found) openCategory(found.id);
+        }
+      } else {
+        alert("Senha incorreta.");
+      }
+    }
+
+    function sendWhats(catName, itemName, price){
+      const base = `Olá! Quero um orçamento 😊\n\nCategoria: ${catName}\nOpção: ${itemName}\n`;
+      const p = (pricesUnlocked && price > 0) ? `Valor: ${moneyBR(price)}\n` : "";
+      const end = `\nData do evento:\nLocal:\nTema:\nObservações:\n`;
+      const msg = encodeURIComponent(base + p + end);
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, "_blank");
+    }
+
+    function openBudget(){
+      const msg = encodeURIComponent("Olá! Quero um orçamento 😊\n\nData do evento:\nLocal:\nTema:\nO que você precisa (ex: arco, urso, tapete...):\n");
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, "_blank");
+    }
+
+    // init
+    renderCats();
+    goHome();
+  </script>
 </body>
 </html>
