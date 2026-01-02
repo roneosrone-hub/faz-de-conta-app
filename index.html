@@ -488,21 +488,6 @@
       border: 1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.04);
     }
-    /* ===== BANNER PRINCIPAL ===== */
-.banner-topo {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin: 20px 0 30px;
-}
-
-.banner-topo img {
-  width: 100%;
-  max-width: 900px;
-  height: auto;
-  border-radius: 28px;
-  box-shadow: 0 15px 45px rgba(0,0,0,0.45);
-}
   </style>
 </head>
 
@@ -512,7 +497,7 @@
     <!-- ✅ BANNER (A SUA IMAGEM) -->
     <!-- Se quiser, pode trocar o nome do arquivo aqui: -->
     <div class="banner-topo">
-      <img src="banner.jpg" alt="Faz de Conta Decorações"
+      <img src="20260102_130931.jpg" alt="Faz de Conta Decorações"
            onerror="this.style.display='none'">
     </div>
 
@@ -685,4 +670,368 @@
   const elSw = document.getElementById("swPrices");
   const elPriceTag = document.getElementById("priceTag");
   const elCartCount = document.getElementById("cartCount");
-  const elBtnCa
+  const elBtnCart = document.getElementById("btnCart");
+  const elBtnPix = document.getElementById("btnPix");
+  const elBtnWhats = document.getElementById("btnWhats");
+
+  const ov = document.getElementById("ov");
+  const mTitle = document.getElementById("mTitle");
+  const mBody = document.getElementById("mBody");
+  const x = document.getElementById("x");
+
+  // ====== HELPERS ======
+  const money = (v)=> "R$ " + (v||0).toFixed(2).replace(".", ",");
+  function updateWhatsLink(message){
+    const text = encodeURIComponent(message || "Olá! Quero fazer um orçamento com a Faz de Conta Decorações 😊");
+    elBtnWhats.href = `https://wa.me/${WHATS_NUMBER}?text=${text}`;
+  }
+  updateWhatsLink();
+
+  function renderCats(){
+    elCats.innerHTML = "";
+    data.forEach(c=>{
+      const div = document.createElement("div");
+      div.className="cat";
+      div.innerHTML = `
+        <div class="ico">${c.icon}</div>
+        <div>
+          <div class="nm">${c.name}</div>
+          <div class="ds">${c.desc}</div>
+        </div>
+      `;
+      div.onclick = ()=> openCategory(c.id);
+      elCats.appendChild(div);
+    });
+  }
+
+  function fillSelect(){
+    data.forEach(c=>{
+      const op = document.createElement("option");
+      op.value = c.id;
+      op.textContent = c.name;
+      elSel.appendChild(op);
+    });
+  }
+
+  function openCategory(catId){
+    currentCat = catId;
+    const cat = data.find(x=>x.id===catId);
+    elProducts.style.display = "";
+    elCatTitle.textContent = cat ? cat.name : "Categoria";
+    renderItems();
+    window.scrollTo({top: 0, behavior: "smooth"});
+  }
+
+  function closeCategory(){
+    currentCat = null;
+    elProducts.style.display = "none";
+    elList.innerHTML = "";
+  }
+
+  function getVisibleItems(){
+    const q = (elQ.value || "").trim().toLowerCase();
+    const sel = elSel.value;
+
+    let cats = data;
+    if(currentCat){
+      cats = data.filter(c=>c.id===currentCat);
+    }else if(sel !== "all"){
+      cats = data.filter(c=>c.id===sel);
+    }
+
+    let items = [];
+    cats.forEach(c=>{
+      c.items.forEach(it=> items.push({...it, cat: c.name, catId: c.id}));
+    });
+
+    if(q){
+      items = items.filter(it =>
+        it.name.toLowerCase().includes(q) ||
+        (it.desc||"").toLowerCase().includes(q) ||
+        (it.cat||"").toLowerCase().includes(q)
+      );
+    }
+    return items;
+  }
+
+  function renderItems(){
+    const items = getVisibleItems();
+    elList.innerHTML = "";
+
+    items.forEach(it=>{
+      const qty = cart.get(it.id) || 0;
+      const div = document.createElement("div");
+      div.className="item";
+      div.innerHTML = `
+        <div class="thumb" title="Ver foto">
+          <img src="${it.img || DEFAULT_IMG}" alt="${it.name}"
+               onerror="this.src='${DEFAULT_IMG}'">
+        </div>
+        <div class="meta">
+          <div class="h">
+            <p class="name">${it.name}</p>
+            <span class="price">${showPrices ? money(it.price) : "sob consulta"}</span>
+          </div>
+          <p class="sub">${it.desc || ""}</p>
+          <div class="row">
+            <div class="qty">
+              <div class="qbtn" data-act="dec">−</div>
+              <div class="qnum">${qty}</div>
+              <div class="qbtn" data-act="inc">+</div>
+            </div>
+            <button class="add">Adicionar</button>
+          </div>
+        </div>
+      `;
+
+      const thumb = div.querySelector(".thumb");
+      thumb.onclick = ()=> openImage(it.name, it.img || DEFAULT_IMG);
+
+      const qbtns = div.querySelectorAll(".qbtn");
+      qbtns.forEach(b=>{
+        b.onclick = ()=>{
+          if(b.dataset.act==="inc") add(it.id, 1);
+          else add(it.id, -1);
+          renderItems();
+        };
+      });
+
+      div.querySelector(".add").onclick = ()=>{
+        add(it.id, 1);
+        renderItems();
+        toast(`✅ ${it.name} adicionado ao carrinho`);
+      };
+
+      elList.appendChild(div);
+    });
+  }
+
+  function add(id, delta){
+    const cur = cart.get(id) || 0;
+    const next = Math.max(0, cur + delta);
+    if(next===0) cart.delete(id);
+    else cart.set(id, next);
+    updateCartCount();
+  }
+
+  function updateCartCount(){
+    let total = 0;
+    cart.forEach(v=> total += v);
+    elCartCount.textContent = total;
+  }
+
+  function openModal(title, html){
+    mTitle.textContent = title || "Detalhes";
+    mBody.innerHTML = html;
+    ov.classList.add("on");
+  }
+  function closeModal(){ ov.classList.remove("on"); }
+
+  function openImage(title, src){
+    openModal(title, `
+      <div class="big">
+        <img src="${src}" alt="${title}" onerror="this.src='${DEFAULT_IMG}'">
+      </div>
+      <div style="margin-top:10px" class="note">
+        Se quiser trocar a foto deste item, envie uma imagem para o GitHub e depois altere o nome no item.
+      </div>
+    `);
+  }
+
+  function cartSummary(){
+    // mapa id -> item
+    const all = [];
+    data.forEach(c=> c.items.forEach(it=> all.push(it)));
+    const byId = new Map(all.map(it=> [it.id, it]));
+
+    let lines = [];
+    let total = 0;
+
+    cart.forEach((qty, id)=>{
+      const it = byId.get(id);
+      if(!it) return;
+      const sub = (it.price || 0) * qty;
+      total += sub;
+      lines.push({name: it.name, qty, price: it.price || 0, sub});
+    });
+
+    return {lines, total};
+  }
+
+  function openCart(){
+    const {lines, total} = cartSummary();
+
+    if(lines.length===0){
+      openModal("Seu carrinho", `<div class="note">Seu carrinho está vazio. Adicione itens para finalizar.</div>`);
+      return;
+    }
+
+    const htmlLines = lines.map(l=>`
+      <div class="cartItem">
+        <div>
+          <div class="n">${l.name}</div>
+          <div class="m">Qtd: <b>${l.qty}</b> • ${showPrices ? money(l.price) : "Preço sob consulta"}</div>
+        </div>
+        <div class="right">
+          <div class="m">${showPrices ? "Subtotal" : "Subtotal"}</div>
+          <div class="n">${showPrices ? money(l.sub) : "—"}</div>
+        </div>
+      </div>
+    `).join("");
+
+    const totalHtml = `
+      <div class="tot">
+        <div>
+          <div class="note">Total</div>
+          <b>${showPrices ? money(total) : "Sob consulta"}</b>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap">
+          <div class="btn btnSmall" onclick="(${clearCart.toString()})();">🧹 Limpar carrinho</div>
+          <div class="btn btnSmall btnPrimary" onclick="(${openPix.toString()})();">✅ Finalizar (Pix)</div>
+        </div>
+      </div>
+      <div class="note" style="margin-top:10px">
+        *Se você deixar os preços desligados, o Pix fica como <b>reserva/orçamento</b> e você confirma o valor pelo WhatsApp.
+      </div>
+    `;
+
+    openModal("Seu carrinho", `<div class="cartList">${htmlLines}</div>${totalHtml}`);
+  }
+
+  function clearCart(){
+    cart.clear();
+    updateCartCount();
+    renderItems();
+    closeModal();
+    toast("Carrinho limpo");
+  }
+
+  function buildWhatsMessage(){
+    const {lines, total} = cartSummary();
+    let msg = "Olá! Quero alugar estes itens:\n\n";
+    lines.forEach(l=>{
+      msg += `• ${l.name} (Qtd: ${l.qty})\n`;
+    });
+    msg += "\n";
+    if(showPrices){
+      msg += `Total estimado: ${money(total)}\n`;
+      msg += "Pagamento via Pix.\n";
+    }else{
+      msg += "Pode me passar o valor total e disponibilidade?\n";
+    }
+    msg += "\nMeu nome: ";
+    return msg;
+  }
+
+  function openPix(){
+    const {lines, total} = cartSummary();
+    if(lines.length===0){
+      openModal("Finalizar (Pix)", `<div class="note">Seu carrinho está vazio. Adicione itens antes de finalizar.</div>`);
+      return;
+    }
+
+    const msg = buildWhatsMessage();
+    updateWhatsLink(msg);
+
+    const amount = showPrices ? total : 0;
+
+    openModal("Finalizar (Pix)", `
+      <div class="note">
+        <b>Como funciona:</b><br>
+        1) Você envia o pedido pelo WhatsApp.<br>
+        2) Eu confirmo disponibilidade e valor final.<br>
+        ${showPrices ? "3) Você paga via Pix e confirma.\n" : "3) Pix serve para reserva após confirmação do valor.\n"}
+      </div>
+
+      <div style="height:10px"></div>
+
+      <div class="card" style="margin-top:0">
+        <div class="cardPad">
+          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between">
+            <div>
+              <div class="note">Chave Pix</div>
+              <b style="font-size:15px">${PIX_CHAVE}</b>
+              <div class="note" style="margin-top:6px">${PIX_NOME} • ${PIX_CIDADE}</div>
+            </div>
+            <div class="btn btnPrimary" onclick="navigator.clipboard.writeText('${PIX_CHAVE}'); toast('✅ Chave Pix copiada');">📋 Copiar Pix</div>
+          </div>
+
+          <div style="margin-top:12px" class="note">
+            ${showPrices ? `<b>Total estimado:</b> ${money(total)}` : `<b>Total:</b> será confirmado no WhatsApp`}
+          </div>
+
+          <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap">
+            <a class="btn btnPrimary" href="https://wa.me/${WHATS_NUMBER}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">💬 Enviar pedido no WhatsApp</a>
+            <div class="btn" onclick="(${openCart.toString()})();">🛒 Ver carrinho</div>
+          </div>
+        </div>
+      </div>
+    `);
+  }
+
+  // Toast simples
+  let tmr=null;
+  function toast(text){
+    clearTimeout(tmr);
+    let el = document.getElementById("toast");
+    if(!el){
+      el = document.createElement("div");
+      el.id="toast";
+      el.style.position="fixed";
+      el.style.left="50%";
+      el.style.bottom="18px";
+      el.style.transform="translateX(-50%)";
+      el.style.padding="10px 12px";
+      el.style.borderRadius="999px";
+      el.style.border="1px solid rgba(255,255,255,.14)";
+      el.style.background="rgba(10,12,20,.92)";
+      el.style.backdropFilter="blur(12px)";
+      el.style.color="rgba(255,255,255,.92)";
+      el.style.fontWeight="800";
+      el.style.fontSize="13px";
+      el.style.zIndex="9999";
+      document.body.appendChild(el);
+    }
+    el.textContent = text;
+    el.style.opacity="1";
+    tmr=setTimeout(()=>{ el.style.opacity="0"; }, 1800);
+  }
+
+  // ====== EVENTOS ======
+  elSw.onclick = ()=>{
+    showPrices = !showPrices;
+    elSw.classList.toggle("on", showPrices);
+    elPriceTag.textContent = "Preço: " + (showPrices ? "visível" : "sob consulta");
+    renderItems();
+  };
+
+  elBack.onclick = closeCategory;
+
+  elQ.oninput = ()=> renderItems();
+  elSel.onchange = ()=> { if(!currentCat) renderItems(); };
+
+  elClear.onclick = ()=>{
+    elQ.value="";
+    elSel.value="all";
+    if(currentCat) closeCategory();
+    renderItems();
+  };
+
+  elBtnCart.onclick = openCart;
+  elBtnPix.onclick = openPix;
+
+  ov.onclick = (e)=>{
+    if(e.target===ov) closeModal();
+  };
+  x.onclick = closeModal;
+
+  // init
+  fillSelect();
+  renderCats();
+  renderItems();
+  updateCartCount();
+  updateWhatsLink();
+
+</script>
+</body>
+</html>
