@@ -1,1107 +1,673 @@
 <!doctype html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Faz de Conta Decorações</title>
+  <meta name="theme-color" content="#0b1430" />
   <style>
     :root{
       --bg0:#070b14;
       --bg1:#0b1430;
       --glass: rgba(255,255,255,.10);
-      --glass2: rgba(255,255,255,.07);
+      --glass2: rgba(255,255,255,.06);
       --stroke: rgba(255,255,255,.14);
       --txt: rgba(255,255,255,.92);
       --muted: rgba(255,255,255,.68);
       --muted2: rgba(255,255,255,.55);
       --shadow: 0 18px 60px rgba(0,0,0,.45);
       --r: 22px;
-      --grad: linear-gradient(135deg,#ff5bd6,#7d7bff,#36ffb5,#ffd55b);
-      --grad2: linear-gradient(135deg,#ff5bd6,#7d7bff);
-      --ok: rgba(67, 230, 165, .18);
-      --warn: rgba(255, 213, 91, .18);
+      --grad: linear-gradient(135deg, rgba(255,105,180,.95), rgba(122,232,255,.9), rgba(165,255,135,.9));
+      --btn: linear-gradient(90deg, rgba(255,105,180,.95), rgba(165,255,135,.95));
+      --ok: rgba(67,230,165,.18);
+      --warn: rgba(255,213,91,.18);
+      --bad: rgba(255,110,110,.18);
     }
-
-    *{box-sizing:border-box}
-    html,body{height:100%}
+    *{ box-sizing:border-box }
+    html,body{ height:100% }
     body{
       margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:var(--txt);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       background:
-        radial-gradient(1200px 700px at 18% 10%, rgba(170,120,255,.34), transparent 60%),
-        radial-gradient(900px 600px at 70% 20%, rgba(80,255,210,.22), transparent 55%),
-        radial-gradient(900px 700px at 40% 75%, rgba(255,100,210,.18), transparent 60%),
+        radial-gradient(1200px 700px at 10% 0%, rgba(255,105,180,.16), transparent 60%),
+        radial-gradient(900px 600px at 80% 10%, rgba(122,232,255,.14), transparent 55%),
+        radial-gradient(900px 700px at 40% 90%, rgba(165,255,135,.12), transparent 55%),
         linear-gradient(180deg, var(--bg1), var(--bg0));
       min-height:100%;
+      padding: 14px 12px 40px;
+    }
+    a{ color:inherit; text-decoration:none }
+    .wrap{ max-width: 980px; margin: 0 auto; }
+
+    /* Banner */
+    .banner-topo{
+      display:flex;
+      justify-content:center;
+      padding: 10px 0 14px;
+    }
+    .banner-topo img{
+      width:100%;
+      max-width:520px;
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.04);
+      display:block;
     }
 
-    .wrap{max-width:1020px;margin:0 auto;padding:18px 14px 80px}
-
-    /* Top */
+    /* Top bar */
     .top{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:12px 12px;
-      border:1px solid var(--stroke);
-      background:linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.05));
-      border-radius:var(--r);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
       position: sticky;
       top: 10px;
-      z-index: 10;
-    }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      min-width:0;
-    }
-    .brand img{
-      width:78px;
-      height:78px;
-      border-radius:18px;
-      object-fit:cover;
-      border:1px solid rgba(255,255,255,.18);
-      background:rgba(255,255,255,.08);
-      box-shadow: 0 10px 30px rgba(0,0,0,.35);
-      flex:0 0 auto;
-    }
-    .brand .t{
-      min-width:0;
-      display:flex;
-      flex-direction:column;
-      gap:4px;
-      line-height:1.05;
-    }
-    .brand .t .name{
-      font-weight:800;
-      font-size:15px;
-      letter-spacing:.2px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      display:flex;
-      align-items:center;
-      gap:8px;
-    }
-    .pill{
-      font-size:12px;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.07);
-      color:rgba(255,255,255,.78);
-      display:inline-flex;
-      gap:8px;
-      align-items:center;
-      width:max-content;
-    }
-    .brand .t .slogan{
-      font-weight:800;
-      font-size:16px;
-      background: var(--grad);
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-      line-height:1.1;
-    }
-    .brand .t .sub{
-      font-size:12.5px;
-      color:var(--muted);
-      line-height:1.2;
-    }
-
-    .actions{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-
-    .btn{
-      border:1px solid rgba(255,255,255,.16);
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--stroke);
       background: rgba(255,255,255,.07);
-      color:var(--txt);
-      border-radius:999px;
-      padding:10px 14px;
-      font-weight:700;
-      letter-spacing:.2px;
-      cursor:pointer;
-      transition: transform .08s ease, background .15s ease, border-color .15s ease;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      user-select:none;
-      text-decoration:none;
+      border-radius: 26px;
+      padding: 14px 14px;
+      box-shadow: 0 12px 35px rgba(0,0,0,.35);
     }
-    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.22);}
-    .btn.primary{
-      border-color: transparent;
-      background: var(--grad2);
-      color:#0a0c12;
-      box-shadow: 0 10px 30px rgba(125,123,255,.20);
-    }
-    .btn.primary:hover{filter:saturate(1.05);}
-
-    .btn.small{padding:9px 12px;font-size:13px}
-    .btn.ghost{background:transparent}
-
-    .badge{
-      background: rgba(255,255,255,.10);
-      border:1px solid rgba(255,255,255,.18);
-      padding:4px 9px;
-      border-radius:999px;
-      font-size:12px;
-      color:rgba(255,255,255,.80);
-    }
-
-    /* Hero */
-    .hero{
-      margin-top:14px;
-      padding:18px;
-      border-radius: var(--r);
-      border:1px solid var(--stroke);
-      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-    }
-    .heroRow{
+    .topRow{
       display:flex;
-      gap:14px;
+      gap: 12px;
       align-items:flex-start;
       justify-content:space-between;
       flex-wrap:wrap;
     }
-    .heroLeft{
-      min-width:220px;
-      flex: 1 1 380px;
+    .brand{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      min-width: 240px;
     }
-    .heroLeft h1{
-      margin:0 0 6px;
+    .logo{
+      width: 44px; height:44px;
+      border-radius: 14px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      display:flex; align-items:center; justify-content:center;
       font-size:22px;
-      letter-spacing:.2px;
-    }
-    .heroLeft p{
-      margin:0;
-      color:var(--muted);
-      line-height:1.35;
-    }
-    .heroRight{
       flex: 0 0 auto;
+      overflow:hidden;
+    }
+    .logo img{ width:100%; height:100%; object-fit:cover; display:block }
+    .t .name{ font-weight:800; letter-spacing:.2px; font-size: 16px; line-height:1.1 }
+    .t .slogan{
+      font-weight:900;
+      font-size: 14px;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      line-height: 1.1;
+      margin-top: 2px;
+    }
+    .t .sub{ font-size: 12.5px; color: var(--muted); margin-top: 3px }
+    .pill{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      margin-top: 8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.05);
+      color: var(--muted);
+      font-size: 12.5px;
+      flex-wrap:wrap;
+    }
+
+    .actions{
       display:flex;
       gap:10px;
       align-items:center;
       flex-wrap:wrap;
       justify-content:flex-end;
+    }
+    .btn{
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      color: var(--txt);
+      padding: 10px 12px;
+      border-radius: 999px;
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      font-weight:700;
+      cursor:pointer;
+      user-select:none;
+    }
+    .btnPrimary{
+      background: var(--btn);
+      border: none;
+      color: #081014;
+    }
+    .btnSmall{ padding: 8px 10px; font-size: 13px }
+    .badge{
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,.15);
+      background: rgba(255,255,255,.55);
+      color:#0b1430;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    /* Section */
+    .card{
+      margin-top: 14px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      border-radius: var(--r);
+      box-shadow: 0 16px 40px rgba(0,0,0,.25);
+      overflow:hidden;
+    }
+    .cardPad{ padding: 14px; }
+    .title{
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: .2px;
+      margin:0 0 6px;
+    }
+    .desc{
+      margin:0;
+      color: var(--muted);
+      line-height:1.35;
+    }
+
+    /* controls */
+    .controls{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 12px;
+      align-items:center;
+    }
+    .input, select{
+      width: 100%;
+      max-width: 340px;
+      padding: 12px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: rgba(0,0,0,.20);
+      color: var(--txt);
+      outline:none;
+    }
+    .row2{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      margin-top: 10px;
     }
     .toggle{
       display:flex;
       align-items:center;
       gap:10px;
-      padding:10px 14px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.16);
-      background: rgba(255,255,255,.06);
-      color:rgba(255,255,255,.85);
-      user-select:none;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.05);
     }
     .switch{
-      width:44px;height:26px;border-radius:999px;
-      background: rgba(255,255,255,.16);
-      border:1px solid rgba(255,255,255,.14);
-      position:relative;
+      width: 44px; height: 26px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.22);
+      position: relative;
       cursor:pointer;
-      flex:0 0 auto;
+      flex: 0 0 auto;
     }
     .knob{
-      width:22px;height:22px;border-radius:999px;
-      background: rgba(255,255,255,.90);
-      position:absolute; top:50%; left:2px;
-      transform: translateY(-50%);
-      transition: left .18s ease;
-      box-shadow: 0 6px 16px rgba(0,0,0,.35);
+      width: 22px; height: 22px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.85);
+      position:absolute;
+      top: 1px;
+      left: 1px;
+      transition: transform .18s ease;
     }
-    .switch.on{background: rgba(67,230,165,.25); border-color: rgba(67,230,165,.45);}
-    .switch.on .knob{left:20px}
+    .switch.on{ background: rgba(67,230,165,.25) }
+    .switch.on .knob{ transform: translateX(18px); }
 
-    /* Search */
-    .searchRow{
-      margin-top:14px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-    }
-    .input{
-      flex:1 1 260px;
-      min-width:220px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.16);
-      background: rgba(255,255,255,.06);
-      color:var(--txt);
-      padding:12px 14px;
-      outline:none;
-    }
-    .select{
-      flex:0 0 auto;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.16);
-      background: rgba(255,255,255,.06);
-      color:var(--txt);
-      padding:12px 14px;
-      outline:none;
-      cursor:pointer;
-    }
-
-    /* Grid */
-    .sectionTitle{
-      margin:16px 2px 10px;
-      color:rgba(255,255,255,.88);
-      font-weight:900;
-      letter-spacing:.2px;
+    /* grid */
+    .sectionHead{
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:10px;
       flex-wrap:wrap;
+      margin: 10px 0 0;
+    }
+    .sectionHead h3{
+      margin:0;
+      font-size: 18px;
+      letter-spacing:.2px;
+      font-weight: 900;
+    }
+    .chip{
+      font-size: 12px;
+      color: var(--muted);
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.05);
+      padding: 6px 10px;
+      border-radius: 999px;
     }
     .grid{
       display:grid;
-      grid-template-columns: repeat(2, minmax(0,1fr));
-      gap:12px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
     }
-    @media(min-width:760px){ .grid{grid-template-columns: repeat(3, minmax(0,1fr));} }
-
-    .card{
-      border-radius: var(--r);
-      border:1px solid rgba(255,255,255,.14);
-      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
-      box-shadow: 0 14px 40px rgba(0,0,0,.35);
-      overflow:hidden;
-      cursor:pointer;
-      transition: transform .10s ease, border-color .15s ease, background .15s ease;
-      display:flex;
-      flex-direction:column;
-      min-height: 230px;
+    @media (min-width: 720px){
+      .grid{ grid-template-columns: repeat(4, minmax(0, 1fr)); }
     }
-    .card:hover{transform: translateY(-2px); border-color: rgba(255,255,255,.22); background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.05));}
-    .thumb{
-      height:130px;
-      background:
-        radial-gradient(240px 120px at 20% 15%, rgba(255,255,255,.18), transparent 55%),
-        radial-gradient(260px 180px at 80% 20%, rgba(125,123,255,.28), transparent 60%),
-        linear-gradient(135deg, rgba(255,91,214,.18), rgba(54,255,181,.12));
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      position:relative;
-    }
-    .thumb img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-      filter: saturate(1.02) contrast(1.03);
-    }
-    .thumb .emoji{
-      font-size:46px;
-      opacity:.95;
-      text-shadow: 0 12px 30px rgba(0,0,0,.35);
-    }
-    .info{
-      padding:12px 12px 14px;
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-      flex:1;
-    }
-    .titleRow{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:10px;
-    }
-    .title{
-      font-weight:900;
-      letter-spacing:.2px;
-      line-height:1.15;
-    }
-    .desc{
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.25;
-      min-height:32px;
-    }
-    .priceRow{
-      margin-top:auto;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-    }
-    .price{
-      font-weight:900;
-      font-size:15px;
-    }
-    .hiddenPrice{
-      font-weight:800;
-      font-size:13px;
-      color: rgba(255,255,255,.75);
-      background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.14);
-      padding:6px 10px;
-      border-radius:999px;
-    }
-
-    /* Drawer (Cart) */
-    .drawerOverlay{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,.55);
-      display:none;
-      z-index:50;
-    }
-    .drawer{
-      position:fixed; top:0; right:0;
-      height:100%;
-      width:min(420px, 92vw);
-      background: linear-gradient(180deg, rgba(12,16,34,.98), rgba(8,10,18,.98));
-      border-left: 1px solid rgba(255,255,255,.12);
-      box-shadow: -20px 0 60px rgba(0,0,0,.55);
-      transform: translateX(100%);
-      transition: transform .22s ease;
-      z-index:60;
-      display:flex;
-      flex-direction:column;
-    }
-    .drawerHeader{
-      padding:14px 14px 10px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      border-bottom: 1px solid rgba(255,255,255,.10);
-    }
-    .drawerHeader h3{margin:0; font-size:16px; font-weight:900;}
-    .drawerBody{padding:12px 14px; overflow:auto; flex:1}
-    .line{
-      display:flex;
-      gap:10px;
-      padding:10px;
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:16px;
+    .cat{
+      border: 1px solid var(--stroke);
       background: rgba(255,255,255,.05);
-      margin-bottom:10px;
-      align-items:flex-start;
-    }
-    .line .mini{
-      width:54px;height:54px;border-radius:14px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      overflow:hidden;
-      flex:0 0 auto;
-    }
-    .line .mini img{width:100%;height:100%;object-fit:cover;display:block}
-    .line .mini .e{font-size:26px}
-    .line .meta{flex:1; min-width:0}
-    .line .meta .nm{font-weight:900; font-size:14px; line-height:1.2}
-    .line .meta .sm{color:var(--muted); font-size:12px; margin-top:2px}
-    .qtyRow{
-      display:flex; align-items:center; gap:8px; margin-top:8px; flex-wrap:wrap;
-    }
-    .qtyBtn{
-      width:30px; height:30px; border-radius:10px;
-      border:1px solid rgba(255,255,255,.16);
-      background: rgba(255,255,255,.06);
-      color:var(--txt);
-      font-weight:900;
+      border-radius: 18px;
+      padding: 12px;
       cursor:pointer;
+      transition: transform .08s ease;
+      min-height: 112px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
     }
-    .qtyVal{min-width:24px; text-align:center; font-weight:900}
-    .remove{
-      border:none; background:transparent; color:rgba(255,255,255,.75);
-      cursor:pointer; font-weight:800;
-    }
-    .drawerFooter{
-      padding:12px 14px 16px;
-      border-top: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-    }
-    .totRow{
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
-      margin-bottom:10px;
-    }
-    .totRow .lab{color:var(--muted); font-weight:800}
-    .totRow .val{font-weight:950; font-size:16px}
+    .cat:active{ transform: scale(.99) }
+    .cat .ico{ font-size: 26px; }
+    .cat .nm{ font-weight: 900; margin-top: 8px; }
+    .cat .ds{ font-size: 12px; color: var(--muted); margin-top: 2px; }
 
-    /* Modal (Product list inside category) */
-    .modalOverlay{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,.60);
-      display:none;
-      z-index:40;
-      padding:16px;
-    }
-    .modal{
-      max-width:980px;
-      margin:0 auto;
-      border-radius: 26px;
-      border:1px solid rgba(255,255,255,.14);
-      background: linear-gradient(180deg, rgba(16,20,40,.96), rgba(8,10,18,.96));
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      backdrop-filter: blur(10px);
-    }
-    .modalHeader{
-      padding:14px 14px 10px;
+    /* Products list */
+    .products{ margin-top: 12px; }
+    .prodHeader{
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:10px;
-      border-bottom: 1px solid rgba(255,255,255,.10);
+      flex-wrap:wrap;
+      margin-bottom: 8px;
     }
-    .modalHeader .left{display:flex; align-items:center; gap:10px}
-    .modalHeader .left .icon{font-size:22px}
-    .modalHeader h2{margin:0; font-size:16px; font-weight:950}
-    .modalBody{padding:12px 14px 14px}
-    .prodGrid{
+    .prodHeader .back{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      cursor:pointer;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.05);
+      font-weight: 800;
+    }
+    .list{
       display:grid;
       grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    @media (min-width: 720px){
+      .list{ grid-template-columns: 1fr 1fr; }
+    }
+    .item{
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.05);
+      border-radius: 18px;
+      overflow:hidden;
+      display:flex;
+      gap: 10px;
+      padding: 10px;
+      align-items:center;
+    }
+    .thumb{
+      width: 92px; height: 92px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.22);
+      flex: 0 0 auto;
+      overflow:hidden;
+      cursor:pointer;
+    }
+    .thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .meta{ flex: 1 1 auto; min-width: 0; }
+    .meta .h{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
       gap:10px;
     }
-    @media(min-width:760px){ .prodGrid{grid-template-columns: 1fr 1fr;} }
-
-    .prod{
+    .meta .name{ font-weight: 900; margin:0; }
+    .meta .sub{ margin: 4px 0 0; font-size: 12.5px; color: var(--muted); line-height:1.2 }
+    .price{
+      font-weight: 900;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.08);
+      white-space: nowrap;
+      font-size: 13px;
+    }
+    .meta .row{
+      margin-top: 10px;
       display:flex;
       gap:10px;
-      padding:10px;
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      align-items:flex-start;
+      align-items:center;
+      justify-content:space-between;
     }
-    .prod .pic{
-      width:86px;height:86px;border-radius:18px;
-      border:1px solid rgba(255,255,255,.14);
+    .qty{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.22);
+      border-radius: 999px;
+      padding: 6px 10px;
+    }
+    .qbtn{
+      width: 28px; height: 28px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.06);
-      overflow:hidden;
       display:flex;
       align-items:center;
       justify-content:center;
-      flex:0 0 auto;
+      cursor:pointer;
+      font-weight: 900;
+      user-select:none;
     }
-    .prod .pic img{width:100%;height:100%;object-fit:cover;display:block}
-    .prod .pic .e{font-size:34px}
-    .prod .meta{flex:1; min-width:0}
-    .prod .meta .nm{font-weight:950; line-height:1.2}
-    .prod .meta .sm{color:var(--muted); font-size:12.5px; margin-top:4px; line-height:1.25}
-    .prod .right{
+    .qnum{ min-width: 20px; text-align:center; font-weight:900; }
+    .add{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      cursor:pointer;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: none;
+      background: var(--btn);
+      color:#081014;
+      font-weight: 900;
+    }
+
+    /* Modal */
+    .overlay{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.55);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 16px;
+      z-index: 999;
+    }
+    .overlay.on{ display:flex; }
+    .modal{
+      width: min(720px, 100%);
+      border-radius: 22px;
+      border: 1px solid var(--stroke);
+      background: rgba(16,20,40,.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 24px 80px rgba(0,0,0,.55);
+      overflow:hidden;
+    }
+    .modalHead{
       display:flex;
-      flex-direction:column;
-      align-items:flex-end;
-      gap:8px;
-      flex:0 0 auto;
+      align-items:center;
+      justify-content:space-between;
+      padding: 12px 12px;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+      gap: 10px;
     }
-    .prod .right .pr{font-weight:950}
-    .chip{
-      font-size:12px;
-      border-radius:999px;
-      padding:6px 10px;
-      border:1px solid rgba(255,255,255,.14);
+    .modalHead b{ font-size: 14px; }
+    .x{
+      width: 40px; height: 40px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.16);
       background: rgba(255,255,255,.06);
-      color:rgba(255,255,255,.80);
+      color: var(--txt);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      font-weight: 900;
+      user-select:none;
     }
-
-    /* Footer tiny */
-    .footer{
-      text-align:center;
-      margin-top:14px;
-      color: rgba(255,255,255,.55);
-      font-size:12px;
-      padding:10px 6px;
+    .modalBody{ padding: 12px; }
+    .big{
+      width:100%;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.25);
+      overflow:hidden;
     }
+    .big img{ width:100%; height:auto; display:block; }
 
-    /* Little helper */
-    .hint{
-      margin-top:10px;
-      font-size:12.5px;
-      color:rgba(255,255,255,.70);
-      padding:10px 12px;
-      border-radius:18px;
+    /* Cart */
+    .cartList{ display:flex; flex-direction:column; gap:10px; }
+    .cartItem{
+      display:flex;
+      gap:10px;
+      align-items:center;
       border:1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      padding: 10px;
+      background: rgba(255,255,255,.05);
+    }
+    .cartItem .n{ font-weight:900; }
+    .cartItem .m{ color: var(--muted); font-size: 12px; }
+    .right{ margin-left:auto; text-align:right; }
+    .tot{
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      flex-wrap:wrap;
+    }
+    .tot b{ font-size: 16px; }
+    .note{
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height:1.35;
+    }
+
+    /* footer hint */
+    .hint{
+      margin-top: 10px;
+      font-size: 12.5px;
+      color: var(--muted);
+      padding: 10px 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.04);
     }
-  .banner {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin: 20px 0;
-}
-
-.banner img {
-  width: 100%;
-  max-width: 420px;
-  border-radius: 22px;
-  box-shadow: 0 12px 40px rgba(0,0,0,0.45);
-}
-    /* BANNER TOPO */
-.banner-topo {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding: 14px 12px;
-  margin-top: 8px;
-}
-
-.banner-topo img {
-  width: 100%;
-  max-width: 420px;
-  border-radius: 22px;
-  box-shadow: 0 18px 45px rgba(0,0,0,0.45);
-}
   </style>
 </head>
 
-  <body>
+<body>
   <div class="wrap">
 
-    <!-- BANNER PRINCIPAL -->
-<div class="banner-topo">
-  <img src="20260102_130931.jpg" alt="Faz de Conta Decorações">
-</div>
+    <!-- ✅ BANNER (A SUA IMAGEM) -->
+    <!-- Se quiser, pode trocar o nome do arquivo aqui: -->
+    <div class="banner-topo">
+      <img src="20260102_130931.jpg" alt="Faz de Conta Decorações"
+           onerror="this.style.display='none'">
+    </div>
 
-    <!-- TOP BAR -->
+    <!-- TOPO FIXO -->
     <div class="top">
-      <div class="brand">
-        <img id="logoImg" src="logo-fazdeconta.jpg" alt="Faz de Conta" />
-        <div class="t">
-          <div class="name">Faz de Conta Decorações <span class="badge">Catálogo</span></div>
-          <div class="slogan">Onde a imaginação vira festa</div>
-          <div class="sub">Decorações encantadoras para momentos especiais</div>
-          <div class="pill">📍 Jaciara/MT • 📲 WhatsApp: (66) 99622-3481</div>
+      <div class="topRow">
+        <div class="brand">
+          <div class="logo" title="Logo">
+            <!-- opcional: se você tiver um arquivo logo.jpg/png, troque aqui -->
+            <img src="20260102_130931.jpg" alt="Logo" onerror="this.parentNode.textContent='🧚'">
+          </div>
+          <div class="t">
+            <div class="name">Faz de Conta Decorações</div>
+            <div class="slogan">Onde a imaginação vira festa</div>
+            <div class="sub">Decorações encantadoras para momentos especiais</div>
+            <div class="pill">📍 Jaciara/MT • 📱 WhatsApp: (66) 99622-3481</div>
+          </div>
         </div>
-      </div>
 
-      <div class="actions">
-        <a class="btn small" id="btnWhats" href="#" target="_blank" rel="noopener">💬 Falar no WhatsApp</a>
-        <button class="btn small ghost" id="btnCart">🛒 Carrinho <span class="badge" id="cartCount">0</span></button>
+        <div class="actions">
+          <a class="btn btnSmall" id="btnWhats" href="#" target="_blank" rel="noopener">💬 Falar no WhatsApp</a>
+          <div class="btn btnSmall" id="btnCart">🛒 Carrinho <span class="badge" id="cartCount">0</span></div>
+        </div>
       </div>
     </div>
 
-    <!-- HERO -->
-    <div class="hero">
-      <div class="heroRow">
-        <div class="heroLeft">
-          <h1>Escolha o que você quer alugar</h1>
-          <p>Toque nas categorias para ver as opções com fotos e preços. Você pode <b>ligar/desligar</b> a exibição de valores.</p>
-        </div>
+    <!-- SEÇÃO PRINCIPAL -->
+    <div class="card">
+      <div class="cardPad">
+        <h1 class="title">Escolha o que você quer alugar</h1>
+        <p class="desc">Toque nas categorias para ver as opções com fotos e preços. Você pode ligar/desligar a exibição de valores.</p>
 
-        <div class="heroRight">
+        <div class="row2">
           <div class="toggle">
             <span>🔒 Mostrar preços</span>
-            <div class="switch" id="priceSwitch" role="switch" aria-checked="false">
-              <div class="knob"></div>
-            </div>
+            <div class="switch" id="swPrices"><div class="knob"></div></div>
           </div>
-          <button class="btn primary" id="btnCheckout">✅ Finalizar (Pix)</button>
+
+          <div class="btn btnPrimary" id="btnPix">✅ Finalizar (Pix)</div>
+        </div>
+
+        <div class="controls">
+          <input class="input" id="q" placeholder="🔎 Pesquisar (ex: urso, arco, cortina)..." />
+          <select id="catSel">
+            <option value="all">Todas as categorias</option>
+          </select>
+          <div class="btn" id="btnClear">Limpar</div>
+        </div>
+
+        <div class="hint">
+          💡 <b>Fotos:</b> envie as imagens para o GitHub (na raiz) e use nomes simples.  
+          Ex.: <b>urso-rosa.jpg</b> / <b>arco-rosa.jpg</b> / <b>cortina-dourada.jpg</b>.  
+          (Por enquanto, deixei imagens padrão; você troca depois.)
+        </div>
+
+        <div class="sectionHead">
+          <h3>✨ Categorias</h3>
+          <span class="chip" id="priceTag">Preço: sob consulta</span>
+        </div>
+
+        <div class="grid" id="cats"></div>
+
+        <div class="products" id="products" style="display:none;">
+          <div class="prodHeader">
+            <div class="back" id="btnBack">⬅️ Voltar</div>
+            <div class="chip" id="catTitle">Categoria</div>
+          </div>
+          <div class="list" id="list"></div>
         </div>
       </div>
-
-      <div class="searchRow">
-        <input class="input" id="q" placeholder="🔎 Pesquisar (ex: urso, arco, cortina)..." />
-        <select class="select" id="catFilter">
-          <option value="all">Todas as categorias</option>
-        </select>
-        <button class="btn small" id="btnClear">Limpar</button>
-      </div>
-
-      <div class="hint">
-        💡 <b>Como colocar suas fotos:</b> envie as imagens para o GitHub (na raiz) e use nomes simples (ex: <b>urso-rosa.jpg</b>).  
-        Eu já deixei alguns itens com foto “padrão” (a própria logo) até você trocar.
-      </div>
     </div>
 
-    <!-- GRID -->
-    <div class="sectionTitle">
-      <span>✨ Categorias</span>
-      <span class="pill" id="priceModeLabel">Preço: sob consulta</span>
-    </div>
-
-    <div class="grid" id="grid"></div>
-
-    <div class="footer">© <span id="year"></span> Faz de Conta Decorações • Todos os direitos reservados</div>
   </div>
 
-  <!-- MODAL: CATEGORY PRODUCTS -->
-  <div class="modalOverlay" id="modalOverlay">
-    <div class="modal" role="dialog" aria-modal="true">
-      <div class="modalHeader">
-        <div class="left">
-          <div class="icon" id="modalIcon">✨</div>
-          <h2 id="modalTitle">Categoria</h2>
-          <span class="chip" id="modalCount">0 itens</span>
-        </div>
-        <div class="right">
-          <button class="btn small" id="modalClose">✖ Fechar</button>
-        </div>
+  <!-- MODAL -->
+  <div class="overlay" id="ov">
+    <div class="modal" id="modal">
+      <div class="modalHead">
+        <b id="mTitle">Detalhes</b>
+        <div class="x" id="x">✕</div>
       </div>
-      <div class="modalBody">
-        <div class="prodGrid" id="prodGrid"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- DRAWER: CART -->
-  <div class="drawerOverlay" id="drawerOverlay"></div>
-  <div class="drawer" id="drawer">
-    <div class="drawerHeader">
-      <h3>🛒 Seu carrinho</h3>
-      <button class="btn small" id="drawerClose">✖ Fechar</button>
-    </div>
-    <div class="drawerBody" id="cartLines"></div>
-    <div class="drawerFooter">
-      <div class="totRow">
-        <div class="lab">Total</div>
-        <div class="val" id="cartTotal">R$ 0,00</div>
-      </div>
-      <button class="btn primary" id="drawerCheckout">✅ Finalizar (Pix)</button>
-      <div class="hint" style="margin-top:10px">
-        ⚠️ Observação: este “pagamento Pix” aqui gera um <b>pedido</b> e abre a conversa no WhatsApp com as informações.
-        Para Pix “automático” (tipo loja grande), precisa de integração com um provedor (banco/PSP).
-      </div>
+      <div class="modalBody" id="mBody"></div>
     </div>
   </div>
 
-  <script>
-    // ====== CONFIGURAÇÕES ======
-    const WHATS_NUMBER = "5566996223481"; // +55 + DDD + número (sem espaços)
-    const PIX_CHAVE = "66996223481";      // sua chave Pix (telefone)
-    const PIX_NOME  = "Faz de Conta Decorações";
-    const PIX_CIDADE = "Jaciara";
+<script>
+  // ====== CONFIGURAÇÕES RÁPIDAS ======
+  const WHATS_NUMBER = "5566996223481"; // (55 + DDD + número) sem espaços
+  const PIX_CHAVE = "SUA_CHAVE_PIX_AQUI"; // troque depois (CPF/CNPJ/celular/email/chave aleatória)
+  const PIX_NOME  = "Faz de Conta Decorações"; // nome recebedor (informativo)
+  const PIX_CIDADE = "Jaciara"; // informativo
 
-    // ====== DADOS (você pode alterar depois) ======
-    // Para trocar imagens: envie no GitHub e mude o campo "img" para o nome do arquivo (ex: "urso-rosa.jpg")
-    // Se deixar img vazio, aparece um emoji.
-    const catalog = [
-      {
-        id:"cubo",
-        name:"Cubo",
-        emoji:"🧊",
-        desc:"Estruturas e suportes",
-        bannerImg:"", // opcional
-        items:[
-          { id:"cubo-1", name:"Cubo branco P", emoji:"🧊", img:"", price: 35, note:"Ideal para mesa e cenário" },
-          { id:"cubo-2", name:"Cubo branco M", emoji:"🧊", img:"", price: 45, note:"Perfeito para composição" },
-          { id:"cubo-3", name:"Cubo branco G", emoji:"🧊", img:"", price: 60, note:"Destaque no cenário" },
-        ]
-      },
-      {
-        id:"arco-baloes",
-        name:"Arco de balões",
-        emoji:"🎈",
-        desc:"Arcos orgânicos e temáticos",
-        items:[
-          { id:"arco-1", name:"Arco orgânico P", emoji:"🎈", img:"", price: 180, note:"Até 2m (consultar cores)" },
-          { id:"arco-2", name:"Arco orgânico M", emoji:"🎈", img:"", price: 260, note:"Até 3m (consultar tema)" },
-          { id:"arco-3", name:"Arco orgânico G", emoji:"🎈", img:"", price: 340, note:"Até 4m (consultar tema)" },
-        ]
-      },
-      {
-        id:"tapetes",
-        name:"Tapetes",
-        emoji:"🧺",
-        desc:"Base para fotos e cenário",
-        items:[
-          { id:"tap-1", name:"Tapete neutro", emoji:"🧺", img:"", price: 25, note:"Combina com qualquer tema" },
-          { id:"tap-2", name:"Tapete colorido", emoji:"🧺", img:"", price: 30, note:"Dá vida ao cenário" },
-        ]
-      },
-      {
-        id:"arandelas",
-        name:"Arandelas",
-        emoji:"💡",
-        desc:"Iluminação e destaque",
-        items:[
-          { id:"ara-1", name:"Arandela LED", emoji:"💡", img:"", price: 20, note:"Iluminação suave" },
-          { id:"ara-2", name:"Arandela decorativa", emoji:"💡", img:"", price: 25, note:"Realce no painel" },
-        ]
-      },
-      {
-        id:"baloes",
-        name:"Balões",
-        emoji:"🎉",
-        desc:"Cores, temas e combos",
-        items:[
-          { id:"bal-1", name:"Combo balões P", emoji:"🎉", img:"", price: 35, note:"Cores a escolher" },
-          { id:"bal-2", name:"Combo balões M", emoji:"🎉", img:"", price: 55, note:"Cores a escolher" },
-          { id:"bal-3", name:"Combo balões G", emoji:"🎉", img:"", price: 80, note:"Cores a escolher" },
-        ]
-      },
-      {
-        id:"ursos",
-        name:"Ursos",
-        emoji:"🧸",
-        desc:"Ursinhos e pelúcias decorativas",
-        items:[
-          // Se você tiver fotos dos ursinhos, envie e coloque: img:"urso-rosa.jpg" etc
-          { id:"urs-1", name:"Urso pelúcia P", emoji:"🧸", img:"", price: 30, note:"Ursinho decorativo" },
-          { id:"urs-2", name:"Urso pelúcia M", emoji:"🧸", img:"", price: 45, note:"Destaque no cenário" },
-          { id:"urs-3", name:"Urso pelúcia G", emoji:"🧸", img:"", price: 65, note:"Grande e chamativo" },
-        ]
-      },
-      {
-        id:"arco-quadrado",
-        name:"Arco quadrado",
-        emoji:"🟦",
-        desc:"Estrutura quadrada para cenário",
-        items:[
-          { id:"aq-1", name:"Arco quadrado (locação)", emoji:"🟦", img:"", price: 120, note:"Estrutura base do cenário" },
-        ]
-      },
-      {
-        id:"cortina",
-        name:"Cortina",
-        emoji:"🎀",
-        desc:"Fundo e acabamento",
-        items:[
-          { id:"cor-1", name:"Cortina glitter", emoji:"🎀", img:"", price: 35, note:"Brilho para fotos" },
-          { id:"cor-2", name:"Cortina tecido", emoji:"🎀", img:"", price: 45, note:"Mais elegante" },
-        ]
-      },
-    ];
+  // Se você renomear a sua imagem para "banner.jpg", troque aqui também:
+  const DEFAULT_IMG = "20260102_130931.jpg";
 
-    // ====== ESTADO ======
-    let showPrices = false;
-    let currentCategory = null;
-    const cart = new Map(); // itemId -> qty
-
-    // ====== HELPERS ======
-    const brl = (n)=> (n ?? 0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
-    const $ = (id)=> document.getElementById(id);
-
-    function findItemById(itemId){
-      for(const c of catalog){
-        const it = c.items.find(x=>x.id===itemId);
-        if(it) return {cat:c, item:it};
-      }
-      return null;
+  // ====== DADOS (VOCÊ PODE EDITAR DEPOIS) ======
+  const data = [
+    {
+      id:"cubos", name:"Cubo", icon:"🧊", desc:"Estruturas e suportes",
+      items:[
+        { id:"cubo-1", name:"Cubo decorativo (P)", desc:"Cubo para apoio de itens/bolo", price:35, img: DEFAULT_IMG },
+        { id:"cubo-2", name:"Cubo decorativo (G)", desc:"Estrutura maior para destaque", price:55, img: DEFAULT_IMG }
+      ]
+    },
+    {
+      id:"arco-baloes", name:"Arco de balões", icon:"🎈", desc:"Arcos orgânicos e temáticos",
+      items:[
+        { id:"arco-1", name:"Arco orgânico (2m)", desc:"Ideal para fotos e entrada", price:180, img: DEFAULT_IMG },
+        { id:"arco-2", name:"Arco orgânico (3m)", desc:"Mais completo e chamativo", price:260, img: DEFAULT_IMG }
+      ]
+    },
+    {
+      id:"tapetes", name:"Tapetes", icon:"🧺", desc:"Base para fotos e cenário",
+      items:[
+        { id:"tap-1", name:"Tapete neutro", desc:"Combina com qualquer tema", price:25, img: DEFAULT_IMG },
+        { id:"tap-2", name:"Tapete temático", desc:"Escolha cor/tema", price:35, img: DEFAULT_IMG }
+      ]
+    },
+    {
+      id:"arandelas", name:"Arandelas", icon:"💡", desc:"Iluminação e destaque",
+      items:[
+        { id:"ara-1", name:"Arandela LED", desc:"Luz aconchegante para o cenário", price:20, img: DEFAULT_IMG },
+        { id:"ara-2", name:"Arandela dupla", desc:"Mais destaque e brilho", price:35, img: DEFAULT_IMG }
+      ]
+    },
+    {
+      id:"baloes", name:"Balões", icon:"🎉", desc:"Cores, temas e combos",
+      items:[
+        { id:"bal-1", name:"Combo balões (P)", desc:"Kit básico para complementar", price:35, img: DEFAULT_IMG },
+        { id:"bal-2", name:"Combo balões (G)", desc:"Kit maior e mais completo", price:65, img: DEFAULT_IMG }
+      ]
+    },
+    {
+      id:"ursos", name:"Ursos", icon:"🧸", desc:"Ursinhos e pelúcias decorativas",
+      items:[
+        { id:"urs-1", name:"Urso decorativo (P)", desc:"Fofo para tema baby/infantil", price:25, img: DEFAULT_IMG },
+        { id:"urs-2", name:"Urso decorativo (G)", desc:"Destaque para painel", price:45, img: DEFAULT_IMG }
+      ]
+    },
+    {
+      id:"arco-quadrado", name:"Arco quadrado", icon:"🟦", desc:"Estrutura quadrada para cenário",
+      items:[
+        { id:"aq-1", name:"Arco quadrado (P)", desc:"Estrutura compacta", price:90, img: DEFAULT_IMG },
+        { id:"aq-2", name:"Arco quadrado (G)", desc:"Estrutura grande e marcante", price:140, img: DEFAULT_IMG }
+      ]
+    },
+    {
+      id:"cortina", name:"Cortina", icon:"🎀", desc:"Fundo e acabamento",
+      items:[
+        { id:"cor-1", name:"Cortina (2m)", desc:"Fundo simples e elegante", price:40, img: DEFAULT_IMG },
+        { id:"cor-2", name:"Cortina (3m)", desc:"Fundo maior (mais cobertura)", price:60, img: DEFAULT_IMG }
+      ]
     }
+  ];
 
-    function cartCount(){
-      let s=0; for(const q of cart.values()) s+=q;
-      return s;
-    }
+  // ====== ESTADO ======
+  let showPrices = false;
+  let currentCat = null;
+  const cart = new Map(); // id -> qty
 
-    function cartTotal(){
-      let t=0;
-      for(const [id,qty] of cart){
-        const f = findItemById(id);
-        if(f) t += (f.item.price||0)*qty;
-      }
-      return t;
-    }
-
-    function whatsLink(text){
-      const msg = encodeURIComponent(text);
-      return `https://wa.me/${WHATS_NUMBER}?text=${msg}`;
-    }
-
-    // ====== UI: TOP ======
-    function updateTop(){
-      $("cartCount").textContent = cartCount();
-      $("priceModeLabel").textContent = showPrices ? "Preço: visível" : "Preço: sob consulta";
-      $("cartTotal").textContent = brl(cartTotal());
-      $("btnWhats").href = whatsLink("Olá! Quero um orçamento pela Faz de Conta Decorações 😊");
-    }
-
-    // ====== RENDER: CATEGORIES ======
-    function ensureCatFilter(){
-      const sel = $("catFilter");
-      sel.innerHTML = `<option value="all">Todas as categorias</option>` + catalog
-        .map(c=> `<option value="${c.id}">${c.name}</option>`).join("");
-    }
-
-    function categoryThumb(cat){
-      // Se você quiser, pode colocar uma imagem por categoria (bannerImg).
-      if(cat.bannerImg){
-        return `<img src="${cat.bannerImg}" alt="${cat.name}" onerror="this.remove();">`;
-      }
-      return `<div class="emoji">${cat.emoji}</div>`;
-    }
-
-    function renderCategories(){
-      const q = $("q").value.trim().toLowerCase();
-      const filter = $("catFilter").value;
-
-      const grid = $("grid");
-      grid.innerHTML = "";
-
-      const cats = catalog.filter(c=>{
-        if(filter!=="all" && c.id!==filter) return false;
-        if(!q) return true;
-
-        const inCat = c.name.toLowerCase().includes(q) || c.desc.toLowerCase().includes(q);
-        const inItems = c.items.some(it => (it.name+" "+(it.note||"")).toLowerCase().includes(q));
-        return inCat || inItems;
-      });
-
-      for(const c of cats){
-        const minPrice = Math.min(...c.items.map(i=>i.price||0));
-        const maxPrice = Math.max(...c.items.map(i=>i.price||0));
-
-        const priceHtml = showPrices
-          ? `<div class="price">${brl(minPrice)} ${maxPrice!==minPrice?`- ${brl(maxPrice)}`:""}</div>`
-          : `<div class="hiddenPrice">Sob consulta</div>`;
-
-        const el = document.createElement("div");
-        el.className = "card";
-        el.innerHTML = `
-          <div class="thumb">${categoryThumb(c)}</div>
-          <div class="info">
-            <div class="titleRow">
-              <div class="title">${c.name}</div>
-              <div class="badge">${c.items.length} itens</div>
-            </div>
-            <div class="desc">${c.desc}</div>
-            <div class="priceRow">
-              ${priceHtml}
-              <div class="chip">Ver opções →</div>
-            </div>
-          </div>
-        `;
-        el.addEventListener("click", ()=> openCategory(c.id));
-        grid.appendChild(el);
-      }
-
-      if(!cats.length){
-        grid.innerHTML = `<div class="hint">Nada encontrado. Tente outra palavra.</div>`;
-      }
-    }
-
-    // ====== MODAL: ITEMS ======
-    function itemPic(it){
-      if(it.img){
-        return `<img src="${it.img}" alt="${it.name}" onerror="this.remove();">`;
-      }
-      return `<div class="e">${it.emoji||"✨"}</div>`;
-    }
-
-    function openCategory(catId){
-      const cat = catalog.find(c=>c.id===catId);
-      if(!cat) return;
-      currentCategory = cat;
-      $("modalIcon").textContent = cat.emoji;
-      $("modalTitle").textContent = cat.name;
-      $("modalCount").textContent = `${cat.items.length} itens`;
-
-      const pg = $("prodGrid");
-      pg.innerHTML = "";
-
-      for(const it of cat.items){
-        const inCart = cart.get(it.id)||0;
-        const pr = showPrices ? brl(it.price||0) : "Sob consulta";
-
-        const row = document.createElement("div");
-        row.className = "prod";
-        row.innerHTML = `
-          <div class="pic">${itemPic(it)}</div>
-          <div class="meta">
-            <div class="nm">${it.name}</div>
-            <div class="sm">${it.note || ""}</div>
-          </div>
-          <div class="right">
-            <div class="pr">${showPrices ? pr : `<span class="chip">Sob consulta</span>`}</div>
-            <button class="btn small" data-add="${it.id}">➕ Adicionar</button>
-            ${inCart ? `<span class="chip">No carrinho: ${inCart}</span>` : `<span class="chip">Toque para adicionar</span>`}
-          </div>
-        `;
-        row.querySelector("[data-add]").addEventListener("click",(e)=>{
-          e.stopPropagation();
-          addToCart(it.id, 1);
-          openCategory(catId); // re-render quick feedback
-        });
-        pg.appendChild(row);
-      }
-
-      $("modalOverlay").style.display = "block";
-      document.body.style.overflow = "hidden";
-    }
-
-    function closeModal(){
-      $("modalOverlay").style.display = "none";
-      document.body.style.overflow = "";
-      currentCategory = null;
-    }
-
-    // ====== CART ======
-    function addToCart(itemId, qty){
-      const cur = cart.get(itemId)||0;
-      const next = Math.max(0, cur + qty);
-      if(next===0) cart.delete(itemId);
-      else cart.set(itemId,next);
-      renderCart();
-      updateTop();
-    }
-
-    function renderCart(){
-      const box = $("cartLines");
-      box.innerHTML = "";
-
-      if(cart.size===0){
-        box.innerHTML = `<div class="hint">Seu carrinho está vazio. Abra uma categoria e toque em <b>Adicionar</b>.</div>`;
-        $("cartTotal").textContent = brl(0);
-        return;
-      }
-
-      for(const [id,qty] of cart){
-        const f = findItemById(id);
-        if(!f) continue;
-
-        const it = f.item;
-        const line = document.createElement("div");
-        line.className = "line";
-        line.innerHTML = `
-          <div class="mini">${it.img ? `<img src="${it.img}" alt="${it.name}" onerror="this.remove();">` : `<div class="e">${it.emoji||"✨"}</div>`}</div>
-          <div class="meta">
-            <div class="nm">${it.name}</div>
-            <div class="sm">${f.cat.name} • ${showPrices ? brl(it.price||0) : "Preço sob consulta"}</div>
-            <div class="qtyRow">
-              <button class="qtyBtn" data-dec="${id}">−</button>
-              <div class="qtyVal">${qty}</div>
-              <button class="qtyBtn" data-inc="${id}">+</button>
-              <button class="remove" data-rm="${id}">Remover</button>
-            </div>
-          </div>
-          <div class="right" style="text-align:right">
-            <div class="chip">${showPrices ? brl((it.price||0)*qty) : "Subtotal (consulta)"}</div>
-          </div>
-        `;
-        line.querySelector("[data-dec]").addEventListener("click",()=> addToCart(id,-1));
-        line.querySelector("[data-inc]").addEventListener("click",()=> addToCart(id, 1));
-        line.querySelector("[data-rm]").addEventListener("click",()=> { cart.delete(id); renderCart(); updateTop(); });
-        box.appendChild(line);
-      }
-
-      $("cartTotal").textContent = brl(cartTotal());
-    }
-
-    function openDrawer(){
-      $("drawerOverlay").style.display = "block";
-      $("drawer").style.transform = "translateX(0)";
-      document.body.style.overflow = "hidden";
-    }
-    function closeDrawer(){
-      $("drawerOverlay").style.display = "none";
-      $("drawer").style.transform = "translateX(100%)";
-      document.body.style.overflow = "";
-    }
-
-    // ====== CHECKOUT PIX (via WhatsApp) ======
-    function buildOrderText(){
-      const lines = [];
-      lines.push("🧾 *Pedido - Faz de Conta Decorações*");
-      lines.push("");
-      let total = 0;
-
-      for(const [id,qty] of cart){
-        const f = findItemById(id);
-        if(!f) continue;
-        const it = f.item;
-
-        if(showPrices){
-          const sub = (it.price||0)*qty;
-          total += sub;
-          lines.push(`• ${it.name} (x${qty}) — ${brl(it.price||0)} = *${brl(sub)}*`);
-        }else{
-          lines.push(`• ${it.name} (x${qty}) — *valor a confirmar*`);
-        }
-      }
-
-      lines.push("");
-      if(showPrices){
-        lines.push(`💰 *Total:* ${brl(total)}`);
-      }else{
-        lines.push("💰 *Total:* a confirmar no orçamento");
-      }
-
-      lines.push("");
-      lines.push("✅ *Pagamento via Pix*");
-      lines.push(`Chave Pix: *${PIX_CHAVE}*`);
-      lines.push(`Nome: *${PIX_NOME}*`);
-      lines.push(`Cidade: *${PIX_CIDADE}*`);
-      lines.push("");
-      lines.push("📍 Data do evento e endereço para entrega/montagem:");
-      lines.push("—");
-      lines.push("");
-      lines.push("Pode me confirmar disponibilidade e valores? 😊");
-
-      return lines.join("\n");
-    }
-
-    function checkout(){
-      if(cart.size===0){
-        alert("Seu carrinho está vazio 🙂\nAbra uma categoria e adicione itens.");
-        return;
-      }
-      const msg = buildOrderText();
-      window.open(whatsLink(msg), "_blank");
-    }
-
-    // ====== INIT ======
-    function init(){
-      $("year").textContent = new Date().getFullYear();
-
-      // Logo fallback: se falhar, não quebra o layout
-      $("logoImg").addEventListener("error", ()=>{
-        $("logoImg").style.display = "none";
-      });
-
-      ensureCatFilter();
-      renderCategories();
-      renderCart();
-      updateTop();
-
-      // Events
-      $("modalClose").addEventListener("click", closeModal);
-      $("modalOverlay").addEventListener("click", (e)=>{
-        if(e.target === $("modalOverlay")) closeModal();
-      });
-
-      $("drawerOverlay").addEventListener("click", closeDrawer);
-      $("drawerClose").addEventListener("click", closeDrawer);
-      $("btnCart").addEventListener("click", ()=>{ renderCart(); openDrawer(); });
-
-      $("btnCheckout").addEventListener("click", ()=>{ renderCart(); openDrawer(); });
-      $("drawerCheckout").addEventListener("click", checkout);
-
-      $("q").addEventListener("input", renderCategories);
-      $("catFilter").addEventListener("change", renderCategories);
-      $("btnClear").addEventListener("click", ()=>{
-        $("q").value="";
-        $("catFilter").value="all";
-        renderCategories();
-      });
-
-      const sw = $("priceSwitch");
-      sw.addEventListener("click", ()=>{
-        showPrices = !showPrices;
-        sw.classList.toggle("on", showPrices);
-        sw.setAttribute("aria-checked", showPrices ? "true" : "false");
-        renderCategories();
-        if(currentCategory) openCategory(currentCategory.id);
-        renderCart();
-        updateTop();
-      });
-    }
-
-    init();
-  </script>
-</body>
-</html>
+  // ====== ELEMENTOS ======
+  const elCats = document.getElementById("cats");
+  const elProducts = document.getElementById("products");
+  const elList = document.getElementById("list");
+  const elCatTitle = document.getElementById("catTitle");
+  const elBack = document.getElementById("btnBack");
+  const elQ = document.getElementById("q");
+  const elSel = document.getElementById("catSel");
+  const elClear = document.getElementById("btnClear");
+  const elSw = document.getElementById("swPrices");
+  const elPriceTag = document.getElementById("priceTag");
+  const elCartCount = document.getElementById("cartCount");
+  const elBtnCa
