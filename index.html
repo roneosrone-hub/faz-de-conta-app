@@ -1,893 +1,997 @@
 <!doctype html>
 <html lang="pt-br">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
   <title>Faz de Conta Decorações</title>
 
   <style>
     :root{
-      --bg0:#070b18;
-      --bg1:#0b1636;
-
-      --glass: rgba(255,255,255,.10);
-      --glass2: rgba(255,255,255,.07);
-      --stroke: rgba(255,255,255,.14);
-
+      --bg0:#070a14;
+      --bg1:#0b1430;
+      --glass: rgba(255,255,255,.08);
+      --glass2: rgba(255,255,255,.05);
+      --stroke: rgba(255,255,255,.12);
       --txt: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.72);
+      --muted: rgba(255,255,255,.70);
       --muted2: rgba(255,255,255,.55);
-
-      --shadow: 0 18px 60px rgba(0,0,0,.55);
-
-      --r: 26px;
-      --r2: 20px;
-
-      --grad: linear-gradient(135deg,#ff4fd8,#8b5cff,#35d6ff,#71ff7a);
-      --grad2: linear-gradient(135deg, rgba(255,79,216,.35), rgba(53,214,255,.25), rgba(113,255,122,.20));
-
-      --tap: 48px;
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --r: 24px;
+      --grad: linear-gradient(135deg,#ff4fd8,#5de7ff,#8bff7a);
+      --ok: rgba(67,230,165,.16);
+      --warn: rgba(255,213,91,.16);
+      --bad: rgba(255,90,90,.16);
+      --btn: rgba(255,255,255,.10);
     }
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
     body{
       margin:0;
-      color:var(--txt);
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--txt);
       background:
-        radial-gradient(1200px 700px at 12% 10%, rgba(255,79,216,.18), transparent 60%),
-        radial-gradient(900px 600px at 82% 22%, rgba(53,214,255,.14), transparent 60%),
-        radial-gradient(900px 700px at 70% 88%, rgba(113,255,122,.12), transparent 60%),
-        linear-gradient(180deg, var(--bg1), var(--bg0));
+        radial-gradient(1000px 700px at 18% 12%, rgba(255,79,216,.22), transparent 55%),
+        radial-gradient(900px 600px at 80% 20%, rgba(93,231,255,.18), transparent 55%),
+        radial-gradient(900px 700px at 55% 82%, rgba(139,255,122,.14), transparent 55%),
+        linear-gradient(180deg, var(--bg1), var(--bg0) 60%, #06070e);
       min-height:100%;
+      overflow-x:hidden;
     }
 
-    a{color:inherit; text-decoration:none}
-    .wrap{max-width: 980px; margin:0 auto; padding: 16px 14px 90px}
-
-    .card{
-      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
-      border: 1px solid var(--stroke);
-      border-radius: var(--r);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+    .wrap{
+      width:min(1060px, 100%);
+      margin:0 auto;
+      padding:18px 14px 80px;
     }
 
     /* Topo */
     .top{
-      padding: 14px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 12px;
+      position:sticky;
+      top:0;
+      z-index:20;
+      padding:10px 0 14px;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
 
-    .brand{
-      display:flex;
+    .topCard{
+      display:grid;
+      grid-template-columns: 86px 1fr;
+      gap:12px;
       align-items:center;
-      gap: 12px;
-      min-width: 0;
+      padding:14px;
+      border-radius: var(--r);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow);
     }
 
     .logoBox{
-      width: 62px;
-      height: 62px;
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.16);
-      background: rgba(0,0,0,.12);
+      width:86px; height:86px;
+      border-radius: 22px;
       overflow:hidden;
-      flex:0 0 auto;
-      display:grid;
-      place-items:center;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
-    .logoBox img{
+    .logoBox img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+    .brandLine{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+    }
+
+    .title{
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing:.2px;
+      line-height:1.1;
+    }
+    .slogan{
+      margin-top:6px;
+      font-size: 15px;
+      font-weight: 700;
+      background: var(--grad);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color: transparent;
+      line-height:1.2;
+    }
+    .sub{
+      margin-top:6px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height:1.25;
+    }
+
+    .chips{
+      margin-top:10px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius: 999px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      color: var(--muted);
+      font-size: 12.5px;
+      white-space:nowrap;
+    }
+    .chip b{ color:var(--txt); font-weight:700; }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:flex-end;
+      margin-top:10px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      cursor:pointer;
+      border:none;
+      border-radius: 999px;
+      padding:10px 14px;
+      background: var(--btn);
+      color: var(--txt);
+      border: 1px solid var(--stroke);
+      box-shadow: 0 12px 35px rgba(0,0,0,.25);
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      font-weight:750;
+      letter-spacing:.2px;
+    }
+    .btn:active{ transform: translateY(1px); }
+    .btn.primary{
+      background: var(--grad);
+      color:#071018;
+      border: none;
+      box-shadow: 0 16px 45px rgba(0,0,0,.35);
+    }
+    .btn.ghost{
+      background: rgba(255,255,255,.06);
+    }
+    .pillCount{
+      min-width:26px;
+      height:22px;
+      padding:0 8px;
+      border-radius:999px;
+      background: rgba(0,0,0,.25);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-size:12px;
+      font-weight:900;
+    }
+
+    /* Banner (imagem grande) */
+    .hero{
+      margin-top:14px;
+      border-radius: var(--r);
+      overflow:hidden;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.05);
+      box-shadow: var(--shadow);
+    }
+    .hero img{
+      width:100%;
+      height: min(52vh, 520px); /* <<< A FOTO JÁ VEM GRANDE */
+      object-fit: cover;
+      display:block;
+    }
+    .heroCap{
+      padding:12px 14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      background: rgba(0,0,0,.22);
+      border-top:1px solid rgba(255,255,255,.08);
+    }
+    .heroCap small{ color:var(--muted); }
+    .toggleRow{
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .toggle{
+      width:50px; height:30px;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.08);
+      position:relative;
+      cursor:pointer;
+      flex:0 0 auto;
+    }
+    .toggle i{
+      position:absolute;
+      top:50%;
+      transform: translateY(-50%);
+      left:4px;
+      width:22px; height:22px;
+      border-radius:999px;
+      background: rgba(255,255,255,.82);
+      transition: .18s;
+    }
+    .toggle.on{ background: rgba(67,230,165,.18); }
+    .toggle.on i{ left: 24px; background: rgba(255,255,255,.92); }
+
+    /* Controles */
+    .panel{
+      margin-top:14px;
+      padding:14px;
+      border-radius: var(--r);
+      border:1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      box-shadow: var(--shadow);
+    }
+    .h1{
+      font-size: 28px;
+      font-weight: 950;
+      line-height:1.05;
+      margin:0;
+    }
+    .hint{
+      color: var(--muted);
+      margin-top:8px;
+      line-height:1.25;
+    }
+
+    .gridCtl{
+      margin-top:12px;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:10px;
+    }
+
+    .row2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+    }
+    @media (max-width:520px){
+      .row2{ grid-template-columns: 1fr; }
+    }
+
+    .inp, select{
+      width:100%;
+      padding:12px 14px;
+      border-radius: 999px;
+      border:1px solid var(--stroke);
+      background: rgba(0,0,0,.18);
+      color: var(--txt);
+      outline:none;
+    }
+    select option{ color:#111; }
+
+    .mini{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      margin-top:10px;
+    }
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      color: var(--muted);
+      font-size:12.5px;
+    }
+
+    /* Produtos */
+    .secTitle{
+      margin:18px 2px 10px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .secTitle h2{
+      margin:0;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing:.2px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+    }
+    @media (max-width:860px){
+      .grid{ grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width:520px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    .card{
+      border-radius: var(--r);
+      overflow:hidden;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.05);
+      box-shadow: 0 14px 50px rgba(0,0,0,.32);
+      display:flex;
+      flex-direction:column;
+      min-height: 320px;
+    }
+    .thumb{
+      width:100%;
+      height: 170px;
+      background: rgba(0,0,0,.20);
+      position:relative;
+    }
+    .thumb img{
       width:100%;
       height:100%;
       object-fit: cover;
       display:block;
     }
+    .badge{
+      position:absolute;
+      left:10px; top:10px;
+      padding:8px 10px;
+      border-radius:999px;
+      background: rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.16);
+      font-weight:900;
+      font-size:12px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
 
-    .t{
-      min-width: 0;
-      line-height: 1.05;
+    .cardBody{
+      padding:12px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      flex:1;
     }
     .name{
+      font-size: 16px;
       font-weight: 950;
-      font-size: 20px;
-      letter-spacing: .2px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow: ellipsis;
-      max-width: 52vw;
+      margin:0;
+      line-height:1.1;
     }
-    .slogan{
-      margin-top: 6px;
-      font-weight: 900;
-      background: var(--grad);
-      -webkit-background-clip:text;
-      background-clip:text;
-      color: transparent;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow: ellipsis;
-      max-width: 60vw;
-    }
-    .sub{
-      margin-top: 6px;
+    .desc{
       color: var(--muted);
-      font-weight: 650;
       font-size: 13px;
-    }
-
-    .right{
-      display:flex;
-      flex-direction:column;
-      align-items:flex-end;
-      gap: 10px;
-      flex:0 0 auto;
-    }
-
-    .clock{
-      display:flex;
-      align-items:center;
-      gap: 10px;
-      padding: 10px 12px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.10);
-      min-height: 42px;
-      color: var(--muted);
-      font-weight: 800;
-      font-size: 13px;
-      white-space:nowrap;
-    }
-    .clock b{color:var(--txt)}
-
-    .rowBtns{
-      display:flex;
-      gap: 10px;
-      align-items:center;
-      flex-wrap: wrap;
-      justify-content:flex-end;
-    }
-
-    .btn{
-      cursor:pointer;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color:var(--txt);
-      border-radius: 18px;
-      padding: 12px 14px;
-      min-height: var(--tap);
-      display:flex;
-      gap:10px;
-      align-items:center;
-      justify-content:center;
-      user-select:none;
-      transition: transform .08s ease, background .2s ease;
-      font-weight: 800;
-    }
-    .btn:active{transform:scale(.98)}
-    .btnGrad{
-      background: var(--grad);
-      border:0;
-      color:#091014;
-      font-weight: 950;
-    }
-
-    /* FOTO GRANDE */
-    .banner{
-      margin-top: 14px;
-      padding: 12px;
-    }
-    .bannerInner{
-      border-radius: calc(var(--r) - 6px);
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.12);
-      overflow:hidden;
-      position:relative;
-    }
-
-    /* Ajuste aqui o tamanho da foto */
-    .bannerInner img{
-      width:100%;
-      height: 360px;      /* <<< AUMENTA/REDUZ A FOTO AQUI */
-      object-fit: cover;
-      display:block;
-      filter: saturate(1.05) contrast(1.03);
-    }
-
-    .bannerInner::after{
-      content:"";
-      position:absolute; inset:0;
-      background: linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.55));
-      pointer-events:none;
-    }
-
-    .bannerText{
-      position:absolute;
-      left: 14px; right: 14px; bottom: 14px;
-      z-index:2;
-      display:flex;
-      flex-direction:column;
-      gap: 6px;
-    }
-    .bannerTitle{
-      font-size: 22px;
-      font-weight: 950;
-      letter-spacing:.2px;
+      line-height:1.25;
       margin:0;
     }
-    .bannerDesc{
-      margin:0;
-      color: var(--muted);
-      font-weight: 700;
-      font-size: 13px;
-      max-width: 700px;
-    }
-
-    /* Conteúdo */
-    .section{
-      margin-top: 14px;
-      padding: 14px;
-    }
-    .section h2{
-      margin:0 0 8px;
-      font-size: 28px;
-      font-weight: 950;
-      letter-spacing:.2px;
-    }
-    .section p{
-      margin:0 0 14px;
-      color: var(--muted);
-      font-weight: 650;
-    }
-
-    .controls{
-      display:flex;
-      gap: 10px;
-      flex-wrap:wrap;
-      align-items:center;
-    }
-
-    .toggle{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      padding: 10px 12px;
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.10);
-      min-height: var(--tap);
-      font-weight: 800;
-      color: var(--muted);
-    }
-    .switch{
-      width: 54px;
-      height: 30px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      position:relative;
-      flex:0 0 auto;
-    }
-    .knob{
-      width: 26px; height: 26px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.85);
-      position:absolute;
-      top: 1px; left: 1px;
-      transition: left .18s ease;
-    }
-    .switch.on{
-      background: rgba(113,255,122,.14);
-    }
-    .switch.on .knob{
-      left: 26px;
-    }
-
-    select, input{
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.10);
-      color: var(--txt);
-      padding: 12px 14px;
-      border-radius: 18px;
-      min-height: var(--tap);
-      outline:0;
-      font-weight: 750;
-    }
-    select{cursor:pointer}
-    input::placeholder{color: rgba(255,255,255,.45)}
-
-    .hint{
-      margin-top: 10px;
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.10);
-      padding: 10px 12px;
-      color: var(--muted2);
-      font-weight: 700;
-      font-size: 13px;
-      line-height: 1.35;
-    }
-    .mono{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      font-weight: 800;
-      color: var(--txt);
-      word-break: break-all;
-    }
-
-    /* Cards de categoria */
-    .grid{
-      margin-top: 14px;
-      display:grid;
-      gap: 14px;
-      grid-template-columns: repeat(12, 1fr);
-    }
-    .catCard{
-      grid-column: span 6;
-      padding: 14px;
-      border-radius: var(--r2);
-      border:1px solid rgba(255,255,255,.12);
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
-      box-shadow: 0 10px 40px rgba(0,0,0,.35);
-      cursor:pointer;
-      transition: transform .08s ease;
+    .price{
+      margin-top:auto;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap: 12px;
+      gap:10px;
+      padding-top:8px;
+      border-top: 1px solid rgba(255,255,255,.10);
     }
-    .catCard:active{transform:scale(.99)}
-    @media (min-width: 820px){
-      .catCard{grid-column: span 4;}
+    .money{
+      font-size: 16px;
+      font-weight: 950;
     }
-    .catLeft{display:flex; flex-direction:column; gap:6px}
-    .catName{font-weight: 950; font-size: 18px}
-    .catDesc{color:var(--muted); font-weight:700; font-size: 13px}
-    .badge{
-      padding: 8px 10px;
+    .money small{ font-weight:800; color:var(--muted2); }
+
+    .btnSmall{
+      padding:10px 12px;
       border-radius: 999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.10);
-      color: var(--muted);
-      font-weight: 900;
-      font-size: 12px;
-      white-space:nowrap;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.08);
+      color:var(--txt);
+      cursor:pointer;
+      font-weight:900;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+    }
+    .btnSmall.primary{
+      background: var(--grad);
+      border:none;
+      color:#061017;
     }
 
-    /* Modal simples */
-    .backdrop{
-      position: fixed; inset:0;
+    /* Modal carrinho */
+    .modal{
+      position:fixed;
+      inset:0;
       background: rgba(0,0,0,.55);
       display:none;
       align-items:flex-end;
       justify-content:center;
-      z-index: 200;
-      padding: 12px;
+      padding:14px;
+      z-index:50;
     }
-    .backdrop.show{display:flex}
-    .modal{
-      width: min(760px, 100%);
-      border-radius: 26px;
-      border:1px solid rgba(255,255,255,.16);
-      background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.08));
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+    .modal.on{ display:flex; }
+    .sheet{
+      width:min(720px, 100%);
+      border-radius: 28px;
       overflow:hidden;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(18,20,35,.86);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 30px 90px rgba(0,0,0,.55);
     }
-    .modalHead{
-      padding: 14px;
+    .sheetHead{
+      padding:14px 14px 10px;
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:10px;
+      border-bottom:1px solid rgba(255,255,255,.12);
+    }
+    .sheetHead b{ font-size:16px; }
+    .x{
+      cursor:pointer;
+      border:none;
+      width:40px; height:40px;
+      border-radius:999px;
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+      color:var(--txt);
+      font-size:18px;
+      font-weight:900;
+    }
+    .sheetBody{
+      padding:12px 14px;
+      max-height: 58vh;
+      overflow:auto;
+    }
+    .line{
+      display:grid;
+      grid-template-columns: 56px 1fr auto;
+      gap:10px;
+      align-items:center;
+      padding:10px 0;
       border-bottom:1px solid rgba(255,255,255,.10);
     }
-    .modalHead h3{margin:0; font-size:16px; font-weight:950}
-    .modalBody{padding: 14px; max-height: 65vh; overflow:auto}
-    .line{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap:12px;
-      padding: 10px 0;
-      border-bottom:1px dashed rgba(255,255,255,.12);
+    .line:last-child{ border-bottom:none; }
+    .miniImg{
+      width:56px; height:56px;
+      border-radius: 14px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.20);
     }
-    .line:last-child{border-bottom:0}
-    .line b{font-weight:950}
-    .line span{color:var(--muted); font-weight:700; font-size: 13px}
+    .miniImg img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .line h4{ margin:0; font-size:14px; font-weight:950; }
+    .line p{ margin:3px 0 0; font-size:12.5px; color:var(--muted); }
     .qty{
-      display:flex; gap:8px; align-items:center;
-      flex:0 0 auto;
+      display:flex; align-items:center; gap:8px;
     }
     .qbtn{
-      width:42px; height:42px;
-      border-radius: 14px;
+      width:36px; height:36px;
+      border-radius:999px;
       border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.10);
-      display:grid; place-items:center;
-      font-size: 18px;
+      background: rgba(255,255,255,.08);
+      color:var(--txt);
       cursor:pointer;
-      user-select:none;
+      font-weight:950;
+      font-size:16px;
     }
-    .num{min-width: 22px; text-align:center; font-weight:950}
-    .modalFoot{
-      padding: 14px;
-      border-top:1px solid rgba(255,255,255,.10);
-      display:flex;
+    .sheetFoot{
+      padding:12px 14px 14px;
+      border-top:1px solid rgba(255,255,255,.12);
+      display:grid;
       gap:10px;
-      flex-wrap:wrap;
+    }
+    .tot{
+      display:flex;
       align-items:center;
       justify-content:space-between;
+      gap:10px;
+      font-weight:950;
     }
-    .total{font-weight:950; font-size: 18px}
+    .tot span{ color:var(--muted); font-weight:800; }
 
-    /* Barra inferior */
-    .bottomBar{
-      position: fixed;
-      left:0; right:0;
-      bottom: 10px;
-      display:flex;
-      justify-content:center;
-      z-index: 60;
-      pointer-events:none;
+    .pixBox{
+      padding:12px;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      display:grid;
+      gap:10px;
     }
-    .bottomInner{
-      pointer-events:auto;
-      width: min(980px, calc(100% - 20px));
-      display:flex;
-      gap: 10px;
-      padding: 10px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.22);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+    .pixRow{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;
     }
-    .bottomInner .btn{flex:1}
+    .pixKey{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size:12.5px;
+      color: var(--txt);
+      background: rgba(0,0,0,.20);
+      border:1px solid rgba(255,255,255,.12);
+      padding:10px 12px;
+      border-radius: 14px;
+      flex: 1 1 280px;
+      min-width: 220px;
+    }
+    .note{
+      color:var(--muted);
+      font-size:12.5px;
+      line-height:1.25;
+    }
+
+    .footer{
+      margin-top:18px;
+      color: rgba(255,255,255,.45);
+      font-size:12px;
+      text-align:center;
+      padding:10px 0 0;
+    }
   </style>
 </head>
 
 <body>
   <div class="wrap">
 
-    <!-- TOPO FIXO (com relógio + data) -->
-    <div class="top card">
-      <div class="brand">
-        <div class="logoBox" title="Logo">
-          <img id="logoImg" src="logo.jpg" alt="Logo"
-               onerror="this.src=window.__placeholderLogo">
+    <!-- TOP -->
+    <div class="top">
+      <div class="topCard">
+        <div class="logoBox">
+          <!-- Logo automática (se você não tiver logo, fica essa arte) -->
+          <img id="logoImg" alt="Logo Faz de Conta" />
         </div>
-        <div class="t">
-          <div class="name">Faz de Conta Decorações</div>
-          <div class="slogan">Onde a imaginação vira festa</div>
-          <div class="sub">Decorações encantadoras para momentos especiais</div>
+
+        <div>
+          <div class="brandLine">
+            <div>
+              <div class="title">Faz de Conta Decorações</div>
+              <div class="slogan">Onde a imaginação vira festa</div>
+              <div class="sub">Decorações encantadoras para momentos especiais</div>
+
+              <div class="chips">
+                <div class="chip">📍 <b>Jaciara/MT</b></div>
+                <div class="chip">📱 WhatsApp: <b>(66) 99622-3481</b></div>
+                <div class="chip">📅 <span id="today">--/--/----</span> • ⏰ <b id="clock">--:--</b></div>
+              </div>
+            </div>
+
+            <div class="actions">
+              <button class="btn ghost" id="btnWhats">💬 Falar no WhatsApp</button>
+              <button class="btn" id="btnCart">🛒 Carrinho <span class="pillCount" id="cartCount">0</span></button>
+              <button class="btn primary" id="btnPixTop">✅ Finalizar (Pix)</button>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="right">
-        <div class="clock" title="Data e hora">
-          🗓️ <b id="dateNow">—</b> ⏰ <b id="timeNow">—</b>
-        </div>
-
-        <div class="rowBtns">
-          <a class="btn" id="btnWpp" href="#" rel="noopener">💬 Falar no WhatsApp</a>
-          <div class="btn btnGrad" id="btnCart">🛒 Carrinho (<span id="cartCount">0</span>)</div>
+      <!-- BANNER GRANDE -->
+      <div class="hero">
+        <img id="bannerImg" alt="Banner" />
+        <div class="heroCap">
+          <small>✨ Vitrine automática (troque depois por fotos reais quando quiser)</small>
+          <div class="toggleRow">
+            <span class="tag">🔒 Mostrar preços</span>
+            <div class="toggle" id="togglePrices"><i></i></div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- FOTO GRANDE (banner) -->
-    <div class="banner card">
-      <div class="bannerInner">
-        <!-- >>> AQUI É A FOTO QUE VOCÊ QUER MUDAR / DEIXAR MAIOR <<< -->
-        <!-- Se você já tem o arquivo 20260102_130931.jpg, deixei ele aqui -->
-        <img id="bannerImg" src="20260102_130931.jpg" alt="Foto principal"
-             onerror="this.src=window.__placeholderBanner">
-        <div class="bannerText">
-          <p class="bannerTitle">Catálogo de locação</p>
-          <p class="bannerDesc">
-            Escolha itens, adicione ao carrinho e finalize por Pix ou WhatsApp.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- CONTROLES -->
-    <div class="section card">
-      <h2>Escolha o que você quer alugar</h2>
-      <p>Toque nas categorias para ver as opções com fotos e preços. Você pode ligar/desligar a exibição de valores.</p>
-
-      <div class="controls">
-        <div class="toggle" id="togglePrices" role="button">
-          🔒 Mostrar preços
-          <div class="switch" id="sw"><div class="knob"></div></div>
-        </div>
-
-        <input id="q" type="search" placeholder="Pesquisar (ex: urso, arco, cortina)..." />
-
-        <select id="cat">
-          <option value="">Todas as categorias</option>
-        </select>
-
-        <div class="btn" id="btnClear">🧹 Limpar</div>
-        <div class="btn btnGrad" id="btnPix">✅ Finalizar (Pix)</div>
-      </div>
-
+    <!-- PAINEL -->
+    <div class="panel">
+      <h1 class="h1">Escolha o que você quer alugar</h1>
       <div class="hint">
-        <b>IMPORTANTE (fotos):</b> envie suas imagens para o GitHub <b>na raiz</b> (mesma pasta do <span class="mono">index.html</span>).<br>
-        - Logo: <span class="mono">logo.jpg</span><br>
-        - Foto grande: <span class="mono">20260102_130931.jpg</span> (ou troque o nome no código)<br>
-        Se o nome do arquivo não bater 100%, o app não encontra e a foto some.
+        Toque nos itens para ver e adicionar no carrinho. Você pode ligar/desligar a exibição de valores.
+      </div>
+
+      <div class="gridCtl">
+        <input class="inp" id="search" placeholder="🔎 Pesquisar (ex: urso, arco, cortina)..." />
+
+        <div class="row2">
+          <select id="filterCat">
+            <option value="all">Todas as categorias</option>
+          </select>
+
+          <button class="btnSmall" id="btnClear">🧽 Limpar filtros</button>
+        </div>
+
+        <div class="mini">
+          <div class="tag" id="priceState">Preço: <b style="margin-left:6px;">sob consulta</b></div>
+          <div class="tag">⚡ Dica: depois você troca as imagens por fotos reais, mas aqui já aparece tudo automático.</div>
+        </div>
       </div>
     </div>
 
-    <!-- CATEGORIAS -->
-    <div class="grid" id="gridCats"></div>
-
-  </div>
-
-  <!-- Barra inferior (atalhos) -->
-  <div class="bottomBar">
-    <div class="bottomInner">
-      <a class="btn" id="btnWpp2" href="#" rel="noopener">💬 WhatsApp</a>
-      <div class="btn btnGrad" id="btnCart2">🛒 Carrinho (<span id="cartCount2">0</span>)</div>
-      <div class="btn btnGrad" id="btnPix2">✅ Pix</div>
+    <!-- LISTA -->
+    <div class="secTitle">
+      <h2>✨ Opções</h2>
+      <div class="tag" id="countInfo">0 itens</div>
     </div>
+
+    <div class="grid" id="grid"></div>
+
+    <div class="footer">© Faz de Conta Decorações • Todos os direitos reservados</div>
+
   </div>
 
   <!-- MODAL CARRINHO -->
-  <div class="backdrop" id="cartModal">
-    <div class="modal">
-      <div class="modalHead">
-        <h3>🛒 Seu carrinho</h3>
-        <div class="btn" id="closeCart">✖</div>
+  <div class="modal" id="modal">
+    <div class="sheet">
+      <div class="sheetHead">
+        <b>🛒 Seu carrinho</b>
+        <button class="x" id="closeModal">✕</button>
       </div>
-      <div class="modalBody" id="cartBody"></div>
-      <div class="modalFoot">
-        <div class="total">Total: <span id="cartTotal">R$ 0,00</span></div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap">
-          <div class="btn" id="clearCart">🗑️ Limpar</div>
-          <div class="btn btnGrad" id="goPix">✅ Finalizar (Pix)</div>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- MODAL PIX -->
-  <div class="backdrop" id="pixModal">
-    <div class="modal">
-      <div class="modalHead">
-        <h3>✅ Finalizar (Pix)</h3>
-        <div class="btn" id="closePix">✖</div>
-      </div>
-      <div class="modalBody">
-        <div class="hint" style="margin-top:0">
-          <b>1)</b> Copie a chave Pix e faça o pagamento no seu banco.<br>
-          <b>2)</b> Depois, envie o pedido no WhatsApp para confirmar.
+      <div class="sheetBody" id="cartBody"></div>
+
+      <div class="sheetFoot">
+        <div class="tot">
+          <span>Total</span>
+          <div id="totalTxt">R$ 0,00</div>
         </div>
 
-        <div class="hint" style="margin-top:12px">
-          <b>Chave Pix:</b><br>
-          <span class="mono" id="pixKey"></span><br><br>
-          <div style="display:flex;gap:10px;flex-wrap:wrap">
-            <div class="btn" id="copyPix">📋 Copiar chave</div>
-            <div class="btn" id="copyMsg">📋 Copiar pedido</div>
-            <div class="btn btnGrad" id="pixWhats">💬 Enviar pedido no WhatsApp</div>
+        <div class="pixBox">
+          <b>✅ Finalizar via Pix</b>
+          <div class="note">
+            Toque em “Copiar chave Pix”. Depois você cola no app do banco e faz o pagamento.
+            (Você pode alterar a chave Pix e os preços depois.)
           </div>
-        </div>
 
-        <div class="hint" style="margin-top:12px">
-          <b>Resumo do pedido:</b><br>
-          <span class="mono" id="pixSummary"></span>
+          <div class="pixRow">
+            <div class="pixKey" id="pixKey">SUA-CHAVE-PIX-AQUI</div>
+            <button class="btnSmall primary" id="btnCopyPix">📋 Copiar chave</button>
+          </div>
+
+          <button class="btn primary" id="btnWhats2">Enviar pedido no WhatsApp</button>
+          <button class="btnSmall" id="btnEmpty">🗑️ Esvaziar carrinho</button>
         </div>
       </div>
-      <div class="modalFoot">
-        <div class="total">Total: <span id="pixTotal">R$ 0,00</span></div>
-      </div>
+
     </div>
   </div>
 
   <script>
-    /* ========= CONFIG (edite aqui) ========= */
-    const WHATSAPP_PHONE = "5566996223481"; // 55 + DDD + número (sem espaços)
-    const PIX_KEY = "SUA_CHAVE_PIX_AQUI";   // <- TROQUE pela sua chave Pix
-
-    // Produtos (exemplo). Pode adicionar mais depois.
-    const PRODUCTS = [
-      { id:"cubo-1", cat:"Cubo", name:"Cubo Estrutural", desc:"Estrutura e suporte para painel/mesa.", price:80, image:"cubo.jpg" },
-      { id:"arco-1", cat:"Arco de balões", name:"Arco Orgânico (P)", desc:"Arco para entrada ou mesa.", price:180, image:"arco-rosa.jpg" },
-      { id:"arco-2", cat:"Arco de balões", name:"Arco Orgânico (M)", desc:"Tamanho médio para cenário.", price:260, image:"arco-colorido.jpg" },
-      { id:"cort-1", cat:"Cortina", name:"Cortina Dourada", desc:"Fundo e acabamento do painel.", price:20, image:"cortina-dourada.jpg" },
-      { id:"urso-1", cat:"Ursos", name:"Ursinho Decorativo", desc:"Ursinho para compor o cenário.", price:25, image:"urso-rosa.jpg" },
-    ];
-
-    /* ========= Placeholders (se foto não carregar) ========= */
-    const PLACEHOLDER = (label) =>
-      "data:image/svg+xml;charset=utf-8," + encodeURIComponent(`
-        <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800">
+    // ========= UTIL: SVG automático como "foto" =========
+    function svgDataUrl(title, subtitle, emoji){
+      const bg1 = ["#ff4fd8","#5de7ff","#8bff7a","#ffb84d","#9a7bff","#ff6d6d"][Math.floor(Math.random()*6)];
+      const bg2 = ["#0b1430","#070a14","#101a3a","#091024"][Math.floor(Math.random()*4)];
+      const s = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700">
           <defs>
             <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#ff4fd8" stop-opacity=".35"/>
-              <stop offset="0.5" stop-color="#35d6ff" stop-opacity=".22"/>
-              <stop offset="1" stop-color="#71ff7a" stop-opacity=".18"/>
+              <stop offset="0" stop-color="${bg1}" stop-opacity="0.55"/>
+              <stop offset="1" stop-color="${bg2}" stop-opacity="1"/>
             </linearGradient>
+            <filter id="blur" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="18"/>
+            </filter>
           </defs>
-          <rect width="100%" height="100%" fill="#0b1636"/>
-          <rect x="50" y="50" width="1100" height="700" rx="50" fill="url(#g)"/>
-          <text x="90" y="210" fill="rgba(255,255,255,.9)" font-size="70" font-family="Arial" font-weight="800">${label}</text>
-          <text x="90" y="290" fill="rgba(255,255,255,.75)" font-size="34" font-family="Arial" font-weight="700">Faz de Conta Decorações</text>
-          <text x="90" y="345" fill="rgba(255,255,255,.65)" font-size="28" font-family="Arial" font-weight="700">Envie a foto para o GitHub com o nome certo</text>
+          <rect width="1200" height="700" fill="${bg2}"/>
+          <circle cx="240" cy="140" r="170" fill="${bg1}" opacity="0.35" filter="url(#blur)"/>
+          <circle cx="960" cy="180" r="220" fill="#5de7ff" opacity="0.20" filter="url(#blur)"/>
+          <circle cx="740" cy="560" r="260" fill="#8bff7a" opacity="0.16" filter="url(#blur)"/>
+          <rect x="60" y="70" width="1080" height="560" rx="48" fill="url(#g)" stroke="rgba(255,255,255,.18)" />
+          <text x="120" y="210" font-size="96" font-family="system-ui,Segoe UI,Arial" fill="rgba(255,255,255,.92)">${emoji}</text>
+          <text x="120" y="330" font-size="68" font-weight="800" font-family="system-ui,Segoe UI,Arial" fill="rgba(255,255,255,.95)">${escapeXml(title)}</text>
+          <text x="120" y="400" font-size="34" font-weight="600" font-family="system-ui,Segoe UI,Arial" fill="rgba(255,255,255,.70)">${escapeXml(subtitle)}</text>
+          <text x="120" y="570" font-size="26" font-weight="700" font-family="system-ui,Segoe UI,Arial" fill="rgba(255,255,255,.55)">Faz de Conta Decorações • Onde a imaginação vira festa</text>
         </svg>
-      `);
+      `;
+      return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(s);
+    }
+    function escapeXml(str){
+      return String(str)
+        .replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;").replaceAll("'","&apos;");
+    }
 
-    window.__placeholderLogo = PLACEHOLDER("Logo");
-    window.__placeholderBanner = PLACEHOLDER("Foto principal");
+    // ========= DADOS (VOCÊ MUDA DEPOIS) =========
+    const PIX_KEY = "SUA-CHAVE-PIX-AQUI"; // <-- troque depois (cpf, celular, e-mail ou aleatória)
 
-    /* ========= Helpers ========= */
-    const money = (v) => new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"}).format(v);
+    const CATS = [
+      {id:"estruturas", name:"Estruturas e suportes"},
+      {id:"baloes", name:"Balões e combos"},
+      {id:"cenarios", name:"Cenários e fundos"},
+      {id:"iluminacao", name:"Iluminação"},
+      {id:"props", name:"Acessórios / props"},
+    ];
 
+    // Preços sugeridos (valores só para você ter um começo — você troca depois)
+    const ITEMS = [
+      {id:"cubo", cat:"estruturas", name:"Cubo (estrutura)", emoji:"🧊", desc:"Estrutura para cenário e suporte de itens.", price:80},
+      {id:"arco-baloes", cat:"baloes", name:"Arco de balões (P)", emoji:"🎈", desc:"Arco orgânico simples (tamanho P).", price:180},
+      {id:"arco-baloes-m", cat:"baloes", name:"Arco de balões (M)", emoji:"🎈", desc:"Arco orgânico médio com acabamento.", price:260},
+      {id:"arco-baloes-g", cat:"baloes", name:"Arco de balões (G)", emoji:"🎈", desc:"Arco grande + variação de cores.", price:380},
+
+      {id:"tapete", cat:"cenarios", name:"Tapete para fotos", emoji:"🧺", desc:"Base para fotos e cenário (várias cores).", price:60},
+      {id:"cortina", cat:"cenarios", name:"Cortina (fundo)", emoji:"🎀", desc:"Fundo e acabamento do cenário.", price:90},
+      {id:"arco-quadrado", cat:"estruturas", name:"Arco quadrado", emoji:"🟦", desc:"Estrutura quadrada para cenário.", price:120},
+
+      {id:"arandela", cat:"iluminacao", name:"Arandela decorativa", emoji:"💡", desc:"Iluminação para destaque do painel.", price:45},
+      {id:"luz-fairy", cat:"iluminacao", name:"Luzinha / fairy lights", emoji:"✨", desc:"Luzes decorativas para dar charme.", price:35},
+
+      {id:"ursos", cat:"props", name:"Ursos (kit)", emoji:"🧸", desc:"Ursinhos e pelúcias decorativas.", price:70},
+      {id:"baloes-kit", cat:"baloes", name:"Kit balões (mesa)", emoji:"🎉", desc:"Combo para mesa (cores e tema).", price:55},
+      {id:"numeros", cat:"props", name:"Números / letras (módulo)", emoji:"🔤", desc:"Números/letters para composição do tema.", price:40},
+    ].map(it => ({
+      ...it,
+      img: svgDataUrl(it.name, it.desc, it.emoji) // <<< FOTO AUTOMÁTICA AQUI
+    }));
+
+    // ========= ESTADO =========
     let showPrices = false;
-    let q = "";
-    let cat = "";
+    let searchTxt = "";
+    let catFilter = "all";
     const cart = new Map(); // id -> qty
 
-    const el = {
-      gridCats: document.getElementById("gridCats"),
-      q: document.getElementById("q"),
-      cat: document.getElementById("cat"),
-      sw: document.getElementById("sw"),
-      cartCount: document.getElementById("cartCount"),
-      cartCount2: document.getElementById("cartCount2"),
-      cartModal: document.getElementById("cartModal"),
-      cartBody: document.getElementById("cartBody"),
-      cartTotal: document.getElementById("cartTotal"),
-      pixModal: document.getElementById("pixModal"),
-      pixKey: document.getElementById("pixKey"),
-      pixSummary: document.getElementById("pixSummary"),
-      pixTotal: document.getElementById("pixTotal"),
-      dateNow: document.getElementById("dateNow"),
-      timeNow: document.getElementById("timeNow"),
-    };
+    // ========= INIT =========
+    const grid = document.getElementById("grid");
+    const filterCat = document.getElementById("filterCat");
+    const search = document.getElementById("search");
+    const countInfo = document.getElementById("countInfo");
+    const priceState = document.getElementById("priceState");
+    const toggle = document.getElementById("togglePrices");
+    const cartCount = document.getElementById("cartCount");
 
-    function setWhatsappLinks(){
-      const base = `https://wa.me/${WHATSAPP_PHONE}?text=`;
-      const msg = encodeURIComponent("Olá! Vim pelo app Faz de Conta. Quero um orçamento 😊");
-      document.getElementById("btnWpp").href = base + msg;
-      document.getElementById("btnWpp2").href = base + msg;
-    }
+    // imagens do topo (logo + banner) geradas automaticamente
+    document.getElementById("logoImg").src = svgDataUrl("Faz de Conta", "Decorações", "🧚");
+    document.getElementById("bannerImg").src = svgDataUrl("Faz de Conta Decorações", "Vitrine automática (troque por fotos reais depois)", "🎂");
 
-    function initCats(){
-      const cats = [...new Set(PRODUCTS.map(p => p.cat))].sort();
-      cats.forEach(c=>{
+    document.getElementById("pixKey").textContent = PIX_KEY;
+
+    // preencher select
+    (function(){
+      CATS.forEach(c=>{
         const o = document.createElement("option");
-        o.value = c; o.textContent = c;
-        el.cat.appendChild(o);
+        o.value = c.id;
+        o.textContent = c.name;
+        filterCat.appendChild(o);
       });
+    })();
+
+    // relógio + data
+    function pad(n){ return String(n).padStart(2,"0"); }
+    function tick(){
+      const d = new Date();
+      document.getElementById("clock").textContent = pad(d.getHours()) + ":" + pad(d.getMinutes());
+      document.getElementById("today").textContent = pad(d.getDate()) + "/" + pad(d.getMonth()+1) + "/" + d.getFullYear();
     }
+    tick(); setInterval(tick, 1000);
 
-    function filtered(){
-      return PRODUCTS.filter(p=>{
-        const okQ = !q || (p.name+" "+p.desc+" "+p.cat).toLowerCase().includes(q.toLowerCase());
-        const okC = !cat || p.cat === cat;
-        return okQ && okC;
-      });
-    }
+    // toggle preços
+    toggle.addEventListener("click", ()=>{
+      showPrices = !showPrices;
+      toggle.classList.toggle("on", showPrices);
+      priceState.innerHTML = showPrices
+        ? 'Preço: <b style="margin-left:6px;">visível</b>'
+        : 'Preço: <b style="margin-left:6px;">sob consulta</b>';
+      render();
+    });
 
-    function cartCount(){
-      let n=0;
-      cart.forEach(v=> n+=v);
-      return n;
-    }
+    // busca + filtro
+    search.addEventListener("input", (e)=>{ searchTxt = e.target.value.trim().toLowerCase(); render(); });
+    filterCat.addEventListener("change", (e)=>{ catFilter = e.target.value; render(); });
 
-    function cartTotal(){
-      let t=0;
-      cart.forEach((qty,id)=>{
-        const p = PRODUCTS.find(x=>x.id===id);
-        if(!p) return;
-        t += (p.price||0) * qty;
-      });
-      return t;
-    }
+    document.getElementById("btnClear").addEventListener("click", ()=>{
+      search.value = ""; searchTxt = "";
+      filterCat.value = "all"; catFilter = "all";
+      render();
+    });
 
-    function updateCartUI(){
-      const n = cartCount();
-      el.cartCount.textContent = n;
-      el.cartCount2.textContent = n;
-    }
-
-    function renderCats(){
-      const items = filtered();
-
-      // agrupa por categoria
-      const group = new Map();
-      items.forEach(p=>{
-        if(!group.has(p.cat)) group.set(p.cat, []);
-        group.get(p.cat).push(p);
-      });
-
-      el.gridCats.innerHTML = "";
-
-      [...group.keys()].sort().forEach(category=>{
-        const list = group.get(category);
-        const div = document.createElement("div");
-        div.className = "catCard";
-        div.innerHTML = `
-          <div class="catLeft">
-            <div class="catName">✨ ${category}</div>
-            <div class="catDesc">${list.length} item(ns) disponível(is)</div>
-          </div>
-          <div class="badge">${showPrices ? "Preço visível" : "Preço sob consulta"}</div>
-        `;
-        div.onclick = ()=>{
-          // Ao clicar, abre uma listagem simples no carrinho (como “atalho”):
-          // adiciona 1 do primeiro item da categoria
-          const first = list[0];
-          cart.set(first.id, (cart.get(first.id)||0)+1);
-          updateCartUI();
-          openCart();
-        };
-        el.gridCats.appendChild(div);
-      });
-
-      updateCartUI();
-    }
-
-    function openCart(){
-      renderCart();
-      el.cartModal.classList.add("show");
-    }
-    function closeCart(){ el.cartModal.classList.remove("show"); }
-
-    function renderCart(){
-      const lines = [];
-      cart.forEach((qty,id)=>{
-        const p = PRODUCTS.find(x=>x.id===id);
-        if(!p) return;
-        lines.push({p,qty});
-      });
-
-      if(lines.length===0){
-        el.cartBody.innerHTML = `<div class="hint" style="margin-top:0">Seu carrinho está vazio. Toque numa categoria para adicionar itens (exemplo).</div>`;
-      } else {
-        el.cartBody.innerHTML = "";
-        lines.forEach(({p,qty})=>{
-          const unit = (p.price && p.price>0) ? money(p.price) : "Sob consulta";
-          const subtotal = (p.price && p.price>0) ? money(p.price*qty) : "—";
-
-          const row = document.createElement("div");
-          row.className = "line";
-          row.innerHTML = `
-            <div style="display:flex;flex-direction:column;gap:3px">
-              <b>${p.name}</b>
-              <span>${p.cat} • ${showPrices ? ("Unidade: "+unit+" • Subtotal: "+subtotal) : "Preço sob consulta"}</span>
-            </div>
-            <div class="qty">
-              <div class="qbtn" data-dec="${p.id}">−</div>
-              <div class="num">${qty}</div>
-              <div class="qbtn" data-inc="${p.id}">+</div>
-            </div>
-          `;
-          el.cartBody.appendChild(row);
-        });
-
-        document.querySelectorAll("[data-dec]").forEach(x=>{
-          x.onclick = ()=>{
-            const id = x.getAttribute("data-dec");
-            const v = (cart.get(id)||0)-1;
-            if(v<=0) cart.delete(id); else cart.set(id,v);
-            updateCartUI();
-            renderCart();
-          };
-        });
-        document.querySelectorAll("[data-inc]").forEach(x=>{
-          x.onclick = ()=>{
-            const id = x.getAttribute("data-inc");
-            cart.set(id,(cart.get(id)||0)+1);
-            updateCartUI();
-            renderCart();
-          };
-        });
-      }
-
-      el.cartTotal.textContent = money(cartTotal());
-    }
-
-    function buildOrderText(){
-      if(cartCount()===0) return "Carrinho vazio.";
-      const parts = [];
-      cart.forEach((qty,id)=>{
-        const p = PRODUCTS.find(x=>x.id===id);
-        if(!p) return;
-        const priceTxt = (p.price && p.price>0) ? money(p.price) : "Sob consulta";
-        parts.push(`${qty}x ${p.name} (${p.cat})${showPrices ? " — "+priceTxt : ""}`);
-      });
-      return `Pedido Faz de Conta:\n- ${parts.join("\n- ")}\n\nTotal: ${money(cartTotal())}\nPagamento: Pix\nChave Pix: ${PIX_KEY}`;
-    }
-
-    function copyText(text){
-      navigator.clipboard?.writeText(text)
-        .then(()=>alert("Copiado!"))
-        .catch(()=>alert("Não consegui copiar. Selecione e copie manualmente."));
-    }
-
-    function openPix(){
-      if(cartCount()===0){ alert("Seu carrinho está vazio."); return; }
-      el.pixKey.textContent = PIX_KEY;
-      el.pixSummary.textContent = buildOrderText();
-      el.pixTotal.textContent = money(cartTotal());
-      el.pixModal.classList.add("show");
-    }
-    function closePix(){ el.pixModal.classList.remove("show"); }
-
-    function goWhatsOrder(){
-      const text = buildOrderText();
-      const url = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(text)}`;
+    // Whats
+    function openWhats(msg){
+      const phone = "5566996223481";
+      const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
       window.open(url, "_blank");
     }
+    document.getElementById("btnWhats").addEventListener("click", ()=>{
+      openWhats("Olá! Quero fazer um orçamento com a Faz de Conta Decorações 😊");
+    });
 
-    /* Data e relógio */
-    function tick(){
-      const now = new Date();
-      const d = now.toLocaleDateString("pt-BR", { weekday:"short", day:"2-digit", month:"2-digit", year:"numeric" });
-      const t = now.toLocaleTimeString("pt-BR", { hour:"2-digit", minute:"2-digit", second:"2-digit" });
-      el.dateNow.textContent = d.replace(".", "");
-      el.timeNow.textContent = t;
+    // Carrinho modal
+    const modal = document.getElementById("modal");
+    const cartBody = document.getElementById("cartBody");
+    const totalTxt = document.getElementById("totalTxt");
+
+    function openCart(){ modal.classList.add("on"); renderCart(); }
+    function closeCart(){ modal.classList.remove("on"); }
+    document.getElementById("btnCart").addEventListener("click", openCart);
+    document.getElementById("closeModal").addEventListener("click", closeCart);
+    modal.addEventListener("click", (e)=>{ if(e.target === modal) closeCart(); });
+
+    document.getElementById("btnPixTop").addEventListener("click", openCart);
+
+    // copiar pix
+    document.getElementById("btnCopyPix").addEventListener("click", async ()=>{
+      try{
+        await navigator.clipboard.writeText(PIX_KEY);
+        alert("Chave Pix copiada!");
+      }catch(e){
+        alert("Não consegui copiar automaticamente. Copie manualmente: " + PIX_KEY);
+      }
+    });
+
+    // esvaziar
+    document.getElementById("btnEmpty").addEventListener("click", ()=>{
+      cart.clear();
+      render();
+      renderCart();
+    });
+
+    // enviar pedido
+    document.getElementById("btnWhats2").addEventListener("click", ()=>{
+      const lines = [];
+      let total = 0;
+      for (const [id, qty] of cart.entries()){
+        const it = ITEMS.find(x=>x.id===id);
+        const sub = it.price * qty;
+        total += sub;
+        lines.push(`• ${qty}x ${it.name} — R$ ${sub.toFixed(2).replace(".",",")}`);
+      }
+      const msg =
+        `Olá! Quero fechar um pedido na Faz de Conta Decorações 😊\n\n` +
+        (lines.length ? lines.join("\n") : "Carrinho vazio") +
+        (lines.length ? `\n\nTotal sugerido: R$ ${total.toFixed(2).replace(".",",")}\nPagamento via Pix.` : "");
+      openWhats(msg);
+    });
+
+    // ========= RENDER =========
+    function money(v){
+      return "R$ " + v.toFixed(2).replace(".",",");
     }
 
-    /* Eventos */
-    document.getElementById("togglePrices").onclick = ()=>{
-      showPrices = !showPrices;
-      el.sw.classList.toggle("on", showPrices);
-      renderCats();
+    function addToCart(id){
+      cart.set(id, (cart.get(id)||0) + 1);
+      updateCartCount();
+      // feedback rápido
+      const it = ITEMS.find(x=>x.id===id);
+      toast(`Adicionado: ${it.name}`);
+    }
+
+    function decQty(id){
+      const q = cart.get(id)||0;
+      if(q<=1) cart.delete(id);
+      else cart.set(id, q-1);
+      updateCartCount();
       renderCart();
-    };
-
-    el.q.addEventListener("input", e=>{ q=e.target.value.trim(); renderCats(); });
-    el.cat.addEventListener("change", e=>{ cat=e.target.value; renderCats(); });
-
-    document.getElementById("btnClear").onclick = ()=>{
-      q=""; cat="";
-      el.q.value="";
-      el.cat.value="";
-      renderCats();
-    };
-
-    document.getElementById("btnCart").onclick = openCart;
-    document.getElementById("btnCart2").onclick = openCart;
-    document.getElementById("closeCart").onclick = closeCart;
-    el.cartModal.addEventListener("click", (e)=>{ if(e.target===el.cartModal) closeCart(); });
-
-    document.getElementById("clearCart").onclick = ()=>{
-      cart.clear();
-      updateCartUI();
+    }
+    function incQty(id){
+      cart.set(id, (cart.get(id)||0) + 1);
+      updateCartCount();
       renderCart();
-      renderCats();
-    };
+    }
 
-    document.getElementById("btnPix").onclick = openPix;
-    document.getElementById("btnPix2").onclick = openPix;
-    document.getElementById("goPix").onclick = ()=>{ closeCart(); openPix(); };
+    function updateCartCount(){
+      let n = 0;
+      for (const q of cart.values()) n += q;
+      cartCount.textContent = n;
+    }
 
-    document.getElementById("closePix").onclick = closePix;
-    el.pixModal.addEventListener("click", (e)=>{ if(e.target===el.pixModal) closePix(); });
+    function render(){
+      const filtered = ITEMS.filter(it=>{
+        const matchTxt =
+          !searchTxt ||
+          it.name.toLowerCase().includes(searchTxt) ||
+          it.desc.toLowerCase().includes(searchTxt) ||
+          it.id.toLowerCase().includes(searchTxt);
+        const matchCat = (catFilter==="all") || (it.cat===catFilter);
+        return matchTxt && matchCat;
+      });
 
-    document.getElementById("copyPix").onclick = ()=> copyText(PIX_KEY);
-    document.getElementById("copyMsg").onclick = ()=> copyText(buildOrderText());
-    document.getElementById("pixWhats").onclick = goWhatsOrder;
+      countInfo.textContent = `${filtered.length} itens`;
 
-    /* Start */
-    setWhatsappLinks();
-    initCats();
-    renderCats();
-    updateCartUI();
-    renderCart();
-    tick();
-    setInterval(tick, 1000);
+      grid.innerHTML = "";
+      filtered.forEach(it=>{
+        const el = document.createElement("div");
+        el.className = "card";
+        el.innerHTML = `
+          <div class="thumb">
+            <img src="${it.img}" alt="${it.name}"/>
+            <div class="badge">${it.emoji} ${catName(it.cat)}</div>
+          </div>
+          <div class="cardBody">
+            <p class="name">${it.name}</p>
+            <p class="desc">${it.desc}</p>
+            <div class="price">
+              <div class="money">
+                ${showPrices ? money(it.price) : "<small>Preço sob consulta</small>"}
+              </div>
+              <button class="btnSmall primary">➕ Adicionar</button>
+            </div>
+          </div>
+        `;
+        el.querySelector("button").addEventListener("click", ()=>addToCart(it.id));
+        grid.appendChild(el);
+      });
+    }
+
+    function catName(id){
+      const c = CATS.find(x=>x.id===id);
+      return c ? c.name : id;
+    }
+
+    function renderCart(){
+      cartBody.innerHTML = "";
+      let total = 0;
+
+      if(cart.size===0){
+        cartBody.innerHTML = `<div class="note">Seu carrinho está vazio. Volte e adicione itens 😊</div>`;
+        totalTxt.textContent = "R$ 0,00";
+        return;
+      }
+
+      for(const [id, qty] of cart.entries()){
+        const it = ITEMS.find(x=>x.id===id);
+        const sub = it.price * qty;
+        total += sub;
+
+        const row = document.createElement("div");
+        row.className = "line";
+        row.innerHTML = `
+          <div class="miniImg"><img src="${it.img}" alt="${it.name}"/></div>
+          <div>
+            <h4>${it.name}</h4>
+            <p>${showPrices ? (money(it.price) + " • " + money(sub)) : "Preço sob consulta"}</p>
+          </div>
+          <div class="qty">
+            <button class="qbtn">−</button>
+            <b>${qty}</b>
+            <button class="qbtn">+</button>
+          </div>
+        `;
+        const btns = row.querySelectorAll(".qbtn");
+        btns[0].addEventListener("click", ()=>decQty(id));
+        btns[1].addEventListener("click", ()=>incQty(id));
+        cartBody.appendChild(row);
+      }
+
+      totalTxt.textContent = showPrices ? money(total) : "Sob consulta";
+    }
+
+    // toast simples
+    let toastTimer = null;
+    function toast(msg){
+      let t = document.getElementById("toast");
+      if(!t){
+        t = document.createElement("div");
+        t.id = "toast";
+        t.style.position = "fixed";
+        t.style.left = "50%";
+        t.style.bottom = "22px";
+        t.style.transform = "translateX(-50%)";
+        t.style.padding = "12px 14px";
+        t.style.borderRadius = "999px";
+        t.style.background = "rgba(0,0,0,.55)";
+        t.style.border = "1px solid rgba(255,255,255,.16)";
+        t.style.color = "rgba(255,255,255,.92)";
+        t.style.fontWeight = "850";
+        t.style.boxShadow = "0 18px 60px rgba(0,0,0,.45)";
+        t.style.zIndex = "999";
+        t.style.backdropFilter = "blur(12px)";
+        document.body.appendChild(t);
+      }
+      t.textContent = msg;
+      t.style.opacity = "1";
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(()=>{ t.style.opacity="0"; }, 1400);
+    }
+
+    // iniciar
+    updateCartCount();
+    render();
   </script>
 </body>
 </html>
