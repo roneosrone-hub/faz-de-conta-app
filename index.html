@@ -1,740 +1,96 @@
-<!doctype html>
-<html lang="pt-br">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-  <title>Faz de Conta Decorações</title>
-
-  <style>
-    :root{
-      --bg0:#070912;
-      --bg1:#0b1430;
-      --card: rgba(255,255,255,.06);
-      --stroke: rgba(255,255,255,.12);
-      --txt: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.70);
-      --muted2: rgba(255,255,255,.55);
-      --shadow: 0 18px 70px rgba(0,0,0,.55);
-      --r: 22px;
-      --r2: 16px;
-      --grad: linear-gradient(135deg,#ff4fd8,#5de7ff,#8bff7a);
-    }
-
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
-    body{
-      margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--txt);
-      background:
-        radial-gradient(900px 650px at 10% 12%, rgba(255,79,216,.20), transparent 58%),
-        radial-gradient(900px 650px at 90% 18%, rgba(93,231,255,.16), transparent 58%),
-        radial-gradient(900px 650px at 60% 92%, rgba(139,255,122,.12), transparent 60%),
-        linear-gradient(180deg, var(--bg1), var(--bg0));
-      overflow-x:hidden;
-    }
-
-    .wrap{
-      width:min(1120px, 100%);
-      margin:0 auto;
-      padding:16px 14px 110px;
-    }
-
-    /* ====== HEADER (NÃO FIXO / NÃO STICKY) ====== */
-    .header{
-      border:1px solid var(--stroke);
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
-      border-radius: var(--r);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-
-    .headTop{
-      padding:14px;
-      display:grid;
-      grid-template-columns: 90px 1fr;
-      gap:14px;
-      align-items:center;
-    }
-
-    .logo{
-      width:90px; height:90px;
-      border-radius: 22px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      box-shadow: 0 18px 60px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.10);
-    }
-    .logo img{ width:100%; height:100%; object-fit:cover; display:block; }
-
-    .brand h1{
-      margin:0;
-      font-size:20px;
-      font-weight: 950;
-      letter-spacing:.2px;
-      line-height:1.05;
-    }
-    .brand .slogan{
-      margin-top:6px;
-      font-size:15px;
-      font-weight: 900;
-      background: var(--grad);
-      -webkit-background-clip:text;
-      background-clip:text;
-      color: transparent;
-    }
-    .brand .sub{
-      margin-top:6px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height:1.25;
-    }
-
-    .meta{
-      margin-top:10px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-    }
-    .chip{
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
-      color: var(--muted);
-      font-size:12.5px;
-      display:inline-flex;
-      gap:8px;
-      align-items:center;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
-    }
-    .chip b{ color: var(--txt); }
-
-    .headActions{
-      padding:0 14px 14px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-
-    .btn{
-      cursor:pointer;
-      border:none;
-      border-radius: 999px;
-      padding:11px 14px;
-      background: rgba(255,255,255,.08);
-      color: var(--txt);
-      border: 1px solid rgba(255,255,255,.12);
-      box-shadow: 0 12px 35px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.08);
-      font-weight: 950;
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-    }
-    .btn.primary{
-      background: var(--grad);
-      color:#061017;
-      border:none;
-      box-shadow: 0 18px 55px rgba(0,0,0,.55);
-    }
-    .pill{
-      min-width:26px;
-      height:22px;
-      padding:0 8px;
-      border-radius:999px;
-      background: rgba(0,0,0,.25);
-      font-size:12px;
-      font-weight: 950;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-    }
-
-    /* ====== HERO ====== */
-    .hero{
-      border-top:1px solid rgba(255,255,255,.10);
-      padding:14px;
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:12px;
-    }
-    @media (max-width:900px){ .hero{ grid-template-columns: 1fr; } }
-
-    .heroMedia{
-      border-radius: var(--r);
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
-      box-shadow: 0 24px 80px rgba(0,0,0,.55);
-    }
-    .heroMedia img{
-      width:100%;
-      height: min(42vh, 420px);
-      object-fit: cover;
-      display:block;
-    }
-
-    .heroPanel{
-      border-radius: var(--r);
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      box-shadow: 0 18px 60px rgba(0,0,0,.45);
-      padding:14px;
-      display:grid;
-      gap:10px;
-      align-content:start;
-    }
-    .heroPanel h2{
-      margin:0;
-      font-size:22px;
-      font-weight: 950;
-      line-height:1.05;
-    }
-    .heroPanel p{
-      margin:0;
-      color: var(--muted);
-      font-size:13.5px;
-      line-height:1.25;
-    }
-
-    .inp, select{
-      width:100%;
-      padding:12px 14px;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
-      color: var(--txt);
-      outline:none;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
-    }
-    select option{ color:#111; }
-
-    .row{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
-    }
-
-    .toggleWrap{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      padding:10px 12px;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.12);
-    }
-    .toggleWrap small{ color: var(--muted); font-weight: 850; }
-
-    .toggle{
-      width:52px; height:30px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.08);
-      position:relative;
-      cursor:pointer;
-    }
-    .toggle i{
-      position:absolute;
-      top:50%;
-      transform: translateY(-50%);
-      left:4px;
-      width:22px; height:22px;
-      border-radius:999px;
-      background: rgba(255,255,255,.92);
-      transition: .18s;
-      box-shadow: 0 12px 30px rgba(0,0,0,.45);
-    }
-    .toggle.on{ background: rgba(67,230,165,.18); }
-    .toggle.on i{ left: 26px; }
-
-    .hint{
-      color: var(--muted2);
-      font-size:12.5px;
-      line-height:1.25;
-      padding:10px 12px;
-      border-radius: 16px;
-      border:1px dashed rgba(255,255,255,.16);
-      background: rgba(0,0,0,.12);
-    }
-
-    /* ====== GRID ====== */
-    .secHead{
-      margin:18px 2px 10px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-    .secHead h3{
-      margin:0;
-      font-size:18px;
-      font-weight: 950;
-      letter-spacing:.2px;
-    }
-    .tag{
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
-      color: var(--muted);
-      font-size:12.5px;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:12px;
-    }
-    @media (max-width:920px){ .grid{ grid-template-columns: repeat(2, 1fr);} }
-    @media (max-width:560px){ .grid{ grid-template-columns: 1fr;} }
-
-    .card{
-      border-radius: var(--r);
-      border:1px solid rgba(255,255,255,.12);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      box-shadow: 0 18px 60px rgba(0,0,0,.45);
-      overflow:hidden;
-      display:flex;
-      flex-direction:column;
-    }
-    .thumb{
-      height: 185px;
-      background: rgba(0,0,0,.18);
-      border-bottom:1px solid rgba(255,255,255,.10);
-      position:relative;
-    }
-    .thumb img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
-    .badge{
-      position:absolute;
-      left:10px; top:10px;
-      padding:8px 10px;
-      border-radius:999px;
-      background: rgba(0,0,0,.38);
-      border:1px solid rgba(255,255,255,.16);
-      font-weight: 950;
-      font-size:12px;
-      display:flex;
-      gap:8px;
-      align-items:center;
-      box-shadow: 0 14px 40px rgba(0,0,0,.45);
-    }
-    .cardBody{
-      padding:12px;
-      display:grid;
-      gap:8px;
-      flex:1;
-    }
-    .name{
-      margin:0;
-      font-size:16px;
-      font-weight: 950;
-      line-height:1.1;
-    }
-    .desc{
-      margin:0;
-      color: var(--muted);
-      font-size:13px;
-      line-height:1.25;
-      min-height: 34px;
-    }
-    .bottomRow{
-      margin-top:auto;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      padding-top:10px;
-      border-top:1px solid rgba(255,255,255,.10);
-    }
-    .money{
-      font-weight: 950;
-      font-size:15px;
-    }
-    .money small{ color: var(--muted2); font-weight: 850; }
-
-    .btnMini{
-      cursor:pointer;
-      border:none;
-      border-radius: 16px;
-      padding:10px 12px;
-      background: rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.12);
-      color: var(--txt);
-      font-weight: 950;
-      display:inline-flex;
-      gap:8px;
-      align-items:center;
-      box-shadow: 0 12px 35px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.08);
-    }
-    .btnMini.primary{
-      background: var(--grad);
-      border:none;
-      color:#061017;
-      box-shadow: 0 18px 50px rgba(0,0,0,.55);
-    }
-
-    /* ====== MODAIS (Carrinho + Contrato) ====== */
-    .modal{
-      position:fixed;
-      inset:0;
-      background: rgba(0,0,0,.68);
-      display:none;
-      align-items:flex-end;
-      justify-content:center;
-      padding:14px;
-      z-index:80;
-    }
-    .modal.on{ display:flex; }
-
-    .sheet{
-      width:min(820px, 100%);
-      border-radius: 28px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.16);
-      background: rgba(12,14,24,.92);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      box-shadow: 0 30px 110px rgba(0,0,0,.72);
-    }
-    .sheetHead{
-      padding:14px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      border-bottom:1px solid rgba(255,255,255,.12);
-      gap:10px;
-    }
-    .sheetHead b{ font-size:16px; }
-    .x{
-      cursor:pointer;
-      border:none;
-      width:42px; height:42px;
-      border-radius:999px;
-      background: rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.14);
-      color: var(--txt);
-      font-size:18px;
-      font-weight: 950;
-    }
-    .sheetBody{
-      padding:12px 14px;
-      max-height: 58vh;
-      overflow:auto;
-    }
-    .sheetFoot{
-      padding:12px 14px 14px;
-      border-top:1px solid rgba(255,255,255,.12);
-      display:grid;
-      gap:10px;
-    }
-
-    .line{
-      display:grid;
-      grid-template-columns: 58px 1fr auto;
-      gap:10px;
-      align-items:center;
-      padding:10px 0;
-      border-bottom:1px solid rgba(255,255,255,.10);
-    }
-    .miniImg{
-      width:58px; height:58px;
-      border-radius: 16px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
-    }
-    .miniImg img{ width:100%; height:100%; object-fit:cover; display:block; }
-    .line h4{ margin:0; font-size:14px; font-weight: 950; }
-    .line p{ margin:3px 0 0; font-size:12.5px; color: var(--muted); }
-
-    .qty{
-      display:flex; align-items:center; gap:8px;
-    }
-    .qbtn{
-      width:36px; height:36px;
-      border-radius: 14px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.08);
-      color: var(--txt);
-      cursor:pointer;
-      font-weight: 950;
-      font-size:16px;
-    }
-
-    .tot{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      font-weight: 950;
-    }
-    .tot span{ color: var(--muted); font-weight: 850; }
-
-    .box{
-      padding:12px;
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      display:grid;
-      gap:10px;
-    }
-    .note{
-      color: var(--muted);
-      font-size:12.5px;
-      line-height:1.25;
-    }
-    .pixKey{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      font-size:12.5px;
-      color: var(--txt);
-      background: rgba(0,0,0,.20);
-      border:1px solid rgba(255,255,255,.12);
-      padding:10px 12px;
-      border-radius: 16px;
-      word-break: break-all;
-    }
-
-    /* ===== CONTRATO (LEVE / SEM TEXTO GRANDE) ===== */
-    .formGrid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:10px;
-    }
-    @media (max-width:620px){ .formGrid{ grid-template-columns: 1fr; } }
-
-    .clabel{ color: var(--muted); font-size:12.5px; display:grid; gap:6px; }
-    .termsMini{
-      display:grid;
-      gap:8px;
-      padding:10px 12px;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.16);
-    }
-    .termsMini ul{ margin:0; padding-left:18px; color: rgba(255,255,255,.78); line-height:1.25; font-size:12.8px; }
-    .termsMini summary{ cursor:pointer; font-weight:950; color: var(--txt); }
-    details .termsFull{
-      margin-top:8px;
-      color: rgba(255,255,255,.74);
-      font-size:12.6px;
-      line-height:1.3;
-    }
-
-    .signBox{
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      overflow:hidden;
-    }
-    #signCanvas{
-      width:100%;
-      height: 220px;
-      display:block;
-      background: rgba(255,255,255,.02);
-      touch-action: none;
-    }
-    .signActions{
-      padding:10px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      border-top:1px solid rgba(255,255,255,.10);
-    }
-    .ok{
-      padding:10px 12px;
-      border-top:1px solid rgba(255,255,255,.10);
-      color: rgba(67,230,165,.95);
-      font-weight: 950;
-      display:none;
-    }
-
-    .agree{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      color: rgba(255,255,255,.78);
-      line-height:1.25;
-      font-size:13px;
-      margin-top:10px;
-    }
-
-    .paper{
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.14);
-      padding:12px;
-      color: rgba(255,255,255,.86);
-      line-height:1.35;
-      font-size:13px;
-      white-space: pre-wrap;
-      display:none;
-    }
-
-    .footer{
-      margin-top:18px;
-      color: rgba(255,255,255,.42);
-      font-size:12px;
-      text-align:center;
-      padding-top:10px;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="wrap">
-
-    <div class="header">
-      <div class="headTop">
-        <div class="logo"><img id="logoImg" alt="Logo"/></div>
-
-        <div class="brand">
-          <h1>Faz de Conta Decorações</h1>
-          <div class="slogan">Onde a imaginação vira festa</div>
-          <div class="sub">Catálogo + carrinho + Pix + contrato com assinatura (leve e fácil de acessar).</div>
-
-          <div class="meta">
-            <div class="chip">📍 <b>Jaciara/MT</b></div>
-            <div class="chip">📱 WhatsApp: <b>(66) 99622-3481</b></div>
-            <div class="chip">📅 <span id="today">--/--/----</span> • ⏰ <b id="clock">--:--</b></div>
-          </div>
-        </div>
+<!-- ===== CONTRATO ===== -->
+<section class="contractWrap" id="contractSection">
+  <div class="contractCard">
+    <div class="contractHead">
+      <div>
+        <h3>📝 Contrato de Locação de Itens</h3>
+        <p>Preencha os dados, assine e gere o contrato. (Itens vêm do carrinho automaticamente.)</p>
       </div>
-
-      <div class="headActions">
-        <button class="btn" id="btnWhats">💬 WhatsApp</button>
-        <button class="btn" id="btnCart">🛒 Carrinho <span class="pill" id="cartCount">0</span></button>
-        <button class="btn" id="btnContract">📝 Contrato</button>
-        <button class="btn primary" id="btnFinish">✅ Finalizar (Pix)</button>
-      </div>
-
-      <div class="hero">
-        <div class="heroMedia">
-          <img id="bannerImg" alt="Banner"/>
-        </div>
-
-        <div class="heroPanel">
-          <h2>Monte seu pedido</h2>
-          <p>Pesquise e filtre. Os preços podem ficar ocultos (sob consulta).</p>
-
-          <input class="inp" id="search" placeholder="🔎 Pesquisar (ex: arco, cortina, urso)..." />
-
-          <select id="filterCat">
-            <option value="all">Todas as categorias</option>
-          </select>
-
-          <div class="row">
-            <div class="toggleWrap">
-              <small>Mostrar preços</small>
-              <div class="toggle" id="togglePrices"><i></i></div>
-            </div>
-            <button class="btnMini" id="btnClear">🧽 Limpar</button>
-          </div>
-
-          <div class="hint" id="priceHint">Preço: sob consulta (ative “Mostrar preços” para exibir).</div>
-        </div>
+      <div class="contractMeta">
+        <div><b>Data/Hora:</b> <span id="contractNow">--/--/---- --:--</span></div>
+        <div><b>Nº:</b> <span id="contractId">----</span></div>
       </div>
     </div>
 
-    <div class="secHead">
-      <h3>✨ Itens</h3>
-      <div class="tag" id="countInfo">0 itens</div>
-    </div>
-
-    <div class="grid" id="grid"></div>
-
-    <div class="footer">© Faz de Conta Decorações • Catálogo demonstrativo (troque fotos e valores quando quiser)</div>
-  </div>
-
-  <!-- ===== MODAL CARRINHO ===== -->
-  <div class="modal" id="modalCart">
-    <div class="sheet">
-      <div class="sheetHead">
-        <b>🛒 Seu carrinho</b>
-        <button class="x" id="closeCart">✕</button>
+    <div class="contractGrid">
+      <div class="contractBlock">
+        <h4>Dados do Cliente</h4>
+        <div class="fgrid">
+          <input class="cinp" id="c_name" placeholder="Nome completo *">
+          <input class="cinp" id="c_cpf" placeholder="CPF *">
+          <input class="cinp" id="c_rg" placeholder="RG (opcional)">
+          <input class="cinp" id="c_phone" placeholder="Telefone/WhatsApp *">
+          <input class="cinp" id="c_address" placeholder="Endereço de entrega/retirada *">
+        </div>
       </div>
 
-      <div class="sheetBody" id="cartBody"></div>
-
-      <div class="sheetFoot">
-        <div class="tot">
-          <span>Total</span>
-          <div id="totalTxt">R$ 0,00</div>
+      <div class="contractBlock">
+        <h4>Datas e Prazo</h4>
+        <div class="fgrid">
+          <label class="clabel">Data do evento / uso
+            <input class="cinp" id="c_eventDate" type="date">
+          </label>
+          <label class="clabel">Data e hora de retirada/entrega *
+            <input class="cinp" id="c_pickup" type="datetime-local">
+          </label>
+          <label class="clabel">Data e hora de devolução *
+            <input class="cinp" id="c_return" type="datetime-local">
+          </label>
+          <input class="cinp" id="c_value" placeholder="Valor acordado (se quiser travar no contrato) ex: 350,00">
         </div>
+      </div>
 
-        <div class="box">
-          <b>✅ Pagamento via Pix</b>
-          <div class="note">Toque para copiar a chave Pix (você troca depois).</div>
-          <div class="pixKey" id="pixKey">SUA-CHAVE-PIX-AQUI</div>
+      <div class="contractBlock contractFull">
+        <h4>Resumo do Pedido (do carrinho)</h4>
+        <div class="cartMini" id="contractCart"></div>
+        <div class="contractTotals">
+          <div><span>Total (sugestão / visível se preços ativos):</span> <b id="contractTotal">—</b></div>
+          <div><span>Caução (opcional):</span> <b id="contractDeposit">—</b></div>
+        </div>
+      </div>
 
-          <div class="row">
-            <button class="btnMini primary" id="btnCopyPix">📋 Copiar Pix</button>
-            <button class="btnMini" id="btnEmpty">🗑️ Esvaziar</button>
+      <div class="contractBlock contractFull">
+        <h4>Cláusulas (modelo)</h4>
+        <div class="terms" id="contractText">
+          <p><b>1.</b> O(a) CONTRATANTE declara receber os itens em perfeito estado e compromete-se a utilizá-los com zelo, evitando danos, sujeira excessiva, contato com líquidos e exposição ao tempo quando não apropriado.</p>
+          <p><b>2.</b> O(a) CONTRATANTE compromete-se a devolver/entregar todos os itens na <b>data e horário combinados</b>. Atrasos poderão gerar taxa adicional conforme combinado no atendimento.</p>
+          <p><b>3.</b> Em caso de avaria, perda, rasgos, manchas, quebras, falta de peças ou qualquer dano, o(a) CONTRATANTE responsabiliza-se pelo ressarcimento parcial ou integral do item, conforme avaliação.</p>
+          <p><b>4.</b> A retirada/entrega e devolução devem ocorrer no endereço e horários informados neste contrato. Alterações devem ser comunicadas previamente.</p>
+          <p><b>5.</b> Pagamento via Pix (ou forma combinada) deverá ser efetuado conforme acordado antes da entrega/retirada, salvo negociação diferente.</p>
+          <p><b>6.</b> Este contrato é válido para o pedido descrito acima e passa a valer após o aceite e assinatura do(a) CONTRATANTE.</p>
+        </div>
+      </div>
+
+      <div class="contractBlock contractFull">
+        <h4>Assinatura do Cliente</h4>
+        <div class="signBox">
+          <canvas id="signCanvas" width="900" height="260"></canvas>
+          <div class="signActions">
+            <button class="cbtn" id="btnClearSign">🧼 Limpar assinatura</button>
+            <button class="cbtn" id="btnSaveSign">💾 Salvar assinatura</button>
           </div>
+          <div class="signSaved" id="signSaved" style="display:none;">
+            <span>✅ Assinatura salva.</span>
+          </div>
+        </div>
 
-          <button class="btn primary" id="btnSendWhatsOrder">Enviar pedido no WhatsApp</button>
+        <label class="agree">
+          <input type="checkbox" id="c_agree">
+          Eu li e concordo com as cláusulas acima, e me comprometo a cuidar e devolver os itens no prazo combinado.
+        </label>
+
+        <div class="contractActions">
+          <button class="cbtn primary" id="btnGenerateContract">📄 Gerar contrato (visualizar)</button>
+          <button class="cbtn" id="btnPrintContract">🖨️ Imprimir / Salvar PDF</button>
+          <button class="cbtn" id="btnSendWhatsContract">💬 Enviar contrato no WhatsApp</button>
+        </div>
+
+        <div class="contractPreview" id="contractPreview" style="display:none;">
+          <h4>Contrato gerado (prévia)</h4>
+          <div class="paper" id="paper"></div>
         </div>
       </div>
+
     </div>
   </div>
-
-  <!-- ===== MODAL CONTRATO (LEVE) ===== -->
-  <div class="modal" id="modalContract">
-    <div class="sheet">
-      <div class="sheetHead">
-        <b>📝 Contrato (rápido)</b>
-        <button class="x" id="closeContract">✕</button>
-      </div>
-
-      <div class="sheetBody">
-        <div class="box">
-          <div class="row">
-            <div class="tag">Nº <b id="contractId">----</b></div>
-            <div class="tag">🕒 <b id="contractNow">--/--/---- --:--</b></div>
-          </div>
-
-          <div class="note">
-            Preencha os dados, assine e gere o contrato. O pedido vem do carrinho automaticamente.
-          </div>
-
-          <div class="formGrid">
-            <label class="clabel">Nome completo*
-              <input class="inp" id="c_name" placeholder="Ex: Maria Silva">
-            </label>
-            <label class="clabel">CPF*
-              <input class="inp" id="c_cpf" placeholder="000.000.000-00">
-            </label>
-            <label class="clabel">Telefone/WhatsApp*
-              <input class="inp" id="c_phone" placeholder="(66) 9xxxx-xxxx">
-            </label>
-            <label class="clabel">Endereço (entrega/retirada)*
-              <input class="inp" id="c_address" placeholder="Rua, número, bairro">
-            </label>
-
-            <label class="clabel">Retirada/Entrega (data e hora)*
-              <input class="inp" id="c_pickup" type="datetime-local">
-            </label>
-            <label class="clabel">Devolução (data e hora)*
-              <input class="inp" id="c_return" type="datetime-local">
-            </label>
-          </div>
-
-          <div class="termsMini">
-            <details>
-              <summary>✅ Termos essenciais (toque para ver)</summary>
-              <div class="termsFull">
-                <ul>
-                  <li>O cliente se responsabiliza por <b>cuidar</b> dos itens e devolver no <b>prazo combinado</b>.</li>
-                  <li>Danos, perdas, manchas, quebras ou falta de peças geram <b>ressarcimento</b>.</li>
-                  <li>Em atraso, pode haver <b>taxa</b> conforme combinado no atendimento.</li>
-                  <li>Retirada/entrega/devolução nos horários e local informados.</li>
-                </ul>
-              </div>
-      
+</section>
