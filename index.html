@@ -1,685 +1,740 @@
 <!doctype html>
 <html lang="pt-br">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-       <title>FAZ DE CONTA DECORAÇÕES</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+  <title>Faz de Conta Decorações</title>
 
   <style>
     :root{
-      --bg0:#07101f;
-      --bg1:#0a1630;
-      --card: rgba(255,255,255,.08);
-      --card2: rgba(255,255,255,.12);
-      --stroke: rgba(255,255,255,.16);
+      --bg0:#070912;
+      --bg1:#0b1430;
+      --card: rgba(255,255,255,.06);
+      --stroke: rgba(255,255,255,.12);
       --txt: rgba(255,255,255,.92);
       --muted: rgba(255,255,255,.70);
-      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --muted2: rgba(255,255,255,.55);
+      --shadow: 0 18px 70px rgba(0,0,0,.55);
       --r: 22px;
-      --grad: linear-gradient(135deg, rgba(255,71,209,.30), rgba(58,240,255,.20), rgba(105,255,128,.20));
-      --gradBtn: linear-gradient(135deg, rgba(255,71,209,.75), rgba(120,96,255,.70), rgba(105,255,128,.70));
-      --ok: rgba(105,255,128,.16);
-      --warn: rgba(255,213,91,.16);
-      --bad: rgba(255,91,132,.18);
+      --r2: 16px;
+      --grad: linear-gradient(135deg,#ff4fd8,#5de7ff,#8bff7a);
     }
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
     body{
       margin:0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:var(--txt);
       background:
-        radial-gradient(1200px 700px at 18% 15%, rgba(255,71,209,.22), transparent 60%),
-        radial-gradient(900px 600px at 80% 25%, rgba(58,240,255,.18), transparent 58%),
-        radial-gradient(900px 700px at 50% 88%, rgba(105,255,128,.16), transparent 60%),
-        linear-gradient(180deg, var(--bg0), var(--bg1));
+        radial-gradient(900px 650px at 10% 12%, rgba(255,79,216,.20), transparent 58%),
+        radial-gradient(900px 650px at 90% 18%, rgba(93,231,255,.16), transparent 58%),
+        radial-gradient(900px 650px at 60% 92%, rgba(139,255,122,.12), transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg0));
       overflow-x:hidden;
     }
 
     .wrap{
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 18px 14px 90px;
+      width:min(1120px, 100%);
+      margin:0 auto;
+      padding:16px 14px 110px;
     }
 
-    /* Top “app bar” */
-    .appbar{
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      padding: 10px 0 12px;
-      backdrop-filter: blur(14px);
-      background: linear-gradient(180deg, rgba(7,16,31,.78), rgba(7,16,31,.35));
-      border-bottom: 1px solid rgba(255,255,255,.08);
-    }
-    .topRow{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 12px;
-    }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap: 12px;
-      min-width: 240px;
-    }
-    .logo{
-      width:54px;height:54px;
-      border-radius: 18px;
-      background: var(--grad);
-      border: 1px solid rgba(255,255,255,.18);
-      box-shadow: 0 10px 25px rgba(0,0,0,.35);
-      display:grid;place-items:center;
+    /* ====== HEADER (NÃO FIXO / NÃO STICKY) ====== */
+    .header{
+      border:1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border-radius: var(--r);
+      box-shadow: var(--shadow);
       overflow:hidden;
     }
-    .logo img{
-      width:100%;height:100%;object-fit:cover;display:block;
-    }
-    .brandTxt .name{
-      font-weight: 800;
-      letter-spacing: .2px;
-      font-size: 16.8px;
-      line-height: 1.1;
-    }
-    .brandTxt .slogan{
-      margin-top: 2px;
-      font-size: 12.8px;
-      color: transparent;
-      background: var(--gradBtn);
-      -webkit-background-clip: text;
-      background-clip:text;
-      font-weight: 700;
-    }
-    .brandTxt .sub{
-      margin-top: 3px;
-      font-size: 12px;
-      color: var(--muted);
+
+    .headTop{
+      padding:14px;
+      display:grid;
+      grid-template-columns: 90px 1fr;
+      gap:14px;
+      align-items:center;
     }
 
-    .chips{
+    .logo{
+      width:90px; height:90px;
+      border-radius: 22px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      box-shadow: 0 18px 60px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.10);
+    }
+    .logo img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+    .brand h1{
+      margin:0;
+      font-size:20px;
+      font-weight: 950;
+      letter-spacing:.2px;
+      line-height:1.05;
+    }
+    .brand .slogan{
+      margin-top:6px;
+      font-size:15px;
+      font-weight: 900;
+      background: var(--grad);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color: transparent;
+    }
+    .brand .sub{
+      margin-top:6px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height:1.25;
+    }
+
+    .meta{
+      margin-top:10px;
       display:flex;
       flex-wrap:wrap;
-      gap: 8px;
-      justify-content:flex-end;
-      align-items:center;
+      gap:8px;
     }
     .chip{
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      color: var(--muted);
+      font-size:12.5px;
       display:inline-flex;
-      align-items:center;
       gap:8px;
-      padding: 9px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.12);
-      color: var(--txt);
-      font-size: 12.5px;
-      box-shadow: 0 10px 24px rgba(0,0,0,.25);
-      user-select:none;
-      white-space: nowrap;
+      align-items:center;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
     }
-    .chip small{color: var(--muted)}
+    .chip b{ color: var(--txt); }
+
+    .headActions{
+      padding:0 14px 14px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
     .btn{
       cursor:pointer;
       border:none;
-      outline:none;
-    }
-    .btnPrimary{
-      background: var(--gradBtn);
-      border: 1px solid rgba(255,255,255,.18);
-      font-weight: 800;
-    }
-    .btnGhost{
-      background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.12);
-    }
-    .btnOk{
-      background: linear-gradient(135deg, rgba(105,255,128,.70), rgba(120,96,255,.65), rgba(255,71,209,.60));
-      border: 1px solid rgba(255,255,255,.18);
-      font-weight: 900;
-    }
-
-    /* Capa */
-    .hero{
-      margin-top: 14px;
-      display:grid;
-      grid-template-columns: 1.35fr .95fr;
-      gap: 14px;
-      align-items: stretch;
-    }
-    .panel{
-      background: var(--card);
-      border: 1px solid var(--stroke);
-      border-radius: var(--r);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(14px);
-      overflow:hidden;
-      position:relative;
-    }
-    .panel::before{
-      content:"";
-      position:absolute; inset:-2px;
-      background: radial-gradient(800px 250px at 20% 0%, rgba(255,71,209,.18), transparent 60%),
-                  radial-gradient(700px 240px at 80% 20%, rgba(58,240,255,.16), transparent 60%);
-      pointer-events:none;
-    }
-
-    .cover{
-      padding: 14px;
-      display:flex;
-      flex-direction:column;
-      gap: 10px;
-    }
-    .coverImgWrap{
-      border-radius: 18px;
-      overflow:hidden;
-      border: 1px solid rgba(255,255,255,.16);
-      background: rgba(0,0,0,.25);
-      box-shadow: 0 18px 40px rgba(0,0,0,.35);
-      transform: perspective(900px) rotateX(2deg);
-    }
-    .coverImg{
-      width: 100%;
-      height: 340px;
-      object-fit: cover;
-      display:block;
-    }
-    .coverHint{
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.35;
-      margin: 0 2px;
-    }
-
-    /* Montar pedido */
-    .builder{
-      padding: 14px;
-      display:flex;
-      flex-direction:column;
-      gap: 12px;
-    }
-    .builder h2{
-      margin: 2px 0 0;
-      font-size: 18px;
-      letter-spacing: .2px;
-    }
-    .builder p{
-      margin: 0;
-      color: var(--muted);
-      font-size: 12.7px;
-      line-height: 1.35;
-    }
-
-    .row{
-      display:flex;
-      gap: 10px;
-      flex-wrap:wrap;
-      align-items:center;
-    }
-    .input, select{
-      width: 100%;
-      padding: 12px 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.18);
+      border-radius: 999px;
+      padding:11px 14px;
+      background: rgba(255,255,255,.08);
       color: var(--txt);
-      outline: none;
-      box-shadow: 0 12px 26px rgba(0,0,0,.22);
-    }
-    select{cursor:pointer}
-    .toggle{
-      display:flex;
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 12px 35px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.08);
+      font-weight: 950;
+      display:inline-flex;
       align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-      padding: 10px 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.18);
-      box-shadow: 0 12px 26px rgba(0,0,0,.22);
-      width: 100%;
+      gap:10px;
     }
-    .toggle span{
-      font-size: 12.8px;
-      color: var(--muted);
+    .btn.primary{
+      background: var(--grad);
+      color:#061017;
+      border:none;
+      box-shadow: 0 18px 55px rgba(0,0,0,.55);
     }
-    .switch{
-      width: 54px;
-      height: 30px;
-      background: rgba(255,255,255,.10);
-      border: 1px solid rgba(255,255,255,.16);
-      border-radius: 999px;
-      position: relative;
-      cursor: pointer;
-      flex: 0 0 auto;
-    }
-    .knob{
-      width: 24px; height: 24px;
-      background: rgba(255,255,255,.90);
-      border-radius: 999px;
-      position:absolute; top:2px; left:2px;
-      transition: .18s ease;
-      box-shadow: 0 10px 20px rgba(0,0,0,.35);
-    }
-    .switch.on{
-      background: rgba(105,255,128,.18);
-      border-color: rgba(105,255,128,.28);
-    }
-    .switch.on .knob{left: 28px}
-
-    .smallBtn{
-      padding: 11px 12px;
-      border-radius: 16px;
-      width: 100%;
-      font-weight: 800;
-      font-size: 12.8px;
+    .pill{
+      min-width:26px;
+      height:22px;
+      padding:0 8px;
+      border-radius:999px;
+      background: rgba(0,0,0,.25);
+      font-size:12px;
+      font-weight: 950;
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      gap: 8px;
     }
 
-    /* Catálogo */
-    .sectionTitle{
-      margin: 18px 2px 10px;
+    /* ====== HERO ====== */
+    .hero{
+      border-top:1px solid rgba(255,255,255,.10);
+      padding:14px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:12px;
+    }
+    @media (max-width:900px){ .hero{ grid-template-columns: 1fr; } }
+
+    .heroMedia{
+      border-radius: var(--r);
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      box-shadow: 0 24px 80px rgba(0,0,0,.55);
+    }
+    .heroMedia img{
+      width:100%;
+      height: min(42vh, 420px);
+      object-fit: cover;
+      display:block;
+    }
+
+    .heroPanel{
+      border-radius: var(--r);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      box-shadow: 0 18px 60px rgba(0,0,0,.45);
+      padding:14px;
+      display:grid;
+      gap:10px;
+      align-content:start;
+    }
+    .heroPanel h2{
+      margin:0;
+      font-size:22px;
+      font-weight: 950;
+      line-height:1.05;
+    }
+    .heroPanel p{
+      margin:0;
+      color: var(--muted);
+      font-size:13.5px;
+      line-height:1.25;
+    }
+
+    .inp, select{
+      width:100%;
+      padding:12px 14px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      color: var(--txt);
+      outline:none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+    }
+    select option{ color:#111; }
+
+    .row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    .toggleWrap{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.12);
+    }
+    .toggleWrap small{ color: var(--muted); font-weight: 850; }
+
+    .toggle{
+      width:52px; height:30px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.08);
+      position:relative;
+      cursor:pointer;
+    }
+    .toggle i{
+      position:absolute;
+      top:50%;
+      transform: translateY(-50%);
+      left:4px;
+      width:22px; height:22px;
+      border-radius:999px;
+      background: rgba(255,255,255,.92);
+      transition: .18s;
+      box-shadow: 0 12px 30px rgba(0,0,0,.45);
+    }
+    .toggle.on{ background: rgba(67,230,165,.18); }
+    .toggle.on i{ left: 26px; }
+
+    .hint{
+      color: var(--muted2);
+      font-size:12.5px;
+      line-height:1.25;
+      padding:10px 12px;
+      border-radius: 16px;
+      border:1px dashed rgba(255,255,255,.16);
+      background: rgba(0,0,0,.12);
+    }
+
+    /* ====== GRID ====== */
+    .secHead{
+      margin:18px 2px 10px;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap: 10px;
+      gap:10px;
       flex-wrap:wrap;
     }
-    .sectionTitle h3{
+    .secHead h3{
       margin:0;
-      font-size: 18px;
-      letter-spacing: .2px;
+      font-size:18px;
+      font-weight: 950;
+      letter-spacing:.2px;
     }
-    .pill{
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.12);
+    .tag{
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
       color: var(--muted);
-      font-size: 12px;
+      font-size:12.5px;
     }
 
     .grid{
       display:grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
     }
+    @media (max-width:920px){ .grid{ grid-template-columns: repeat(2, 1fr);} }
+    @media (max-width:560px){ .grid{ grid-template-columns: 1fr;} }
 
     .card{
-      background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.13);
-      border-radius: 20px;
+      border-radius: var(--r);
+      border:1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow: 0 18px 60px rgba(0,0,0,.45);
       overflow:hidden;
-      box-shadow: 0 18px 50px rgba(0,0,0,.28);
-      transform: perspective(950px) rotateX(2deg);
-      transition: transform .16s ease, border-color .16s ease;
-      cursor:pointer;
-      position:relative;
-    }
-    .card:hover{
-      transform: perspective(950px) rotateX(0deg) translateY(-2px);
-      border-color: rgba(255,255,255,.22);
+      display:flex;
+      flex-direction:column;
     }
     .thumb{
-      height: 130px;
-      background: rgba(0,0,0,.22);
-      display:grid;
-      place-items:center;
-      border-bottom: 1px solid rgba(255,255,255,.10);
+      height: 185px;
+      background: rgba(0,0,0,.18);
+      border-bottom:1px solid rgba(255,255,255,.10);
+      position:relative;
     }
     .thumb img{
       width:100%;
       height:100%;
-      object-fit: cover;
+      object-fit:cover;
       display:block;
     }
-    .info{
-      padding: 10px 10px 12px;
+    .badge{
+      position:absolute;
+      left:10px; top:10px;
+      padding:8px 10px;
+      border-radius:999px;
+      background: rgba(0,0,0,.38);
+      border:1px solid rgba(255,255,255,.16);
+      font-weight: 950;
+      font-size:12px;
+      display:flex;
+      gap:8px;
+      align-items:center;
+      box-shadow: 0 14px 40px rgba(0,0,0,.45);
     }
-    .info .t{
-      font-weight: 900;
-      font-size: 13.8px;
-      margin: 0 0 4px;
-      letter-spacing: .2px;
+    .cardBody{
+      padding:12px;
+      display:grid;
+      gap:8px;
+      flex:1;
     }
-    .info .d{
+    .name{
       margin:0;
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.25;
-      min-height: 30px;
+      font-size:16px;
+      font-weight: 950;
+      line-height:1.1;
     }
-    .meta{
-      margin-top: 8px;
+    .desc{
+      margin:0;
+      color: var(--muted);
+      font-size:13px;
+      line-height:1.25;
+      min-height: 34px;
+    }
+    .bottomRow{
+      margin-top:auto;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap: 10px;
-      font-size: 12px;
-      color: var(--muted);
+      gap:10px;
+      padding-top:10px;
+      border-top:1px solid rgba(255,255,255,.10);
     }
-    .price{
+    .money{
       font-weight: 950;
-      color: var(--txt);
+      font-size:15px;
     }
-    .tag{
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.12);
-      color: var(--muted);
-      font-size: 11px;
+    .money small{ color: var(--muted2); font-weight: 850; }
+
+    .btnMini{
+      cursor:pointer;
+      border:none;
+      border-radius: 16px;
+      padding:10px 12px;
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+      color: var(--txt);
+      font-weight: 950;
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      box-shadow: 0 12px 35px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.08);
+    }
+    .btnMini.primary{
+      background: var(--grad);
+      border:none;
+      color:#061017;
+      box-shadow: 0 18px 50px rgba(0,0,0,.55);
     }
 
-    /* Modal */
-    .modalBack{
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.55);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      z-index: 200;
-      padding: 14px;
-    }
+    /* ====== MODAIS (Carrinho + Contrato) ====== */
     .modal{
-      width: min(720px, 100%);
-      background: rgba(10,16,28,.82);
-      border: 1px solid rgba(255,255,255,.16);
-      border-radius: 22px;
-      box-shadow: 0 30px 100px rgba(0,0,0,.65);
-      backdrop-filter: blur(18px);
-      overflow:hidden;
+      position:fixed;
+      inset:0;
+      background: rgba(0,0,0,.68);
+      display:none;
+      align-items:flex-end;
+      justify-content:center;
+      padding:14px;
+      z-index:80;
     }
-    .modalHeader{
-      padding: 12px 14px;
+    .modal.on{ display:flex; }
+
+    .sheet{
+      width:min(820px, 100%);
+      border-radius: 28px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(12,14,24,.92);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 30px 110px rgba(0,0,0,.72);
+    }
+    .sheetHead{
+      padding:14px;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      border-bottom: 1px solid rgba(255,255,255,.10);
+      border-bottom:1px solid rgba(255,255,255,.12);
+      gap:10px;
     }
-    .modalHeader b{font-size: 13.5px}
-    .modalBody{
-      padding: 14px;
-      color: var(--txt);
-    }
-    .modalBody p{
-      color: var(--muted);
-      margin: 0 0 10px;
-      font-size: 12.7px;
-      line-height: 1.35;
-    }
-    .modalGrid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    .box{
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 18px;
-      background: rgba(255,255,255,.06);
-      padding: 12px;
-    }
-    .box h4{
-      margin: 0 0 8px;
-      font-size: 13.2px;
-      letter-spacing: .2px;
-    }
-    .list{
-      margin: 0;
-      padding-left: 18px;
-      color: var(--muted);
-      font-size: 12.5px;
-      line-height: 1.35;
-    }
-    .sig{
-      width:100%;
-      height: 180px;
-      border-radius: 16px;
-      background: rgba(0,0,0,.22);
-      border: 1px solid rgba(255,255,255,.14);
-      display:block;
-      touch-action: none;
-    }
-    .agree{
-      display:flex;
-      gap: 10px;
-      align-items:flex-start;
-      margin-top: 12px;
-      padding: 10px 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(105,255,128,.08);
-    }
-    .agree input{margin-top: 3px}
-    .agree span{color: var(--muted); font-size: 12.4px; line-height: 1.35}
-    .modalFooter{
-      padding: 12px 14px;
-      display:flex;
-      gap: 10px;
-      justify-content:flex-end;
-      border-top: 1px solid rgba(255,255,255,.10);
-      flex-wrap:wrap;
-    }
-    .xBtn{
-      padding: 9px 12px;
-      border-radius: 14px;
+    .sheetHead b{ font-size:16px; }
+    .x{
+      cursor:pointer;
+      border:none;
+      width:42px; height:42px;
+      border-radius:999px;
       background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.14);
+      color: var(--txt);
+      font-size:18px;
+      font-weight: 950;
+    }
+    .sheetBody{
+      padding:12px 14px;
+      max-height: 58vh;
+      overflow:auto;
+    }
+    .sheetFoot{
+      padding:12px 14px 14px;
+      border-top:1px solid rgba(255,255,255,.12);
+      display:grid;
+      gap:10px;
+    }
+
+    .line{
+      display:grid;
+      grid-template-columns: 58px 1fr auto;
+      gap:10px;
+      align-items:center;
+      padding:10px 0;
+      border-bottom:1px solid rgba(255,255,255,.10);
+    }
+    .miniImg{
+      width:58px; height:58px;
+      border-radius: 16px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+    }
+    .miniImg img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .line h4{ margin:0; font-size:14px; font-weight: 950; }
+    .line p{ margin:3px 0 0; font-size:12.5px; color: var(--muted); }
+
+    .qty{
+      display:flex; align-items:center; gap:8px;
+    }
+    .qbtn{
+      width:36px; height:36px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.08);
       color: var(--txt);
       cursor:pointer;
+      font-weight: 950;
+      font-size:16px;
     }
 
-    /* Responsivo */
-    @media (max-width: 980px){
-      .hero{grid-template-columns: 1fr}
-      .coverImg{height: 320px}
-      .grid{grid-template-columns: repeat(3, 1fr);}
-      .chips{justify-content:flex-start}
+    .tot{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      font-weight: 950;
     }
-    @media (max-width: 720px){
-      .grid{grid-template-columns: repeat(2, 1fr);}
-      .modalGrid{grid-template-columns: 1fr;}
-      .coverImg{height: 300px}
+    .tot span{ color: var(--muted); font-weight: 850; }
+
+    .box{
+      padding:12px;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      display:grid;
+      gap:10px;
     }
-    @media (max-width: 380px){
-      .grid{grid-template-columns: 1fr;}
+    .note{
+      color: var(--muted);
+      font-size:12.5px;
+      line-height:1.25;
+    }
+    .pixKey{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size:12.5px;
+      color: var(--txt);
+      background: rgba(0,0,0,.20);
+      border:1px solid rgba(255,255,255,.12);
+      padding:10px 12px;
+      border-radius: 16px;
+      word-break: break-all;
+    }
+
+    /* ===== CONTRATO (LEVE / SEM TEXTO GRANDE) ===== */
+    .formGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+    }
+    @media (max-width:620px){ .formGrid{ grid-template-columns: 1fr; } }
+
+    .clabel{ color: var(--muted); font-size:12.5px; display:grid; gap:6px; }
+    .termsMini{
+      display:grid;
+      gap:8px;
+      padding:10px 12px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.16);
+    }
+    .termsMini ul{ margin:0; padding-left:18px; color: rgba(255,255,255,.78); line-height:1.25; font-size:12.8px; }
+    .termsMini summary{ cursor:pointer; font-weight:950; color: var(--txt); }
+    details .termsFull{
+      margin-top:8px;
+      color: rgba(255,255,255,.74);
+      font-size:12.6px;
+      line-height:1.3;
+    }
+
+    .signBox{
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      overflow:hidden;
+    }
+    #signCanvas{
+      width:100%;
+      height: 220px;
+      display:block;
+      background: rgba(255,255,255,.02);
+      touch-action: none;
+    }
+    .signActions{
+      padding:10px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      border-top:1px solid rgba(255,255,255,.10);
+    }
+    .ok{
+      padding:10px 12px;
+      border-top:1px solid rgba(255,255,255,.10);
+      color: rgba(67,230,165,.95);
+      font-weight: 950;
+      display:none;
+    }
+
+    .agree{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      color: rgba(255,255,255,.78);
+      line-height:1.25;
+      font-size:13px;
+      margin-top:10px;
+    }
+
+    .paper{
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.14);
+      padding:12px;
+      color: rgba(255,255,255,.86);
+      line-height:1.35;
+      font-size:13px;
+      white-space: pre-wrap;
+      display:none;
+    }
+
+    .footer{
+      margin-top:18px;
+      color: rgba(255,255,255,.42);
+      font-size:12px;
+      text-align:center;
+      padding-top:10px;
     }
   </style>
 </head>
 
 <body>
-  <div class="appbar">
-    <div class="wrap">
-      <div class="topRow">
-        <div class="brand">
-          <div class="logo" title="Logo / Capa pequena">
-            <!-- Logo pequeno: usa capa.jpg se existir, senão cai no fallback -->
-            <img id="logoImg" alt="Logo"
-                 src="capa.jpg"
-                 onerror="this.src=window.__svgLogoFallback;" />
-          </div>
-          <div class="brandTxt">
-            <div class="name">Faz de Conta Decorações</div>
-            <div class="slogan">Onde a imaginação vira festa</div>
-            <div class="sub">Catálogo • Carrinho • Pix • Contrato rápido</div>
-          </div>
-        </div>
-
-        <div class="chips">
-          <div class="chip" title="Local">📍 <b>Jaciara/MT</b></div>
-          <button class="chip btn btnGhost" id="btnWhats">💬 <b>WhatsApp</b> <small>(66) 99622-3481</small></button>
-          <div class="chip" title="Data e hora">📅 <b id="dateNow">--/--/----</b> • ⏰ <b id="timeNow">--:--</b></div>
-          <button class="chip btn btnGhost" id="btnContract">📝 <b>Contrato</b></button>
-          <button class="chip btn btnOk" id="btnCheckout">✅ <b>Finalizar (Pix)</b></button>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <div class="wrap">
-    <div class="hero">
-      <!-- CAPA GRANDE -->
-      <div class="panel cover">
-        <div class="coverImgWrap">
-          <img id="coverImg" class="coverImg" alt="Capa da empresa"
-               src="capa.jpg"
-               onerror="this.src=window.__svgCoverFallback;" />
-        </div>
-        <div class="coverHint">
-          <b>Para aparecer sua capa:</b> envie a imagem para a raiz do GitHub e renomeie para <b>capa.jpg</b>.
-          Se a capa não existir, o app mostra uma capa automática.
+
+    <div class="header">
+      <div class="headTop">
+        <div class="logo"><img id="logoImg" alt="Logo"/></div>
+
+        <div class="brand">
+          <h1>Faz de Conta Decorações</h1>
+          <div class="slogan">Onde a imaginação vira festa</div>
+          <div class="sub">Catálogo + carrinho + Pix + contrato com assinatura (leve e fácil de acessar).</div>
+
+          <div class="meta">
+            <div class="chip">📍 <b>Jaciara/MT</b></div>
+            <div class="chip">📱 WhatsApp: <b>(66) 99622-3481</b></div>
+            <div class="chip">📅 <span id="today">--/--/----</span> • ⏰ <b id="clock">--:--</b></div>
+          </div>
         </div>
       </div>
 
-      <!-- MONTAR PEDIDO -->
-      <div class="panel builder">
-        <h2>Monte seu pedido</h2>
-        <p>Pesquise e filtre. Toque nos itens para adicionar ao carrinho. Você pode esconder/mostrar preços.</p>
+      <div class="headActions">
+        <button class="btn" id="btnWhats">💬 WhatsApp</button>
+        <button class="btn" id="btnCart">🛒 Carrinho <span class="pill" id="cartCount">0</span></button>
+        <button class="btn" id="btnContract">📝 Contrato</button>
+        <button class="btn primary" id="btnFinish">✅ Finalizar (Pix)</button>
+      </div>
 
-        <div class="row">
-          <input class="input" id="q" placeholder="🔎 Pesquisar (ex: arco, cortina, urso)..." />
+      <div class="hero">
+        <div class="heroMedia">
+          <img id="bannerImg" alt="Banner"/>
         </div>
 
-        <div class="row">
-          <select id="cat"></select>
-        </div>
+        <div class="heroPanel">
+          <h2>Monte seu pedido</h2>
+          <p>Pesquise e filtre. Os preços podem ficar ocultos (sob consulta).</p>
 
-        <div class="row">
-          <div class="toggle">
-            <span>🔒 Mostrar preços</span>
-            <div class="switch" id="priceSwitch" aria-label="Mostrar preços">
-              <div class="knob"></div>
+          <input class="inp" id="search" placeholder="🔎 Pesquisar (ex: arco, cortina, urso)..." />
+
+          <select id="filterCat">
+            <option value="all">Todas as categorias</option>
+          </select>
+
+          <div class="row">
+            <div class="toggleWrap">
+              <small>Mostrar preços</small>
+              <div class="toggle" id="togglePrices"><i></i></div>
             </div>
+            <button class="btnMini" id="btnClear">🧽 Limpar</button>
           </div>
-        </div>
 
-        <div class="row">
-          <button class="smallBtn btn btnGhost" id="btnClear">🧽 Limpar</button>
-          <button class="smallBtn btn btnPrimary" id="btnCart">🛒 Carrinho: <span id="cartCount">0</span></button>
+          <div class="hint" id="priceHint">Preço: sob consulta (ative “Mostrar preços” para exibir).</div>
         </div>
-
-        <div class="coverHint" id="priceModeHint">Preço: <b>sob consulta</b> (ligue “Mostrar preços” para ver valores).</div>
       </div>
     </div>
 
-    <div class="sectionTitle">
-      <h3>✨ Itens do catálogo</h3>
-      <div class="pill" id="itemsHint">Toque para adicionar ao carrinho.</div>
+    <div class="secHead">
+      <h3>✨ Itens</h3>
+      <div class="tag" id="countInfo">0 itens</div>
     </div>
 
     <div class="grid" id="grid"></div>
+
+    <div class="footer">© Faz de Conta Decorações • Catálogo demonstrativo (troque fotos e valores quando quiser)</div>
   </div>
 
-  <!-- MODAL: CONTRATO -->
-  <div class="modalBack" id="contractModal">
-    <div class="modal">
-      <div class="modalHeader">
-        <b>📝 Contrato rápido de responsabilidade</b>
-        <button class="xBtn" data-close>Fechar ✕</button>
+  <!-- ===== MODAL CARRINHO ===== -->
+  <div class="modal" id="modalCart">
+    <div class="sheet">
+      <div class="sheetHead">
+        <b>🛒 Seu carrinho</b>
+        <button class="x" id="closeCart">✕</button>
       </div>
-      <div class="modalBody">
-        <p>
-          Este contrato é curto e fácil. Serve para registrar que o cliente recebe os itens em bom estado,
-          se compromete a cuidar e devolver no prazo combinado.
-        </p>
 
-        <div class="modalGrid">
-          <div class="box">
-            <h4>✅ Regras principais</h4>
-            <ul class="list">
-              <li>Devolver os itens no prazo combinado.</li>
-              <li>Manter limpo, sem rasgos, riscos ou manchas.</li>
-              <li>Se houver dano/perda, pode haver cobrança de reposição.</li>
-              <li>Retirada/entrega conforme combinado via WhatsApp.</li>
-            </ul>
-          </div>
+      <div class="sheetBody" id="cartBody"></div>
 
-          <div class="box">
-            <h4>✍️ Assinatura (desenhe com o dedo)</h4>
-            <canvas class="sig" id="sig"></canvas>
-            <div style="display:flex; gap:10px; margin-top:10px; flex-wrap:wrap">
-              <button class="smallBtn btn btnGhost" id="btnSigClear" style="width:auto">🧼 Limpar</button>
-              <button class="smallBtn btn btnPrimary" id="btnSigSave" style="width:auto">💾 Salvar assinatura</button>
-            </div>
-          </div>
+      <div class="sheetFoot">
+        <div class="tot">
+          <span>Total</span>
+          <div id="totalTxt">R$ 0,00</div>
         </div>
 
-        <label class="agree">
-          <input type="checkbox" id="agreeCheck" />
-          <span>
-            Eu li e concordo com o contrato de responsabilidade (devolução no prazo e cuidado com os itens).
-          </span>
-        </label>
+        <div class="box">
+          <b>✅ Pagamento via Pix</b>
+          <div class="note">Toque para copiar a chave Pix (você troca depois).</div>
+          <div class="pixKey" id="pixKey">SUA-CHAVE-PIX-AQUI</div>
 
-        <div class="coverHint" style="margin-top:10px">
-          Dica: este aceite é exigido ao finalizar o Pix.
+          <div class="row">
+            <button class="btnMini primary" id="btnCopyPix">📋 Copiar Pix</button>
+            <button class="btnMini" id="btnEmpty">🗑️ Esvaziar</button>
+          </div>
+
+          <button class="btn primary" id="btnSendWhatsOrder">Enviar pedido no WhatsApp</button>
         </div>
-      </div>
-      <div class="modalFooter">
-        <button class="xBtn" data-close>Cancelar</button>
-        <button class="chip btn btnOk" id="btnContractOk">Confirmar ✅</button>
       </div>
     </div>
   </div>
 
-  <!-- MODAL: CARRINHO / PIX -->
-  <div class="modalBack" id="checkoutModal">
-    <div class="modal">
-      <div class="modalHeader">
-        <b>🛒 Seu carrinho e pagamento (Pix)</b>
-        <button class="xBtn" data-close>Fechar ✕</button>
+  <!-- ===== MODAL CONTRATO (LEVE) ===== -->
+  <div class="modal" id="modalContract">
+    <div class="sheet">
+      <div class="sheetHead">
+        <b>📝 Contrato (rápido)</b>
+        <button class="x" id="closeContract">✕</button>
       </div>
-      <div class="modalBody">
-        <div class="box" style="margin-bottom:12px">
-          <h4>Itens selecionados</h4>
-          <div id="cartList" style="color:var(--muted); font-size:12.6px; line-height:1.45"></div>
-          <div style="margin-top:10px; display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap">
-            <div class="tag">Total: <b id="cartTotal">R$ 0,00</b></div>
-            <button class="smallBtn btn btnGhost" id="btnCartClear" style="width:auto">🗑️ Limpar carrinho</button>
-          </div>
-        </div>
 
-        <div class="modalGrid">
-          <div class="box">
-            <h4>💠 Pix</h4>
-            <p style="margin:0 0 10px">
-              Copie a chave Pix abaixo e envie o comprovante no WhatsApp.
-            </p>
-            <div class="tag" style="display:flex; gap:10px; justify-content:space-between; align-items:center; flex-wrap:wrap">
-              <span>Chave Pix:</span>
-              <b id="pixKey">SEU_PIX_AQUI</b>
-            </div>
-            <div style="display:flex; gap:10px; margin-top:10px; flex-wrap:wrap">
-              <button class="smallBtn btn btnPrimary" id="btnCopyPix" style="width:auto">📋 Copiar Pix</button>
-              <button class="smallBtn btn btnGhost" id="btnSendWhats" style="width:auto">💬 Enviar no WhatsApp</button>
-            </div>
-            <div class="coverHint" style="margin-top:10px">
-              Você pode trocar a chave Pix no código: procure por <b>SEU_PIX_AQUI</b>.
-            </div>
+      <div class="sheetBody">
+        <div class="box">
+          <div class="row">
+            <div class="tag">Nº <b id="contractId">----</b></div>
+            <div class="tag">🕒 <b id="contractNow">--/--/---- --:--</b></div>
           </div>
 
-          <div class="box">
-            <h4>📝 Contrato</h4>
-            <p style="margin:0 0 10px">
-              Para finalizar, é obrigatório aceitar o contrato e salvar a assinatura.
-            </p>
-            <div class="tag">Aceite: <b id="agreeStatus">Pendente</b></div>
-            <div class="tag" style="margin-top:8px">Assinatura: <b id="sigStatus">Pendente</b></div>
-            <div style="display:flex; gap:10px; margin-top:10px; flex-wrap:wrap">
-              <button class="smallBtn btn btnGhost" id="btnOpenContract" style="width:auto">📝 Abrir contrato</button>
-              <button class="smallBtn btn btnOk" id="btnFinalize" style="width:auto">✅ Finalizar pedido</button>
-            </div>
-            <div class="coverHint" style="margin-top:10px">
-              Ao finalizar, o app monta uma mensagem com itens e total para você confirmar no WhatsApp.
-            </div>
+          <div class="note">
+            Preencha os dados, assine e gere o contrato. O pedido vem do carrinho automaticamente.
           </div>
-        </div>
 
-      </div>
-      <div class="modalFooter">
-        
+          <div class="formGrid">
+            <label class="clabel">Nome completo*
+              <input class="inp" id="c_name" placeholder="Ex: Maria Silva">
+            </label>
+            <label class="clabel">CPF*
+              <input class="inp" id="c_cpf" placeholder="000.000.000-00">
+            </label>
+            <label class="clabel">Telefone/WhatsApp*
+              <input class="inp" id="c_phone" placeholder="(66) 9xxxx-xxxx">
+            </label>
+            <label class="clabel">Endereço (entrega/retirada)*
+              <input class="inp" id="c_address" placeholder="Rua, número, bairro">
+            </label>
+
+            <label class="clabel">Retirada/Entrega (data e hora)*
+              <input class="inp" id="c_pickup" type="datetime-local">
+            </label>
+            <label class="clabel">Devolução (data e hora)*
+              <input class="inp" id="c_return" type="datetime-local">
+            </label>
+          </div>
+
+          <div class="termsMini">
+            <details>
+              <summary>✅ Termos essenciais (toque para ver)</summary>
+              <div class="termsFull">
+                <ul>
+                  <li>O cliente se responsabiliza por <b>cuidar</b> dos itens e devolver no <b>prazo combinado</b>.</li>
+                  <li>Danos, perdas, manchas, quebras ou falta de peças geram <b>ressarcimento</b>.</li>
+                  <li>Em atraso, pode haver <b>taxa</b> conforme combinado no atendimento.</li>
+                  <li>Retirada/entrega/devolução nos horários e local informados.</li>
+                </ul>
+              </div>
+      
