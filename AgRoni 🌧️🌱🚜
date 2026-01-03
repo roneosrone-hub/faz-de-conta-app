@@ -1,0 +1,378 @@
+# ===== AgRoni 🌧️🌱🚜 - Site PWA Offline (Next.js) - Setup 1-CÓPIA =====
+# Requisitos: Node.js 18+ instalado.
+
+APP="agroni"
+rm -rf "$APP"
+
+# 1) Criar projeto Next.js com Tailwind e App Router
+npx create-next-app@latest "$APP" --ts --tailwind --eslint --app --src-dir --import-alias "@/*" --no-turbopack
+cd "$APP" || exit 1
+
+# 2) Dependências PWA
+npm i next-pwa
+
+# 3) next.config.js (PWA)
+cat > next.config.js << 'EOF'
+const withPWA = require("next-pwa")({
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+  disable: process.env.NODE_ENV === "development",
+});
+
+module.exports = withPWA({
+  reactStrictMode: true,
+});
+EOF
+
+# 4) Manifest e meta
+mkdir -p public
+cat > public/manifest.json << 'EOF'
+{
+  "name": "AgRoni 🌧️🌱🚜",
+  "short_name": "AgRoni",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "background_color": "#0b1220",
+  "theme_color": "#0b1220",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
+EOF
+
+# 5) Ícones placeholders (para não quebrar o PWA)
+# (Depois você troca pelos ícones reais do AgRoni)
+python - << 'PY'
+from PIL import Image, ImageDraw
+import os
+
+def make_icon(size, path):
+    img = Image.new("RGB", (size, size), (11,18,32))
+    d = ImageDraw.Draw(img)
+    d.ellipse((size*0.18,size*0.18,size*0.82,size*0.82), outline=(90,200,150), width=max(3,size//50))
+    d.text((size*0.33,size*0.42), "AR", fill=(200,220,255))
+    img.save(path)
+
+os.makedirs("public", exist_ok=True)
+make_icon(192, "public/icon-192.png")
+make_icon(512, "public/icon-512.png")
+print("Icons created.")
+PY
+
+# 6) Layout base + Sidebar + abas (App Router em src/app)
+mkdir -p src/app/dashboard
+mkdir -p src/components
+
+# 6.1) Root layout
+cat > src/app/layout.tsx << 'EOF'
+import "./globals.css";
+
+export const metadata = {
+  title: "AgRoni 🌧️🌱🚜",
+  description: "Offline-first para produtor rural",
+  manifest: "/manifest.json",
+  themeColor: "#0b1220",
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="pt-BR">
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#0b1220" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+      </head>
+      <body className="bg-slate-950 text-slate-100">{children}</body>
+    </html>
+  );
+}
+EOF
+
+# 6.2) Componentes UI (cards, status, sidebar)
+cat > src/components/ui.tsx << 'EOF'
+import Link from "next/link";
+
+export function PageShell({ title, subtitle, children }: { title: string; subtitle?: string; children: React.ReactNode }) {
+  return (
+    <div className="space-y-4">
+      <div className="space-y-1">
+        <h1 className="text-xl font-bold tracking-tight">{title}</h1>
+        {subtitle ? <p className="text-sm text-slate-300">{subtitle}</p> : null}
+      </div>
+      <div className="grid gap-3">{children}</div>
+    </div>
+  );
+}
+
+export function BigCard({ title, body }: { title: string; body: string }) {
+  return (
+    <div className="rounded-2xl border border-slate-800 bg-slate-900/40 p-4 shadow-sm">
+      <div className="text-base font-semibold">{title}</div>
+      <div className="mt-1 text-sm text-slate-300">{body}</div>
+    </div>
+  );
+}
+
+export function StatusPill({ label }: { label: string }) {
+  return (
+    <span className="inline-flex items-center rounded-full border border-slate-700 bg-slate-900/60 px-3 py-1 text-xs text-slate-200">
+      {label}
+    </span>
+  );
+}
+
+export function SidebarNav() {
+  const items = [
+    { href: "/dashboard", label: "Visão geral" },
+    { href: "/dashboard/clima", label: "Clima (15 dias)" },
+    { href: "/dashboard/precos", label: "Preços" },
+    { href: "/dashboard/doencas", label: "Doenças & Pressão" },
+    { href: "/dashboard/calendario", label: "Calendário (40/15/15)" },
+    { href: "/dashboard/diagnostico", label: "Diagnóstico IA (foto)" },
+    { href: "/dashboard/casos", label: "Casos Reais & Tecnologias" },
+    { href: "/dashboard/falar", label: "Falar comigo" },
+    { href: "/dashboard/perfil", label: "Perfil & Assinatura" },
+  ];
+
+  return (
+    <nav className="space-y-1">
+      {items.map((it) => (
+        <Link
+          key={it.href}
+          href={it.href}
+          className="block rounded-xl px-3 py-2 text-sm text-slate-200 hover:bg-slate-900/60 hover:text-white"
+        >
+          {it.label}
+        </Link>
+      ))}
+    </nav>
+  );
+}
+EOF
+
+# 6.3) Dashboard layout
+cat > src/app/dashboard/layout.tsx << 'EOF'
+import { SidebarNav } from "@/components/ui";
+
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="min-h-screen">
+      <header className="sticky top-0 z-10 border-b border-slate-800 bg-slate-950/80 backdrop-blur">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+          <div className="text-lg font-bold">AgRoni 🌧️🌱🚜</div>
+          <div className="text-xs text-slate-300">Offline-first • Premium + Agro</div>
+        </div>
+      </header>
+
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-4 px-4 py-4 md:grid-cols-[260px_1fr]">
+        <aside className="rounded-2xl border border-slate-800 bg-slate-900/30 p-3">
+          <SidebarNav />
+        </aside>
+
+        <main className="rounded-2xl border border-slate-800 bg-slate-900/20 p-4">
+          {children}
+        </main>
+      </div>
+    </div>
+  );
+}
+EOF
+
+# 6.4) Páginas
+cat > src/app/dashboard/page.tsx << 'EOF'
+import { BigCard, PageShell, StatusPill } from "@/components/ui";
+
+export default function DashboardHome() {
+  return (
+    <PageShell
+      title="Painel"
+      subtitle="Tudo pensado para rodar no campo (sem internet) e sincronizar quando voltar sinal."
+    >
+      <div className="flex flex-wrap gap-2">
+        <StatusPill label="✅ Sincronizado (exemplo)" />
+        <StatusPill label="🕓 Pendências: 0" />
+        <StatusPill label="📦 Última atualização: --/-- --:--" />
+      </div>
+
+      <BigCard title="Clima 15 dias" body="Mostra a última previsão salva offline; atualiza quando tiver internet." />
+      <BigCard title="Preços" body="Soja/Milho/Algodão: cache offline. Em demo fica bloqueado (quando ativarmos assinatura)." />
+      <BigCard title="Calendário 40/15/15" body="Funciona 100% offline (notificações locais no app Android depois)." />
+      <BigCard title="Diagnóstico por Foto (IA)" body="Preparado para IA offline (TFLite no Android; no web vira etapa 2)." />
+      <BigCard title="Casos Reais & Tecnologias" body="Galeria curada: erros de aplicação, tecnologias x herbicidas, fitotoxidade etc." />
+      <BigCard title="Falar comigo" body="Chat seguro: texto/foto/áudio. Offline entra na fila e envia quando voltar sinal." />
+    </PageShell>
+  );
+}
+EOF
+
+cat > src/app/dashboard/clima/page.tsx << 'EOF'
+import { BigCard, PageShell, StatusPill } from "@/components/ui";
+
+export default function Clima() {
+  return (
+    <PageShell title="Clima (15 dias)" subtitle="Offline: mostra último pacote sincronizado. Online: atualiza.">
+      <div className="flex flex-wrap gap-2">
+        <StatusPill label="📦 Última atualização: --/-- --:--" />
+        <StatusPill label="🌧️ Cache offline ativo" />
+      </div>
+      <BigCard title="Chuva 15 dias" body="Aqui entra a integração com API (fase 2). Por enquanto é mock." />
+      <BigCard title="Janela de aplicação" body="Indicador verde/amarelo/vermelho com base em chuva/vento/umidade." />
+    </PageShell>
+  );
+}
+EOF
+
+cat > src/app/dashboard/precos/page.tsx << 'EOF'
+import { BigCard, PageShell, StatusPill } from "@/components/ui";
+
+export default function Precos() {
+  return (
+    <PageShell title="Preços" subtitle="Soja, milho e algodão (cache offline).">
+      <div className="flex flex-wrap gap-2">
+        <StatusPill label="🔒 Modo demo (bloqueado)" />
+        <StatusPill label="📦 Última atualização: --/-- --:--" />
+      </div>
+      <BigCard title="Soja" body="R$ --/sc (mock). Variação: --" />
+      <BigCard title="Milho" body="R$ --/sc (mock). Variação: --" />
+      <BigCard title="Algodão" body="R$ --/@ (mock). Variação: --" />
+      <BigCard title="Alertas" body="Ex.: avisar quando soja < X ou milho > Y (fase 2)." />
+    </PageShell>
+  );
+}
+EOF
+
+cat > src/app/dashboard/doencas/page.tsx << 'EOF'
+import { BigCard, PageShell } from "@/components/ui";
+
+export default function Doencas() {
+  return (
+    <PageShell title="Doenças & Pressão" subtitle="Conteúdo embarcado (offline) + risco quando online.">
+      <BigCard title="Soja" body="Ferrugem asiática, mancha-alvo, mofo-branco, oídio..." />
+      <BigCard title="Milho" body="Cercosporiose, mancha branca, ferrugens, helmintosporiose..." />
+      <BigCard title="Algodão" body="Ramulária, alternária e outros." />
+      <BigCard title="Pressão/Risco" body="Heurística simples baseada em chuva/molhamento (fase 2)." />
+    </PageShell>
+  );
+}
+EOF
+
+cat > src/app/dashboard/calendario/page.tsx << 'EOF'
+import { BigCard, PageShell } from "@/components/ui";
+
+export default function Calendario() {
+  return (
+    <PageShell title="Calendário (40/15/15)" subtitle="Funciona offline. Depois sincroniza e gera histórico.">
+      <BigCard title="Programar" body="Plantio hoje → +40 dias (1ª) → +15 (2ª) → +15 (3ª)." />
+      <BigCard title="Alertas" body="No web vira lembrete. No Android será notificação local." />
+      <BigCard title="Caderno de campo" body="Registrar aplicação, produto, dose, talhão, fotos (fase 2)." />
+    </PageShell>
+  );
+}
+EOF
+
+cat > src/app/dashboard/diagnostico/page.tsx << 'EOF'
+import { BigCard, PageShell, StatusPill } from "@/components/ui";
+
+export default function Diagnostico() {
+  return (
+    <PageShell title="Diagnóstico IA (foto)" subtitle="Offline-first no Android. No web entra como fase 2.">
+      <div className="flex flex-wrap gap-2">
+        <StatusPill label="📸 Envio em fila offline (fase 2)" />
+        <StatusPill label="✅ Validação do agrônomo" />
+      </div>
+      <BigCard title="Triagem por foto" body="Mostra top 3 hipóteses e permite enviar para você conferir." />
+      <BigCard title="Sem internet?" body="Salva local e envia quando voltar sinal." />
+    </PageShell>
+  );
+}
+EOF
+
+cat > src/app/dashboard/casos/page.tsx << 'EOF'
+import { BigCard, PageShell } from "@/components/ui";
+
+export default function Casos() {
+  return (
+    <PageShell title="Casos Reais & Tecnologias" subtitle="Galeria curada com fotos e explicação técnica objetiva.">
+      <BigCard
+        title="Erro comum: tecnologia x herbicida"
+        body="Ex.: RR/Intacta → glifosato. Conkesta → glifosato + glufosinato. (Conteúdo curado entra na fase 2 com banco)."
+      />
+      <BigCard title="Aplicação errada" body="Fitotoxidade por mistura, dose, estádio ou condição climática." />
+      <BigCard title="Tecnologias" body="Guia rápido com ✔️ permitido / ❌ proibido / ⚠️ atenção." />
+      <BigCard title="Envio para curadoria" body="Produtor envia um caso e você aprova antes de aparecer pra todos." />
+    </PageShell>
+  );
+}
+EOF
+
+cat > src/app/dashboard/falar/page.tsx << 'EOF'
+import { BigCard, PageShell, StatusPill } from "@/components/ui";
+
+export default function Falar() {
+  return (
+    <PageShell title="Falar comigo" subtitle="Chat seguro (texto/foto/áudio). Offline entra na fila e envia quando voltar internet.">
+      <div className="flex flex-wrap gap-2">
+        <StatusPill label="🔒 Protegido por login (fase 2)" />
+        <StatusPill label="🧾 Auditoria & histórico (fase 2)" />
+      </div>
+      <BigCard title="Mensagem" body="Área de conversa (fase 2 com Firebase). Por enquanto é mock." />
+      <BigCard title="Anexos" body="Foto e áudio serão enviados com compressão e fila offline." />
+    </PageShell>
+  );
+}
+EOF
+
+cat > src/app/dashboard/perfil/page.tsx << 'EOF'
+import { BigCard, PageShell, StatusPill } from "@/components/ui";
+
+export default function Perfil() {
+  return (
+    <PageShell title="Perfil & Assinatura" subtitle="Assinatura mensal/anual (no site: Stripe; no app: Play/Apple).">
+      <div className="flex flex-wrap gap-2">
+        <StatusPill label="Plano: Demo" />
+        <StatusPill label="Status: Inativo" />
+      </div>
+      <BigCard title="Assinar" body="Botão Stripe Checkout (fase 2). Mensal e anual." />
+      <BigCard title="O que libera no Pro" body="Preços, IA, Chat, atualizações, casos premium, exportação PDF." />
+    </PageShell>
+  );
+}
+EOF
+
+# 7) Redirecionar / para /dashboard
+cat > src/app/page.tsx << 'EOF'
+import Link from "next/link";
+
+export default function Home() {
+  return (
+    <div className="min-h-screen grid place-items-center p-6">
+      <div className="max-w-md w-full rounded-2xl border border-slate-800 bg-slate-900/30 p-5 space-y-3">
+        <div className="text-2xl font-bold">AgRoni 🌧️🌱🚜</div>
+        <p className="text-sm text-slate-300">
+          Versão web (PWA) pronta para Vercel. Offline-first, premium + agro.
+        </p>
+        <Link
+          className="inline-flex w-full justify-center rounded-xl bg-slate-100 px-4 py-2 text-slate-900 font-semibold hover:bg-white"
+          href="/dashboard"
+        >
+          Entrar
+        </Link>
+        <p className="text-xs text-slate-400">
+          Login/Assinatura/Chat entram na fase 2 (Firebase/Stripe).
+        </p>
+      </div>
+    </div>
+  );
+}
+EOF
+
+# 8) Rodar
+echo ""
+echo "✅ Pronto! Agora rode:"
+echo "   cd $APP"
+echo "   npm run dev"
+echo ""
+echo "Depois: suba no GitHub e faça Deploy no Vercel."
