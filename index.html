@@ -489,6 +489,44 @@
     @media (max-width: 380px){
       .grid{grid-template-columns: 1fr;}
     }
+    .brand h1{
+  font-size: 34px;
+  font-weight: 900;
+  margin: 0;
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  background: linear-gradient(
+    270deg,
+    #ff4fd8,
+    #7afcff,
+    #ffe066,
+    #ff4fd8
+  );
+  background-size: 600% 600%;
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+
+  animation: brilhoDegrade 6s ease infinite;
+
+  text-shadow: 0 4px 18px rgba(0,0,0,.35);
+}
+
+/* ANIMAÇÃO DO DEGRADÊ */
+@keyframes brilhoDegrade{
+  0%{
+    background-position: 0% 50%;
+  }
+  50%{
+    background-position: 100% 50%;
+  }
+  100%{
+    background-position: 0% 50%;
+  }
+}
   </style>
 </head>
 
