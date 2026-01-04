@@ -858,37 +858,73 @@
   bindTilt(el("tiltHeader"), 4.5);
   bindTilt(el("tiltBanner"), 5.5);
 
-  // ========= HERO MEDIA (VIDEO COM SOM AO CLICAR) =========
+// ========= HERO MEDIA (VIDEO > IMG) - À PROVA DE ERRO =========
 function heroMedia(){
   const box = document.getElementById("heroMedia");
   if(!box) return;
 
   box.innerHTML = "";
 
+  // fallback visual se nada carregar
+  const fallbackText = () => {
+    box.innerHTML = `
+      <div style="padding:14px; text-align:center; color:rgba(255,255,255,.75); font-weight:800;">
+        ⚠️ Não encontrei <b>video-capa.mp4</b> nem <b>capa.jpg/png</b> na raiz do projeto.
+      </div>`;
+  };
+
+  // tenta carregar imagem de fallback
+  const showImage = () => {
+    const img = document.createElement("img");
+    img.alt = "Capa";
+    img.src = "capa.jpg";
+    img.onerror = () => {
+      img.src = "capa.png";
+      img.onerror = fallbackText;
+    };
+    box.innerHTML = "";
+    box.appendChild(img);
+  };
+
+  // cria o vídeo
   const video = document.createElement("video");
   video.src = "video-capa.mp4";
-  video.autoplay = false;      // usuário controla
-  video.muted = false;         // som ativo
-  video.loop = false;
-  video.controls = true;       // ESSENCIAL
-  video.playsInline = true;    // ESSENCIAL p/ celular
+  video.controls = true;        // mostra o player
+  video.playsInline = true;     // celular não força tela cheia
   video.preload = "metadata";
+  video.poster = "capa.jpg";    // capa enquanto carrega (se existir)
 
   // compatibilidade iOS
   video.setAttribute("playsinline", "");
   video.setAttribute("webkit-playsinline", "");
 
-  video.onerror = () => {
-    const img = document.createElement("img");
-    img.alt = "Capa";
-    img.src = "capa.jpg";
-    img.onerror = () => img.src = "capa.png";
+  // se o vídeo carregar, mostra ele
+  video.onloadeddata = () => {
     box.innerHTML = "";
-    box.appendChild(img);
+    box.appendChild(video);
   };
 
+  // se o vídeo der erro (arquivo não existe / 404), mostra imagem
+  video.onerror = () => {
+    showImage();
+  };
+
+  // coloca o vídeo mesmo assim (para aparecer controles, mesmo antes de carregar)
   box.appendChild(video);
+
+  // tentativa extra: se o vídeo não carregar em 1s, cai pra imagem
+  setTimeout(() => {
+    // readyState 0/1 geralmente indica que não carregou nada
+    if (video.readyState < 2) {
+      // se não carregou nada ainda, tenta fallback
+      // (não remove se já estiver tocando/mostrando)
+      showImage();
+    }
+  }, 1200);
 }
+
+heroMedia();
+
 
 
     tryVideo.oncanplay = ()=>{ box.innerHTML=""; box.appendChild(tryVideo); };
