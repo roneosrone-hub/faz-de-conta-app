@@ -10,7 +10,6 @@
       --bg0:#070916;
       --bg1:#0b1230;
       --card: rgba(255,255,255,.08);
-      --card2: rgba(255,255,255,.06);
       --stroke: rgba(255,255,255,.14);
       --text: rgba(255,255,255,.92);
       --muted: rgba(255,255,255,.65);
@@ -61,7 +60,6 @@
       background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
       border:1px solid var(--stroke);
       box-shadow: var(--shadow);
-      transform: translateZ(0);
       backdrop-filter: blur(10px);
     }
 
@@ -90,6 +88,11 @@
       box-shadow: 0 14px 35px rgba(0,0,0,.35);
       flex:0 0 auto;
       position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:900;
+      color: rgba(255,255,255,.7);
     }
     .logo img{
       width:100%; height:100%;
@@ -102,15 +105,9 @@
       background: conic-gradient(from 180deg, rgba(255,255,255,.00), rgba(255,255,255,.18), rgba(255,255,255,.00));
       animation: shine 4.8s linear infinite;
       opacity:.55;
+      pointer-events:none;
     }
     @keyframes shine { to { transform: rotate(360deg); } }
-
-    .brand h1{
-      margin:0;
-      font-size: 18px;
-      letter-spacing:.2px;
-      line-height:1.15;
-    }
 
     /* degradê animado no nome */
     .gradTitle{
@@ -191,7 +188,6 @@
       font-weight: 700;
       font-size: 13px;
       box-shadow: 0 14px 35px rgba(0,0,0,.28);
-      transform: translateZ(0);
       transition: transform .15s ease, background .15s ease, border-color .15s ease;
       user-select:none;
     }
@@ -261,6 +257,8 @@
       justify-content:center;
       background: rgba(0,0,0,.22);
       border-bottom: 1px solid rgba(255,255,255,.10);
+      position:relative;
+      overflow:hidden;
     }
     @media(max-width:900px){
       .mediaBox{ height: 230px; }
@@ -272,6 +270,24 @@
       object-fit: cover;
       display:block;
     }
+
+    .soundBtn{
+      position:absolute;
+      left:12px;
+      bottom:12px;
+      z-index:10;
+      padding:10px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.25);
+      background:rgba(0,0,0,.45);
+      color:#fff;
+      font-weight:800;
+      font-size:13px;
+      cursor:pointer;
+      backdrop-filter: blur(10px);
+      user-select:none;
+    }
+    .soundBtn.hide{ display:none; }
 
     .mediaCaption{
       padding: 12px 14px;
@@ -529,6 +545,7 @@
       align-items:center;
       justify-content:center;
       user-select:none;
+      z-index: 5;
     }
     .navPrev{ left: 10px; }
     .navNext{ right: 10px; }
@@ -612,7 +629,6 @@
   <div class="spark"></div>
 
   <div class="wrap">
-
     <!-- HEADER -->
     <div class="header tilt" id="tiltHeader">
       <div class="headTop">
@@ -644,16 +660,16 @@
 
     <!-- HERO -->
     <div class="hero">
-      <!-- Banner (vídeo se existir, senão imagem) -->
       <div class="card tilt" id="tiltBanner">
-        <div class="mediaBox" id="heroMedia"></div>
+        <div class="mediaBox" id="heroMedia">
+          <button class="soundBtn" id="soundBtn" type="button">🔊 Ativar som</button>
+        </div>
         <div class="mediaCaption">
           <span>📸 Banner do catálogo (vídeo automático se existir)</span>
           <span style="opacity:.85">Dica: use <b>video-capa.mp4</b> ou <b>capa.jpg</b></span>
         </div>
       </div>
 
-      <!-- Painel -->
       <div class="card panel">
         <h2>Monte seu pedido</h2>
         <p>Pesquise, filtre e clique nos itens para ver as fotos. Você pode esconder/mostrar os preços.</p>
@@ -692,7 +708,6 @@
     <div class="grid" id="grid"></div>
 
     <div class="footer">© Faz de Conta Decorações • Catálogo demonstrativo (você troca fotos e valores quando quiser)</div>
-
   </div>
 
   <!-- MODAL ITEM -->
@@ -770,60 +785,24 @@
   </div>
 
 <script>
-  // ========= CONFIG (EDITE AQUI SE QUISER) =========
+  // ========= CONFIG =========
   const CONFIG = {
     whatsappNumber: "5566996223481", // só números (55 + DDD + número)
     cidade: "Jaciara/MT"
   };
 
-  // Itens: coloque seus nomes, categorias, descrição, preço sugerido e arquivos.
-  // media: até 5 fotos (jpg/png) + opcional 1 vídeo (mp4)
+  // ========= ITENS (EXEMPLO) =========
   const ITENS = [
-    {
-      id: "cilindros",
-      nome: "Cilindros (Suporte)",
-      cat: "Estruturas",
-      desc: "Estruturas e suporte para decoração.",
-      preco: 180,
-      media: ["cilindros-1.jpg","cilindros-2.jpg","cilindros-3.jpg","cilindros-4.jpg","cilindros-5.jpg"],
-      video: "" // ex: "cilindros.mp4"
-    },
-    {
-      id: "arco",
-      nome: "Arco de balões",
-      cat: "Balões",
-      desc: "Arco orgânico e temático (montagem sob consulta).",
-      preco: 450,
-      media: ["arco-1.jpg","arco-2.jpg","arco-3.jpg","arco-4.jpg","arco-5.jpg"],
-      video: "" // ex: "arco.mp4"
-    },
-    {
-      id: "cortina",
-      nome: "Cortina de LED",
-      cat: "Iluminação",
-      desc: "Fundo e acabamento com luz.",
-      preco: 120,
-      media: ["cortina-1.jpg","cortina-2.jpg","cortina-3.jpg","cortina-4.jpg","cortina-5.jpg"],
-      video: ""
-    },
-    {
-      id: "tapete",
-      nome: "Tapete para fotos",
-      cat: "Cenário",
-      desc: "Base para fotos e cenário.",
-      preco: 80,
-      media: ["tapete-1.jpg","tapete-2.jpg","tapete-3.jpg","tapete-4.jpg","tapete-5.jpg"],
-      video: ""
-    },
-    {
-      id: "ursinho",
-      nome: "Item decorativo",
-      cat: "Cenário",
-      desc: "Peça decorativa (troque a foto pelo seu item).",
-      preco: 60,
-      media: ["item-1.jpg","item-2.jpg","item-3.jpg","item-4.jpg","item-5.jpg"],
-      video: ""
-    }
+    { id:"cilindros", nome:"Cilindros (Suporte)", cat:"Estruturas", desc:"Estruturas e suporte para decoração.", preco:180,
+      media:["cilindros-1.jpg","cilindros-2.jpg","cilindros-3.jpg","cilindros-4.jpg","cilindros-5.jpg"], video:"" },
+    { id:"arco", nome:"Arco de balões", cat:"Balões", desc:"Arco orgânico e temático (montagem sob consulta).", preco:450,
+      media:["arco-1.jpg","arco-2.jpg","arco-3.jpg","arco-4.jpg","arco-5.jpg"], video:"" },
+    { id:"cortina", nome:"Cortina de LED", cat:"Iluminação", desc:"Fundo e acabamento com luz.", preco:120,
+      media:["cortina-1.jpg","cortina-2.jpg","cortina-3.jpg","cortina-4.jpg","cortina-5.jpg"], video:"" },
+    { id:"tapete", nome:"Tapete para fotos", cat:"Cenário", desc:"Base para fotos e cenário.", preco:80,
+      media:["tapete-1.jpg","tapete-2.jpg","tapete-3.jpg","tapete-4.jpg","tapete-5.jpg"], video:"" },
+    { id:"item", nome:"Item decorativo", cat:"Cenário", desc:"Peça decorativa (troque a foto pelo seu item).", preco:60,
+      media:["item-1.jpg","item-2.jpg","item-3.jpg","item-4.jpg","item-5.jpg"], video:"" }
   ];
 
   // ========= UTIL =========
@@ -858,88 +837,61 @@
   bindTilt(el("tiltHeader"), 4.5);
   bindTilt(el("tiltBanner"), 5.5);
 
-// ========= HERO MEDIA (VIDEO > IMG) - ROBUSTO =========
-function heroMedia(){
-  const box = document.getElementById("heroMedia");
-  if(!box) return;
+  // ========= HERO MEDIA (VIDEO > IMG) - FUNCIONA NO MOBILE =========
+  function heroMedia(){
+    const box = el("heroMedia");
+    if(!box) return;
 
-  box.innerHTML = "";
+    // mantém o botão no HTML e remove mídia antiga
+    const soundBtn = el("soundBtn");
+    if(soundBtn) soundBtn.classList.remove("hide");
+    [...box.querySelectorAll("video,img")].forEach(n => n.remove());
 
-  // helpers
-  const showText = (msg) => {
-    box.innerHTML = `<div style="padding:14px;text-align:center;color:rgba(255,255,255,.75);font-weight:800;">${msg}</div>`;
-  };
+    const video = document.createElement("video");
+    video.src = "./video-capa.mp4";
+    video.autoplay = true;
+    video.muted = true;            // autoplay exige muted
+    video.loop = true;
+    video.playsInline = true;
+    video.preload = "auto";
+    video.poster = "./capa.jpg";
+    video.setAttribute("playsinline", "");
+    video.setAttribute("webkit-playsinline", "");
 
-  const showImage = () => {
-    const img = document.createElement("img");
-    img.alt = "Capa";
-    img.src = "./capa.jpg";
-    img.onerror = () => {
-      img.src = "./capa.png";
-      img.onerror = () => showText("⚠️ Não encontrei ./video-capa.mp4 nem ./capa.jpg/.png na raiz.");
+    const enableSound = async () => {
+      try{
+        video.muted = false;
+        video.volume = 1;
+        await video.play();
+        if(soundBtn) soundBtn.classList.add("hide");
+      }catch(e){}
     };
-    box.innerHTML = "";
-    box.appendChild(img);
-  };
 
-  const video = document.createElement("video");
-  video.src = "./video-capa.mp4";  // <- IMPORTANTE: ./ na frente
-  video.controls = true;           // mostra player
-  video.playsInline = true;
-  video.preload = "metadata";
-  video.poster = "./capa.jpg";     // capa se existir
+    if(soundBtn) soundBtn.onclick = enableSound;
+    video.addEventListener("click", enableSound);
 
-  // iOS
-  video.setAttribute("playsinline", "");
-  video.setAttribute("webkit-playsinline", "");
-
-  // estilos (garante que aparece)
-  video.style.width = "100%";
-  video.style.height = "100%";
-  video.style.objectFit = "cover";
-  video.style.display = "block";
-
-  video.addEventListener("loadeddata", () => {
-    console.log("✅ Vídeo carregou:", video.currentSrc);
-  });
-
-  video.addEventListener("error", () => {
-    console.log("❌ Erro no vídeo:", video.error, "src:", video.currentSrc);
-    showImage();
-  });
-
-  // coloca o vídeo no DOM sempre
-  box.appendChild(video);
-}
-
-heroMedia();
-
-
-heroMedia();
-
-
-
-    tryVideo.oncanplay = ()=>{ box.innerHTML=""; box.appendChild(tryVideo); };
-    tryVideo.onerror = ()=>{
+    video.onerror = () => {
       const img = document.createElement("img");
       img.alt = "Capa";
-      img.src = "capa.jpg";
-      img.onerror = ()=> img.src = "capa.png";
-      box.appendChild(img);
+      img.src = "./capa.jpg";
+      img.onerror = ()=> img.src = "./capa.png";
+      video.remove();
+      box.prepend(img);
+      if(soundBtn) soundBtn.classList.add("hide");
     };
 
-    // força tentativa
-    box.appendChild(tryVideo);
+    box.prepend(video);
+    video.play().catch(()=>{});
   }
   heroMedia();
 
   // ========= LOGO =========
   function loadLogo(){
     const img = el("logoImg");
-    img.src = "logo.png";
+    img.src = "./logo.png";
     img.onerror = ()=>{
-      // fallback simples (não quebra layout)
-      img.style.display = "none";
+      img.remove();
+      el("logoImg")?.remove();
     };
   }
   loadLogo();
@@ -983,7 +935,6 @@ heroMedia();
   function buildCats(){
     const s = new Set(ITENS.map(i=>i.cat));
     const sel = el("cat");
-    // mantém "Todas"
     [...s].sort().forEach(c=>{
       const opt = document.createElement("option");
       opt.value = c; opt.textContent = c;
@@ -998,12 +949,6 @@ heroMedia();
     const t = (item.nome + " " + item.desc + " " + item.cat).toLowerCase();
     const okQ = !state.q || t.includes(state.q);
     return okCat && okQ;
-  }
-
-  function firstExistingMedia(item){
-    // tenta primeira foto, se falhar troca para próxima automaticamente no onerror
-    const arr = (item.media || []).filter(Boolean);
-    return arr[0] || "capa.jpg";
   }
 
   function render(){
@@ -1025,13 +970,11 @@ heroMedia();
       const medias = (item.media||[]).filter(Boolean);
       let idx = 0;
 
-      function setImg(){
-        img.src = medias[idx] || "capa.jpg";
-      }
+      function setImg(){ img.src = "./" + (medias[idx] || "capa.jpg"); }
       img.onerror = ()=>{
         idx++;
         if(idx < medias.length) setImg();
-        else img.src = "capa.jpg";
+        else img.src = "./capa.jpg";
       };
       setImg();
 
@@ -1068,21 +1011,20 @@ heroMedia();
       grid.appendChild(card);
     });
 
-    // carrinho
     el("cartCount").textContent = [...state.cart.values()].reduce((a,b)=>a+b,0);
   }
   render();
 
-  // ========= MODAL ITENS (galeria) =========
+  // ========= MODAL ITENS =========
   let currentItem = null;
   let mediaIndex = 0;
-  let currentMediaList = []; // inclui video no final (se existir)
+  let currentMediaList = [];
 
   function mediaListFor(item){
     const imgs = (item.media||[]).filter(Boolean);
-    const out = imgs.map(src=>({type:"img",src}));
-    if(item.video) out.push({type:"video", src:item.video});
-    return out.length ? out : [{type:"img",src:"capa.jpg"}];
+    const out = imgs.map(src=>({type:"img",src:"./"+src}));
+    if(item.video) out.push({type:"video", src:"./"+item.video});
+    return out.length ? out : [{type:"img",src:"./capa.jpg"}];
   }
 
   function renderViewer(){
@@ -1095,16 +1037,16 @@ heroMedia();
       v.src = m.src;
       v.controls = true;
       v.playsInline = true;
-      v.style.background = "rgba(0,0,0,.22)";
+      v.setAttribute("playsinline","");
+      v.setAttribute("webkit-playsinline","");
       viewer.appendChild(v);
     }else{
       const img = document.createElement("img");
       img.src = m.src;
-      img.onerror = ()=> img.src = "capa.jpg";
+      img.onerror = ()=> img.src = "./capa.jpg";
       viewer.appendChild(img);
     }
 
-    // thumbs
     const thumbs = el("thumbs");
     thumbs.innerHTML = "";
     currentMediaList.slice(0,4).forEach((mm, i)=>{
@@ -1116,8 +1058,8 @@ heroMedia();
       mini.className = "mini";
 
       const im = document.createElement("img");
-      im.src = (mm.type==="img" ? mm.src : (currentItem.media[0] || "capa.jpg"));
-      im.onerror = ()=> im.src = "capa.jpg";
+      im.src = (mm.type==="img" ? mm.src : (currentItem?.media?.[0] ? "./"+currentItem.media[0] : "./capa.jpg"));
+      im.onerror = ()=> im.src = "./capa.jpg";
       mini.appendChild(im);
 
       b.appendChild(mini);
@@ -1128,6 +1070,7 @@ heroMedia();
   function openItem(id){
     currentItem = ITENS.find(x=>x.id===id);
     if(!currentItem) return;
+
     el("modalTitle").textContent = currentItem.nome;
     el("modalDesc").textContent = currentItem.desc;
     el("modalCat").textContent = currentItem.cat;
@@ -1184,7 +1127,6 @@ heroMedia();
     if(e.target === el("modalContractBack")) closeContract();
   });
 
-  // assinatura canvas
   const canvas = el("sign");
   const ctx = canvas.getContext("2d");
   let drawing = false;
@@ -1192,15 +1134,20 @@ heroMedia();
 
   function resizeCanvas(){
     const r = canvas.getBoundingClientRect();
-    canvas.width = Math.floor(r.width * devicePixelRatio);
-    canvas.height = Math.floor(r.height * devicePixelRatio);
-    ctx.scale(devicePixelRatio, devicePixelRatio);
+    const ratio = window.devicePixelRatio || 1;
+    canvas.width = Math.floor(r.width * ratio);
+    canvas.height = Math.floor(r.height * ratio);
+
+    // reset transform para não acumular
+    ctx.setTransform(1,0,0,1,0,0);
+    ctx.scale(ratio, ratio);
+
     ctx.lineWidth = 2.4;
     ctx.lineCap = "round";
     ctx.strokeStyle = "rgba(255,255,255,.92)";
   }
-  setTimeout(resizeCanvas, 60);
-  window.addEventListener("resize", ()=> setTimeout(resizeCanvas, 60));
+  setTimeout(resizeCanvas, 80);
+  window.addEventListener("resize", ()=> setTimeout(resizeCanvas, 80));
 
   function pos(e){
     const r = canvas.getBoundingClientRect();
@@ -1264,7 +1211,7 @@ heroMedia();
 
   el("btnCart").addEventListener("click", ()=>{
     const totalItens = [...state.cart.values()].reduce((a,b)=>a+b,0);
-    alert("Carrinho: " + totalItens + " item(ns).\n(Agora você pode evoluir para lista detalhada / checkout.)");
+    alert("Carrinho: " + totalItens + " item(ns).");
   });
 
   el("btnFinish").addEventListener("click", ()=>{
@@ -1280,6 +1227,9 @@ heroMedia();
     }
     alert("Finalizar (Pix):\nAqui você pode colocar sua chave Pix, valor e mensagem.\n(Próximo passo: gerar Pix Copia e Cola.)");
   });
+
+  // ========= DEBUG (se algo sumir, vai aparecer no console) =========
+  window.addEventListener("error", (e)=> console.log("ERRO JS:", e.message));
 </script>
 
 </body>
