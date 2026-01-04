@@ -9,15 +9,12 @@
     :root{
       --bg0:#070916;
       --bg1:#0b1230;
-      --card: rgba(255,255,255,.08);
-      --card2: rgba(255,255,255,.06);
       --stroke: rgba(255,255,255,.14);
       --text: rgba(255,255,255,.92);
       --muted: rgba(255,255,255,.65);
       --muted2: rgba(255,255,255,.45);
       --shadow: 0 18px 50px rgba(0,0,0,.55);
       --radius: 22px;
-      --radius2: 18px;
     }
 
     *{ box-sizing:border-box; }
@@ -45,10 +42,7 @@
       mix-blend-mode: screen;
     }
 
-    .wrap{
-      width:min(1100px, 92vw);
-      margin: 22px auto 48px;
-    }
+    .wrap{ width:min(1100px, 92vw); margin: 22px auto 48px; }
 
     /* SLOGAN FIXO NO CANTO SUPERIOR ESQUERDO */
     .cornerSlogan{
@@ -81,7 +75,6 @@
       flex: 0 0 auto;
     }
 
-    /* HEADER */
     .header{
       display:flex;
       flex-direction:column;
@@ -91,7 +84,6 @@
       background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
       border:1px solid var(--stroke);
       box-shadow: var(--shadow);
-      transform: translateZ(0);
       backdrop-filter: blur(10px);
     }
 
@@ -121,25 +113,11 @@
       flex:0 0 auto;
       position:relative;
     }
-    .logo img{
-      width:100%; height:100%;
-      object-fit: cover;
-      display:block;
-    }
-    .logo::after{
-      content:"";
-      position:absolute; inset:-30%;
-      background: conic-gradient(from 180deg, rgba(255,255,255,.00), rgba(255,255,255,.18), rgba(255,255,255,.00));
-      animation: shine 4.8s linear infinite;
-      opacity:.55;
-      pointer-events:none;
-    }
-    @keyframes shine { to { transform: rotate(360deg); } }
+    .logo img{ width:100%; height:100%; object-fit: cover; display:block; }
 
     .gradTitle{
       font-weight: 900;
       font-size: 20px;
-      margin:0;
       letter-spacing:.2px;
       background: linear-gradient(90deg, #ff4bd8, #7a42ff, #00ffd5, #ffd94a, #ff4bd8);
       background-size: 300% 100%;
@@ -149,23 +127,10 @@
       animation: gradMove 5.5s linear infinite;
       text-transform: uppercase;
     }
-    @keyframes gradMove{
-      0%{ background-position:0% 50%; }
-      100%{ background-position:300% 50%; }
-    }
+    @keyframes gradMove{ 0%{background-position:0% 50%;} 100%{background-position:300% 50%;} }
 
-    .slogan{
-      margin-top:4px;
-      font-size: 13px;
-      color: var(--muted);
-      line-height:1.2;
-    }
-
-    .sub{
-      margin-top:6px;
-      font-size: 12px;
-      color: var(--muted2);
-    }
+    .slogan{ margin-top:4px; font-size: 13px; color: var(--muted); line-height:1.2; }
+    .sub{ margin-top:6px; font-size: 12px; color: var(--muted2); }
 
     .metaRow{
       display:flex;
@@ -214,33 +179,25 @@
       font-weight: 700;
       font-size: 13px;
       box-shadow: 0 14px 35px rgba(0,0,0,.28);
-      transform: translateZ(0);
       transition: transform .15s ease, background .15s ease, border-color .15s ease;
       user-select:none;
     }
     .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.11); border-color: rgba(255,255,255,.18); }
-    .btn:active{ transform: translateY(0px) scale(.99); }
     .btn.primary{
       background: linear-gradient(90deg, rgba(255,75,216,.38), rgba(0,255,213,.26), rgba(255,217,74,.24));
       border-color: rgba(255,255,255,.18);
     }
 
     .pill{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-width: 28px;
-      height: 22px;
-      padding: 0 8px;
+      display:inline-flex; align-items:center; justify-content:center;
+      min-width: 28px; height: 22px; padding: 0 8px;
       border-radius: 999px;
       background: rgba(0,0,0,.28);
       border:1px solid rgba(255,255,255,.14);
-      font-weight: 900;
-      font-size: 12px;
+      font-weight: 900; font-size: 12px;
       margin-left: 6px;
     }
 
-    /* HERO */
     .hero{
       margin-top: 14px;
       display:grid;
@@ -248,9 +205,7 @@
       gap: 14px;
       align-items:stretch;
     }
-    @media(max-width: 900px){
-      .hero{ grid-template-columns: 1fr; }
-    }
+    @media(max-width: 900px){ .hero{ grid-template-columns: 1fr; } }
 
     .card{
       border-radius: var(--radius);
@@ -262,46 +217,24 @@
       position:relative;
     }
 
-    .tilt{
-      transform-style: preserve-3d;
-      will-change: transform;
-    }
-    .tilt::before{
-      content:"";
-      position:absolute;
-      inset:-2px;
-      background: radial-gradient(700px 200px at 20% 10%, rgba(255,255,255,.10), transparent 55%),
-                  radial-gradient(600px 240px at 80% 0%, rgba(0,255,213,.12), transparent 55%);
-      opacity:.65;
-      pointer-events:none;
-    }
-
-    /* ✅ BANNER DO VÍDEO: NÃO PASSA DA TELA */
+    /* ✅ BANNER GRANDE: mesmo com vídeo vertical */
     .mediaBox{
       width:100%;
       background: rgba(0,0,0,.22);
       border-bottom: 1px solid rgba(255,255,255,.10);
-
-      /* trava tamanho do banner */
-      aspect-ratio: 16 / 9;
-      max-height: 320px;      /* desktop */
-      height: auto;
+      height: clamp(220px, 34vw, 360px);
       display:flex;
       align-items:center;
       justify-content:center;
       overflow:hidden;
+      position:relative;
     }
-    @media(max-width:900px){
-      .mediaBox{
-        max-height: 260px;    /* celular/tablet */
-      }
-    }
-
-    /* ✅ faz caber SEM estourar */
+    /* ✅ preenche o banner (não fica pequeno) */
     .mediaBox img, .mediaBox video{
       width:100%;
       height:100%;
-      object-fit: contain;   /* <-- aqui é o pulo do gato (não corta e não estoura) */
+      object-fit: cover;     /* <-- isso impede o vídeo de ficar minúsculo */
+      object-position: center;
       display:block;
       background: rgba(0,0,0,.22);
     }
@@ -345,9 +278,7 @@
       margin-bottom: 10px;
     }
     .field input, .field select{
-      width:100%;
-      border:none;
-      outline:none;
+      width:100%; border:none; outline:none;
       background: transparent;
       color: rgba(255,255,255,.9);
       font-size: 13px;
@@ -355,18 +286,13 @@
     .field input::placeholder{ color: rgba(255,255,255,.35); }
 
     .row{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
+      display:flex; gap:10px; flex-wrap:wrap;
+      align-items:center; justify-content:space-between;
       margin-top: 10px;
     }
 
     .toggle{
-      display:flex;
-      align-items:center;
-      gap:10px;
+      display:flex; align-items:center; gap:10px;
       color: rgba(255,255,255,.75);
       font-size: 13px;
       background: rgba(0,0,0,.20);
@@ -390,10 +316,10 @@
       background: rgba(255,255,255,.92);
       position:absolute;
       top:1px; left:1px;
-      transition: left .18s ease, background .18s ease;
+      transition: left .18s ease;
     }
     .switch.on{ background: rgba(0,255,213,.24); }
-    .switch.on .knob{ left: 21px; background: rgba(255,255,255,.96); }
+    .switch.on .knob{ left: 21px; }
 
     .hint{
       margin-top: 10px;
@@ -439,23 +365,10 @@
       border:1px solid rgba(255,255,255,.10);
       box-shadow: 0 12px 30px rgba(0,0,0,.25);
     }
-    .thumb img{
-      width:100%; height:100%;
-      object-fit: cover;
-      display:block;
-      transform: scale(1.02);
-      transition: transform .25s ease;
-    }
-    .item:hover .thumb img{ transform: scale(1.06); }
+    .thumb img{ width:100%; height:100%; object-fit: cover; display:block; }
 
-    .itemName{ margin: 10px 0 6px; font-weight: 900; letter-spacing:.2px; }
-    .itemDesc{
-      margin:0;
-      color: rgba(255,255,255,.65);
-      font-size: 12px;
-      line-height:1.35;
-      min-height: 32px;
-    }
+    .itemName{ margin: 10px 0 6px; font-weight: 900; }
+    .itemDesc{ margin:0; color: rgba(255,255,255,.65); font-size: 12px; line-height:1.35; min-height: 32px; }
 
     .itemFooter{
       margin-top: 10px;
@@ -493,7 +406,7 @@
   </div>
 
   <div class="wrap">
-    <div class="header tilt" id="tiltHeader">
+    <div class="header" id="tiltHeader">
       <div class="headTop">
         <div class="brandLeft">
           <div class="logo" title="Logo">
@@ -522,13 +435,13 @@
     </div>
 
     <div class="hero">
-      <div class="card tilt" id="tiltBanner">
+      <div class="card" id="tiltBanner">
         <div class="mediaBox" id="heroMedia"></div>
         <div class="mediaCaption">
           <span>🎬 Banner do catálogo (vídeo automático se existir)</span>
           <span style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
             <span style="opacity:.85">Dica: use <b>video-capa.mp4</b> ou <b>capa.jpg</b></span>
-            <button class="soundBtn" id="soundBtn">🔊 Ativar som (10x)</button>
+            <button class="soundBtn" id="soundBtn">🔊 Ativar som (3x)</button>
           </span>
         </div>
       </div>
@@ -553,9 +466,7 @@
           <button class="btn" id="btnClear">🧼 Limpar</button>
         </div>
 
-        <div class="hint" id="hint">
-          💡 Coloque suas fotos/vídeos no GitHub (raiz). O app tenta carregar automaticamente.
-        </div>
+        <div class="hint">💡 Coloque suas fotos/vídeos no GitHub (raiz). O app tenta carregar automaticamente.</div>
       </div>
     </div>
 
@@ -566,11 +477,11 @@
 
     <div class="grid" id="grid"></div>
 
-    <div class="footer">© Faz de Conta Decorações • Catálogo demonstrativo (você troca fotos e valores quando quiser)</div>
+    <div class="footer">© Faz de Conta Decorações • Catálogo demonstrativo</div>
   </div>
 
 <script>
-  const CONFIG = { whatsappNumber: "5566996223481", cidade: "Jaciara/MT" };
+  const CONFIG = { whatsappNumber: "5566996223481" };
 
   const ITENS = [
     { id:"cilindros", nome:"Cilindros (Suporte)", cat:"Estruturas", desc:"Estruturas e suporte para decoração.", preco:180,
@@ -578,11 +489,7 @@
     { id:"arco", nome:"Arco de balões", cat:"Balões", desc:"Arco orgânico e temático (montagem sob consulta).", preco:450,
       media:["arco-1.jpg","arco-2.jpg","arco-3.jpg","arco-4.jpg","arco-5.jpg"], video:"" },
     { id:"cortina", nome:"Cortina de LED", cat:"Iluminação", desc:"Fundo e acabamento com luz.", preco:120,
-      media:["cortina-1.jpg","cortina-2.jpg","cortina-3.jpg","cortina-4.jpg","cortina-5.jpg"], video:"" },
-    { id:"tapete", nome:"Tapete para fotos", cat:"Cenário", desc:"Base para fotos e cenário.", preco:80,
-      media:["tapete-1.jpg","tapete-2.jpg","tapete-3.jpg","tapete-4.jpg","tapete-5.jpg"], video:"" },
-    { id:"item", nome:"Item decorativo", cat:"Cenário", desc:"Peça decorativa (troque a foto pelo seu item).", preco:60,
-      media:["item-1.jpg","item-2.jpg","item-3.jpg","item-4.jpg","item-5.jpg"], video:"" }
+      media:["cortina-1.jpg","cortina-2.jpg","cortina-3.jpg","cortina-4.jpg","cortina-5.jpg"], video:"" }
   ];
 
   const el = (id)=>document.getElementById(id);
@@ -599,29 +506,18 @@
   tick();
   setInterval(tick, 1000);
 
-  function bindTilt(node, strength=7){
-    if(!node) return;
-    node.addEventListener("mousemove",(e)=>{
-      const r = node.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - .5;
-      const y = (e.clientY - r.top) / r.height - .5;
-      node.style.transform = `perspective(900px) rotateY(${x*strength}deg) rotateX(${-y*strength}deg) translateY(-1px)`;
-    });
-    node.addEventListener("mouseleave",()=>{
-      node.style.transform = `perspective(900px) rotateY(0deg) rotateX(0deg) translateY(0px)`;
-    });
-  }
-  bindTilt(el("tiltHeader"), 4.5);
-  bindTilt(el("tiltBanner"), 5.5);
-
+  // ✅ BANNER: vídeo sempre grande + som 3x
   function heroMedia(){
     const box = el("heroMedia");
     const soundBtn = el("soundBtn");
     box.innerHTML = "";
 
+    // cache-buster pra não ficar pegando arquivo antigo
+    const bust = `?v=${Date.now()}`;
+
     const video = document.createElement("video");
-    video.src = "video-capa.mp4";
-    video.poster = "capa.jpg";
+    video.src = "video-capa.mp4" + bust;
+    video.poster = "capa.jpg" + bust;
     video.preload = "auto";
     video.autoplay = true;
     video.loop = true;
@@ -632,7 +528,7 @@
     video.setAttribute("webkit-playsinline","");
 
     const audio = document.createElement("video");
-    audio.src = "video-capa.mp4";
+    audio.src = "video-capa.mp4" + bust;
     audio.preload = "auto";
     audio.muted = true;
     audio.volume = 0;
@@ -658,11 +554,10 @@
       }catch(e){}
     }
 
-    function iniciarSom10x(){
+    function iniciarSom3x(){
       if(iniciou) return;
       iniciou = true;
       soundBtn.classList.add("hide");
-
       tocarUmaVez();
       for(let i=1; i<QTDE_TOQUES; i++){
         setTimeout(tocarUmaVez, i * INTERVALO_SEGUNDOS * 1000);
@@ -674,14 +569,14 @@
       }, (QTDE_TOQUES * INTERVALO_SEGUNDOS + 2) * 1000);
     }
 
-    soundBtn.onclick = iniciarSom10x;
-    video.addEventListener("click", iniciarSom10x);
+    soundBtn.onclick = iniciarSom3x;
+    video.addEventListener("click", iniciarSom3x);
 
     video.onerror = ()=>{
       const img = document.createElement("img");
       img.alt = "Capa";
-      img.src = "capa.jpg";
-      img.onerror = ()=> img.src = "capa.png";
+      img.src = "capa.jpg" + bust;
+      img.onerror = ()=> img.src = "capa.png" + bust;
       box.appendChild(img);
       soundBtn.classList.add("hide");
     };
@@ -692,16 +587,17 @@
   }
   heroMedia();
 
-  // ✅ LOGO ROBUSTO: tenta vários nomes e pastas
+  // ✅ LOGO: tenta vários nomes + cache-buster (para não sumir)
   function loadLogo(){
     const img = el("logoImg");
+    const bust = `?v=${Date.now()}`;
     const tries = [
       "logo.png","logo.jpg","logo.webp","Logo.png","Logo.jpg","Logo.webp",
       "assets/logo.png","assets/logo.jpg","assets/logo.webp",
       "./assets/logo.png","./assets/logo.jpg","./assets/logo.webp"
-    ];
-    let i = 0;
+    ].map(p => p + bust);
 
+    let i = 0;
     function tryNext(){
       if(i >= tries.length){
         img.style.display = "none";
@@ -709,14 +605,13 @@
       }
       img.src = tries[i++];
     }
-
     img.onerror = tryNext;
     tryNext();
   }
   loadLogo();
 
   let showPrices = false;
-  const state = { q:"", cat:"Todas", cart:new Map(), contractOk:false };
+  const state = { q:"", cat:"Todas", cart:new Map() };
 
   function setSwitch(on){
     const sw = el("priceSwitch");
@@ -725,24 +620,6 @@
     render();
   }
   el("priceSwitch").addEventListener("click", ()=> setSwitch(!showPrices));
-
-  el("q").addEventListener("input",(e)=>{
-    state.q = (e.target.value||"").toLowerCase().trim();
-    render();
-  });
-
-  el("cat").addEventListener("change",(e)=>{
-    state.cat = e.target.value;
-    render();
-  });
-
-  el("btnClear").addEventListener("click", ()=>{
-    state.q = "";
-    state.cat = "Todas";
-    el("q").value = "";
-    el("cat").value = "Todas";
-    render();
-  });
 
   function buildCats(){
     const s = new Set(ITENS.map(i=>i.cat));
@@ -754,6 +631,22 @@
     });
   }
   buildCats();
+
+  el("q").addEventListener("input",(e)=>{
+    state.q = (e.target.value||"").toLowerCase().trim();
+    render();
+  });
+  el("cat").addEventListener("change",(e)=>{
+    state.cat = e.target.value;
+    render();
+  });
+  el("btnClear").addEventListener("click", ()=>{
+    state.q = "";
+    state.cat = "Todas";
+    el("q").value = "";
+    el("cat").value = "Todas";
+    render();
+  });
 
   function passFilter(item){
     const okCat = (state.cat === "Todas") || (item.cat === state.cat);
@@ -772,23 +665,14 @@
     list.forEach(item=>{
       const card = document.createElement("div");
       card.className = "card item";
-      card.style.cursor = "pointer";
 
       const thumb = document.createElement("div");
       thumb.className = "thumb";
 
       const img = document.createElement("img");
       const medias = (item.media||[]).filter(Boolean);
-      let idx = 0;
-
-      function setImg(){ img.src = medias[idx] || "capa.jpg"; }
-      img.onerror = ()=>{
-        idx++;
-        if(idx < medias.length) setImg();
-        else img.src = "capa.jpg";
-      };
-      setImg();
-
+      img.src = medias[0] || "capa.jpg";
+      img.onerror = ()=> img.src = "capa.jpg";
       thumb.appendChild(img);
 
       const name = document.createElement("div");
@@ -829,19 +713,9 @@
     const url = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent("Olá! Quero informações sobre os itens do catálogo da Faz de Conta Decorações.")}`;
     window.open(url, "_blank");
   });
-
-  el("btnCart").addEventListener("click", ()=>{
-    const totalItens = [...state.cart.values()].reduce((a,b)=>a+b,0);
-    alert("Carrinho: " + totalItens + " item(ns).");
-  });
-
-  el("btnContract").addEventListener("click", ()=>{
-    alert("Contrato: você pode evoluir esse módulo depois (assinatura, PDF, etc).");
-  });
-
-  el("btnFinish").addEventListener("click", ()=>{
-    alert("Finalizar (Pix): aqui você pode colocar sua chave Pix e gerar o Pix Copia e Cola.");
-  });
+  el("btnCart").addEventListener("click", ()=> alert("Carrinho em desenvolvimento (próximo passo)."));
+  el("btnContract").addEventListener("click", ()=> alert("Contrato em desenvolvimento (próximo passo)."));
+  el("btnFinish").addEventListener("click", ()=> alert("Finalizar (Pix): próximo passo."));
 </script>
 
 </body>
