@@ -858,17 +858,38 @@
   bindTilt(el("tiltHeader"), 4.5);
   bindTilt(el("tiltBanner"), 5.5);
 
-  // ========= HERO MEDIA (VIDEO > IMG) =========
-  function heroMedia(){
-    const box = el("heroMedia");
-    box.innerHTML = "";
+  // ========= HERO MEDIA (VIDEO COM SOM AO CLICAR) =========
+function heroMedia(){
+  const box = document.getElementById("heroMedia");
+  if(!box) return;
 
-    const tryVideo = document.createElement("video");
-    tryVideo.src = "video-capa.mp4";
-    tryVideo.autoplay = false;
-    tryVideo.muted = false;
-    tryVideo.loop = false;
-    tryVideo.playsInline = false;
+  box.innerHTML = "";
+
+  const video = document.createElement("video");
+  video.src = "video-capa.mp4";
+  video.autoplay = false;      // usuário controla
+  video.muted = false;         // som ativo
+  video.loop = false;
+  video.controls = true;       // ESSENCIAL
+  video.playsInline = true;    // ESSENCIAL p/ celular
+  video.preload = "metadata";
+
+  // compatibilidade iOS
+  video.setAttribute("playsinline", "");
+  video.setAttribute("webkit-playsinline", "");
+
+  video.onerror = () => {
+    const img = document.createElement("img");
+    img.alt = "Capa";
+    img.src = "capa.jpg";
+    img.onerror = () => img.src = "capa.png";
+    box.innerHTML = "";
+    box.appendChild(img);
+  };
+
+  box.appendChild(video);
+}
+
 
     tryVideo.oncanplay = ()=>{ box.innerHTML=""; box.appendChild(tryVideo); };
     tryVideo.onerror = ()=>{
