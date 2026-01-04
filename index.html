@@ -213,14 +213,14 @@
     }
 
     .actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:center; /* centraliza botões */
-      position:relative;
-      z-index:1;
-    }
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start; /* 👈 vai pra esquerda */
+  margin-right: auto;         /* 👈 garante alinhamento à esquerda */
+}
+
     .btn{
       display:inline-flex;
       align-items:center;
