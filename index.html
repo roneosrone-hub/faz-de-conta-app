@@ -276,25 +276,34 @@
       pointer-events:none;
     }
 
-    /* ✅ VÍDEO TAMANHO CERTINHO AQUI */
+    /* ✅ BANNER DO VÍDEO: NÃO PASSA DA TELA */
     .mediaBox{
+      width:100%;
+      background: rgba(0,0,0,.22);
+      border-bottom: 1px solid rgba(255,255,255,.10);
+
+      /* trava tamanho do banner */
+      aspect-ratio: 16 / 9;
+      max-height: 320px;      /* desktop */
+      height: auto;
       display:flex;
       align-items:center;
       justify-content:center;
-      background: rgba(0,0,0,.22);
-      border-bottom: 1px solid rgba(255,255,255,.10);
-      /* limita altura em qualquer tela */
-      height: clamp(190px, 28vw, 300px);
+      overflow:hidden;
     }
-    @media(max-width: 900px){
-      .mediaBox{ height: clamp(180px, 52vw, 260px); }
+    @media(max-width:900px){
+      .mediaBox{
+        max-height: 260px;    /* celular/tablet */
+      }
     }
 
+    /* ✅ faz caber SEM estourar */
     .mediaBox img, .mediaBox video{
       width:100%;
       height:100%;
-      object-fit: cover; /* preenche sem distorcer */
+      object-fit: contain;   /* <-- aqui é o pulo do gato (não corta e não estoura) */
       display:block;
+      background: rgba(0,0,0,.22);
     }
 
     .mediaCaption{
@@ -308,7 +317,6 @@
       align-items:center;
     }
 
-    /* botão ativar som */
     .soundBtn{
       border:none;
       cursor:pointer;
@@ -467,141 +475,6 @@
       border:1px solid rgba(255,255,255,.10);
     }
 
-    /* MODAL */
-    .modalBack{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,.6);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding: 16px;
-      z-index: 999;
-    }
-    .modal{
-      width: min(960px, 96vw);
-      border-radius: 22px;
-      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
-      border:1px solid rgba(255,255,255,.16);
-      box-shadow: 0 25px 90px rgba(0,0,0,.7);
-      overflow:hidden;
-      backdrop-filter: blur(12px);
-    }
-    .modalHead{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-      padding: 12px 14px;
-      border-bottom:1px solid rgba(255,255,255,.10);
-    }
-    .modalHead strong{ font-size: 14px; }
-    .x{
-      border:none;
-      width: 40px; height: 40px;
-      border-radius: 14px;
-      background: rgba(0,0,0,.25);
-      border:1px solid rgba(255,255,255,.12);
-      color: rgba(255,255,255,.88);
-      font-weight: 900;
-      cursor:pointer;
-    }
-    .modalBody{
-      display:grid;
-      grid-template-columns: 1.35fr .65fr;
-      gap: 12px;
-      padding: 12px;
-    }
-    @media(max-width: 900px){ .modalBody{ grid-template-columns: 1fr; } }
-
-    .viewer{
-      border-radius: 18px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.22);
-      min-height: 280px;
-      position:relative;
-    }
-    .viewer img, .viewer video{
-      width:100%; height:100%;
-      object-fit: cover;
-      display:block;
-    }
-    .navBtn{
-      position:absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 44px; height: 44px;
-      border-radius: 16px;
-      background: rgba(0,0,0,.28);
-      border:1px solid rgba(255,255,255,.14);
-      color: rgba(255,255,255,.92);
-      cursor:pointer;
-      font-weight: 900;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      user-select:none;
-    }
-    .navPrev{ left: 10px; }
-    .navNext{ right: 10px; }
-
-    .thumbs{
-      display:grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      margin-top: 10px;
-    }
-    .thumbs button{ padding:0; border:none; background: transparent; cursor:pointer; }
-    .mini{
-      height: 64px;
-      border-radius: 14px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.22);
-      opacity: .85;
-      transition: opacity .15s ease, transform .15s ease;
-    }
-    .mini img{ width:100%; height:100%; object-fit: cover; display:block; }
-    .thumbs button.active .mini{
-      opacity: 1;
-      transform: translateY(-1px);
-      border-color: rgba(0,255,213,.28);
-    }
-
-    .side{
-      padding: 12px;
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
-      height: 100%;
-    }
-    .side .line{
-      color: rgba(255,255,255,.70);
-      font-size: 13px;
-      margin-bottom: 10px;
-      line-height:1.35;
-    }
-    .side .line b{ color: rgba(255,255,255,.92); }
-
-    canvas{
-      width:100%;
-      height: 140px;
-      background: rgba(0,0,0,.22);
-      border:1px solid rgba(255,255,255,.12);
-      border-radius: 14px;
-      display:block;
-      touch-action: none;
-    }
-    .checkRow{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      margin-top: 10px;
-      font-size: 12px;
-      color: rgba(255,255,255,.70);
-    }
-    .checkRow input{ margin-top: 2px; }
-
     .footer{
       margin-top: 18px;
       text-align:center;
@@ -614,15 +487,12 @@
 <body>
   <div class="spark"></div>
 
-  <!-- Slogan fixo -->
   <div class="cornerSlogan" title="Slogan">
     <span class="dot"></span>
     Onde a imaginação vira festa ✨
   </div>
 
   <div class="wrap">
-
-    <!-- HEADER -->
     <div class="header tilt" id="tiltHeader">
       <div class="headTop">
         <div class="brandLeft">
@@ -651,7 +521,6 @@
       </div>
     </div>
 
-    <!-- HERO -->
     <div class="hero">
       <div class="card tilt" id="tiltBanner">
         <div class="mediaBox" id="heroMedia"></div>
@@ -668,12 +537,9 @@
         <h2>Monte seu pedido</h2>
         <p>Pesquise, filtre e clique nos itens para ver as fotos. Você pode esconder/mostrar os preços.</p>
 
-        <div class="field">
-          🔎 <input id="q" placeholder="Pesquisar (ex: cilindro, arco, cortina...)"/>
-        </div>
+        <div class="field">🔎 <input id="q" placeholder="Pesquisar (ex: cilindro, arco, cortina...)"/></div>
 
-        <div class="field">
-          🧩
+        <div class="field">🧩
           <select id="cat">
             <option value="Todas">Todas as categorias</option>
           </select>
@@ -693,7 +559,6 @@
       </div>
     </div>
 
-    <!-- ITENS -->
     <div class="sectionTitle">
       <h3>✨ Itens do catálogo</h3>
       <div class="badge"><span id="itemsCount">0</span> itens</div>
@@ -702,88 +567,10 @@
     <div class="grid" id="grid"></div>
 
     <div class="footer">© Faz de Conta Decorações • Catálogo demonstrativo (você troca fotos e valores quando quiser)</div>
-
-  </div>
-
-  <!-- MODAL ITEM -->
-  <div class="modalBack" id="modalItemBack">
-    <div class="modal">
-      <div class="modalHead">
-        <strong id="modalTitle">Item</strong>
-        <button class="x" id="closeItem">✕</button>
-      </div>
-
-      <div class="modalBody">
-        <div>
-          <div class="viewer" id="viewer">
-            <button class="navBtn navPrev" id="prevMedia">‹</button>
-            <button class="navBtn navNext" id="nextMedia">›</button>
-            <div id="viewerInner"></div>
-          </div>
-          <div class="thumbs" id="thumbs"></div>
-        </div>
-
-        <div class="side">
-          <div class="line"><b>Descrição:</b> <span id="modalDesc"></span></div>
-          <div class="line"><b>Categoria:</b> <span id="modalCat"></span></div>
-          <div class="line"><b>Preço:</b> <span id="modalPrice"></span></div>
-          <div class="line" style="opacity:.8"><b>Fotos:</b> até 5 por item + vídeo opcional</div>
-
-          <div class="row" style="margin-top:12px">
-            <button class="btn" id="addCart">➕ Adicionar</button>
-            <button class="btn" id="removeCart">➖ Remover</button>
-          </div>
-
-          <div class="hint" style="margin-top:12px">
-            Para colocar 5 fotos: edite o item no código e liste os arquivos (ex: <b>cilindros-1.jpg</b> ... <b>cilindros-5.jpg</b>).
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL CONTRATO -->
-  <div class="modalBack" id="modalContractBack">
-    <div class="modal">
-      <div class="modalHead">
-        <strong>📝 Contrato rápido (assinatura)</strong>
-        <button class="x" id="closeContract">✕</button>
-      </div>
-
-      <div class="modalBody" style="grid-template-columns: 1fr;">
-        <div class="side">
-          <div class="line">
-            <b>Resumo do compromisso:</b><br/>
-            Ao contratar, o cliente se compromete a <b>cuidar dos itens</b>, <b>não molhar</b>, <b>não riscar</b>, evitar exposição a calor,
-            e <b>devolver no prazo combinado</b>. Danos e atrasos podem gerar cobrança adicional (conforme combinado no WhatsApp).
-          </div>
-
-          <div class="checkRow">
-            <input type="checkbox" id="agree"/>
-            <label for="agree">Li e concordo com o compromisso acima.</label>
-          </div>
-
-          <div style="margin-top:12px; font-weight:800; opacity:.9">Assinatura:</div>
-          <canvas id="sign"></canvas>
-
-          <div class="row" style="margin-top:12px">
-            <button class="btn" id="clearSign">🧽 Limpar assinatura</button>
-            <button class="btn primary" id="saveSign">✅ Salvar aceite</button>
-          </div>
-
-          <div class="hint" id="signStatus" style="margin-top:12px">
-            Status: aguardando aceite.
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 
 <script>
-  const CONFIG = {
-    whatsappNumber: "5566996223481",
-    cidade: "Jaciara/MT"
-  };
+  const CONFIG = { whatsappNumber: "5566996223481", cidade: "Jaciara/MT" };
 
   const ITENS = [
     { id:"cilindros", nome:"Cilindros (Suporte)", cat:"Estruturas", desc:"Estruturas e suporte para decoração.", preco:180,
@@ -827,15 +614,11 @@
   bindTilt(el("tiltHeader"), 4.5);
   bindTilt(el("tiltBanner"), 5.5);
 
-  // ✅ HERO: vídeo sempre mudo + áudio toca 3x com intervalo de 50s (sem reiniciar vídeo)
   function heroMedia(){
     const box = el("heroMedia");
     const soundBtn = el("soundBtn");
-    if(!box) return;
-
     box.innerHTML = "";
 
-    // Vídeo visível (sempre mudo)
     const video = document.createElement("video");
     video.src = "video-capa.mp4";
     video.poster = "capa.jpg";
@@ -848,7 +631,6 @@
     video.setAttribute("playsinline","");
     video.setAttribute("webkit-playsinline","");
 
-    // Player invisível só para som (por causa do autoplay bloqueado)
     const audio = document.createElement("video");
     audio.src = "video-capa.mp4";
     audio.preload = "auto";
@@ -879,7 +661,7 @@
     function iniciarSom3x(){
       if(iniciou) return;
       iniciou = true;
-      soundBtn && soundBtn.classList.add("hide");
+      soundBtn.classList.add("hide");
 
       tocarUmaVez();
       for(let i=1; i<QTDE_TOQUES; i++){
@@ -892,12 +674,8 @@
       }, (QTDE_TOQUES * INTERVALO_SEGUNDOS + 2) * 1000);
     }
 
-    if(soundBtn) soundBtn.onclick = iniciarSom3x;
+    soundBtn.onclick = iniciarSom3x;
     video.addEventListener("click", iniciarSom3x);
-
-    video.oncanplay = ()=>{
-      video.play().catch(()=>{});
-    };
 
     video.onerror = ()=>{
       const img = document.createElement("img");
@@ -905,7 +683,7 @@
       img.src = "capa.jpg";
       img.onerror = ()=> img.src = "capa.png";
       box.appendChild(img);
-      soundBtn && soundBtn.classList.add("hide");
+      soundBtn.classList.add("hide");
     };
 
     box.appendChild(video);
@@ -914,12 +692,26 @@
   }
   heroMedia();
 
+  // ✅ LOGO ROBUSTO: tenta vários nomes e pastas
   function loadLogo(){
     const img = el("logoImg");
-    img.src = "logo.png";
-    img.onerror = ()=>{
-      img.style.display = "none";
-    };
+    const tries = [
+      "logo.png","logo.jpg","logo.webp","Logo.png","Logo.jpg","Logo.webp",
+      "assets/logo.png","assets/logo.jpg","assets/logo.webp",
+      "./assets/logo.png","./assets/logo.jpg","./assets/logo.webp"
+    ];
+    let i = 0;
+
+    function tryNext(){
+      if(i >= tries.length){
+        img.style.display = "none";
+        return;
+      }
+      img.src = tries[i++];
+    }
+
+    img.onerror = tryNext;
+    tryNext();
   }
   loadLogo();
 
@@ -988,6 +780,7 @@
       const img = document.createElement("img");
       const medias = (item.media||[]).filter(Boolean);
       let idx = 0;
+
       function setImg(){ img.src = medias[idx] || "capa.jpg"; }
       img.onerror = ()=>{
         idx++;
@@ -1025,186 +818,12 @@
       card.appendChild(desc);
       card.appendChild(footer);
 
-      card.addEventListener("click", ()=> openItem(item.id));
       grid.appendChild(card);
     });
 
     el("cartCount").textContent = [...state.cart.values()].reduce((a,b)=>a+b,0);
   }
   render();
-
-  let currentItem = null;
-  let mediaIndex = 0;
-  let currentMediaList = [];
-
-  function mediaListFor(item){
-    const imgs = (item.media||[]).filter(Boolean);
-    const out = imgs.map(src=>({type:"img",src}));
-    if(item.video) out.push({type:"video", src:item.video});
-    return out.length ? out : [{type:"img",src:"capa.jpg"}];
-  }
-
-  function renderViewer(){
-    const viewer = el("viewerInner");
-    viewer.innerHTML = "";
-    const m = currentMediaList[mediaIndex];
-
-    if(m.type === "video"){
-      const v = document.createElement("video");
-      v.src = m.src;
-      v.controls = true;
-      v.playsInline = true;
-      viewer.appendChild(v);
-    }else{
-      const img = document.createElement("img");
-      img.src = m.src;
-      img.onerror = ()=> img.src = "capa.jpg";
-      viewer.appendChild(img);
-    }
-
-    const thumbs = el("thumbs");
-    thumbs.innerHTML = "";
-    currentMediaList.slice(0,4).forEach((mm, i)=>{
-      const b = document.createElement("button");
-      b.className = (i===mediaIndex ? "active" : "");
-      b.addEventListener("click", ()=>{ mediaIndex=i; renderViewer(); });
-
-      const mini = document.createElement("div");
-      mini.className = "mini";
-
-      const im = document.createElement("img");
-      im.src = (mm.type==="img" ? mm.src : (currentItem.media[0] || "capa.jpg"));
-      im.onerror = ()=> im.src = "capa.jpg";
-      mini.appendChild(im);
-
-      b.appendChild(mini);
-      thumbs.appendChild(b);
-    });
-  }
-
-  function openItem(id){
-    currentItem = ITENS.find(x=>x.id===id);
-    if(!currentItem) return;
-
-    el("modalTitle").textContent = currentItem.nome;
-    el("modalDesc").textContent = currentItem.desc;
-    el("modalCat").textContent = currentItem.cat;
-    el("modalPrice").textContent = showPrices ? money(currentItem.preco) : "Sob consulta";
-
-    currentMediaList = mediaListFor(currentItem);
-    mediaIndex = 0;
-    renderViewer();
-    el("modalItemBack").style.display = "flex";
-  }
-
-  function closeItem(){
-    el("modalItemBack").style.display = "none";
-    currentItem = null;
-  }
-
-  el("closeItem").addEventListener("click", closeItem);
-  el("modalItemBack").addEventListener("click",(e)=>{
-    if(e.target === el("modalItemBack")) closeItem();
-  });
-
-  el("prevMedia").addEventListener("click", ()=>{
-    if(!currentMediaList.length) return;
-    mediaIndex = (mediaIndex - 1 + currentMediaList.length) % currentMediaList.length;
-    renderViewer();
-  });
-  el("nextMedia").addEventListener("click", ()=>{
-    if(!currentMediaList.length) return;
-    mediaIndex = (mediaIndex + 1) % currentMediaList.length;
-    renderViewer();
-  });
-
-  el("addCart").addEventListener("click", ()=>{
-    if(!currentItem) return;
-    const n = state.cart.get(currentItem.id) || 0;
-    state.cart.set(currentItem.id, n+1);
-    render();
-  });
-  el("removeCart").addEventListener("click", ()=>{
-    if(!currentItem) return;
-    const n = state.cart.get(currentItem.id) || 0;
-    if(n<=1) state.cart.delete(currentItem.id);
-    else state.cart.set(currentItem.id, n-1);
-    render();
-  });
-
-  function openContract(){ el("modalContractBack").style.display="flex"; }
-  function closeContract(){ el("modalContractBack").style.display="none"; }
-  el("btnContract").addEventListener("click", openContract);
-  el("closeContract").addEventListener("click", closeContract);
-  el("modalContractBack").addEventListener("click",(e)=>{
-    if(e.target === el("modalContractBack")) closeContract();
-  });
-
-  const canvas = el("sign");
-  const ctx = canvas.getContext("2d");
-  let drawing = false;
-  let hasStroke = false;
-
-  function resizeCanvas(){
-    const r = canvas.getBoundingClientRect();
-    const dpr = window.devicePixelRatio || 1;
-    canvas.width = Math.floor(r.width * dpr);
-    canvas.height = Math.floor(r.height * dpr);
-    ctx.setTransform(dpr,0,0,dpr,0,0);
-    ctx.lineWidth = 2.4;
-    ctx.lineCap = "round";
-    ctx.strokeStyle = "rgba(255,255,255,.92)";
-  }
-  setTimeout(resizeCanvas, 60);
-  window.addEventListener("resize", ()=> setTimeout(resizeCanvas, 60));
-
-  function pos(e){
-    const r = canvas.getBoundingClientRect();
-    const x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
-    const y = (e.touches ? e.touches[0].clientY : e.clientY) - r.top;
-    return {x,y};
-  }
-
-  function down(e){
-    drawing = true;
-    hasStroke = true;
-    const p = pos(e);
-    ctx.beginPath();
-    ctx.moveTo(p.x, p.y);
-    e.preventDefault();
-  }
-  function move(e){
-    if(!drawing) return;
-    const p = pos(e);
-    ctx.lineTo(p.x, p.y);
-    ctx.stroke();
-    e.preventDefault();
-  }
-  function up(){ drawing = false; }
-
-  canvas.addEventListener("mousedown", down);
-  canvas.addEventListener("mousemove", move);
-  window.addEventListener("mouseup", up);
-
-  canvas.addEventListener("touchstart", down, {passive:false});
-  canvas.addEventListener("touchmove", move, {passive:false});
-  window.addEventListener("touchend", up);
-
-  el("clearSign").addEventListener("click", ()=>{
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    hasStroke = false;
-    state.contractOk = false;
-    el("signStatus").textContent = "Status: aguardando aceite.";
-  });
-
-  el("saveSign").addEventListener("click", ()=>{
-    const agreed = el("agree").checked;
-    if(!agreed){ el("signStatus").textContent = "Status: marque 'Li e concordo' para salvar."; return; }
-    if(!hasStroke){ el("signStatus").textContent = "Status: assine no quadro para salvar."; return; }
-    state.contractOk = true;
-    el("signStatus").textContent = "Status: aceite salvo ✅";
-    closeContract();
-  });
 
   el("btnWhats").addEventListener("click", ()=>{
     const url = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent("Olá! Quero informações sobre os itens do catálogo da Faz de Conta Decorações.")}`;
@@ -1216,17 +835,11 @@
     alert("Carrinho: " + totalItens + " item(ns).");
   });
 
+  el("btnContract").addEventListener("click", ()=>{
+    alert("Contrato: você pode evoluir esse módulo depois (assinatura, PDF, etc).");
+  });
+
   el("btnFinish").addEventListener("click", ()=>{
-    if(!state.contractOk){
-      alert("Antes de finalizar, abra o CONTRATO e salve o aceite com assinatura.");
-      openContract();
-      return;
-    }
-    const totalItens = [...state.cart.values()].reduce((a,b)=>a+b,0);
-    if(totalItens<=0){
-      alert("Seu carrinho está vazio. Clique em um item e adicione ao carrinho.");
-      return;
-    }
     alert("Finalizar (Pix): aqui você pode colocar sua chave Pix e gerar o Pix Copia e Cola.");
   });
 </script>
