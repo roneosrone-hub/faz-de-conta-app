@@ -143,16 +143,16 @@
       background: linear-gradient(135deg, rgba(255,75,216,.25), rgba(0,255,213,.18));
     }
 
-    /* TÍTULO (DOBRO DO TAMANHO + CENTRALIZADO) */
+    /* TÍTULO */
     .gradTitle{
       font-weight: 1000;
-      font-size: 44px;     /* << DOBRO/MAIOR */
+      font-size: 44px;
       line-height: 1.05;
       text-align:center;
       letter-spacing: .6px;
       text-transform: uppercase;
 
-      /* Degradê estilo “cada letra colorida” (gradiente forte + brilho) */
+      /* Degradê forte + brilho */
       background: linear-gradient(
         90deg,
         #ff4bd8 0%,
@@ -176,7 +176,7 @@
       100%{ background-position:260% 50%; }
     }
 
-    /* Slogan abaixo (agora o “bonito”/forte fica aqui) */
+    /* Slogan abaixo (bonito/forte) */
     .sloganBelow{
       margin-top: 6px;
       text-align:center;
@@ -213,13 +213,13 @@
     }
 
     .actions{
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-start; /* 👈 vai pra esquerda */
-  margin-right: auto;         /* 👈 garante alinhamento à esquerda */
-}
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-start;
+      margin-right: auto;
+    }
 
     .btn{
       display:inline-flex;
@@ -283,9 +283,9 @@
       position:relative;
     }
 
-    /* Banner com altura menor (para não dominar a tela) */
+    /* Banner com altura menor */
     .mediaBox{
-      height: 210px; /* << menor */
+      height: 190px;
       display:flex;
       align-items:center;
       justify-content:center;
@@ -294,10 +294,9 @@
       position:relative;
     }
     @media(max-width:900px){
-      .mediaBox{ height: 180px; }
+      .mediaBox{ height: 160px; }
     }
 
-    /* container interno para controlar melhor o vídeo */
     .mediaInner{
       width:100%;
       height:100%;
@@ -319,7 +318,6 @@
       box-shadow: 0 12px 30px rgba(0,0,0,.25);
     }
 
-    /* botão de áudio (3x) */
     .soundBtn{
       position:absolute;
       left: 12px;
@@ -655,7 +653,6 @@
     }
     .side .line b{ color: rgba(255,255,255,.92); }
 
-    /* Assinatura */
     canvas{
       width:100%;
       height: 140px;
@@ -682,7 +679,6 @@
       font-size: 12px;
     }
 
-    /* responsivo: título menor no celular */
     @media(max-width: 560px){
       .gradTitle{ font-size: 34px; }
       .sloganBelow{ font-size: 14px; }
@@ -694,14 +690,22 @@
 <body>
   <div class="spark"></div>
 
+  <div class="wrap">
+    <div class="floatingSlogan">
+      <span class="star">✨</span>
+      <span>Onde a imaginação vira festa</span>
+    </div>
+
     <!-- HEADER -->
     <div class="header" id="tiltHeader">
       <div class="headTop">
         <div class="brandCenter">
-          <div class="logo" title="Logo" id="logoBox">
-  <img src="logo.png" alt="Faz de Conta Decorações">
-</div>
 
+          <!-- ✅ LOGO CORRIGIDO (com fallback FC e JS funcionando) -->
+          <div class="logo fallback" title="Logo" id="logoBox">
+            <img id="logoImg" alt="Faz de Conta Decorações" style="display:none"/>
+            <span id="logoFallbackText">FC</span>
+          </div>
 
           <div style="min-width: 210px;">
             <div class="gradTitle">FAZ DE CONTA DECORAÇÕES</div>
@@ -710,7 +714,7 @@
         </div>
 
         <div class="metaRow">
-          <div class="chip">📍 <b id="cityChip">JACIARA/MT</b></div>
+          <div class="chip">📍 <b id="cityChip">Jaciara/MT</b></div>
           <div class="chip">💬 <b>WhatsApp:</b> <span id="whatsChip">(66) 99622-3481</span></div>
           <div class="chip">📅 <span id="today">--/--/----</span> • ⏰ <b id="clock">--:--</b></div>
         </div>
@@ -864,15 +868,15 @@
 <script>
   // ========= CONFIG =========
   const CONFIG = {
-    whatsappNumber: "5566996223481",  // só números (55 + DDD + número)
+    whatsappNumber: "5566996223481",
     whatsappDisplay: "(66) 99622-3481",
     cidade: "Jaciara/MT",
-    audioBurstSeconds: 6,            // quanto tempo o áudio fica ligado em cada vez
-    audioIntervalSeconds: 50,         // intervalo entre os toques (50s)
-    audioTimes: 3                     // quantas vezes
+    audioBurstSeconds: 6,
+    audioIntervalSeconds: 50,
+    audioTimes: 3
   };
 
-  // ========= ITENS (edite seus itens aqui) =========
+  // ========= ITENS =========
   const ITENS = [
     { id:"cilindros", nome:"Cilindros (Suporte)", cat:"Estruturas", desc:"Estruturas e suporte para decoração.", preco:180,
       media:["cilindros-1.jpg","cilindros-2.jpg","cilindros-3.jpg","cilindros-4.jpg","cilindros-5.jpg"], video:"" },
@@ -905,7 +909,7 @@
   tick();
   setInterval(tick, 1000);
 
-  // ========= LOGO (aceita logo.png / logo.jpg / logo.jpeg) =========
+  // ========= LOGO (aceita logo.png / logo.jpg / logo.jpeg / logo.webp) =========
   function loadLogo(){
     const img = el("logoImg");
     const box = el("logoBox");
@@ -945,7 +949,7 @@
     const v = document.createElement("video");
     v.src = "video-capa.mp4";
     v.autoplay = true;
-    v.muted = true;          // autoplay só funciona garantido se estiver mudo
+    v.muted = true;
     v.loop = true;
     v.playsInline = true;
     v.preload = "auto";
@@ -1004,25 +1008,19 @@
     const burstMs = Math.max(1000, CONFIG.audioBurstSeconds * 1000);
     const intervalMs = Math.max(3000, CONFIG.audioIntervalSeconds * 1000);
 
-    // garante que o vídeo esteja tocando
     heroVideo.play().catch(()=>{});
 
-    // agenda 3 vezes: liga áudio por X segundos, depois mudo, espera intervalo, repete
     for(let n=0; n<CONFIG.audioTimes; n++){
       const startAt = n * intervalMs;
 
-      // ligar
       scheduleTimers.push(setTimeout(()=>{
         if(!heroVideo) return;
         if(audioRemaining <= 0) return;
-
-        // precisa ser em gesto do usuário (já foi clicado), então funciona
         heroVideo.muted = false;
         heroVideo.volume = 1;
         heroVideo.play().catch(()=>{});
       }, startAt));
 
-      // desligar
       scheduleTimers.push(setTimeout(()=>{
         if(!heroVideo) return;
         heroVideo.muted = true;
@@ -1032,10 +1030,8 @@
           setSoundLabel();
         }
 
-        // quando terminar tudo
         if(n === CONFIG.audioTimes - 1){
           audioBusy = false;
-          // fica mudo pra sempre depois
           if(heroVideo) heroVideo.muted = true;
         }
       }, startAt + burstMs));
@@ -1045,8 +1041,6 @@
   soundBtn.addEventListener("click", ()=>{
     if(!heroVideo) return;
     if(audioRemaining <= 0) return;
-
-    // garante mudo antes e inicia o agendamento
     heroVideo.muted = true;
     runAudioSchedule();
   });
