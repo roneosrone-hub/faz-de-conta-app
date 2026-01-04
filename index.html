@@ -34,6 +34,7 @@
       overflow-x:hidden;
     }
 
+    /* brilho discreto */
     .spark{
       position:fixed; inset:0; pointer-events:none; opacity:.55;
       background:
@@ -46,9 +47,30 @@
     }
 
     .wrap{
-      width:min(1100px, 92vw);
-      margin: 22px auto 48px;
+      width:min(1120px, 92vw);
+      margin: 18px auto 48px;
     }
+
+    /* SLOGAN FIXO NO CANTO SUPERIOR ESQUERDO */
+    .floatingSlogan{
+      position: sticky;
+      top: 10px;
+      z-index: 10;
+      width: fit-content;
+      margin-bottom: 10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow: 0 12px 30px rgba(0,0,0,.25);
+      color: rgba(255,255,255,.92);
+      font-weight: 900;
+      letter-spacing:.2px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .floatingSlogan .star{ filter: drop-shadow(0 6px 14px rgba(0,0,0,.55)); }
 
     /* HEADER */
     .header{
@@ -62,26 +84,19 @@
       box-shadow: var(--shadow);
       transform: translateZ(0);
       backdrop-filter: blur(10px);
+      overflow:hidden;
       position:relative;
     }
 
-    /* Slogan fixo no canto superior esquerdo (sempre aparece) */
-    .cornerSlogan{
-      position:absolute;
-      top:10px; left:12px;
-      font-weight:900;
-      font-size: 13px;
-      color: rgba(255,255,255,.88);
-      text-shadow: 0 10px 25px rgba(0,0,0,.45);
-      letter-spacing:.2px;
-      display:flex;
-      gap:8px;
-      align-items:center;
-      user-select:none;
+    /* leve brilho */
+    .header::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(700px 200px at 20% 10%, rgba(255,255,255,.10), transparent 55%),
+                  radial-gradient(600px 240px at 80% 0%, rgba(0,255,213,.12), transparent 55%);
+      opacity:.65;
       pointer-events:none;
-      opacity:.95;
     }
-    .cornerSlogan .sparkle{ opacity:.9; }
 
     .headTop{
       display:flex;
@@ -89,20 +104,23 @@
       align-items:center;
       justify-content:space-between;
       flex-wrap:wrap;
-      margin-top: 14px; /* abre espaço pro cornerSlogan */
+      position:relative;
+      z-index:1;
     }
 
-    .brandLeft{
-      display:flex;
-      gap:14px;
-      align-items:center;
-      min-width: 260px;
+    /* bloco centralizado */
+    .brandCenter{
       flex: 1;
+      min-width: 280px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:14px;
     }
 
     .logo{
-      width:56px; height:56px;
-      border-radius: 16px;
+      width:58px; height:58px;
+      border-radius: 18px;
       background: rgba(0,0,0,.25);
       border:1px solid rgba(255,255,255,.12);
       overflow:hidden;
@@ -112,73 +130,74 @@
       display:flex;
       align-items:center;
       justify-content:center;
+      font-weight: 1000;
+      letter-spacing:.5px;
+      color: rgba(255,255,255,.85);
     }
     .logo img{
       width:100%; height:100%;
       object-fit: cover;
       display:block;
     }
-    .logoBadge{
-      display:none;
-      width:100%; height:100%;
-      align-items:center; justify-content:center;
-      font-weight: 1000;
-      font-size: 18px;
-      letter-spacing:.5px;
-      color: rgba(255,255,255,.92);
-      background: linear-gradient(135deg, rgba(255,75,216,.22), rgba(0,255,213,.16), rgba(255,217,74,.14));
+    .logo.fallback{
+      background: linear-gradient(135deg, rgba(255,75,216,.25), rgba(0,255,213,.18));
     }
-    .logo::after{
-      content:"";
-      position:absolute; inset:-30%;
-      background: conic-gradient(from 180deg, rgba(255,255,255,.00), rgba(255,255,255,.18), rgba(255,255,255,.00));
-      animation: shine 4.8s linear infinite;
-      opacity:.55;
-      pointer-events:none;
-    }
-    @keyframes shine { to { transform: rotate(360deg); } }
 
+    /* TÍTULO (DOBRO DO TAMANHO + CENTRALIZADO) */
     .gradTitle{
-      font-weight: 900;
-      font-size: 20px;
-      margin:0;
-      letter-spacing:.2px;
-      background: linear-gradient(90deg, #ff4bd8, #7a42ff, #00ffd5, #ffd94a, #ff4bd8);
-      background-size: 300% 100%;
+      font-weight: 1000;
+      font-size: 44px;     /* << DOBRO/MAIOR */
+      line-height: 1.05;
+      text-align:center;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+
+      /* Degradê estilo “cada letra colorida” (gradiente forte + brilho) */
+      background: linear-gradient(
+        90deg,
+        #ff4bd8 0%,
+        #7a42ff 18%,
+        #00c7ff 34%,
+        #00ffd5 50%,
+        #7dff6a 66%,
+        #ffd94a 82%,
+        #ff4bd8 100%
+      );
+      background-size: 260% 100%;
       -webkit-background-clip:text;
       background-clip:text;
       color: transparent;
-      animation: gradMove 5.5s linear infinite;
-      text-transform: uppercase;
+      animation: gradMove 6.5s linear infinite;
+
+      filter: drop-shadow(0 10px 30px rgba(0,0,0,.55));
     }
     @keyframes gradMove{
       0%{ background-position:0% 50%; }
-      100%{ background-position:300% 50%; }
+      100%{ background-position:260% 50%; }
     }
 
-    .slogan{
-      margin-top:4px;
-      font-size: 13px;
-      color: var(--muted);
-      line-height:1.2;
+    /* Slogan abaixo (agora o “bonito”/forte fica aqui) */
+    .sloganBelow{
+      margin-top: 6px;
+      text-align:center;
+      font-size: 15px;
+      font-weight: 900;
+      color: rgba(255,255,255,.92);
+      letter-spacing:.2px;
+      text-shadow: 0 10px 26px rgba(0,0,0,.45);
     }
 
-    .sub{
-      margin-top:6px;
-      font-size: 12px;
-      color: var(--muted2);
-    }
-
+    /* meta */
     .metaRow{
       display:flex;
       gap:10px;
       flex-wrap:wrap;
       justify-content:flex-end;
       align-items:center;
-      flex: 1;
       min-width: 260px;
+      position:relative;
+      z-index:1;
     }
-
     .chip{
       display:inline-flex;
       gap:8px;
@@ -198,9 +217,10 @@
       gap:10px;
       flex-wrap:wrap;
       align-items:center;
-      justify-content:flex-start;
+      justify-content:center; /* centraliza botões */
+      position:relative;
+      z-index:1;
     }
-
     .btn{
       display:inline-flex;
       align-items:center;
@@ -213,7 +233,7 @@
       border:1px solid rgba(255,255,255,.14);
       padding: 10px 12px;
       border-radius: 14px;
-      font-weight: 700;
+      font-weight: 800;
       font-size: 13px;
       box-shadow: 0 14px 35px rgba(0,0,0,.28);
       transform: translateZ(0);
@@ -226,7 +246,6 @@
       background: linear-gradient(90deg, rgba(255,75,216,.38), rgba(0,255,213,.26), rgba(255,217,74,.24));
       border-color: rgba(255,255,255,.18);
     }
-
     .pill{
       display:inline-flex;
       align-items:center;
@@ -237,7 +256,7 @@
       border-radius: 999px;
       background: rgba(0,0,0,.28);
       border:1px solid rgba(255,255,255,.14);
-      font-weight: 900;
+      font-weight: 1000;
       font-size: 12px;
       margin-left: 6px;
     }
@@ -246,11 +265,11 @@
     .hero{
       margin-top: 14px;
       display:grid;
-      grid-template-columns: 1.35fr .95fr;
+      grid-template-columns: 1.25fr .95fr;
       gap: 14px;
       align-items:stretch;
     }
-    @media(max-width: 900px){
+    @media(max-width: 980px){
       .hero{ grid-template-columns: 1fr; }
     }
 
@@ -264,67 +283,65 @@
       position:relative;
     }
 
-    .tilt{
-      transform-style: preserve-3d;
-      will-change: transform;
-    }
-    .tilt::before{
-      content:"";
-      position:absolute;
-      inset:-2px;
-      background: radial-gradient(700px 200px at 20% 10%, rgba(255,255,255,.10), transparent 55%),
-                  radial-gradient(600px 240px at 80% 0%, rgba(0,255,213,.12), transparent 55%);
-      opacity:.65;
-      pointer-events:none;
-    }
-
-    /* Banner com tamanho "certinho" na tela (nem gigante, nem micro) */
+    /* Banner com altura menor (para não dominar a tela) */
     .mediaBox{
-      width:100%;
-      aspect-ratio: 10 / 9;
-      max-height: 300px;
-      min-height: 700px;
+      height: 210px; /* << menor */
       display:flex;
       align-items:center;
       justify-content:center;
       background: rgba(0,0,0,.22);
       border-bottom: 1px solid rgba(255,255,255,.10);
       position:relative;
-      overflow:hidden;
     }
     @media(max-width:900px){
-      .mediaBox{
-        max-height: 260px;
-        min-height: 170px;
-        aspect-ratio: 16 / 10;
-      }
+      .mediaBox{ height: 180px; }
     }
 
-    .mediaBox img, .mediaBox video{
+    /* container interno para controlar melhor o vídeo */
+    .mediaInner{
       width:100%;
       height:100%;
-      object-fit: cover;
-      display:block;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 10px;
     }
 
+    .mediaInner video,
+    .mediaInner img{
+      width:100%;
+      height:100%;
+      border-radius: 18px;
+      object-fit: cover;
+      display:block;
+      background: rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow: 0 12px 30px rgba(0,0,0,.25);
+    }
+
+    /* botão de áudio (3x) */
     .soundBtn{
       position:absolute;
       left: 12px;
       bottom: 12px;
-      z-index: 5;
+      z-index: 4;
+      display:flex;
+      align-items:center;
+      gap:8px;
       padding: 10px 12px;
       border-radius: 999px;
-      border:1px solid rgba(255,255,255,.16);
+      border:1px solid rgba(255,255,255,.14);
       background: rgba(0,0,0,.35);
       color: rgba(255,255,255,.92);
       font-weight: 900;
-      font-size: 12px;
       cursor:pointer;
-      box-shadow: 0 14px 35px rgba(0,0,0,.35);
       user-select:none;
-      display:none; /* aparece só quando existe vídeo */
+      box-shadow: 0 14px 35px rgba(0,0,0,.35);
+      backdrop-filter: blur(10px);
     }
     .soundBtn:hover{ background: rgba(0,0,0,.45); }
+    .soundBtn:active{ transform: scale(.99); }
+    .soundBtn[disabled]{ opacity:.55; cursor:not-allowed; }
 
     .mediaCaption{
       padding: 12px 14px;
@@ -336,6 +353,7 @@
       flex-wrap: wrap;
     }
 
+    /* Painel */
     .panel{
       padding: 14px;
     }
@@ -412,40 +430,37 @@
     .switch.on{ background: rgba(0,255,213,.24); }
     .switch.on .knob{ left: 21px; background: rgba(255,255,255,.96); }
 
-    .hint{
-      margin-top: 10px;
-      font-size: 12px;
-      color: rgba(255,255,255,.55);
-      padding: 10px 12px;
-      border-radius: 14px;
-      background: rgba(0,0,0,.20);
-      border:1px solid rgba(255,255,255,.10);
-    }
-
-    /* Versículo diário (aumenta espaço e fica bonito) */
-    .bibleHint{
+    /* Versículo (maior) */
+    .verseBox{
+      margin-top: 12px;
       padding: 14px 14px;
-      min-height: 120px;
+      border-radius: 16px;
+      background: rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.86);
     }
-    .bibleTitle{
-      font-weight: 900;
+    .verseTitle{
+      font-weight: 1000;
+      margin-bottom: 8px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .verseText{
+      color: rgba(255,255,255,.78);
+      line-height: 1.45;
       font-size: 13px;
-      margin-bottom: 6px;
-      color: rgba(255,255,255,.92);
+      margin:0;
     }
-    .bibleVerse{
-      font-size: 14px;
-      line-height: 1.5;
-      color: rgba(255,255,255,.80);
-    }
-    .bibleRef{
+    .verseRef{
       margin-top: 8px;
-      font-size: 12px;
-      color: rgba(255,255,255,.60);
       font-weight: 900;
+      color: rgba(255,255,255,.9);
+      font-size: 12px;
+      opacity:.92;
     }
 
-    /* GRID */
+    /* ITENS */
     .sectionTitle{
       margin: 18px 0 10px;
       display:flex;
@@ -475,7 +490,7 @@
     @media(max-width: 980px){ .grid{ grid-template-columns: repeat(2, 1fr);} }
     @media(max-width: 560px){ .grid{ grid-template-columns: 1fr;} }
 
-    .item{ padding: 12px; }
+    .item{ padding: 12px; cursor:pointer; }
     .thumb{
       height: 150px;
       border-radius: 18px;
@@ -493,11 +508,7 @@
     }
     .item:hover .thumb img{ transform: scale(1.06); }
 
-    .itemName{
-      margin: 10px 0 6px;
-      font-weight: 900;
-      letter-spacing:.2px;
-    }
+    .itemName{ margin: 10px 0 6px; font-weight: 1000; letter-spacing:.2px; }
     .itemDesc{
       margin:0;
       color: rgba(255,255,255,.65);
@@ -513,11 +524,7 @@
       gap: 10px;
       flex-wrap:wrap;
     }
-    .price{
-      font-weight: 900;
-      font-size: 13px;
-      color: rgba(255,255,255,.88);
-    }
+    .price{ font-weight: 1000; font-size: 13px; color: rgba(255,255,255,.88); }
     .tag{
       font-size: 12px;
       color: rgba(255,255,255,.65);
@@ -562,7 +569,7 @@
       background: rgba(0,0,0,.25);
       border:1px solid rgba(255,255,255,.12);
       color: rgba(255,255,255,.88);
-      font-weight: 900;
+      font-weight: 1000;
       cursor:pointer;
     }
     .modalBody{
@@ -596,7 +603,7 @@
       border:1px solid rgba(255,255,255,.14);
       color: rgba(255,255,255,.92);
       cursor:pointer;
-      font-weight: 900;
+      font-weight: 1000;
       display:flex;
       align-items:center;
       justify-content:center;
@@ -626,9 +633,7 @@
       opacity: .85;
       transition: opacity .15s ease, transform .15s ease;
     }
-    .mini img{
-      width:100%; height:100%; object-fit: cover; display:block;
-    }
+    .mini img{ width:100%; height:100%; object-fit: cover; display:block; }
     .thumbs button.active .mini{
       opacity: 1;
       transform: translateY(-1px);
@@ -650,6 +655,7 @@
     }
     .side .line b{ color: rgba(255,255,255,.92); }
 
+    /* Assinatura */
     canvas{
       width:100%;
       height: 140px;
@@ -675,6 +681,13 @@
       color: rgba(255,255,255,.45);
       font-size: 12px;
     }
+
+    /* responsivo: título menor no celular */
+    @media(max-width: 560px){
+      .gradTitle{ font-size: 34px; }
+      .sloganBelow{ font-size: 14px; }
+      .logo{ width:54px; height:54px; }
+    }
   </style>
 </head>
 
@@ -682,26 +695,29 @@
   <div class="spark"></div>
 
   <div class="wrap">
+    <div class="floatingSlogan">
+      <span class="star">✨</span>
+      <span>Onde a imaginação vira festa</span>
+    </div>
 
-    <div class="header tilt" id="tiltHeader">
-      <div class="cornerSlogan"><span class="sparkle">✨</span>Onde a imaginação vira festa</div>
-
+    <!-- HEADER -->
+    <div class="header" id="tiltHeader">
       <div class="headTop">
-        <div class="brandLeft">
-          <div class="logo" title="Logo">
-            <img id="logoImg" alt="Logo"/>
-            <div class="logoBadge" id="logoBadge">FC</div>
+        <div class="brandCenter">
+          <div class="logo fallback" title="Logo" id="logoBox">
+            <img id="logoImg" alt="Logo" style="display:none"/>
+            <span id="logoFallbackText">FC</span>
           </div>
-          <div class="brand">
+
+          <div style="min-width: 260px;">
             <div class="gradTitle">FAZ DE CONTA DECORAÇÕES</div>
-            <div class="slogan">Onde a imaginação vira festa</div>
-            <div class="sub">Catálogo • Carrinho • Pix • Contrato rápido (leve e fácil)</div>
+            <div class="sloganBelow">Onde a imaginação vira festa</div>
           </div>
         </div>
 
         <div class="metaRow">
-          <div class="chip">📍 <b>Jaciara/MT</b></div>
-          <div class="chip">💬 <b>WhatsApp:</b> (66) 99622-3481</div>
+          <div class="chip">📍 <b id="cityChip">Jaciara/MT</b></div>
+          <div class="chip">💬 <b>WhatsApp:</b> <span id="whatsChip">(66) 99622-3481</span></div>
           <div class="chip">📅 <span id="today">--/--/----</span> • ⏰ <b id="clock">--:--</b></div>
         </div>
       </div>
@@ -714,11 +730,17 @@
       </div>
     </div>
 
+    <!-- HERO -->
     <div class="hero">
-      <div class="card tilt" id="tiltBanner">
-        <div class="mediaBox" id="heroMedia">
-          <button class="soundBtn" id="soundBtn">🔊 Ativar som (3x)</button>
+      <div class="card" id="tiltBanner">
+        <div class="mediaBox">
+          <div class="mediaInner" id="heroMedia"></div>
+
+          <button class="soundBtn" id="soundBtn" type="button" title="Tocar áudio 3 vezes (com intervalos)">
+            🔊 <span id="soundBtnLabel">Ativar som (3x)</span>
+          </button>
         </div>
+
         <div class="mediaCaption">
           <span>📸 Banner do catálogo (vídeo automático se existir)</span>
           <span style="opacity:.85">Dica: use <b>video-capa.mp4</b> ou <b>capa.jpg</b></span>
@@ -748,14 +770,15 @@
           <button class="btn" id="btnClear">🧼 Limpar</button>
         </div>
 
-        <div class="hint bibleHint" id="dailyVerseBox">
-          <div class="bibleTitle">📖 Versículo bíblico do dia</div>
-          <div class="bibleVerse" id="dailyVerseText">Carregando...</div>
-          <div class="bibleRef" id="dailyVerseRef"></div>
+        <div class="verseBox" id="verseBox">
+          <div class="verseTitle">📖 Versículo bíblico do dia</div>
+          <p class="verseText" id="verseText">Carregando…</p>
+          <div class="verseRef" id="verseRef"></div>
         </div>
       </div>
     </div>
 
+    <!-- ITENS -->
     <div class="sectionTitle">
       <h3>✨ Itens do catálogo</h3>
       <div class="badge"><span id="itemsCount">0</span> itens</div>
@@ -763,9 +786,10 @@
 
     <div class="grid" id="grid"></div>
 
-    <div class="footer">© Faz de Conta Decorações • Catálogo demonstrativo (você troca fotos e valores quando quiser)</div>
+    <div class="footer">© Faz de Conta Decorações • Catálogo</div>
   </div>
 
+  <!-- MODAL ITEM -->
   <div class="modalBack" id="modalItemBack">
     <div class="modal">
       <div class="modalHead">
@@ -794,14 +818,18 @@
             <button class="btn" id="removeCart">➖ Remover</button>
           </div>
 
-          <div class="hint" style="margin-top:12px">
-            Para colocar 5 fotos: edite o item no código e liste os arquivos (ex: <b>cilindros-1.jpg</b> ... <b>cilindros-5.jpg</b>).
+          <div class="verseBox" style="margin-top:12px;">
+            <div class="verseTitle">📌 Dica rápida</div>
+            <p class="verseText" style="margin:0;">
+              Para 5 fotos: use nomes tipo <b>arco-1.jpg</b> … <b>arco-5.jpg</b> (na raiz do projeto).
+            </p>
           </div>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- MODAL CONTRATO -->
   <div class="modalBack" id="modalContractBack">
     <div class="modal">
       <div class="modalHead">
@@ -822,7 +850,7 @@
             <label for="agree">Li e concordo com o compromisso acima.</label>
           </div>
 
-          <div style="margin-top:12px; font-weight:800; opacity:.9">Assinatura:</div>
+          <div style="margin-top:12px; font-weight:1000; opacity:.95">Assinatura:</div>
           <canvas id="sign"></canvas>
 
           <div class="row" style="margin-top:12px">
@@ -830,8 +858,9 @@
             <button class="btn primary" id="saveSign">✅ Salvar aceite</button>
           </div>
 
-          <div class="hint" id="signStatus" style="margin-top:12px">
-            Status: aguardando aceite.
+          <div class="verseBox" id="signStatus" style="margin-top:12px">
+            <div class="verseTitle">Status</div>
+            <p class="verseText" style="margin:0;">Aguardando aceite.</p>
           </div>
         </div>
       </div>
@@ -839,11 +868,17 @@
   </div>
 
 <script>
+  // ========= CONFIG =========
   const CONFIG = {
-    whatsappNumber: "5566996223481",
-    cidade: "Jaciara/MT"
+    whatsappNumber: "5566996223481",  // só números (55 + DDD + número)
+    whatsappDisplay: "(66) 99622-3481",
+    cidade: "Jaciara/MT",
+    audioBurstSeconds: 6,            // quanto tempo o áudio fica ligado em cada vez
+    audioIntervalSeconds: 50,         // intervalo entre os toques (50s)
+    audioTimes: 3                     // quantas vezes
   };
 
+  // ========= ITENS (edite seus itens aqui) =========
   const ITENS = [
     { id:"cilindros", nome:"Cilindros (Suporte)", cat:"Estruturas", desc:"Estruturas e suporte para decoração.", preco:180,
       media:["cilindros-1.jpg","cilindros-2.jpg","cilindros-3.jpg","cilindros-4.jpg","cilindros-5.jpg"], video:"" },
@@ -857,8 +892,13 @@
       media:["item-1.jpg","item-2.jpg","item-3.jpg","item-4.jpg","item-5.jpg"], video:"" }
   ];
 
+  // ========= UTIL =========
   const el = (id)=>document.getElementById(id);
   const money = (v)=> "R$ " + Number(v||0).toFixed(2).replace(".",",");
+
+  // ========= DATA / RELÓGIO =========
+  el("cityChip").textContent = CONFIG.cidade;
+  el("whatsChip").textContent = CONFIG.whatsappDisplay;
 
   function tick(){
     const d = new Date();
@@ -871,174 +911,160 @@
   tick();
   setInterval(tick, 1000);
 
-  function bindTilt(node, strength=7){
-    if(!node) return;
-    node.addEventListener("mousemove",(e)=>{
-      const r = node.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - .5;
-      const y = (e.clientY - r.top) / r.height - .5;
-      node.style.transform = `perspective(900px) rotateY(${x*strength}deg) rotateX(${-y*strength}deg) translateY(-1px)`;
-    });
-    node.addEventListener("mouseleave",()=>{
-      node.style.transform = `perspective(900px) rotateY(0deg) rotateX(0deg) translateY(0px)`;
-    });
-  }
-  bindTilt(el("tiltHeader"), 4.5);
-  bindTilt(el("tiltBanner"), 5.5);
-
-  // LOGO: tenta logo.png > logo.jpg > logo.jpeg > logo.webp, senão mostra "FC"
+  // ========= LOGO (aceita logo.png / logo.jpg / logo.jpeg) =========
   function loadLogo(){
     const img = el("logoImg");
-    const badge = el("logoBadge");
-    const tries = ["logo.png","logo.jpg","logo.jpeg","logo.webp"];
+    const box = el("logoBox");
+    const fb = el("logoFallbackText");
+
+    const candidates = ["logo.png","logo.jpg","logo.jpeg","logo.webp"];
     let i = 0;
 
     function tryNext(){
-      if(i >= tries.length){
+      if(i >= candidates.length){
         img.style.display = "none";
-        badge.style.display = "flex";
+        fb.style.display = "block";
+        box.classList.add("fallback");
         return;
       }
-      img.src = tries[i++];
+      img.src = candidates[i++];
     }
+
     img.onload = ()=>{
-      badge.style.display = "none";
       img.style.display = "block";
+      fb.style.display = "none";
+      box.classList.remove("fallback");
     };
     img.onerror = tryNext;
+
     tryNext();
   }
   loadLogo();
 
-  // HERO MEDIA (video > img)
-  let heroVideoEl = null;
+  // ========= HERO MEDIA (VIDEO > IMG) =========
+  let heroVideo = null;
 
   function heroMedia(){
     const box = el("heroMedia");
-    const soundBtn = el("soundBtn");
-
-    // limpa, mas mantém o botão
     box.innerHTML = "";
-    box.appendChild(soundBtn);
 
     const v = document.createElement("video");
     v.src = "video-capa.mp4";
     v.autoplay = true;
-    v.muted = true;          // começa SEM som (padrão seguro)
-    v.loop = true;           // vídeo continua sempre
+    v.muted = true;          // autoplay só funciona garantido se estiver mudo
+    v.loop = true;
     v.playsInline = true;
     v.preload = "auto";
 
     v.oncanplay = ()=>{
-      heroVideoEl = v;
-      soundBtn.style.display = "inline-flex";
-      box.insertBefore(v, soundBtn);
-      const p = v.play();
-      if(p && p.catch) p.catch(()=>{ /* ok */ });
+      box.innerHTML = "";
+      box.appendChild(v);
+      heroVideo = v;
     };
 
     v.onerror = ()=>{
-      soundBtn.style.display = "none";
       const img = document.createElement("img");
       img.alt = "Capa";
       img.src = "capa.jpg";
       img.onerror = ()=> img.src = "capa.png";
-      box.insertBefore(img, soundBtn);
+      box.innerHTML = "";
+      box.appendChild(img);
+      heroVideo = null;
+      el("soundBtn").style.display = "none";
     };
 
-    // força tentativa
-    box.insertBefore(v, soundBtn);
+    box.appendChild(v);
   }
   heroMedia();
 
-  // SOM 3x: tocar som por alguns segundos a cada 50s e depois manter mudo, vídeo continua
-  (function sound3xController(){
-    const btn = el("soundBtn");
-    let timers = [];
-    let running = false;
+  // ========= BOTÃO "ATIVAR SOM (3x)" =========
+  const soundBtn = el("soundBtn");
+  const soundBtnLabel = el("soundBtnLabel");
 
-    function clearTimers(){
-      timers.forEach(t=>clearTimeout(t));
-      timers = [];
+  let audioRemaining = CONFIG.audioTimes;
+  let audioBusy = false;
+  let scheduleTimers = [];
+
+  function clearSchedule(){
+    scheduleTimers.forEach(t => clearTimeout(t));
+    scheduleTimers = [];
+  }
+
+  function setSoundLabel(){
+    soundBtnLabel.textContent = `Ativar som (${audioRemaining}x)`;
+    if(audioRemaining <= 0){
+      soundBtnLabel.textContent = "Som concluído";
+      soundBtn.setAttribute("disabled","disabled");
     }
+  }
+  setSoundLabel();
 
-    function pulseSound(pulseIndex){
-      if(!heroVideoEl) return;
-      // garante play (alguns browsers só liberam áudio depois do clique)
-      heroVideoEl.muted = false;
-      heroVideoEl.volume = 1.0;
+  function runAudioSchedule(){
+    if(!heroVideo) return;
+    if(audioBusy) return;
+    if(audioRemaining <= 0) return;
 
-      const p = heroVideoEl.play();
-      if(p && p.catch) p.catch(()=>{ /* se bloquear, continua mudo */ });
+    audioBusy = true;
+    clearSchedule();
 
-      // deixa som por 8s e volta a mutar
-      const off = setTimeout(()=>{
-        if(heroVideoEl) heroVideoEl.muted = true;
-      }, 8000);
-      timers.push(off);
+    const burstMs = Math.max(1000, CONFIG.audioBurstSeconds * 1000);
+    const intervalMs = Math.max(3000, CONFIG.audioIntervalSeconds * 1000);
 
-      btn.textContent = `🔊 Som ativo (${pulseIndex}/3)`;
+    // garante que o vídeo esteja tocando
+    heroVideo.play().catch(()=>{});
+
+    // agenda 3 vezes: liga áudio por X segundos, depois mudo, espera intervalo, repete
+    for(let n=0; n<CONFIG.audioTimes; n++){
+      const startAt = n * intervalMs;
+
+      // ligar
+      scheduleTimers.push(setTimeout(()=>{
+        if(!heroVideo) return;
+        if(audioRemaining <= 0) return;
+
+        // precisa ser em gesto do usuário (já foi clicado), então funciona
+        heroVideo.muted = false;
+        heroVideo.volume = 1;
+        heroVideo.play().catch(()=>{});
+      }, startAt));
+
+      // desligar
+      scheduleTimers.push(setTimeout(()=>{
+        if(!heroVideo) return;
+        heroVideo.muted = true;
+
+        if(audioRemaining > 0){
+          audioRemaining--;
+          setSoundLabel();
+        }
+
+        // quando terminar tudo
+        if(n === CONFIG.audioTimes - 1){
+          audioBusy = false;
+          // fica mudo pra sempre depois
+          if(heroVideo) heroVideo.muted = true;
+        }
+      }, startAt + burstMs));
     }
+  }
 
-    function start(){
-      if(!heroVideoEl) return;
+  soundBtn.addEventListener("click", ()=>{
+    if(!heroVideo) return;
+    if(audioRemaining <= 0) return;
 
-      clearTimers();
-      running = true;
+    // garante mudo antes e inicia o agendamento
+    heroVideo.muted = true;
+    runAudioSchedule();
+  });
 
-      // 1) agora
-      pulseSound(1);
-
-      // 2) +50s
-      timers.push(setTimeout(()=> pulseSound(2), 50000));
-
-      // 3) +100s
-      timers.push(setTimeout(()=> pulseSound(3), 100000));
-
-      // finaliza +108s (100s + 8s)
-      timers.push(setTimeout(()=>{
-        if(heroVideoEl) heroVideoEl.muted = true;
-        running = false;
-        btn.textContent = "✅ Som concluído (3x)";
-      }, 108000));
-    }
-
-    btn.addEventListener("click", ()=>{
-      // se clicar de novo, reinicia
-      btn.textContent = "⏳ Iniciando som (3x)...";
-      start();
-    });
-  })();
-
-  // Versículo bíblico diário (offline)
-  (function dailyVerse(){
-    const VERSES = [
-      { t:"O Senhor é o meu pastor; nada me faltará.", r:"Salmos 23:1" },
-      { t:"Tudo posso naquele que me fortalece.", r:"Filipenses 4:13" },
-      { t:"Entrega o teu caminho ao Senhor; confia nele, e ele o fará.", r:"Salmos 37:5" },
-      { t:"Alegrai-vos na esperança, sede pacientes na tribulação, perseverai na oração.", r:"Romanos 12:12" },
-      { t:"Deus é o nosso refúgio e fortaleza, socorro bem presente na angústia.", r:"Salmos 46:1" },
-      { t:"O choro pode durar uma noite, mas a alegria vem pela manhã.", r:"Salmos 30:5" },
-      { t:"Porque eu bem sei os pensamentos que tenho a vosso respeito, diz o Senhor.", r:"Jeremias 29:11" },
-      { t:"Se Deus é por nós, quem será contra nós?", r:"Romanos 8:31" },
-      { t:"A minha graça te basta, porque o meu poder se aperfeiçoa na fraqueza.", r:"2 Coríntios 12:9" },
-      { t:"Confia no Senhor de todo o teu coração e não te estribes no teu próprio entendimento.", r:"Provérbios 3:5" }
-    ];
-
-    const now = new Date();
-    const key = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}-${String(now.getDate()).padStart(2,"0")}`;
-    let hash = 0;
-    for (let i=0; i<key.length; i++) hash = (hash*31 + key.charCodeAt(i)) >>> 0;
-
-    const v = VERSES[hash % VERSES.length];
-    const textEl = el("dailyVerseText");
-    const refEl  = el("dailyVerseRef");
-    if(textEl) textEl.textContent = `“${v.t}”`;
-    if(refEl)  refEl.textContent = v.r;
-  })();
-
+  // ========= FILTROS / PREÇOS =========
   let showPrices = false;
-  const state = { q:"", cat:"Todas", cart:new Map(), contractOk:false };
+  const state = {
+    q: "",
+    cat: "Todas",
+    cart: new Map(),
+    contractOk: false
+  };
 
   function setSwitch(on){
     const sw = el("priceSwitch");
@@ -1052,12 +1078,10 @@
     state.q = (e.target.value||"").toLowerCase().trim();
     render();
   });
-
   el("cat").addEventListener("change",(e)=>{
     state.cat = e.target.value;
     render();
   });
-
   el("btnClear").addEventListener("click", ()=>{
     state.q = "";
     state.cat = "Todas";
@@ -1066,6 +1090,7 @@
     render();
   });
 
+  // ========= CATEGORIAS =========
   function buildCats(){
     const s = new Set(ITENS.map(i=>i.cat));
     const sel = el("cat");
@@ -1077,6 +1102,7 @@
   }
   buildCats();
 
+  // ========= RENDER GRID =========
   function passFilter(item){
     const okCat = (state.cat === "Todas") || (item.cat === state.cat);
     const t = (item.nome + " " + item.desc + " " + item.cat).toLowerCase();
@@ -1094,7 +1120,6 @@
     list.forEach(item=>{
       const card = document.createElement("div");
       card.className = "card item";
-      card.style.cursor = "pointer";
 
       const thumb = document.createElement("div");
       thumb.className = "thumb";
@@ -1103,7 +1128,9 @@
       const medias = (item.media||[]).filter(Boolean);
       let idx = 0;
 
-      function setImg(){ img.src = medias[idx] || "capa.jpg"; }
+      function setImg(){
+        img.src = medias[idx] || "capa.jpg";
+      }
       img.onerror = ()=>{
         idx++;
         if(idx < medias.length) setImg();
@@ -1148,6 +1175,7 @@
   }
   render();
 
+  // ========= MODAL ITENS =========
   let currentItem = null;
   let mediaIndex = 0;
   let currentMediaList = [];
@@ -1189,7 +1217,7 @@
       mini.className = "mini";
 
       const im = document.createElement("img");
-      im.src = (mm.type==="img" ? mm.src : ((currentItem && currentItem.media && currentItem.media[0]) || "capa.jpg"));
+      im.src = (mm.type==="img" ? mm.src : (currentItem.media[0] || "capa.jpg"));
       im.onerror = ()=> im.src = "capa.jpg";
       mini.appendChild(im);
 
@@ -1248,6 +1276,7 @@
     render();
   });
 
+  // ========= CONTRATO + ASSINATURA =========
   function openContract(){ el("modalContractBack").style.display="flex"; }
   function closeContract(){ el("modalContractBack").style.display="none"; }
   el("btnContract").addEventListener("click", openContract);
@@ -1263,10 +1292,10 @@
 
   function resizeCanvas(){
     const r = canvas.getBoundingClientRect();
-    ctx.setTransform(1,0,0,1,0,0); // evita acumular scale
-    canvas.width = Math.floor(r.width * devicePixelRatio);
-    canvas.height = Math.floor(r.height * devicePixelRatio);
-    ctx.scale(devicePixelRatio, devicePixelRatio);
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = Math.floor(r.width * dpr);
+    canvas.height = Math.floor(r.height * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.lineWidth = 2.4;
     ctx.lineCap = "round";
     ctx.strokeStyle = "rgba(255,255,255,.92)";
@@ -1310,24 +1339,25 @@
     ctx.clearRect(0,0,canvas.width,canvas.height);
     hasStroke = false;
     state.contractOk = false;
-    el("signStatus").textContent = "Status: aguardando aceite.";
+    el("signStatus").innerHTML = '<div class="verseTitle">Status</div><p class="verseText" style="margin:0;">Aguardando aceite.</p>';
   });
 
   el("saveSign").addEventListener("click", ()=>{
     const agreed = el("agree").checked;
     if(!agreed){
-      el("signStatus").textContent = "Status: marque 'Li e concordo' para salvar.";
+      el("signStatus").innerHTML = '<div class="verseTitle">Status</div><p class="verseText" style="margin:0;">Marque "Li e concordo" para salvar.</p>';
       return;
     }
     if(!hasStroke){
-      el("signStatus").textContent = "Status: assine no quadro para salvar.";
+      el("signStatus").innerHTML = '<div class="verseTitle">Status</div><p class="verseText" style="margin:0;">Assine no quadro para salvar.</p>';
       return;
     }
     state.contractOk = true;
-    el("signStatus").textContent = "Status: aceite salvo ✅";
+    el("signStatus").innerHTML = '<div class="verseTitle">Status</div><p class="verseText" style="margin:0;">Aceite salvo ✅</p>';
     closeContract();
   });
 
+  // ========= AÇÕES =========
   el("btnWhats").addEventListener("click", ()=>{
     const url = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent("Olá! Quero informações sobre os itens do catálogo da Faz de Conta Decorações.")}`;
     window.open(url, "_blank");
@@ -1335,7 +1365,7 @@
 
   el("btnCart").addEventListener("click", ()=>{
     const totalItens = [...state.cart.values()].reduce((a,b)=>a+b,0);
-    alert("Carrinho: " + totalItens + " item(ns).\n(Agora você pode evoluir para lista detalhada / checkout.)");
+    alert("Carrinho: " + totalItens + " item(ns).");
   });
 
   el("btnFinish").addEventListener("click", ()=>{
@@ -1349,8 +1379,35 @@
       alert("Seu carrinho está vazio. Clique em um item e adicione ao carrinho.");
       return;
     }
-    alert("Finalizar (Pix):\nAqui você pode colocar sua chave Pix, valor e mensagem.\n(Próximo passo: gerar Pix Copia e Cola.)");
+    alert("Finalizar (Pix):\n(Próximo passo: gerar Pix Copia e Cola.)");
   });
+
+  // ========= VERSÍCULO DO DIA =========
+  const VERSES = [
+    { ref:"Romanos 12:12", text:"Alegrai-vos na esperança, sede pacientes na tribulação, perseverai na oração." },
+    { ref:"Salmos 23:1", text:"O Senhor é o meu pastor; nada me faltará." },
+    { ref:"Provérbios 3:5", text:"Confia no Senhor de todo o teu coração e não te estribes no teu próprio entendimento." },
+    { ref:"Isaías 41:10", text:"Não temas, porque eu sou contigo; não te assombres, porque eu sou o teu Deus." },
+    { ref:"Filipenses 4:13", text:"Tudo posso naquele que me fortalece." },
+    { ref:"Salmos 46:1", text:"Deus é o nosso refúgio e fortaleza, socorro bem presente na angústia." },
+    { ref:"Mateus 11:28", text:"Vinde a mim, todos os que estais cansados e oprimidos, e eu vos aliviarei." },
+    { ref:"João 14:27", text:"Deixo-vos a paz, a minha paz vos dou; não vo-la dou como o mundo a dá." }
+  ];
+
+  function dayOfYear(d){
+    const start = new Date(d.getFullYear(), 0, 0);
+    const diff = d - start;
+    return Math.floor(diff / 86400000);
+  }
+
+  function setVerseOfDay(){
+    const d = new Date();
+    const idx = dayOfYear(d) % VERSES.length;
+    const v = VERSES[idx];
+    el("verseText").textContent = `"${v.text}"`;
+    el("verseRef").textContent = v.ref;
+  }
+  setVerseOfDay();
 </script>
 
 </body>
