@@ -529,6 +529,127 @@
 }
   </style>
 </head>
+<!-- MODAL GALERIA (cola antes do </body>) -->
+<div id="galeriaModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.65); z-index:9999; align-items:center; justify-content:center; padding:16px;">
+  <div style="width:min(920px, 96vw); background:rgba(20,22,30,.92); border:1px solid rgba(255,255,255,.12); border-radius:18px; overflow:hidden; box-shadow:0 20px 80px rgba(0,0,0,.55);">
+    <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 14px; border-bottom:1px solid rgba(255,255,255,.10);">
+      <div id="galeriaTitulo" style="color:#fff; font-weight:700;">Fotos</div>
+      <button id="galeriaFechar" style="background:transparent; border:0; color:#fff; font-size:22px; cursor:pointer;">✕</button>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 1fr; gap:10px; padding:12px;">
+      <div style="position:relative; border-radius:14px; overflow:hidden; background:rgba(255,255,255,.06);">
+        <img id="galeriaImg" src="" alt="" style="width:100%; height:min(58vh, 520px); object-fit:contain; display:block;">
+        <button id="galeriaPrev" style="position:absolute; left:10px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.18); color:#fff; border-radius:12px; padding:10px 12px; cursor:pointer;">◀</button>
+        <button id="galeriaNext" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.18); color:#fff; border-radius:12px; padding:10px 12px; cursor:pointer;">▶</button>
+      </div>
+
+      <div id="galeriaThumbs" style="display:flex; gap:10px; overflow:auto; padding-bottom:6px;">
+        <!-- thumbs entram via JS -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 1) Defina aqui as fotos por item (pode fazer isso para TODOS os itens)
+  const GALERIAS = {
+    cilindros: {
+      titulo: "Cilindros (suporte)",
+      fotos: ["cilindros-1.jpg","cilindros-2.jpg","cilindros-3.jpg","cilindros-4.jpg","cilindros-5.jpg"]
+    }
+    // Exemplo futuro:
+    // arco: { titulo:"Arco de balões", fotos:["arco-1.jpg","arco-2.jpg"] }
+  };
+
+  // 2) Elementos do modal
+  const modal = document.getElementById("galeriaModal");
+  const img = document.getElementById("galeriaImg");
+  const thumbs = document.getElementById("galeriaThumbs");
+  const titulo = document.getElementById("galeriaTitulo");
+  const btnPrev = document.getElementById("galeriaPrev");
+  const btnNext = document.getElementById("galeriaNext");
+  const btnFechar = document.getElementById("galeriaFechar");
+
+  let galeriaAtual = null;
+  let idx = 0;
+
+  function abrirGaleria(chave) {
+    const g = GALERIAS[chave];
+    if (!g || !g.fotos || !g.fotos.length) return;
+
+    galeriaAtual = g;
+    idx = 0;
+
+    titulo.textContent = g.titulo || "Fotos";
+    render();
+    modal.style.display = "flex";
+  }
+
+  function fecharGaleria() {
+    modal.style.display = "none";
+    galeriaAtual = null;
+    thumbs.innerHTML = "";
+  }
+
+  function render() {
+    const fotos = galeriaAtual.fotos;
+    img.src = fotos[idx];
+    img.alt = (galeriaAtual.titulo || "Foto") + " " + (idx+1);
+
+    // thumbs
+    thumbs.innerHTML = "";
+    fotos.forEach((src, i) => {
+      const t = document.createElement("img");
+      t.src = src;
+      t.alt = "thumb " + (i+1);
+      t.style.width = "92px";
+      t.style.height = "62px";
+      t.style.objectFit = "cover";
+      t.style.borderRadius = "12px";
+      t.style.cursor = "pointer";
+      t.style.border = i === idx ? "2px solid rgba(255,255,255,.85)" : "1px solid rgba(255,255,255,.15)";
+      t.style.opacity = i === idx ? "1" : ".72";
+      t.onclick = () => { idx = i; render(); };
+      thumbs.appendChild(t);
+    });
+  }
+
+  function prev() {
+    if (!galeriaAtual) return;
+    idx = (idx - 1 + galeriaAtual.fotos.length) % galeriaAtual.fotos.length;
+    render();
+  }
+
+  function next() {
+    if (!galeriaAtual) return;
+    idx = (idx + 1) % galeriaAtual.fotos.length;
+    render();
+  }
+
+  // 3) Ativa clique nos cards
+  document.querySelectorAll(".card[data-id]").forEach(card => {
+    card.style.cursor = "pointer";
+    card.addEventListener("click", () => {
+      const chave = card.getAttribute("data-id");
+      abrirGaleria(chave);
+    });
+  });
+
+  // 4) Controles
+  btnPrev.onclick = prev;
+  btnNext.onclick = next;
+  btnFechar.onclick = fecharGaleria;
+
+  modal.addEventListener("click", (e) => { if (e.target === modal) fecharGaleria(); });
+
+  document.addEventListener("keydown", (e) => {
+    if (modal.style.display !== "flex") return;
+    if (e.key === "Escape") fecharGaleria();
+    if (e.key === "ArrowLeft") prev();
+    if (e.key === "ArrowRight") next();
+  });
+</script>
 
 <body>
   <div class="appbar">
