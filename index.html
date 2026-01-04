@@ -865,10 +865,10 @@
 
     const tryVideo = document.createElement("video");
     tryVideo.src = "video-capa.mp4";
-    tryVideo.autoplay = true;
-    tryVideo.muted = true;
-    tryVideo.loop = true;
-    tryVideo.playsInline = true;
+    tryVideo.autoplay = false;
+    tryVideo.muted = false;
+    tryVideo.loop = false;
+    tryVideo.playsInline = false;
 
     tryVideo.oncanplay = ()=>{ box.innerHTML=""; box.appendChild(tryVideo); };
     tryVideo.onerror = ()=>{
