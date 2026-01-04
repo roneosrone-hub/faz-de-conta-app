@@ -1,1316 +1,1237 @@
 <!doctype html>
 <html lang="pt-br">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Faz de Conta Decorações</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Faz de Conta Decorações • Catálogo</title>
 
   <style>
     :root{
-      --bg0:#07101f;
-      --bg1:#0a1630;
+      --bg0:#070916;
+      --bg1:#0b1230;
       --card: rgba(255,255,255,.08);
-      --card2: rgba(255,255,255,.12);
-      --stroke: rgba(255,255,255,.16);
-      --txt: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.70);
-      --shadow: 0 18px 60px rgba(0,0,0,.45);
-      --r: 22px;
-      --grad: linear-gradient(135deg, rgba(255,71,209,.30), rgba(58,240,255,.20), rgba(105,255,128,.20));
-      --gradBtn: linear-gradient(135deg, rgba(255,71,209,.75), rgba(120,96,255,.70), rgba(105,255,128,.70));
-      --ok: rgba(105,255,128,.16);
-      --warn: rgba(255,213,91,.16);
-      --bad: rgba(255,91,132,.18);
+      --card2: rgba(255,255,255,.06);
+      --stroke: rgba(255,255,255,.14);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.65);
+      --muted2: rgba(255,255,255,.45);
+      --shadow: 0 18px 50px rgba(0,0,0,.55);
+      --radius: 22px;
+      --radius2: 18px;
     }
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
     body{
       margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--txt);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans";
+      color:var(--text);
       background:
-        radial-gradient(1200px 700px at 18% 15%, rgba(255,71,209,.22), transparent 60%),
-        radial-gradient(900px 600px at 80% 25%, rgba(58,240,255,.18), transparent 58%),
-        radial-gradient(900px 700px at 50% 88%, rgba(105,255,128,.16), transparent 60%),
+        radial-gradient(1200px 700px at 15% 15%, rgba(122, 66, 255,.25), transparent 60%),
+        radial-gradient(900px 600px at 80% 30%, rgba(0, 255, 213,.14), transparent 55%),
+        radial-gradient(900px 600px at 40% 90%, rgba(255, 64, 208,.12), transparent 50%),
         linear-gradient(180deg, var(--bg0), var(--bg1));
       overflow-x:hidden;
     }
 
-    .wrap{
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 18px 14px 90px;
+    /* brilho discreto */
+    .spark{
+      position:fixed; inset:0; pointer-events:none; opacity:.55;
+      background:
+        radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,.25), transparent 60%),
+        radial-gradient(2px 2px at 35% 55%, rgba(255,255,255,.18), transparent 60%),
+        radial-gradient(1px 1px at 70% 20%, rgba(255,255,255,.20), transparent 60%),
+        radial-gradient(2px 2px at 85% 70%, rgba(255,255,255,.16), transparent 60%);
+      filter: blur(.2px);
+      mix-blend-mode: screen;
     }
 
-    /* Top “app bar” */
-    .appbar{
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      padding: 10px 0 12px;
-      backdrop-filter: blur(14px);
-      background: linear-gradient(180deg, rgba(7,16,31,.78), rgba(7,16,31,.35));
-      border-bottom: 1px solid rgba(255,255,255,.08);
+    .wrap{
+      width:min(1100px, 92vw);
+      margin: 22px auto 48px;
     }
-    .topRow{
+
+    /* HEADER */
+    .header{
       display:flex;
+      flex-direction:column;
+      gap:14px;
+      padding: 18px;
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+      border:1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      transform: translateZ(0);
+      backdrop-filter: blur(10px);
+    }
+
+    .headTop{
+      display:flex;
+      gap:14px;
       align-items:center;
       justify-content:space-between;
-      gap: 12px;
+      flex-wrap:wrap;
     }
-    .brand{
+
+    .brandLeft{
       display:flex;
+      gap:14px;
       align-items:center;
-      gap: 12px;
-      min-width: 240px;
+      min-width: 260px;
+      flex: 1;
     }
+
     .logo{
-      width:54px;height:54px;
-      border-radius: 18px;
-      background: var(--grad);
-      border: 1px solid rgba(255,255,255,.18);
-      box-shadow: 0 10px 25px rgba(0,0,0,.35);
-      display:grid;place-items:center;
+      width:56px; height:56px;
+      border-radius: 16px;
+      background: rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.12);
       overflow:hidden;
+      box-shadow: 0 14px 35px rgba(0,0,0,.35);
+      flex:0 0 auto;
+      position:relative;
     }
     .logo img{
-      width:100%;height:100%;object-fit:cover;display:block;
+      width:100%; height:100%;
+      object-fit: cover;
+      display:block;
     }
-    .brandTxt .name{
-      font-weight: 800;
-      letter-spacing: .2px;
-      font-size: 16.8px;
-      line-height: 1.1;
+    .logo::after{
+      content:"";
+      position:absolute; inset:-30%;
+      background: conic-gradient(from 180deg, rgba(255,255,255,.00), rgba(255,255,255,.18), rgba(255,255,255,.00));
+      animation: shine 4.8s linear infinite;
+      opacity:.55;
     }
-    .brandTxt .slogan{
-      margin-top: 2px;
-      font-size: 12.8px;
-      color: transparent;
-      background: var(--gradBtn);
-      -webkit-background-clip: text;
-      background-clip:text;
-      font-weight: 700;
-    }
-    .brandTxt .sub{
-      margin-top: 3px;
-      font-size: 12px;
-      color: var(--muted);
+    @keyframes shine { to { transform: rotate(360deg); } }
+
+    .brand h1{
+      margin:0;
+      font-size: 18px;
+      letter-spacing:.2px;
+      line-height:1.15;
     }
 
-    .chips{
+    /* degradê animado no nome */
+    .gradTitle{
+      font-weight: 900;
+      font-size: 20px;
+      margin:0;
+      letter-spacing:.2px;
+      background: linear-gradient(90deg, #ff4bd8, #7a42ff, #00ffd5, #ffd94a, #ff4bd8);
+      background-size: 300% 100%;
+      -webkit-background-clip:text;
+      background-clip:text;
+      color: transparent;
+      animation: gradMove 5.5s linear infinite;
+      text-transform: uppercase;
+    }
+    @keyframes gradMove{
+      0%{ background-position:0% 50%; }
+      100%{ background-position:300% 50%; }
+    }
+
+    .slogan{
+      margin-top:4px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height:1.2;
+    }
+
+    .sub{
+      margin-top:6px;
+      font-size: 12px;
+      color: var(--muted2);
+    }
+
+    .metaRow{
       display:flex;
+      gap:10px;
       flex-wrap:wrap;
-      gap: 8px;
       justify-content:flex-end;
       align-items:center;
-    }
-    .chip{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding: 9px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.12);
-      color: var(--txt);
-      font-size: 12.5px;
-      box-shadow: 0 10px 24px rgba(0,0,0,.25);
-      user-select:none;
-      white-space: nowrap;
-    }
-    .chip small{color: var(--muted)}
-    .btn{
-      cursor:pointer;
-      border:none;
-      outline:none;
-    }
-    .btnPrimary{
-      background: var(--gradBtn);
-      border: 1px solid rgba(255,255,255,.18);
-      font-weight: 800;
-    }
-    .btnGhost{
-      background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.12);
-    }
-    .btnOk{
-      background: linear-gradient(135deg, rgba(105,255,128,.70), rgba(120,96,255,.65), rgba(255,71,209,.60));
-      border: 1px solid rgba(255,255,255,.18);
-      font-weight: 900;
+      flex: 1;
+      min-width: 260px;
     }
 
-    /* Capa */
+    .chip{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding:8px 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.78);
+      font-size: 12px;
+      white-space:nowrap;
+      box-shadow: 0 10px 26px rgba(0,0,0,.25);
+    }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-start;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      border:none;
+      cursor:pointer;
+      color: rgba(255,255,255,.92);
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.14);
+      padding: 10px 12px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 13px;
+      box-shadow: 0 14px 35px rgba(0,0,0,.28);
+      transform: translateZ(0);
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      user-select:none;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.11); border-color: rgba(255,255,255,.18); }
+    .btn:active{ transform: translateY(0px) scale(.99); }
+    .btn.primary{
+      background: linear-gradient(90deg, rgba(255,75,216,.38), rgba(0,255,213,.26), rgba(255,217,74,.24));
+      border-color: rgba(255,255,255,.18);
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width: 28px;
+      height: 22px;
+      padding: 0 8px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.28);
+      border:1px solid rgba(255,255,255,.14);
+      font-weight: 900;
+      font-size: 12px;
+      margin-left: 6px;
+    }
+
+    /* HERO (banner + painel) */
     .hero{
       margin-top: 14px;
       display:grid;
       grid-template-columns: 1.35fr .95fr;
       gap: 14px;
-      align-items: stretch;
+      align-items:stretch;
     }
-    .panel{
-      background: var(--card);
-      border: 1px solid var(--stroke);
-      border-radius: var(--r);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(14px);
-      overflow:hidden;
-      position:relative;
-    }
-    .panel::before{
-      content:"";
-      position:absolute; inset:-2px;
-      background: radial-gradient(800px 250px at 20% 0%, rgba(255,71,209,.18), transparent 60%),
-                  radial-gradient(700px 240px at 80% 20%, rgba(58,240,255,.16), transparent 60%);
-      pointer-events:none;
-    }
-
-    .cover{
-      padding: 14px;
-      display:flex;
-      flex-direction:column;
-      gap: 10px;
-    }
-    .coverImgWrap{
-      border-radius: 18px;
-      overflow:hidden;
-      border: 1px solid rgba(255,255,255,.16);
-      background: rgba(0,0,0,.25);
-      box-shadow: 0 18px 40px rgba(0,0,0,.35);
-      transform: perspective(900px) rotateX(2deg);
-    }
-    .coverImg{
-      width: 100%;
-      height: 340px;
-      object-fit: cover;
-      display:block;
-    }
-    .coverHint{
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.35;
-      margin: 0 2px;
-    }
-
-    /* Montar pedido */
-    .builder{
-      padding: 14px;
-      display:flex;
-      flex-direction:column;
-      gap: 12px;
-    }
-    .builder h2{
-      margin: 2px 0 0;
-      font-size: 18px;
-      letter-spacing: .2px;
-    }
-    .builder p{
-      margin: 0;
-      color: var(--muted);
-      font-size: 12.7px;
-      line-height: 1.35;
-    }
-
-    .row{
-      display:flex;
-      gap: 10px;
-      flex-wrap:wrap;
-      align-items:center;
-    }
-    .input, select{
-      width: 100%;
-      padding: 12px 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.18);
-      color: var(--txt);
-      outline: none;
-      box-shadow: 0 12px 26px rgba(0,0,0,.22);
-    }
-    select{cursor:pointer}
-    .toggle{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-      padding: 10px 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.18);
-      box-shadow: 0 12px 26px rgba(0,0,0,.22);
-      width: 100%;
-    }
-    .toggle span{
-      font-size: 12.8px;
-      color: var(--muted);
-    }
-    .switch{
-      width: 54px;
-      height: 30px;
-      background: rgba(255,255,255,.10);
-      border: 1px solid rgba(255,255,255,.16);
-      border-radius: 999px;
-      position: relative;
-      cursor: pointer;
-      flex: 0 0 auto;
-    }
-    .knob{
-      width: 24px; height: 24px;
-      background: rgba(255,255,255,.90);
-      border-radius: 999px;
-      position:absolute; top:2px; left:2px;
-      transition: .18s ease;
-      box-shadow: 0 10px 20px rgba(0,0,0,.35);
-    }
-    .switch.on{
-      background: rgba(105,255,128,.18);
-      border-color: rgba(105,255,128,.28);
-    }
-    .switch.on .knob{left: 28px}
-
-    .smallBtn{
-      padding: 11px 12px;
-      border-radius: 16px;
-      width: 100%;
-      font-weight: 800;
-      font-size: 12.8px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap: 8px;
-    }
-
-    /* Catálogo */
-    .sectionTitle{
-      margin: 18px 2px 10px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-      flex-wrap:wrap;
-    }
-    .sectionTitle h3{
-      margin:0;
-      font-size: 18px;
-      letter-spacing: .2px;
-    }
-    .pill{
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.12);
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
+    @media(max-width: 900px){
+      .hero{ grid-template-columns: 1fr; }
     }
 
     .card{
-      background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.13);
-      border-radius: 20px;
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+      border:1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
       overflow:hidden;
-      box-shadow: 0 18px 50px rgba(0,0,0,.28);
-      transform: perspective(950px) rotateX(2deg);
-      transition: transform .16s ease, border-color .16s ease;
-      cursor:pointer;
       position:relative;
     }
-    .card:hover{
-      transform: perspective(950px) rotateX(0deg) translateY(-2px);
-      border-color: rgba(255,255,255,.22);
+
+    /* Efeito 3D leve (parallax/tilt) */
+    .tilt{
+      transform-style: preserve-3d;
+      will-change: transform;
     }
-    .thumb{
-      height: 130px;
+    .tilt::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: radial-gradient(700px 200px at 20% 10%, rgba(255,255,255,.10), transparent 55%),
+                  radial-gradient(600px 240px at 80% 0%, rgba(0,255,213,.12), transparent 55%);
+      opacity:.65;
+      pointer-events:none;
+    }
+
+    .mediaBox{
+      height: 280px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
       background: rgba(0,0,0,.22);
-      display:grid;
-      place-items:center;
       border-bottom: 1px solid rgba(255,255,255,.10);
     }
-    .thumb img{
+    @media(max-width:900px){
+      .mediaBox{ height: 230px; }
+    }
+
+    .mediaBox img, .mediaBox video{
       width:100%;
       height:100%;
       object-fit: cover;
       display:block;
     }
-    .info{
-      padding: 10px 10px 12px;
-    }
-    .info .t{
-      font-weight: 900;
-      font-size: 13.8px;
-      margin: 0 0 4px;
-      letter-spacing: .2px;
-    }
-    .info .d{
-      margin:0;
+
+    .mediaCaption{
+      padding: 12px 14px;
+      color: rgba(255,255,255,.72);
       font-size: 12px;
-      color: var(--muted);
-      line-height: 1.25;
-      min-height: 30px;
+      display:flex;
+      justify-content:space-between;
+      gap: 10px;
+      flex-wrap: wrap;
     }
-    .meta{
-      margin-top: 8px;
+
+    .panel{
+      padding: 14px;
+    }
+    .panel h2{
+      margin: 2px 0 10px;
+      font-size: 18px;
+      letter-spacing:.2px;
+    }
+    .panel p{
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height:1.35;
+    }
+
+    .field{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.12);
+      margin-bottom: 10px;
+    }
+    .field input, .field select{
+      width:100%;
+      border:none;
+      outline:none;
+      background: transparent;
+      color: rgba(255,255,255,.9);
+      font-size: 13px;
+    }
+    .field input::placeholder{ color: rgba(255,255,255,.35); }
+
+    .row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      margin-top: 10px;
+    }
+
+    .toggle{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color: rgba(255,255,255,.75);
+      font-size: 13px;
+      background: rgba(0,0,0,.20);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: 14px;
+      padding: 10px 12px;
+      user-select:none;
+    }
+    .switch{
+      width: 44px; height: 26px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.14);
+      position:relative;
+      cursor:pointer;
+      flex:0 0 auto;
+    }
+    .knob{
+      width: 22px; height: 22px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.92);
+      position:absolute;
+      top:1px; left:1px;
+      transition: left .18s ease, background .18s ease;
+    }
+    .switch.on{ background: rgba(0,255,213,.24); }
+    .switch.on .knob{ left: 21px; background: rgba(255,255,255,.96); }
+
+    .hint{
+      margin-top: 10px;
+      font-size: 12px;
+      color: rgba(255,255,255,.55);
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(0,0,0,.20);
+      border:1px solid rgba(255,255,255,.10);
+    }
+
+    /* GRID ITENS */
+    .sectionTitle{
+      margin: 18px 0 10px;
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap: 10px;
+    }
+    .sectionTitle h3{
+      margin:0;
+      font-size: 16px;
+      letter-spacing:.2px;
+    }
+    .badge{
       font-size: 12px;
-      color: var(--muted);
-    }
-    .price{
-      font-weight: 950;
-      color: var(--txt);
-    }
-    .tag{
-      padding: 6px 10px;
+      color: rgba(255,255,255,.65);
+      padding: 8px 10px;
       border-radius: 999px;
-      background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.12);
-      color: var(--muted);
-      font-size: 11px;
+      background: rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.12);
     }
 
-    /* Modal */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    @media(max-width: 980px){ .grid{ grid-template-columns: repeat(2, 1fr);} }
+    @media(max-width: 560px){ .grid{ grid-template-columns: 1fr;} }
+
+    .item{
+      padding: 12px;
+    }
+
+    .thumb{
+      height: 150px;
+      border-radius: 18px;
+      overflow:hidden;
+      background: rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow: 0 12px 30px rgba(0,0,0,.25);
+    }
+    .thumb img{
+      width:100%; height:100%;
+      object-fit: cover;
+      display:block;
+      transform: scale(1.02);
+      transition: transform .25s ease;
+    }
+    .item:hover .thumb img{ transform: scale(1.06); }
+
+    .itemName{
+      margin: 10px 0 6px;
+      font-weight: 900;
+      letter-spacing:.2px;
+    }
+    .itemDesc{
+      margin:0;
+      color: rgba(255,255,255,.65);
+      font-size: 12px;
+      line-height:1.35;
+      min-height: 32px;
+    }
+
+    .itemFooter{
+      margin-top: 10px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      flex-wrap:wrap;
+    }
+    .price{
+      font-weight: 900;
+      font-size: 13px;
+      color: rgba(255,255,255,.88);
+    }
+    .tag{
+      font-size: 12px;
+      color: rgba(255,255,255,.65);
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.10);
+    }
+
+    /* MODAL */
     .modalBack{
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.55);
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.6);
       display:none;
       align-items:center;
       justify-content:center;
-      z-index: 200;
-      padding: 14px;
+      padding: 16px;
+      z-index: 999;
     }
     .modal{
-      width: min(720px, 100%);
-      background: rgba(10,16,28,.82);
-      border: 1px solid rgba(255,255,255,.16);
+      width: min(960px, 96vw);
       border-radius: 22px;
-      box-shadow: 0 30px 100px rgba(0,0,0,.65);
-      backdrop-filter: blur(18px);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+      border:1px solid rgba(255,255,255,.16);
+      box-shadow: 0 25px 90px rgba(0,0,0,.7);
       overflow:hidden;
+      backdrop-filter: blur(12px);
     }
-    .modalHeader{
-      padding: 12px 14px;
+    .modalHead{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      border-bottom: 1px solid rgba(255,255,255,.10);
+      gap: 10px;
+      padding: 12px 14px;
+      border-bottom:1px solid rgba(255,255,255,.10);
     }
-    .modalHeader b{font-size: 13.5px}
+    .modalHead strong{ font-size: 14px; }
+    .x{
+      border:none;
+      width: 40px; height: 40px;
+      border-radius: 14px;
+      background: rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.88);
+      font-weight: 900;
+      cursor:pointer;
+    }
     .modalBody{
-      padding: 14px;
-      color: var(--txt);
-    }
-    .modalBody p{
-      color: var(--muted);
-      margin: 0 0 10px;
-      font-size: 12.7px;
-      line-height: 1.35;
-    }
-    .modalGrid{
       display:grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1.35fr .65fr;
       gap: 12px;
-    }
-    .box{
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 18px;
-      background: rgba(255,255,255,.06);
       padding: 12px;
     }
-    .box h4{
-      margin: 0 0 8px;
-      font-size: 13.2px;
-      letter-spacing: .2px;
-    }
-    .list{
-      margin: 0;
-      padding-left: 18px;
-      color: var(--muted);
-      font-size: 12.5px;
-      line-height: 1.35;
-    }
-    .sig{
-      width:100%;
-      height: 180px;
-      border-radius: 16px;
+    @media(max-width: 900px){ .modalBody{ grid-template-columns: 1fr; } }
+
+    .viewer{
+      border-radius: 18px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.12);
       background: rgba(0,0,0,.22);
-      border: 1px solid rgba(255,255,255,.14);
+      min-height: 280px;
+      position:relative;
+    }
+    .viewer img, .viewer video{
+      width:100%; height:100%;
+      object-fit: cover;
+      display:block;
+    }
+    .navBtn{
+      position:absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px; height: 44px;
+      border-radius: 16px;
+      background: rgba(0,0,0,.28);
+      border:1px solid rgba(255,255,255,.14);
+      color: rgba(255,255,255,.92);
+      cursor:pointer;
+      font-weight: 900;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      user-select:none;
+    }
+    .navPrev{ left: 10px; }
+    .navNext{ right: 10px; }
+
+    .thumbs{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .thumbs button{
+      padding:0;
+      border:none;
+      background: transparent;
+      cursor:pointer;
+    }
+    .mini{
+      height: 64px;
+      border-radius: 14px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.22);
+      opacity: .85;
+      transition: opacity .15s ease, transform .15s ease;
+    }
+    .mini img{
+      width:100%; height:100%; object-fit: cover; display:block;
+    }
+    .thumbs button.active .mini{
+      opacity: 1;
+      transform: translateY(-1px);
+      border-color: rgba(0,255,213,.28);
+    }
+
+    .side{
+      padding: 12px;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      height: 100%;
+    }
+    .side .line{
+      color: rgba(255,255,255,.70);
+      font-size: 13px;
+      margin-bottom: 10px;
+      line-height:1.35;
+    }
+    .side .line b{ color: rgba(255,255,255,.92); }
+
+    /* Assinatura */
+    canvas{
+      width:100%;
+      height: 140px;
+      background: rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: 14px;
       display:block;
       touch-action: none;
     }
-    .agree{
+    .checkRow{
       display:flex;
-      gap: 10px;
+      gap:10px;
       align-items:flex-start;
-      margin-top: 12px;
-      padding: 10px 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(105,255,128,.08);
+      margin-top: 10px;
+      font-size: 12px;
+      color: rgba(255,255,255,.70);
     }
-    .agree input{margin-top: 3px}
-    .agree span{color: var(--muted); font-size: 12.4px; line-height: 1.35}
-    .modalFooter{
-      padding: 12px 14px;
-      display:flex;
-      gap: 10px;
-      justify-content:flex-end;
-      border-top: 1px solid rgba(255,255,255,.10);
-      flex-wrap:wrap;
+    .checkRow input{ margin-top: 2px; }
+
+    /* Rodapé */
+    .footer{
+      margin-top: 18px;
+      text-align:center;
+      color: rgba(255,255,255,.45);
+      font-size: 12px;
     }
-    .xBtn{
-      padding: 9px 12px;
-      border-radius: 14px;
-      background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.12);
-      color: var(--txt);
-      cursor:pointer;
-    }
-
-    /* Responsivo */
-    @media (max-width: 980px){
-      .hero{grid-template-columns: 1fr}
-      .coverImg{height: 320px}
-      .grid{grid-template-columns: repeat(3, 1fr);}
-      .chips{justify-content:flex-start}
-    }
-    @media (max-width: 720px){
-      .grid{grid-template-columns: repeat(2, 1fr);}
-      .modalGrid{grid-template-columns: 1fr;}
-      .coverImg{height: 300px}
-    }
-    @media (max-width: 380px){
-      .grid{grid-template-columns: 1fr;}
-    }
-    .brand h1{
-  font-size: 34px;
-  font-weight: 900;
-  margin: 0;
-  line-height: 1.1;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-
-  background: linear-gradient(
-    270deg,
-    #ff4fd8,
-    #7afcff,
-    #ffe066,
-    #ff4fd8
-  );
-  background-size: 600% 600%;
-
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-
-  animation: brilhoDegrade 6s ease infinite;
-
-  text-shadow: 0 4px 18px rgba(0,0,0,.35);
-}
-
-/* ANIMAÇÃO DO DEGRADÊ */
-@keyframes brilhoDegrade{
-  0%{
-    background-position: 0% 50%;
-  }
-  50%{
-    background-position: 100% 50%;
-  }
-  100%{
-    background-position: 0% 50%;
-  }
-}
-    #bannerVideo{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 22px;
-}
-
   </style>
 </head>
-<!-- MODAL GALERIA (cola antes do </body>) -->
-<div id="galeriaModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.65); z-index:9999; align-items:center; justify-content:center; padding:16px;">
-  <div style="width:min(920px, 96vw); background:rgba(20,22,30,.92); border:1px solid rgba(255,255,255,.12); border-radius:18px; overflow:hidden; box-shadow:0 20px 80px rgba(0,0,0,.55);">
-    <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 14px; border-bottom:1px solid rgba(255,255,255,.10);">
-      <div id="galeriaTitulo" style="color:#fff; font-weight:700;">Fotos</div>
-      <button id="galeriaFechar" style="background:transparent; border:0; color:#fff; font-size:22px; cursor:pointer;">✕</button>
-    </div>
-
-    <div style="display:grid; grid-template-columns: 1fr; gap:10px; padding:12px;">
-      <div style="position:relative; border-radius:14px; overflow:hidden; background:rgba(255,255,255,.06);">
-        <img id="galeriaImg" src="" alt="" style="width:100%; height:min(58vh, 520px); object-fit:contain; display:block;">
-        <button id="galeriaPrev" style="position:absolute; left:10px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.18); color:#fff; border-radius:12px; padding:10px 12px; cursor:pointer;">◀</button>
-        <button id="galeriaNext" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.18); color:#fff; border-radius:12px; padding:10px 12px; cursor:pointer;">▶</button>
-      </div>
-
-      <div id="galeriaThumbs" style="display:flex; gap:10px; overflow:auto; padding-bottom:6px;">
-        <!-- thumbs entram via JS -->
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-  // 1) Defina aqui as fotos por item (pode fazer isso para TODOS os itens)
-  const GALERIAS = {
-    cilindros: {
-      titulo: "Cilindros (suporte)",
-      fotos: ["cilindros-1.jpg","cilindros-2.jpg","cilindros-3.jpg","cilindros-4.jpg","cilindros-5.jpg"]
-    }
-    // Exemplo futuro:
-    // arco: { titulo:"Arco de balões", fotos:["arco-1.jpg","arco-2.jpg"] }
-  };
-
-  // 2) Elementos do modal
-  const modal = document.getElementById("galeriaModal");
-  const img = document.getElementById("galeriaImg");
-  const thumbs = document.getElementById("galeriaThumbs");
-  const titulo = document.getElementById("galeriaTitulo");
-  const btnPrev = document.getElementById("galeriaPrev");
-  const btnNext = document.getElementById("galeriaNext");
-  const btnFechar = document.getElementById("galeriaFechar");
-
-  let galeriaAtual = null;
-  let idx = 0;
-
-  function abrirGaleria(chave) {
-    const g = GALERIAS[chave];
-    if (!g || !g.fotos || !g.fotos.length) return;
-
-    galeriaAtual = g;
-    idx = 0;
-
-    titulo.textContent = g.titulo || "Fotos";
-    render();
-    modal.style.display = "flex";
-  }
-
-  function fecharGaleria() {
-    modal.style.display = "none";
-    galeriaAtual = null;
-    thumbs.innerHTML = "";
-  }
-
-  function render() {
-    const fotos = galeriaAtual.fotos;
-    img.src = fotos[idx];
-    img.alt = (galeriaAtual.titulo || "Foto") + " " + (idx+1);
-
-    // thumbs
-    thumbs.innerHTML = "";
-    fotos.forEach((src, i) => {
-      const t = document.createElement("img");
-      t.src = src;
-      t.alt = "thumb " + (i+1);
-      t.style.width = "92px";
-      t.style.height = "62px";
-      t.style.objectFit = "cover";
-      t.style.borderRadius = "12px";
-      t.style.cursor = "pointer";
-      t.style.border = i === idx ? "2px solid rgba(255,255,255,.85)" : "1px solid rgba(255,255,255,.15)";
-      t.style.opacity = i === idx ? "1" : ".72";
-      t.onclick = () => { idx = i; render(); };
-      thumbs.appendChild(t);
-    });
-  }
-
-  function prev() {
-    if (!galeriaAtual) return;
-    idx = (idx - 1 + galeriaAtual.fotos.length) % galeriaAtual.fotos.length;
-    render();
-  }
-
-  function next() {
-    if (!galeriaAtual) return;
-    idx = (idx + 1) % galeriaAtual.fotos.length;
-    render();
-  }
-
-  // 3) Ativa clique nos cards
-  document.querySelectorAll(".card[data-id]").forEach(card => {
-    card.style.cursor = "pointer";
-    card.addEventListener("click", () => {
-      const chave = card.getAttribute("data-id");
-      abrirGaleria(chave);
-    });
-  });
-
-  // 4) Controles
-  btnPrev.onclick = prev;
-  btnNext.onclick = next;
-  btnFechar.onclick = fecharGaleria;
-
-  modal.addEventListener("click", (e) => { if (e.target === modal) fecharGaleria(); });
-
-  document.addEventListener("keydown", (e) => {
-    if (modal.style.display !== "flex") return;
-    if (e.key === "Escape") fecharGaleria();
-    if (e.key === "ArrowLeft") prev();
-    if (e.key === "ArrowRight") next();
-  });
-</script>
 
 <body>
-  <div class="appbar">
-    <div class="wrap">
-      <div class="topRow">
-        <div class="brand">
-          <div class="logo" title="Logo / Capa pequena">
-            <!-- Logo pequeno: usa capa.jpg se existir, senão cai no fallback -->
-            <img id="logoImg" alt="Logo"
-                 src="capa.jpg"
-                 onerror="this.src=window.__svgLogoFallback;" />
-          </div>
-          <div class="brandTxt">
-            <div class="name">Faz de Conta Decorações</div>
-            <div class="slogan">Onde a imaginação vira festa</div>
-            <div class="sub">Catálogo • Carrinho • Pix • Contrato rápido</div>
-          </div>
-        </div>
-
-        <div class="chips">
-          <div class="chip" title="Local">📍 <b>Jaciara/MT</b></div>
-          <button class="chip btn btnGhost" id="btnWhats">💬 <b>WhatsApp</b> <small>(66) 99622-3481</small></button>
-          <div class="chip" title="Data e hora">📅 <b id="dateNow">--/--/----</b> • ⏰ <b id="timeNow">--:--</b></div>
-          <button class="chip btn btnGhost" id="btnContract">📝 <b>Contrato</b></button>
-          <button class="chip btn btnOk" id="btnCheckout">✅ <b>Finalizar (Pix)</b></button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="spark"></div>
 
   <div class="wrap">
-    <div class="hero">
-      <!-- CAPA GRANDE -->
-      <div class="panel cover">
-        <div class="coverImgWrap">
-          <img id="coverImg" class="coverImg" alt="Capa da empresa"
-               src="capa.jpg"
-               onerror="this.src=window.__svgCoverFallback;" />
+
+    <!-- HEADER -->
+    <div class="header tilt" id="tiltHeader">
+      <div class="headTop">
+        <div class="brandLeft">
+          <div class="logo" title="Logo">
+            <img id="logoImg" alt="Logo"/>
+          </div>
+          <div class="brand">
+            <div class="gradTitle">FAZ DE CONTA DECORAÇÕES</div>
+            <div class="slogan">Onde a imaginação vira festa</div>
+            <div class="sub">Catálogo • Carrinho • Pix • Contrato rápido (leve e fácil)</div>
+          </div>
         </div>
-        <div class="coverHint">
-          <b>Para aparecer sua capa:</b> envie a imagem para a raiz do GitHub e renomeie para <b>capa.jpg</b>.
-          Se a capa não existir, o app mostra uma capa automática.
+
+        <div class="metaRow">
+          <div class="chip">📍 <b>Jaciara/MT</b></div>
+          <div class="chip">💬 <b>WhatsApp:</b> (66) 99622-3481</div>
+          <div class="chip">📅 <span id="today">--/--/----</span> • ⏰ <b id="clock">--:--</b></div>
         </div>
       </div>
 
-      <!-- MONTAR PEDIDO -->
-      <div class="panel builder">
-        <h2>Monte seu pedido</h2>
-        <p>Pesquise e filtre. Toque nos itens para adicionar ao carrinho. Você pode esconder/mostrar preços.</p>
+      <div class="actions">
+        <button class="btn" id="btnWhats">💬 WhatsApp</button>
+        <button class="btn" id="btnCart">🛒 Carrinho <span class="pill" id="cartCount">0</span></button>
+        <button class="btn" id="btnContract">📝 Contrato</button>
+        <button class="btn primary" id="btnFinish">✅ Finalizar (Pix)</button>
+      </div>
+    </div>
 
-        <div class="row">
-          <input class="input" id="q" placeholder="🔎 Pesquisar (ex: arco, cortina, urso)..." />
+    <!-- HERO -->
+    <div class="hero">
+      <!-- Banner (vídeo se existir, senão imagem) -->
+      <div class="card tilt" id="tiltBanner">
+        <div class="mediaBox" id="heroMedia"></div>
+        <div class="mediaCaption">
+          <span>📸 Banner do catálogo (vídeo automático se existir)</span>
+          <span style="opacity:.85">Dica: use <b>video-capa.mp4</b> ou <b>capa.jpg</b></span>
+        </div>
+      </div>
+
+      <!-- Painel -->
+      <div class="card panel">
+        <h2>Monte seu pedido</h2>
+        <p>Pesquise, filtre e clique nos itens para ver as fotos. Você pode esconder/mostrar os preços.</p>
+
+        <div class="field">
+          🔎 <input id="q" placeholder="Pesquisar (ex: cilindro, arco, cortina...)"/>
         </div>
 
-        <div class="row">
-          <select id="cat"></select>
+        <div class="field">
+          🧩
+          <select id="cat">
+            <option value="Todas">Todas as categorias</option>
+          </select>
         </div>
 
         <div class="row">
           <div class="toggle">
-            <span>🔒 Mostrar preços</span>
-            <div class="switch" id="priceSwitch" aria-label="Mostrar preços">
-              <div class="knob"></div>
-            </div>
+            🔒 Mostrar preços
+            <div class="switch" id="priceSwitch"><div class="knob"></div></div>
           </div>
+          <button class="btn" id="btnClear">🧼 Limpar</button>
         </div>
 
-        <div class="row">
-          <button class="smallBtn btn btnGhost" id="btnClear">🧽 Limpar</button>
-          <button class="smallBtn btn btnPrimary" id="btnCart">🛒 Carrinho: <span id="cartCount">0</span></button>
+        <div class="hint" id="hint">
+          💡 Coloque suas fotos/vídeos no GitHub (raiz). O app tenta carregar automaticamente.
         </div>
-
-        <div class="coverHint" id="priceModeHint">Preço: <b>sob consulta</b> (ligue “Mostrar preços” para ver valores).</div>
       </div>
     </div>
 
+    <!-- ITENS -->
     <div class="sectionTitle">
       <h3>✨ Itens do catálogo</h3>
-      <div class="pill" id="itemsHint">Toque para adicionar ao carrinho.</div>
+      <div class="badge"><span id="itemsCount">0</span> itens</div>
     </div>
 
     <div class="grid" id="grid"></div>
+
+    <div class="footer">© Faz de Conta Decorações • Catálogo demonstrativo (você troca fotos e valores quando quiser)</div>
+
   </div>
 
-  <!-- MODAL: CONTRATO -->
-  <div class="modalBack" id="contractModal">
+  <!-- MODAL ITEM -->
+  <div class="modalBack" id="modalItemBack">
     <div class="modal">
-      <div class="modalHeader">
-        <b>📝 Contrato rápido de responsabilidade</b>
-        <button class="xBtn" data-close>Fechar ✕</button>
+      <div class="modalHead">
+        <strong id="modalTitle">Item</strong>
+        <button class="x" id="closeItem">✕</button>
       </div>
+
       <div class="modalBody">
-        <p>
-          Este contrato é curto e fácil. Serve para registrar que o cliente recebe os itens em bom estado,
-          se compromete a cuidar e devolver no prazo combinado.
-        </p>
-
-        <div class="modalGrid">
-          <div class="box">
-            <h4>✅ Regras principais</h4>
-            <ul class="list">
-              <li>Devolver os itens no prazo combinado.</li>
-              <li>Manter limpo, sem rasgos, riscos ou manchas.</li>
-              <li>Se houver dano/perda, pode haver cobrança de reposição.</li>
-              <li>Retirada/entrega conforme combinado via WhatsApp.</li>
-            </ul>
+        <div>
+          <div class="viewer" id="viewer">
+            <button class="navBtn navPrev" id="prevMedia">‹</button>
+            <button class="navBtn navNext" id="nextMedia">›</button>
+            <div id="viewerInner"></div>
           </div>
-
-          <div class="box">
-            <h4>✍️ Assinatura (desenhe com o dedo)</h4>
-            <canvas class="sig" id="sig"></canvas>
-            <div style="display:flex; gap:10px; margin-top:10px; flex-wrap:wrap">
-              <button class="smallBtn btn btnGhost" id="btnSigClear" style="width:auto">🧼 Limpar</button>
-              <button class="smallBtn btn btnPrimary" id="btnSigSave" style="width:auto">💾 Salvar assinatura</button>
-            </div>
-          </div>
+          <div class="thumbs" id="thumbs"></div>
         </div>
 
-        <label class="agree">
-          <input type="checkbox" id="agreeCheck" />
-          <span>
-            Eu li e concordo com o contrato de responsabilidade (devolução no prazo e cuidado com os itens).
-          </span>
-        </label>
+        <div class="side">
+          <div class="line"><b>Descrição:</b> <span id="modalDesc"></span></div>
+          <div class="line"><b>Categoria:</b> <span id="modalCat"></span></div>
+          <div class="line"><b>Preço:</b> <span id="modalPrice"></span></div>
+          <div class="line" style="opacity:.8"><b>Fotos:</b> até 5 por item + vídeo opcional</div>
 
-        <div class="coverHint" style="margin-top:10px">
-          Dica: este aceite é exigido ao finalizar o Pix.
+          <div class="row" style="margin-top:12px">
+            <button class="btn" id="addCart">➕ Adicionar</button>
+            <button class="btn" id="removeCart">➖ Remover</button>
+          </div>
+
+          <div class="hint" style="margin-top:12px">
+            Para colocar 5 fotos: edite o item no código e liste os arquivos (ex: <b>cilindros-1.jpg</b> ... <b>cilindros-5.jpg</b>).
+          </div>
         </div>
-      </div>
-      <div class="modalFooter">
-        <button class="xBtn" data-close>Cancelar</button>
-        <button class="chip btn btnOk" id="btnContractOk">Confirmar ✅</button>
       </div>
     </div>
   </div>
 
-  <!-- MODAL: CARRINHO / PIX -->
-  <div class="modalBack" id="checkoutModal">
+  <!-- MODAL CONTRATO -->
+  <div class="modalBack" id="modalContractBack">
     <div class="modal">
-      <div class="modalHeader">
-        <b>🛒 Seu carrinho e pagamento (Pix)</b>
-        <button class="xBtn" data-close>Fechar ✕</button>
+      <div class="modalHead">
+        <strong>📝 Contrato rápido (assinatura)</strong>
+        <button class="x" id="closeContract">✕</button>
       </div>
-      <div class="modalBody">
-        <div class="box" style="margin-bottom:12px">
-          <h4>Itens selecionados</h4>
-          <div id="cartList" style="color:var(--muted); font-size:12.6px; line-height:1.45"></div>
-          <div style="margin-top:10px; display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap">
-            <div class="tag">Total: <b id="cartTotal">R$ 0,00</b></div>
-            <button class="smallBtn btn btnGhost" id="btnCartClear" style="width:auto">🗑️ Limpar carrinho</button>
+
+      <div class="modalBody" style="grid-template-columns: 1fr;">
+        <div class="side">
+          <div class="line">
+            <b>Resumo do compromisso:</b><br/>
+            Ao contratar, o cliente se compromete a <b>cuidar dos itens</b>, <b>não molhar</b>, <b>não riscar</b>, evitar exposição a calor,
+            e <b>devolver no prazo combinado</b>. Danos e atrasos podem gerar cobrança adicional (conforme combinado no WhatsApp).
+          </div>
+
+          <div class="checkRow">
+            <input type="checkbox" id="agree"/>
+            <label for="agree">Li e concordo com o compromisso acima.</label>
+          </div>
+
+          <div style="margin-top:12px; font-weight:800; opacity:.9">Assinatura:</div>
+          <canvas id="sign"></canvas>
+
+          <div class="row" style="margin-top:12px">
+            <button class="btn" id="clearSign">🧽 Limpar assinatura</button>
+            <button class="btn primary" id="saveSign">✅ Salvar aceite</button>
+          </div>
+
+          <div class="hint" id="signStatus" style="margin-top:12px">
+            Status: aguardando aceite.
           </div>
         </div>
-
-        <div class="modalGrid">
-          <div class="box">
-            <h4>💠 Pix</h4>
-            <p style="margin:0 0 10px">
-              Copie a chave Pix abaixo e envie o comprovante no WhatsApp.
-            </p>
-            <div class="tag" style="display:flex; gap:10px; justify-content:space-between; align-items:center; flex-wrap:wrap">
-              <span>Chave Pix:</span>
-              <b id="pixKey">SEU_PIX_AQUI</b>
-            </div>
-            <div style="display:flex; gap:10px; margin-top:10px; flex-wrap:wrap">
-              <button class="smallBtn btn btnPrimary" id="btnCopyPix" style="width:auto">📋 Copiar Pix</button>
-              <button class="smallBtn btn btnGhost" id="btnSendWhats" style="width:auto">💬 Enviar no WhatsApp</button>
-            </div>
-            <div class="coverHint" style="margin-top:10px">
-              Você pode trocar a chave Pix no código: procure por <b>SEU_PIX_AQUI</b>.
-            </div>
-          </div>
-
-          <div class="box">
-            <h4>📝 Contrato</h4>
-            <p style="margin:0 0 10px">
-              Para finalizar, é obrigatório aceitar o contrato e salvar a assinatura.
-            </p>
-            <div class="tag">Aceite: <b id="agreeStatus">Pendente</b></div>
-            <div class="tag" style="margin-top:8px">Assinatura: <b id="sigStatus">Pendente</b></div>
-            <div style="display:flex; gap:10px; margin-top:10px; flex-wrap:wrap">
-              <button class="smallBtn btn btnGhost" id="btnOpenContract" style="width:auto">📝 Abrir contrato</button>
-              <button class="smallBtn btn btnOk" id="btnFinalize" style="width:auto">✅ Finalizar pedido</button>
-            </div>
-            <div class="coverHint" style="margin-top:10px">
-              Ao finalizar, o app monta uma mensagem com itens e total para você confirmar no WhatsApp.
-            </div>
-          </div>
-        </div>
-
-      </div>
-      <div class="modalFooter">
-        <button class="xBtn" data-close>Fechar</button>
       </div>
     </div>
   </div>
 
-  <script>
-    // ====== Fallbacks (imagens automáticas) ======
-    function svgData(text, icon){
-      const safe = (s)=>String(s).replace(/[&<>"]/g, c=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
-      const t = safe(text);
-      const i = safe(icon || "✨");
-      const svg = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700">
-          <defs>
-            <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="rgba(255,71,209,.75)"/>
-              <stop offset=".55" stop-color="rgba(120,96,255,.70)"/>
-              <stop offset="1" stop-color="rgba(105,255,128,.68)"/>
-            </linearGradient>
-            <filter id="b" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="18"/>
-            </filter>
-          </defs>
-          <rect width="1200" height="700" fill="#07101f"/>
-          <circle cx="260" cy="160" r="170" fill="rgba(255,71,209,.25)" filter="url(#b)"/>
-          <circle cx="980" cy="210" r="190" fill="rgba(58,240,255,.18)" filter="url(#b)"/>
-          <circle cx="650" cy="610" r="230" fill="rgba(105,255,128,.16)" filter="url(#b)"/>
-          <rect x="70" y="85" rx="48" ry="48" width="1060" height="530" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.16)"/>
-          <text x="110" y="230" font-size="74" fill="url(#g)" font-family="system-ui,Segoe UI,Roboto" font-weight="900">${i} ${t}</text>
-          <text x="110" y="305" font-size="34" fill="rgba(255,255,255,.78)" font-family="system-ui,Segoe UI,Roboto">Faz de Conta Decorações • Onde a imaginação vira festa</text>
-          <text x="110" y="360" font-size="26" fill="rgba(255,255,255,.62)" font-family="system-ui,Segoe UI,Roboto">Toque nos itens para adicionar ao carrinho</text>
-        </svg>
-      `.trim();
-      return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+<script>
+  // ========= CONFIG (EDITE AQUI SE QUISER) =========
+  const CONFIG = {
+    whatsappNumber: "5566996223481", // só números (55 + DDD + número)
+    cidade: "Jaciara/MT"
+  };
+
+  // Itens: coloque seus nomes, categorias, descrição, preço sugerido e arquivos.
+  // media: até 5 fotos (jpg/png) + opcional 1 vídeo (mp4)
+  const ITENS = [
+    {
+      id: "cilindros",
+      nome: "Cilindros (Suporte)",
+      cat: "Estruturas",
+      desc: "Estruturas e suporte para decoração.",
+      preco: 180,
+      media: ["cilindros-1.jpg","cilindros-2.jpg","cilindros-3.jpg","cilindros-4.jpg","cilindros-5.jpg"],
+      video: "" // ex: "cilindros.mp4"
+    },
+    {
+      id: "arco",
+      nome: "Arco de balões",
+      cat: "Balões",
+      desc: "Arco orgânico e temático (montagem sob consulta).",
+      preco: 450,
+      media: ["arco-1.jpg","arco-2.jpg","arco-3.jpg","arco-4.jpg","arco-5.jpg"],
+      video: "" // ex: "arco.mp4"
+    },
+    {
+      id: "cortina",
+      nome: "Cortina de LED",
+      cat: "Iluminação",
+      desc: "Fundo e acabamento com luz.",
+      preco: 120,
+      media: ["cortina-1.jpg","cortina-2.jpg","cortina-3.jpg","cortina-4.jpg","cortina-5.jpg"],
+      video: ""
+    },
+    {
+      id: "tapete",
+      nome: "Tapete para fotos",
+      cat: "Cenário",
+      desc: "Base para fotos e cenário.",
+      preco: 80,
+      media: ["tapete-1.jpg","tapete-2.jpg","tapete-3.jpg","tapete-4.jpg","tapete-5.jpg"],
+      video: ""
+    },
+    {
+      id: "ursinho",
+      nome: "Item decorativo",
+      cat: "Cenário",
+      desc: "Peça decorativa (troque a foto pelo seu item).",
+      preco: 60,
+      media: ["item-1.jpg","item-2.jpg","item-3.jpg","item-4.jpg","item-5.jpg"],
+      video: ""
     }
+  ];
 
-    window.__svgCoverFallback = svgData("Capa da empresa", "🧚");
-    window.__svgLogoFallback  = svgData("Faz de Conta", "🧚");
+  // ========= UTIL =========
+  const el = (id)=>document.getElementById(id);
+  const money = (v)=> "R$ " + Number(v||0).toFixed(2).replace(".",",");
 
-    // ====== Dados (você troca depois) ======
-    const WHATS = "5566996223481";
-    const WHATS_LABEL = "(66) 99622-3481";
-    const PIX_KEY = "SEU_PIX_AQUI"; // <-- troque aqui
-    const BRAND = "Faz de Conta Decorações";
+  // ========= DATA / RELÓGIO =========
+  function tick(){
+    const d = new Date();
+    const dd = String(d.getDate()).padStart(2,"0");
+    const mm = String(d.getMonth()+1).padStart(2,"0");
+    const yy = d.getFullYear();
+    el("today").textContent = `${dd}/${mm}/${yy}`;
+    el("clock").textContent = d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
+  }
+  tick();
+  setInterval(tick, 1000);
 
-    const items = [
-      { id:"cilindros", cat:"Estruturas", title:"cilindros (suporte)", desc:"Estrutura e suporte para decoração.", price: 40, icon:"🧊" },
-      { id:"arco-baloes", cat:"Balões", title:"Arco de balões", desc:"Arco orgânico / temático.", price: 180, icon:"🎈" },
-      { id:"tapete", cat:"Cenário", title:"Tapete para fotos", desc:"Base para fotos e cenário.", price: 50, icon:"🧺" },
-      { id:"leds", cat:"Iluminação", title:"Leds (luz)", desc:"Iluminação e destaque.", price: 35, icon:"💡" },
-      { id:"ursos", cat:"Personagens", title:"Urso decorativo", desc:"Ursinho/pelecia decorativa.", price: 60, icon:"🧸" },
-      { id:"cortina de led", cat:"Cenário", title:"Cortina de led", desc:"Fundo e acabamento.", price: 70, icon:"🎀" },
-      { id:"arco-quadrado", cat:"Estruturas", title:"Arco quadrado", desc:"Estrutura para cenário.", price: 120, icon:"⬜" },
-      { id:"mesa", cat:"Móveis", title:"Mesa decorativa", desc:"Base para bolo e doces.", price: 90, icon:"🎂" },
-      { id:"kit-pega-monta", cat:"Kits", title:"Kit pegue e monte", desc:"Montagem simples e prática.", price: 150, icon:"✨" },
-      { id:"painel", cat:"Cenário", title:"Painel temático", desc:"Painel para fundo de festa.", price: 110, icon:"🖼️" },
-      { id:"baloes-combo", cat:"Balões", title:"Combo de balões", desc:"Cores, temas e combos.", price: 80, icon:"🎉" },
-      { id:"letras", cat:"Cenário", title:"Letras/Numero luminoso", desc:"Destaque com luz.", price: 65, icon:"🔠" },
-    ];
+  // ========= PARALLAX / TILT LEVE =========
+  function bindTilt(node, strength=7){
+    if(!node) return;
+    node.addEventListener("mousemove",(e)=>{
+      const r = node.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - .5;
+      const y = (e.clientY - r.top) / r.height - .5;
+      node.style.transform = `perspective(900px) rotateY(${x*strength}deg) rotateX(${-y*strength}deg) translateY(-1px)`;
+    });
+    node.addEventListener("mouseleave",()=>{
+      node.style.transform = `perspective(900px) rotateY(0deg) rotateX(0deg) translateY(0px)`;
+    });
+  }
+  bindTilt(el("tiltHeader"), 4.5);
+  bindTilt(el("tiltBanner"), 5.5);
 
-    // ====== Estado ======
-    const state = {
-      showPrices: false,
-      q: "",
-      cat: "Todas",
-      cart: new Map(), // id -> qty
-      contractAccepted: false,
-      sigSaved: false,
-      sigDataUrl: "",
+  // ========= HERO MEDIA (VIDEO > IMG) =========
+  function heroMedia(){
+    const box = el("heroMedia");
+    box.innerHTML = "";
+
+    const tryVideo = document.createElement("video");
+    tryVideo.src = "video-capa.mp4";
+    tryVideo.autoplay = true;
+    tryVideo.muted = true;
+    tryVideo.loop = true;
+    tryVideo.playsInline = true;
+
+    tryVideo.oncanplay = ()=>{ box.innerHTML=""; box.appendChild(tryVideo); };
+    tryVideo.onerror = ()=>{
+      const img = document.createElement("img");
+      img.alt = "Capa";
+      img.src = "capa.jpg";
+      img.onerror = ()=> img.src = "capa.png";
+      box.appendChild(img);
     };
 
-    // ====== Util ======
-    const brl = (n)=> n.toLocaleString("pt-BR", { style:"currency", currency:"BRL" });
-    const el = (id)=> document.getElementById(id);
+    // força tentativa
+    box.appendChild(tryVideo);
+  }
+  heroMedia();
 
-    function itemImg(it){
-      // Se você quiser usar fotos reais depois:
-      // 1) envie para o GitHub na pasta raiz
-      // 2) renomeie para:  it.id + ".jpg"  (ex: arco-baloes.jpg)
-      // 3) o app tenta carregar. Se não achar, usa placeholder automático.
-      const real = it.id + ".jpg";
-      const fallback = svgData(it.title, it.icon);
-      return { real, fallback };
-    }
+  // ========= LOGO =========
+  function loadLogo(){
+    const img = el("logoImg");
+    img.src = "logo.png";
+    img.onerror = ()=>{
+      // fallback simples (não quebra layout)
+      img.style.display = "none";
+    };
+  }
+  loadLogo();
 
-    function setNow(){
-      const d = new Date();
-      const dd = String(d.getDate()).padStart(2,"0");
-      const mm = String(d.getMonth()+1).padStart(2,"0");
-      const yy = d.getFullYear();
-      const hh = String(d.getHours()).padStart(2,"0");
-      const mi = String(d.getMinutes()).padStart(2,"0");
-      el("dateNow").textContent = `${dd}/${mm}/${yy}`;
-      el("timeNow").textContent = `${hh}:${mi}`;
-    }
+  // ========= FILTROS / PREÇOS =========
+  let showPrices = false;
+  const state = {
+    q: "",
+    cat: "Todas",
+    cart: new Map(),
+    contractOk: false
+  };
 
-    // ====== Render catálogo ======
-    function categories(){
-      const set = new Set(items.map(i=>i.cat));
-      return ["Todas", ...Array.from(set).sort((a,b)=>a.localeCompare(b))];
-    }
+  function setSwitch(on){
+    const sw = el("priceSwitch");
+    sw.classList.toggle("on", on);
+    showPrices = on;
+    render();
+  }
+  el("priceSwitch").addEventListener("click", ()=> setSwitch(!showPrices));
 
-    function applyFilters(list){
-      let out = list.slice();
-      const q = state.q.trim().toLowerCase();
-      if(q){
-        out = out.filter(i =>
-          (i.title+" "+i.desc+" "+i.cat).toLowerCase().includes(q)
-        );
+  el("q").addEventListener("input",(e)=>{
+    state.q = (e.target.value||"").toLowerCase().trim();
+    render();
+  });
+
+  el("cat").addEventListener("change",(e)=>{
+    state.cat = e.target.value;
+    render();
+  });
+
+  el("btnClear").addEventListener("click", ()=>{
+    state.q = "";
+    state.cat = "Todas";
+    el("q").value = "";
+    el("cat").value = "Todas";
+    render();
+  });
+
+  // ========= POPULA CATEGORIAS =========
+  function buildCats(){
+    const s = new Set(ITENS.map(i=>i.cat));
+    const sel = el("cat");
+    // mantém "Todas"
+    [...s].sort().forEach(c=>{
+      const opt = document.createElement("option");
+      opt.value = c; opt.textContent = c;
+      sel.appendChild(opt);
+    });
+  }
+  buildCats();
+
+  // ========= RENDER GRID =========
+  function passFilter(item){
+    const okCat = (state.cat === "Todas") || (item.cat === state.cat);
+    const t = (item.nome + " " + item.desc + " " + item.cat).toLowerCase();
+    const okQ = !state.q || t.includes(state.q);
+    return okCat && okQ;
+  }
+
+  function firstExistingMedia(item){
+    // tenta primeira foto, se falhar troca para próxima automaticamente no onerror
+    const arr = (item.media || []).filter(Boolean);
+    return arr[0] || "capa.jpg";
+  }
+
+  function render(){
+    const list = ITENS.filter(passFilter);
+    el("itemsCount").textContent = list.length;
+
+    const grid = el("grid");
+    grid.innerHTML = "";
+
+    list.forEach(item=>{
+      const card = document.createElement("div");
+      card.className = "card item";
+      card.style.cursor = "pointer";
+
+      const thumb = document.createElement("div");
+      thumb.className = "thumb";
+
+      const img = document.createElement("img");
+      const medias = (item.media||[]).filter(Boolean);
+      let idx = 0;
+
+      function setImg(){
+        img.src = medias[idx] || "capa.jpg";
       }
-      if(state.cat !== "Todas"){
-        out = out.filter(i=> i.cat === state.cat);
-      }
-      return out;
+      img.onerror = ()=>{
+        idx++;
+        if(idx < medias.length) setImg();
+        else img.src = "capa.jpg";
+      };
+      setImg();
+
+      thumb.appendChild(img);
+
+      const name = document.createElement("div");
+      name.className = "itemName";
+      name.textContent = item.nome;
+
+      const desc = document.createElement("p");
+      desc.className = "itemDesc";
+      desc.textContent = item.desc;
+
+      const footer = document.createElement("div");
+      footer.className = "itemFooter";
+
+      const price = document.createElement("div");
+      price.className = "price";
+      price.textContent = showPrices ? money(item.preco) : "Preço: sob consulta";
+
+      const tag = document.createElement("div");
+      tag.className = "tag";
+      tag.textContent = item.cat;
+
+      footer.appendChild(tag);
+      footer.appendChild(price);
+
+      card.appendChild(thumb);
+      card.appendChild(name);
+      card.appendChild(desc);
+      card.appendChild(footer);
+
+      card.addEventListener("click", ()=> openItem(item.id));
+      grid.appendChild(card);
+    });
+
+    // carrinho
+    el("cartCount").textContent = [...state.cart.values()].reduce((a,b)=>a+b,0);
+  }
+  render();
+
+  // ========= MODAL ITENS (galeria) =========
+  let currentItem = null;
+  let mediaIndex = 0;
+  let currentMediaList = []; // inclui video no final (se existir)
+
+  function mediaListFor(item){
+    const imgs = (item.media||[]).filter(Boolean);
+    const out = imgs.map(src=>({type:"img",src}));
+    if(item.video) out.push({type:"video", src:item.video});
+    return out.length ? out : [{type:"img",src:"capa.jpg"}];
+  }
+
+  function renderViewer(){
+    const viewer = el("viewerInner");
+    viewer.innerHTML = "";
+    const m = currentMediaList[mediaIndex];
+
+    if(m.type === "video"){
+      const v = document.createElement("video");
+      v.src = m.src;
+      v.controls = true;
+      v.playsInline = true;
+      v.style.background = "rgba(0,0,0,.22)";
+      viewer.appendChild(v);
+    }else{
+      const img = document.createElement("img");
+      img.src = m.src;
+      img.onerror = ()=> img.src = "capa.jpg";
+      viewer.appendChild(img);
     }
 
-    function render(){
-      // categories select
-      const sel = el("cat");
-      sel.innerHTML = categories().map(c=>`<option value="${c}">${c}</option>`).join("");
-      sel.value = state.cat;
+    // thumbs
+    const thumbs = el("thumbs");
+    thumbs.innerHTML = "";
+    currentMediaList.slice(0,4).forEach((mm, i)=>{
+      const b = document.createElement("button");
+      b.className = (i===mediaIndex ? "active" : "");
+      b.addEventListener("click", ()=>{ mediaIndex=i; renderViewer(); });
 
-      // switch
-      const sw = el("priceSwitch");
-      sw.classList.toggle("on", state.showPrices);
-      el("priceModeHint").innerHTML = state.showPrices
-        ? `Preço: <b>visível</b> (modo demonstração).`
-        : `Preço: <b>sob consulta</b> (ligue “Mostrar preços” para ver valores).`;
+      const mini = document.createElement("div");
+      mini.className = "mini";
 
-      // grid
-      const grid = el("grid");
-      const view = applyFilters(items);
-      el("itemsHint").textContent = `${view.length} itens • toque para adicionar ao carrinho.`;
+      const im = document.createElement("img");
+      im.src = (mm.type==="img" ? mm.src : (currentItem.media[0] || "capa.jpg"));
+      im.onerror = ()=> im.src = "capa.jpg";
+      mini.appendChild(im);
 
-      grid.innerHTML = view.map(it=>{
-        const { real, fallback } = itemImg(it);
-        const priceTxt = state.showPrices ? brl(it.price) : "Sob consulta";
-        return `
-          <div class="card" data-add="${it.id}">
-            <div class="thumb">
-              <img src="${real}" alt="${it.title}"
-                   onerror="this.src='${fallback}'">
-            </div>
-            <div class="info">
-              <div class="t">${it.title}</div>
-              <p class="d">${it.desc}</p>
-              <div class="meta">
-                <span class="tag">${it.cat}</span>
-                <span class="price">${priceTxt}</span>
-              </div>
-            </div>
-          </div>
-        `;
-      }).join("");
+      b.appendChild(mini);
+      thumbs.appendChild(b);
+    });
+  }
 
-      // cart count
-      el("cartCount").textContent = cartCount();
+  function openItem(id){
+    currentItem = ITENS.find(x=>x.id===id);
+    if(!currentItem) return;
+    el("modalTitle").textContent = currentItem.nome;
+    el("modalDesc").textContent = currentItem.desc;
+    el("modalCat").textContent = currentItem.cat;
+    el("modalPrice").textContent = showPrices ? money(currentItem.preco) : "Sob consulta";
+
+    currentMediaList = mediaListFor(currentItem);
+    mediaIndex = 0;
+    renderViewer();
+
+    el("modalItemBack").style.display = "flex";
+  }
+
+  function closeItem(){
+    el("modalItemBack").style.display = "none";
+    currentItem = null;
+  }
+
+  el("closeItem").addEventListener("click", closeItem);
+  el("modalItemBack").addEventListener("click",(e)=>{
+    if(e.target === el("modalItemBack")) closeItem();
+  });
+
+  el("prevMedia").addEventListener("click", ()=>{
+    if(!currentMediaList.length) return;
+    mediaIndex = (mediaIndex - 1 + currentMediaList.length) % currentMediaList.length;
+    renderViewer();
+  });
+  el("nextMedia").addEventListener("click", ()=>{
+    if(!currentMediaList.length) return;
+    mediaIndex = (mediaIndex + 1) % currentMediaList.length;
+    renderViewer();
+  });
+
+  el("addCart").addEventListener("click", ()=>{
+    if(!currentItem) return;
+    const n = state.cart.get(currentItem.id) || 0;
+    state.cart.set(currentItem.id, n+1);
+    render();
+  });
+  el("removeCart").addEventListener("click", ()=>{
+    if(!currentItem) return;
+    const n = state.cart.get(currentItem.id) || 0;
+    if(n<=1) state.cart.delete(currentItem.id);
+    else state.cart.set(currentItem.id, n-1);
+    render();
+  });
+
+  // ========= CONTRATO + ASSINATURA =========
+  function openContract(){ el("modalContractBack").style.display="flex"; }
+  function closeContract(){ el("modalContractBack").style.display="none"; }
+  el("btnContract").addEventListener("click", openContract);
+  el("closeContract").addEventListener("click", closeContract);
+  el("modalContractBack").addEventListener("click",(e)=>{
+    if(e.target === el("modalContractBack")) closeContract();
+  });
+
+  // assinatura canvas
+  const canvas = el("sign");
+  const ctx = canvas.getContext("2d");
+  let drawing = false;
+  let hasStroke = false;
+
+  function resizeCanvas(){
+    const r = canvas.getBoundingClientRect();
+    canvas.width = Math.floor(r.width * devicePixelRatio);
+    canvas.height = Math.floor(r.height * devicePixelRatio);
+    ctx.scale(devicePixelRatio, devicePixelRatio);
+    ctx.lineWidth = 2.4;
+    ctx.lineCap = "round";
+    ctx.strokeStyle = "rgba(255,255,255,.92)";
+  }
+  setTimeout(resizeCanvas, 60);
+  window.addEventListener("resize", ()=> setTimeout(resizeCanvas, 60));
+
+  function pos(e){
+    const r = canvas.getBoundingClientRect();
+    const x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
+    const y = (e.touches ? e.touches[0].clientY : e.clientY) - r.top;
+    return {x,y};
+  }
+
+  function down(e){
+    drawing = true;
+    hasStroke = true;
+    const p = pos(e);
+    ctx.beginPath();
+    ctx.moveTo(p.x, p.y);
+    e.preventDefault();
+  }
+  function move(e){
+    if(!drawing) return;
+    const p = pos(e);
+    ctx.lineTo(p.x, p.y);
+    ctx.stroke();
+    e.preventDefault();
+  }
+  function up(){ drawing = false; }
+
+  canvas.addEventListener("mousedown", down);
+  canvas.addEventListener("mousemove", move);
+  window.addEventListener("mouseup", up);
+
+  canvas.addEventListener("touchstart", down, {passive:false});
+  canvas.addEventListener("touchmove", move, {passive:false});
+  window.addEventListener("touchend", up);
+
+  el("clearSign").addEventListener("click", ()=>{
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    hasStroke = false;
+    state.contractOk = false;
+    el("signStatus").textContent = "Status: aguardando aceite.";
+  });
+
+  el("saveSign").addEventListener("click", ()=>{
+    const agreed = el("agree").checked;
+    if(!agreed){
+      el("signStatus").textContent = "Status: marque 'Li e concordo' para salvar.";
+      return;
     }
-
-    function cartCount(){
-      let n = 0;
-      for(const q of state.cart.values()) n += q;
-      return n;
+    if(!hasStroke){
+      el("signStatus").textContent = "Status: assine no quadro para salvar.";
+      return;
     }
+    state.contractOk = true;
+    el("signStatus").textContent = "Status: aceite salvo ✅";
+    closeContract();
+  });
 
-    function cartTotal(){
-      let total = 0;
-      for(const [id, qty] of state.cart.entries()){
-        const it = items.find(x=>x.id===id);
-        if(it) total += it.price * qty;
-      }
-      return total;
+  // ========= AÇÕES =========
+  el("btnWhats").addEventListener("click", ()=>{
+    const url = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent("Olá! Quero informações sobre os itens do catálogo da Faz de Conta Decorações.")}`;
+    window.open(url, "_blank");
+  });
+
+  el("btnCart").addEventListener("click", ()=>{
+    const totalItens = [...state.cart.values()].reduce((a,b)=>a+b,0);
+    alert("Carrinho: " + totalItens + " item(ns).\n(Agora você pode evoluir para lista detalhada / checkout.)");
+  });
+
+  el("btnFinish").addEventListener("click", ()=>{
+    if(!state.contractOk){
+      alert("Antes de finalizar, abra o CONTRATO e salve o aceite com assinatura.");
+      openContract();
+      return;
     }
-
-    function addToCart(id){
-      const qty = state.cart.get(id) || 0;
-      state.cart.set(id, qty+1);
-      el("cartCount").textContent = cartCount();
+    const totalItens = [...state.cart.values()].reduce((a,b)=>a+b,0);
+    if(totalItens<=0){
+      alert("Seu carrinho está vazio. Clique em um item e adicione ao carrinho.");
+      return;
     }
+    alert("Finalizar (Pix):\nAqui você pode colocar sua chave Pix, valor e mensagem.\n(Próximo passo: gerar Pix Copia e Cola.)");
+  });
+</script>
 
-    function clearAll(){
-      state.q = "";
-      state.cat = "Todas";
-      el("q").value = "";
-      state.cart.clear();
-      render();
-    }
-
-    // ====== Modal helpers ======
-    function openModal(backId){
-      const back = el(backId);
-      back.style.display = "flex";
-    }
-    function closeModal(back){
-      back.style.display = "none";
-    }
-    function wireClose(backId){
-      const back = el(backId);
-      back.addEventListener("click", (e)=>{
-        if(e.target === back) closeModal(back);
-        if(e.target && e.target.matches("[data-close]")) closeModal(back);
-      });
-    }
-
-    // ====== Contrato: assinatura ======
-    function initSignature(){
-      const canvas = el("sig");
-      const ctx = canvas.getContext("2d");
-      let drawing = false;
-      let last = null;
-
-      function resize(){
-        const r = canvas.getBoundingClientRect();
-        const dpr = window.devicePixelRatio || 1;
-        canvas.width = Math.floor(r.width * dpr);
-        canvas.height = Math.floor(r.height * dpr);
-        ctx.setTransform(dpr,0,0,dpr,0,0);
-        ctx.lineWidth = 3;
-        ctx.lineCap = "round";
-        ctx.lineJoin = "round";
-        ctx.strokeStyle = "rgba(255,255,255,.92)";
-        // fundo "limpo"
-        ctx.fillStyle = "rgba(0,0,0,.00)";
-        ctx.fillRect(0,0, r.width, r.height);
-      }
-
-      function pos(ev){
-        const r = canvas.getBoundingClientRect();
-        const x = (ev.touches ? ev.touches[0].clientX : ev.clientX) - r.left;
-        const y = (ev.touches ? ev.touches[0].clientY : ev.clientY) - r.top;
-        return {x,y};
-      }
-
-      function start(ev){
-        drawing = true;
-        last = pos(ev);
-        ev.preventDefault();
-      }
-      function move(ev){
-        if(!drawing) return;
-        const p = pos(ev);
-        ctx.beginPath();
-        ctx.moveTo(last.x, last.y);
-        ctx.lineTo(p.x, p.y);
-        ctx.stroke();
-        last = p;
-        ev.preventDefault();
-      }
-      function end(){
-        drawing = false;
-        last = null;
-      }
-
-      window.addEventListener("resize", resize);
-      resize();
-
-      canvas.addEventListener("mousedown", start);
-      canvas.addEventListener("mousemove", move);
-      window.addEventListener("mouseup", end);
-
-      canvas.addEventListener("touchstart", start, {passive:false});
-      canvas.addEventListener("touchmove", move, {passive:false});
-      canvas.addEventListener("touchend", end);
-
-      el("btnSigClear").addEventListener("click", ()=>{
-        resize();
-        state.sigSaved = false;
-        state.sigDataUrl = "";
-        updateContractStatus();
-      });
-
-      el("btnSigSave").addEventListener("click", ()=>{
-        // salva em dataURL
-        state.sigDataUrl = canvas.toDataURL("image/png");
-        state.sigSaved = true;
-        updateContractStatus();
-        alert("✅ Assinatura salva!");
-      });
-    }
-
-    function updateContractStatus(){
-      el("agreeStatus").textContent = state.contractAccepted ? "OK" : "Pendente";
-      el("sigStatus").textContent = state.sigSaved ? "OK" : "Pendente";
-    }
-
-    // ====== Checkout ======
-    function renderCart(){
-      const list = el("cartList");
-      if(cartCount() === 0){
-        list.innerHTML = "<i>Seu carrinho está vazio.</i>";
-        el("cartTotal").textContent = brl(0);
-        return;
-      }
-
-      const lines = [];
-      for(const [id, qty] of state.cart.entries()){
-        const it = items.find(x=>x.id===id);
-        if(!it) continue;
-        const p = state.showPrices ? brl(it.price) : "Sob consulta";
-        const sub = state.showPrices ? brl(it.price * qty) : "Sob consulta";
-        lines.push(`• <b>${it.title}</b> — ${qty}x — <span style="color:rgba(255,255,255,.85)">${p}</span> — <b>${sub}</b>`);
-      }
-      list.innerHTML = lines.join("<br/>");
-      el("cartTotal").textContent = state.showPrices ? brl(cartTotal()) : "Sob consulta";
-    }
-
-    function buildWhatsMessage(){
-      const lines = [];
-      lines.push(`Olá! Quero fechar um pedido na ${BRAND}.`);
-      lines.push("");
-      lines.push("Itens:");
-      for(const [id, qty] of state.cart.entries()){
-        const it = items.find(x=>x.id===id);
-        if(it) lines.push(`- ${it.title} (x${qty})`);
-      }
-      lines.push("");
-      if(state.showPrices){
-        lines.push(`Total estimado: ${brl(cartTotal())}`);
-      }else{
-        lines.push("Total: sob consulta (valores ocultos)");
-      }
-      lines.push("");
-      lines.push("Contrato: ACEITO ✅");
-      lines.push("Assinatura: SALVA ✅");
-      lines.push("");
-      lines.push("Vou pagar via Pix e enviar o comprovante aqui.");
-      return encodeURIComponent(lines.join("\n"));
-    }
-
-    // ====== Eventos ======
-    function main(){
-      // Whats
-      el("btnWhats").addEventListener("click", ()=>{
-        window.open(`https://wa.me/${WHATS}`, "_blank");
-      });
-
-      // Contract modal
-      wireClose("contractModal");
-      el("btnContract").addEventListener("click", ()=> openModal("contractModal"));
-      el("btnContractOk").addEventListener("click", ()=>{
-        state.contractAccepted = el("agreeCheck").checked;
-        updateContractStatus();
-        if(!state.contractAccepted){
-          alert("⚠️ Marque o aceite do contrato para confirmar.");
-          return;
-        }
-        closeModal(el("contractModal"));
-        alert("✅ Contrato aceito!");
-      });
-
-      // Checkout modal
-      wireClose("checkoutModal");
-      el("btnCheckout").addEventListener("click", ()=>{
-        openModal("checkoutModal");
-        renderCart();
-        updateContractStatus();
-      });
-      el("btnCart").addEventListener("click", ()=>{
-        openModal("checkoutModal");
-        renderCart();
-        updateContractStatus();
-      });
-
-      el("btnCartClear").addEventListener("click", ()=>{
-        state.cart.clear();
-        renderCart();
-        el("cartCount").textContent = cartCount();
-      });
-
-      el("btnOpenContract").addEventListener("click", ()=>{
-        openModal("contractModal");
-      });
-
-      // Pix
-      el("pixKey").textContent = PIX_KEY;
-
-      el("btnCopyPix").addEventListener("click", async ()=>{
-        try{
-          await navigator.clipboard.writeText(PIX_KEY);
-          alert("✅ Pix copiado!");
-        }catch{
-          // fallback
-          const ta = document.createElement("textarea");
-          ta.value = PIX_KEY;
-          document.body.appendChild(ta);
-          ta.select();
-          document.execCommand("copy");
-          ta.remove();
-          alert("✅ Pix copiado!");
-        }
-      });
-
-      el("btnSendWhats").addEventListener("click", ()=>{
-        window.open(`https://wa.me/${WHATS}?text=${encodeURIComponent("Olá! Segue meu comprovante do Pix do pedido. ✅")}`, "_blank");
-      });
-
-      el("btnFinalize").addEventListener("click", ()=>{
-        if(cartCount()===0){
-          alert("⚠️ Seu carrinho está vazio.");
-          return;
-        }
-        // exige contrato + assinatura
-        state.contractAccepted = el("agreeCheck").checked;
-        updateContractStatus();
-
-        if(!state.contractAccepted){
-          alert("⚠️ Para finalizar: abra o contrato e marque o aceite.");
-          return;
-        }
-        if(!state.sigSaved){
-          alert("⚠️ Para finalizar: abra o contrato e salve a assinatura.");
-          return;
-        }
-
-        const msg = buildWhatsMessage();
-        window.open(`https://wa.me/${WHATS}?text=${msg}`, "_blank");
-        alert("✅ Mensagem do pedido aberta no WhatsApp. Agora é só enviar o comprovante do Pix.");
-      });
-
-      // Filtros
-      el("q").addEventListener("input", (e)=>{
-        state.q = e.target.value;
-        render();
-      });
-
-      el("cat").addEventListener("change", (e)=>{
-        state.cat = e.target.value;
-        render();
-      });
-
-      el("btnClear").addEventListener("click", clearAll);
-
-      el("priceSwitch").addEventListener("click", ()=>{
-        state.showPrices = !state.showPrices;
-        render();
-        renderCart();
-      });
-
-      // add to cart (delegation)
-      el("grid").addEventListener("click", (e)=>{
-        const card = e.target.closest("[data-add]");
-        if(!card) return;
-        addToCart(card.dataset.add);
-        // feedback rápido
-        el("itemsHint").textContent = `✅ Adicionado! Carrinho: ${cartCount()} item(ns).`;
-        setTimeout(()=> render(), 120);
-      });
-
-      // capa/mini-logo: se capa existir, ok; se não, fallback já cobre
-      // (você só precisa subir capa.jpg)
-      setNow();
-      setInterval(setNow, 1000 * 10);
-
-      // assinatura
-      initSignature();
-      updateContractStatus();
-
-      // render inicial
-      render();
-      renderCart();
-    }
-
-    main();
-  </script>
 </body>
 </html>
