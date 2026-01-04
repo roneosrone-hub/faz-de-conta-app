@@ -858,70 +858,62 @@
   bindTilt(el("tiltHeader"), 4.5);
   bindTilt(el("tiltBanner"), 5.5);
 
-// ========= HERO MEDIA (VIDEO > IMG) - À PROVA DE ERRO =========
+// ========= HERO MEDIA (VIDEO > IMG) - ROBUSTO =========
 function heroMedia(){
   const box = document.getElementById("heroMedia");
   if(!box) return;
 
   box.innerHTML = "";
 
-  // fallback visual se nada carregar
-  const fallbackText = () => {
-    box.innerHTML = `
-      <div style="padding:14px; text-align:center; color:rgba(255,255,255,.75); font-weight:800;">
-        ⚠️ Não encontrei <b>video-capa.mp4</b> nem <b>capa.jpg/png</b> na raiz do projeto.
-      </div>`;
+  // helpers
+  const showText = (msg) => {
+    box.innerHTML = `<div style="padding:14px;text-align:center;color:rgba(255,255,255,.75);font-weight:800;">${msg}</div>`;
   };
 
-  // tenta carregar imagem de fallback
   const showImage = () => {
     const img = document.createElement("img");
     img.alt = "Capa";
-    img.src = "capa.jpg";
+    img.src = "./capa.jpg";
     img.onerror = () => {
-      img.src = "capa.png";
-      img.onerror = fallbackText;
+      img.src = "./capa.png";
+      img.onerror = () => showText("⚠️ Não encontrei ./video-capa.mp4 nem ./capa.jpg/.png na raiz.");
     };
     box.innerHTML = "";
     box.appendChild(img);
   };
 
-  // cria o vídeo
   const video = document.createElement("video");
-  video.src = "video-capa.mp4";
-  video.controls = true;        // mostra o player
-  video.playsInline = true;     // celular não força tela cheia
+  video.src = "./video-capa.mp4";  // <- IMPORTANTE: ./ na frente
+  video.controls = true;           // mostra player
+  video.playsInline = true;
   video.preload = "metadata";
-  video.poster = "capa.jpg";    // capa enquanto carrega (se existir)
+  video.poster = "./capa.jpg";     // capa se existir
 
-  // compatibilidade iOS
+  // iOS
   video.setAttribute("playsinline", "");
   video.setAttribute("webkit-playsinline", "");
 
-  // se o vídeo carregar, mostra ele
-  video.onloadeddata = () => {
-    box.innerHTML = "";
-    box.appendChild(video);
-  };
+  // estilos (garante que aparece)
+  video.style.width = "100%";
+  video.style.height = "100%";
+  video.style.objectFit = "cover";
+  video.style.display = "block";
 
-  // se o vídeo der erro (arquivo não existe / 404), mostra imagem
-  video.onerror = () => {
+  video.addEventListener("loadeddata", () => {
+    console.log("✅ Vídeo carregou:", video.currentSrc);
+  });
+
+  video.addEventListener("error", () => {
+    console.log("❌ Erro no vídeo:", video.error, "src:", video.currentSrc);
     showImage();
-  };
+  });
 
-  // coloca o vídeo mesmo assim (para aparecer controles, mesmo antes de carregar)
+  // coloca o vídeo no DOM sempre
   box.appendChild(video);
-
-  // tentativa extra: se o vídeo não carregar em 1s, cai pra imagem
-  setTimeout(() => {
-    // readyState 0/1 geralmente indica que não carregou nada
-    if (video.readyState < 2) {
-      // se não carregou nada ainda, tenta fallback
-      // (não remove se já estiver tocando/mostrando)
-      showImage();
-    }
-  }, 1200);
 }
+
+heroMedia();
+
 
 heroMedia();
 
