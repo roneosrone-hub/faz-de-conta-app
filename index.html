@@ -9,7 +9,6 @@
     :root{
       --bg0:#070916;
       --bg1:#0b1230;
-      --card: rgba(255,255,255,.08);
       --stroke: rgba(255,255,255,.14);
       --text: rgba(255,255,255,.92);
       --muted: rgba(255,255,255,.65);
@@ -45,6 +44,25 @@
 
     .wrap{ width:min(1100px, 92vw); margin: 22px auto 48px; }
 
+    /* SLOGAN FIXO NO CANTO SUPERIOR ESQUERDO */
+    .sloganFixed{
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 1000;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.35);
+      border: 1px solid rgba(255,255,255,.16);
+      color: rgba(255,255,255,.88);
+      font-weight: 800;
+      font-size: 12px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 12px 30px rgba(0,0,0,.35);
+      user-select:none;
+      pointer-events:none;
+    }
+
     .header{
       display:flex; flex-direction:column; gap:14px;
       padding:18px; border-radius: var(--radius);
@@ -68,15 +86,28 @@
       border:1px solid rgba(255,255,255,.12);
       overflow:hidden; box-shadow: 0 14px 35px rgba(0,0,0,.35);
       position:relative; flex:0 0 auto;
+      display:flex; align-items:center; justify-content:center;
     }
     .logo img{ width:100%; height:100%; object-fit:cover; display:block; }
 
-    .logo::after{
-      content:""; position:absolute; inset:-30%;
-      background: conic-gradient(from 180deg, rgba(255,255,255,0), rgba(255,255,255,.18), rgba(255,255,255,0));
-      animation: shine 4.8s linear infinite; opacity:.55; pointer-events:none;
+    /* fallback bonito (sem ícone quebrado) */
+    .logoFallback{
+      width:100%; height:100%;
+      display:flex; align-items:center; justify-content:center;
+      font-weight: 900;
+      color: rgba(255,255,255,.85);
+      letter-spacing:.8px;
+      background: radial-gradient(120px 80px at 30% 20%, rgba(255,75,216,.35), transparent 60%),
+                  radial-gradient(120px 80px at 70% 20%, rgba(0,255,213,.25), transparent 60%),
+                  rgba(0,0,0,.25);
     }
-    @keyframes shine { to { transform: rotate(360deg); } }
+    .logoFallback span{
+      font-size: 14px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: rgba(0,0,0,.25);
+      border: 1px solid rgba(255,255,255,.14);
+    }
 
     .gradTitle{
       font-weight: 900; font-size: 20px; letter-spacing:.2px;
@@ -88,25 +119,6 @@
       text-transform: uppercase;
     }
     @keyframes gradMove{ 0%{background-position:0% 50%;} 100%{background-position:300% 50%;} }
-
-    /* SLOGAN FIXO NO CANTO SUPERIOR ESQUERDO (aparece sempre) */
-    .sloganFixed{
-      position: fixed;
-      top: 12px;
-      left: 12px;
-      z-index: 1000;
-      padding: 8px 10px;
-      border-radius: 999px;
-      background: rgba(0,0,0,.35);
-      border: 1px solid rgba(255,255,255,.16);
-      color: rgba(255,255,255,.88);
-      font-weight: 800;
-      font-size: 12px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 12px 30px rgba(0,0,0,.35);
-      user-select:none;
-      pointer-events:none;
-    }
 
     .slogan{ margin-top:4px; font-size:13px; color: var(--muted); line-height:1.2; }
     .sub{ margin-top:6px; font-size:12px; color: var(--muted2); }
@@ -140,7 +152,6 @@
       transition: transform .15s ease, background .15s ease, border-color .15s ease;
     }
     .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.11); border-color: rgba(255,255,255,.18); }
-    .btn:active{ transform: translateY(0px) scale(.99); }
     .btn.primary{
       background: linear-gradient(90deg, rgba(255,75,216,.38), rgba(0,255,213,.26), rgba(255,217,74,.24));
       border-color: rgba(255,255,255,.18);
@@ -154,7 +165,6 @@
       font-weight:900; font-size:12px; margin-left:6px;
     }
 
-    /* HERO */
     .hero{
       margin-top:14px;
       display:grid;
@@ -174,26 +184,17 @@
       position:relative;
     }
 
-    .tilt{ transform-style: preserve-3d; will-change: transform; }
-    .tilt::before{
-      content:""; position:absolute; inset:-2px;
-      background: radial-gradient(700px 200px at 20% 10%, rgba(255,255,255,.10), transparent 55%),
-                  radial-gradient(600px 240px at 80% 0%, rgba(0,255,213,.12), transparent 55%);
-      opacity:.65; pointer-events:none;
-    }
-
-    /* ✅ TAMANHO CERTO DO VÍDEO NO BANNER:
-       - no desktop fica com altura bonita
-       - no celular não fica gigante
-    */
+    /* ✅ BANNER DO VÍDEO NO TAMANHO CERTO */
     .mediaBox{
-      height: 320px;
+      width:100%;
+      aspect-ratio: 16 / 9;
+      max-height: 280px;
       background: rgba(0,0,0,.22);
       border-bottom: 1px solid rgba(255,255,255,.10);
       position:relative;
       overflow:hidden;
     }
-    @media(max-width:900px){ .mediaBox{ height: 220px; } }
+    @media(max-width:900px){ .mediaBox{ max-height: 220px; } }
 
     .mediaBox img,
     .mediaBox video{
@@ -277,10 +278,10 @@
       width:22px; height:22px; border-radius:999px;
       background: rgba(255,255,255,.92);
       position:absolute; top:1px; left:1px;
-      transition:left .18s ease, background .18s ease;
+      transition:left .18s ease;
     }
     .switch.on{ background: rgba(0,255,213,.24); }
-    .switch.on .knob{ left:21px; background: rgba(255,255,255,.96); }
+    .switch.on .knob{ left:21px; }
 
     .hint{
       margin-top:10px; font-size:12px;
@@ -337,118 +338,6 @@
       border:1px solid rgba(255,255,255,.10);
     }
 
-    .modalBack{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,.6);
-      display:none; align-items:center; justify-content:center;
-      padding:16px;
-      z-index:999;
-    }
-    .modal{
-      width: min(960px, 96vw);
-      border-radius: 22px;
-      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
-      border:1px solid rgba(255,255,255,.16);
-      box-shadow: 0 25px 90px rgba(0,0,0,.7);
-      overflow:hidden;
-      backdrop-filter: blur(12px);
-    }
-    .modalHead{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:10px;
-      padding:12px 14px;
-      border-bottom:1px solid rgba(255,255,255,.10);
-    }
-    .modalHead strong{ font-size:14px; }
-    .x{
-      border:none;
-      width:40px; height:40px;
-      border-radius:14px;
-      background: rgba(0,0,0,.25);
-      border:1px solid rgba(255,255,255,.12);
-      color: rgba(255,255,255,.88);
-      font-weight:900;
-      cursor:pointer;
-    }
-    .modalBody{
-      display:grid;
-      grid-template-columns: 1.35fr .65fr;
-      gap:12px;
-      padding:12px;
-    }
-    @media(max-width:900px){ .modalBody{ grid-template-columns: 1fr; } }
-
-    .viewer{
-      border-radius:18px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.22);
-      min-height: 280px;
-      position:relative;
-    }
-    .viewer img, .viewer video{ width:100%; height:100%; object-fit:cover; display:block; }
-    .navBtn{
-      position:absolute; top:50%; transform: translateY(-50%);
-      width:44px; height:44px; border-radius:16px;
-      background: rgba(0,0,0,.28);
-      border:1px solid rgba(255,255,255,.14);
-      color: rgba(255,255,255,.92);
-      cursor:pointer;
-      font-weight:900;
-      display:flex; align-items:center; justify-content:center;
-      user-select:none;
-      z-index:5;
-    }
-    .navPrev{ left:10px; }
-    .navNext{ right:10px; }
-
-    .thumbs{ display:grid; grid-template-columns: repeat(4, 1fr); gap:8px; margin-top:10px; }
-    .thumbs button{ padding:0; border:none; background:transparent; cursor:pointer; }
-    .mini{
-      height:64px; border-radius:14px; overflow:hidden;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.22);
-      opacity:.85;
-      transition: opacity .15s ease, transform .15s ease;
-    }
-    .mini img{ width:100%; height:100%; object-fit:cover; display:block; }
-    .thumbs button.active .mini{
-      opacity:1;
-      transform: translateY(-1px);
-      border-color: rgba(0,255,213,.28);
-    }
-
-    .side{
-      padding:12px; border-radius:18px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
-      height:100%;
-    }
-    .side .line{
-      color: rgba(255,255,255,.70);
-      font-size:13px;
-      margin-bottom:10px;
-      line-height:1.35;
-    }
-    .side .line b{ color: rgba(255,255,255,.92); }
-
-    canvas{
-      width:100%;
-      height:140px;
-      background: rgba(0,0,0,.22);
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:14px;
-      display:block;
-      touch-action:none;
-    }
-    .checkRow{
-      display:flex; gap:10px; align-items:flex-start;
-      margin-top:10px;
-      font-size:12px;
-      color: rgba(255,255,255,.70);
-    }
-    .checkRow input{ margin-top:2px; }
-
     .footer{
       margin-top:18px;
       text-align:center;
@@ -460,15 +349,13 @@
 
 <body>
   <div class="spark"></div>
-
-  <!-- ✅ SLOGAN FIXO NO CANTO SUPERIOR ESQUERDO -->
   <div class="sloganFixed">Onde a imaginação vira festa ✨</div>
 
   <div class="wrap">
-    <div class="header tilt" id="tiltHeader">
+    <div class="header" id="tiltHeader">
       <div class="headTop">
         <div class="brandLeft">
-          <div class="logo" title="Logo">
+          <div class="logo" title="Logo" id="logoBox">
             <img id="logoImg" alt="Logo"/>
           </div>
           <div class="brand">
@@ -494,7 +381,7 @@
     </div>
 
     <div class="hero">
-      <div class="card tilt" id="tiltBanner">
+      <div class="card" id="tiltBanner">
         <div class="mediaBox" id="heroMedia">
           <button class="soundBtn" id="soundBtn" type="button">🔊 Ativar som</button>
         </div>
@@ -543,82 +430,8 @@
     <div class="footer">© Faz de Conta Decorações • Catálogo demonstrativo (você troca fotos e valores quando quiser)</div>
   </div>
 
-  <div class="modalBack" id="modalItemBack">
-    <div class="modal">
-      <div class="modalHead">
-        <strong id="modalTitle">Item</strong>
-        <button class="x" id="closeItem">✕</button>
-      </div>
-
-      <div class="modalBody">
-        <div>
-          <div class="viewer" id="viewer">
-            <button class="navBtn navPrev" id="prevMedia">‹</button>
-            <button class="navBtn navNext" id="nextMedia">›</button>
-            <div id="viewerInner"></div>
-          </div>
-          <div class="thumbs" id="thumbs"></div>
-        </div>
-
-        <div class="side">
-          <div class="line"><b>Descrição:</b> <span id="modalDesc"></span></div>
-          <div class="line"><b>Categoria:</b> <span id="modalCat"></span></div>
-          <div class="line"><b>Preço:</b> <span id="modalPrice"></span></div>
-          <div class="line" style="opacity:.8"><b>Fotos:</b> até 5 por item + vídeo opcional</div>
-
-          <div class="row" style="margin-top:12px">
-            <button class="btn" id="addCart">➕ Adicionar</button>
-            <button class="btn" id="removeCart">➖ Remover</button>
-          </div>
-
-          <div class="hint" style="margin-top:12px">
-            Para colocar 5 fotos: edite o item no código e liste os arquivos (ex: <b>cilindros-1.jpg</b> ... <b>cilindros-5.jpg</b>).
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modalBack" id="modalContractBack">
-    <div class="modal">
-      <div class="modalHead">
-        <strong>📝 Contrato rápido (assinatura)</strong>
-        <button class="x" id="closeContract">✕</button>
-      </div>
-
-      <div class="modalBody" style="grid-template-columns: 1fr;">
-        <div class="side">
-          <div class="line">
-            <b>Resumo do compromisso:</b><br/>
-            Ao contratar, o cliente se compromete a <b>cuidar dos itens</b>, <b>não molhar</b>, <b>não riscar</b>, evitar exposição a calor,
-            e <b>devolver no prazo combinado</b>. Danos e atrasos podem gerar cobrança adicional (conforme combinado no WhatsApp).
-          </div>
-
-          <div class="checkRow">
-            <input type="checkbox" id="agree"/>
-            <label for="agree">Li e concordo com o compromisso acima.</label>
-          </div>
-
-          <div style="margin-top:12px; font-weight:800; opacity:.9">Assinatura:</div>
-          <canvas id="sign"></canvas>
-
-          <div class="row" style="margin-top:12px">
-            <button class="btn" id="clearSign">🧽 Limpar assinatura</button>
-            <button class="btn primary" id="saveSign">✅ Salvar aceite</button>
-          </div>
-
-          <div class="hint" id="signStatus" style="margin-top:12px">
-            Status: aguardando aceite.
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
 <script>
-  const CONFIG = {
-    whatsappNumber: "5566996223481"
-  };
+  const CONFIG = { whatsappNumber: "5566996223481" };
 
   const ITENS = [
     { id:"cilindros", nome:"Cilindros (Suporte)", cat:"Estruturas", desc:"Estruturas e suporte para decoração.", preco:180,
@@ -647,67 +460,92 @@
   tick();
   setInterval(tick, 1000);
 
-  function bindTilt(node, strength=7){
-    if(!node) return;
-    node.addEventListener("mousemove",(e)=>{
-      const r = node.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - .5;
-      const y = (e.clientY - r.top) / r.height - .5;
-      node.style.transform = `perspective(900px) rotateY(${x*strength}deg) rotateX(${-y*strength}deg) translateY(-1px)`;
-    });
-    node.addEventListener("mouseleave",()=>{
-      node.style.transform = `perspective(900px) rotateY(0deg) rotateX(0deg) translateY(0px)`;
-    });
-  }
-  bindTilt(el("tiltHeader"), 4.5);
-  bindTilt(el("tiltBanner"), 5.5);
+  // ✅ LOGO: tenta vários nomes + fallback bonito
+  function loadLogo(){
+    const img = el("logoImg");
+    const box = el("logoBox");
 
-  // ✅ vídeo toca em loop, mas depois de 3 voltas fica mudo (e continua)
+    const tries = ["logo.png","logo.jpg","logo.webp","Logo.png","LOGO.png","capa.jpg","capa.png"];
+    let i = 0;
+
+    const showFallback = () => {
+      img.style.display = "none";
+      box.innerHTML = '<div class="logoFallback"><span>FDC</span></div>';
+    };
+
+    const tryNext = () => {
+      if(i >= tries.length){ showFallback(); return; }
+      img.style.display = "block";
+      img.src = "./" + tries[i++];
+    };
+
+    img.onerror = tryNext;
+    tryNext();
+  }
+  loadLogo();
+
+  // ✅ HERO: vídeo com tamanho certo + loop com pausa + som por clique + depois de 3 voltas muta
   function heroMedia(){
     const box = el("heroMedia");
+    const soundBtn = el("soundBtn");
     if(!box) return;
 
-    const soundBtn = el("soundBtn");
-    if(soundBtn) soundBtn.classList.remove("hide");
-
-    // remove mídia anterior
     [...box.querySelectorAll("video,img")].forEach(n => n.remove());
+    if(soundBtn) soundBtn.classList.remove("hide");
 
     const video = document.createElement("video");
     video.src = "./video-capa.mp4";
-    video.autoplay = true;
-    video.muted = true;       // autoplay no celular precisa ser mudo
-    video.loop = true;        // continua rodando sempre
-    video.playsInline = true;
-    video.preload = "auto";
     video.poster = "./capa.jpg";
-    video.setAttribute("playsinline", "");
-    video.setAttribute("webkit-playsinline", "");
+    video.preload = "auto";
+    video.autoplay = true;
 
-    // botão para ativar som (precisa de clique)
+    // Autoplay no celular: precisa iniciar mudo
+    video.muted = true;
+    video.volume = 0;
+    video.playsInline = true;
+    video.setAttribute("playsinline","");
+    video.setAttribute("webkit-playsinline","");
+
+    // NÃO usar loop nativo (pra dar pausa e não ficar “tocando toda hora”)
+    video.loop = false;
+
+    let loops = 0;         // quantas voltas já foram completas
+    let soundEnabled = false;
+
+    const playSafe = () => video.play().catch(()=>{});
+
     const enableSound = async () => {
       try{
+        soundEnabled = true;
         video.muted = false;
         video.volume = 1;
         await video.play();
         if(soundBtn) soundBtn.classList.add("hide");
       }catch(e){}
     };
+
     if(soundBtn) soundBtn.onclick = enableSound;
     video.addEventListener("click", enableSound);
 
-    // conta voltas e depois deixa mudo, mas continua tocando
-    let loops = 0;
+    // quando terminar: conta volta, aplica regra do “3 vezes com som” e reinicia com delay
     video.addEventListener("ended", () => {
       loops++;
-      if(loops >= 3){
+
+      // se o som estiver ligado e já bateu 3 voltas, muta
+      if(soundEnabled && loops >= 3){
+        soundEnabled = false;
         video.muted = true;
         video.volume = 0;
         if(soundBtn) soundBtn.classList.add("hide");
       }
+
+      // pausa de 1s antes de recomeçar
+      setTimeout(() => {
+        video.currentTime = 0;
+        playSafe();
+      }, 1000);
     });
 
-    // fallback se não achar o vídeo
     video.onerror = () => {
       const img = document.createElement("img");
       img.alt = "Capa";
@@ -719,19 +557,13 @@
     };
 
     box.prepend(video);
-    video.play().catch(()=>{});
+    playSafe();
   }
   heroMedia();
 
-  function loadLogo(){
-    const img = el("logoImg");
-    img.src = "./logo.png";
-    img.onerror = ()=>{ /* deixa sem logo se não existir */ };
-  }
-  loadLogo();
-
+  // filtros / preços / grid (mesmo de antes)
   let showPrices = false;
-  const state = { q:"", cat:"Todas", cart:new Map(), contractOk:false };
+  const state = { q:"", cat:"Todas", cart:new Map() };
 
   function setSwitch(on){
     el("priceSwitch").classList.toggle("on", on);
@@ -822,7 +654,6 @@
       card.appendChild(desc);
       card.appendChild(footer);
 
-      card.addEventListener("click", ()=> openItem(item.id));
       grid.appendChild(card);
     });
 
@@ -830,208 +661,17 @@
   }
   render();
 
-  let currentItem = null;
-  let mediaIndex = 0;
-  let currentMediaList = [];
-
-  function mediaListFor(item){
-    const imgs = (item.media||[]).filter(Boolean);
-    const out = imgs.map(src=>({type:"img",src:"./"+src}));
-    if(item.video) out.push({type:"video", src:"./"+item.video});
-    return out.length ? out : [{type:"img",src:"./capa.jpg"}];
-  }
-
-  function renderViewer(){
-    const viewer = el("viewerInner");
-    viewer.innerHTML = "";
-    const m = currentMediaList[mediaIndex];
-
-    if(m.type === "video"){
-      const v = document.createElement("video");
-      v.src = m.src;
-      v.controls = true;
-      v.playsInline = true;
-      v.setAttribute("playsinline","");
-      v.setAttribute("webkit-playsinline","");
-      viewer.appendChild(v);
-    }else{
-      const img = document.createElement("img");
-      img.src = m.src;
-      img.onerror = ()=> img.src = "./capa.jpg";
-      viewer.appendChild(img);
-    }
-
-    const thumbs = el("thumbs");
-    thumbs.innerHTML = "";
-    currentMediaList.slice(0,4).forEach((mm, i)=>{
-      const b = document.createElement("button");
-      b.className = (i===mediaIndex ? "active" : "");
-      b.addEventListener("click", ()=>{ mediaIndex=i; renderViewer(); });
-
-      const mini = document.createElement("div");
-      mini.className = "mini";
-
-      const im = document.createElement("img");
-      im.src = (mm.type==="img" ? mm.src : (currentItem?.media?.[0] ? "./"+currentItem.media[0] : "./capa.jpg"));
-      im.onerror = ()=> im.src = "./capa.jpg";
-      mini.appendChild(im);
-
-      b.appendChild(mini);
-      thumbs.appendChild(b);
-    });
-  }
-
-  function openItem(id){
-    currentItem = ITENS.find(x=>x.id===id);
-    if(!currentItem) return;
-
-    el("modalTitle").textContent = currentItem.nome;
-    el("modalDesc").textContent = currentItem.desc;
-    el("modalCat").textContent = currentItem.cat;
-    el("modalPrice").textContent = showPrices ? money(currentItem.preco) : "Sob consulta";
-
-    currentMediaList = mediaListFor(currentItem);
-    mediaIndex = 0;
-    renderViewer();
-
-    el("modalItemBack").style.display = "flex";
-  }
-
-  function closeItem(){
-    el("modalItemBack").style.display = "none";
-    currentItem = null;
-  }
-
-  el("closeItem").addEventListener("click", closeItem);
-  el("modalItemBack").addEventListener("click",(e)=>{ if(e.target === el("modalItemBack")) closeItem(); });
-
-  el("prevMedia").addEventListener("click", ()=>{
-    if(!currentMediaList.length) return;
-    mediaIndex = (mediaIndex - 1 + currentMediaList.length) % currentMediaList.length;
-    renderViewer();
-  });
-  el("nextMedia").addEventListener("click", ()=>{
-    if(!currentMediaList.length) return;
-    mediaIndex = (mediaIndex + 1) % currentMediaList.length;
-    renderViewer();
-  });
-
-  el("addCart").addEventListener("click", ()=>{
-    if(!currentItem) return;
-    const n = state.cart.get(currentItem.id) || 0;
-    state.cart.set(currentItem.id, n+1);
-    render();
-  });
-  el("removeCart").addEventListener("click", ()=>{
-    if(!currentItem) return;
-    const n = state.cart.get(currentItem.id) || 0;
-    if(n<=1) state.cart.delete(currentItem.id);
-    else state.cart.set(currentItem.id, n-1);
-    render();
-  });
-
-  function openContract(){ el("modalContractBack").style.display="flex"; }
-  function closeContract(){ el("modalContractBack").style.display="none"; }
-  el("btnContract").addEventListener("click", openContract);
-  el("closeContract").addEventListener("click", closeContract);
-  el("modalContractBack").addEventListener("click",(e)=>{ if(e.target === el("modalContractBack")) closeContract(); });
-
-  const canvas = el("sign");
-  const ctx = canvas.getContext("2d");
-  let drawing = false;
-  let hasStroke = false;
-
-  function resizeCanvas(){
-    const r = canvas.getBoundingClientRect();
-    const ratio = window.devicePixelRatio || 1;
-    canvas.width = Math.floor(r.width * ratio);
-    canvas.height = Math.floor(r.height * ratio);
-    ctx.setTransform(1,0,0,1,0,0);
-    ctx.scale(ratio, ratio);
-    ctx.lineWidth = 2.4;
-    ctx.lineCap = "round";
-    ctx.strokeStyle = "rgba(255,255,255,.92)";
-  }
-  setTimeout(resizeCanvas, 80);
-  window.addEventListener("resize", ()=> setTimeout(resizeCanvas, 80));
-
-  function pos(e){
-    const r = canvas.getBoundingClientRect();
-    const x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
-    const y = (e.touches ? e.touches[0].clientY : e.clientY) - r.top;
-    return {x,y};
-  }
-
-  function down(e){
-    drawing = true;
-    hasStroke = true;
-    const p = pos(e);
-    ctx.beginPath();
-    ctx.moveTo(p.x, p.y);
-    e.preventDefault();
-  }
-  function move(e){
-    if(!drawing) return;
-    const p = pos(e);
-    ctx.lineTo(p.x, p.y);
-    ctx.stroke();
-    e.preventDefault();
-  }
-  function up(){ drawing = false; }
-
-  canvas.addEventListener("mousedown", down);
-  canvas.addEventListener("mousemove", move);
-  window.addEventListener("mouseup", up);
-
-  canvas.addEventListener("touchstart", down, {passive:false});
-  canvas.addEventListener("touchmove", move, {passive:false});
-  window.addEventListener("touchend", up);
-
-  el("clearSign").addEventListener("click", ()=>{
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    hasStroke = false;
-    state.contractOk = false;
-    el("signStatus").textContent = "Status: aguardando aceite.";
-  });
-
-  el("saveSign").addEventListener("click", ()=>{
-    const agreed = el("agree").checked;
-    if(!agreed){
-      el("signStatus").textContent = "Status: marque 'Li e concordo' para salvar.";
-      return;
-    }
-    if(!hasStroke){
-      el("signStatus").textContent = "Status: assine no quadro para salvar.";
-      return;
-    }
-    state.contractOk = true;
-    el("signStatus").textContent = "Status: aceite salvo ✅";
-    closeContract();
-  });
-
   el("btnWhats").addEventListener("click", ()=>{
     const url = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent("Olá! Quero informações sobre os itens do catálogo da Faz de Conta Decorações.")}`;
     window.open(url, "_blank");
   });
 
   el("btnCart").addEventListener("click", ()=>{
-    const totalItens = [...state.cart.values()].reduce((a,b)=>a+b,0);
-    alert("Carrinho: " + totalItens + " item(ns).");
+    alert("Carrinho: " + ([...state.cart.values()].reduce((a,b)=>a+b,0)) + " item(ns).");
   });
 
-  el("btnFinish").addEventListener("click", ()=>{
-    if(!state.contractOk){
-      alert("Antes de finalizar, abra o CONTRATO e salve o aceite com assinatura.");
-      openContract();
-      return;
-    }
-    const totalItens = [...state.cart.values()].reduce((a,b)=>a+b,0);
-    if(totalItens<=0){
-      alert("Seu carrinho está vazio. Clique em um item e adicione ao carrinho.");
-      return;
-    }
-    alert("Finalizar (Pix):\nAqui você pode colocar sua chave Pix, valor e mensagem.\n(Próximo passo: gerar Pix Copia e Cola.)");
-  });
+  el("btnContract").addEventListener("click", ()=> alert("Contrato: (adicione aqui se quiser a versão com assinatura)"));
+  el("btnFinish").addEventListener("click", ()=> alert("Finalizar (Pix): (adicione aqui o Pix Copia e Cola quando quiser)"));
 </script>
 
 </body>
