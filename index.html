@@ -51,7 +51,7 @@
       margin: 18px auto 48px;
     }
 
-    /* SLOGAN FIXO NO CANTO SUPERIOR ESQUERDO */
+    /* SLOGAN FIXO (CANTO SUPERIOR ESQUERDO) */
     .floatingSlogan{
       position: sticky;
       top: 10px;
@@ -69,8 +69,8 @@
       display:flex;
       align-items:center;
       gap:8px;
+      backdrop-filter: blur(10px);
     }
-    .floatingSlogan .star{ filter: drop-shadow(0 6px 14px rgba(0,0,0,.55)); }
 
     /* HEADER */
     .header{
@@ -82,18 +82,16 @@
       background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
       border:1px solid var(--stroke);
       box-shadow: var(--shadow);
-      transform: translateZ(0);
       backdrop-filter: blur(10px);
       overflow:hidden;
       position:relative;
     }
-
-    /* leve brilho */
     .header::before{
       content:"";
       position:absolute; inset:-2px;
-      background: radial-gradient(700px 200px at 20% 10%, rgba(255,255,255,.10), transparent 55%),
-                  radial-gradient(600px 240px at 80% 0%, rgba(0,255,213,.12), transparent 55%);
+      background:
+        radial-gradient(700px 200px at 20% 10%, rgba(255,255,255,.10), transparent 55%),
+        radial-gradient(600px 240px at 80% 0%, rgba(0,255,213,.12), transparent 55%);
       opacity:.65;
       pointer-events:none;
     }
@@ -108,7 +106,6 @@
       z-index:1;
     }
 
-    /* bloco centralizado */
     .brandCenter{
       flex: 1;
       min-width: 280px;
@@ -130,20 +127,29 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      font-weight: 1000;
-      letter-spacing:.5px;
-      color: rgba(255,255,255,.85);
     }
     .logo img{
-      width:100%; height:100%;
+      width:100%;
+      height:100%;
       object-fit: cover;
       display:block;
     }
-    .logo.fallback{
+    .logoFallback{
+      display:none;
+      font-weight: 1000;
+      letter-spacing:.6px;
+      color: rgba(255,255,255,.88);
+      text-shadow: 0 12px 24px rgba(0,0,0,.55);
       background: linear-gradient(135deg, rgba(255,75,216,.25), rgba(0,255,213,.18));
+      width:100%;
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
+    .logo.fallback .logoFallback{ display:flex; }
+    .logo.fallback img{ display:none; }
 
-    /* TÍTULO */
     .gradTitle{
       font-weight: 1000;
       font-size: 44px;
@@ -151,8 +157,6 @@
       text-align:center;
       letter-spacing: .6px;
       text-transform: uppercase;
-
-      /* Degradê forte + brilho */
       background: linear-gradient(
         90deg,
         #ff4bd8 0%,
@@ -168,7 +172,6 @@
       background-clip:text;
       color: transparent;
       animation: gradMove 6.5s linear infinite;
-
       filter: drop-shadow(0 10px 30px rgba(0,0,0,.55));
     }
     @keyframes gradMove{
@@ -176,27 +179,26 @@
       100%{ background-position:260% 50%; }
     }
 
-    /* Slogan abaixo (bonito/forte) */
     .sloganBelow{
       margin-top: 6px;
       text-align:center;
-      font-size: 23px;
+      font-size: 18px; /* AQUI você aumenta/diminui */
       font-weight: 900;
       color: rgba(255,255,255,.92);
-      letter-spacing:.2px;
+      letter-spacing:.3px;
       text-shadow: 0 10px 26px rgba(0,0,0,.45);
     }
 
-   .metaRow{
-  display: flex;
-  flex-direction: column;      /* 👈 um embaixo do outro */
-  gap: 30px;
-  align-items: flex-end;       /* 👈 alinhado à direita */
-  min-width: 360px;
-  position: relative;
-  z-index: 1;
-}
-
+    /* meta (EMPILHADO) */
+    .metaRow{
+      display: flex;
+      flex-direction: column;     /* um embaixo do outro */
+      gap: 10px;
+      align-items: flex-end;      /* colado à direita */
+      min-width: 260px;
+      position:relative;
+      z-index:1;
+    }
     .chip{
       display:inline-flex;
       gap:8px;
@@ -209,6 +211,7 @@
       font-size: 12px;
       white-space:nowrap;
       box-shadow: 0 10px 26px rgba(0,0,0,.25);
+      backdrop-filter: blur(10px);
     }
 
     .actions{
@@ -218,6 +221,8 @@
       align-items: center;
       justify-content: flex-start;
       margin-right: auto;
+      position:relative;
+      z-index:1;
     }
 
     .btn{
@@ -235,7 +240,6 @@
       font-weight: 800;
       font-size: 13px;
       box-shadow: 0 14px 35px rgba(0,0,0,.28);
-      transform: translateZ(0);
       transition: transform .15s ease, background .15s ease, border-color .15s ease;
       user-select:none;
     }
@@ -282,63 +286,230 @@
       position:relative;
     }
 
-    /* Banner com altura menor */
+    /* QUADRO (montador) */
     .mediaBox{
-      height: 597px;
+      height: 240px; /* aqui controla a altura do quadro */
       display:flex;
       align-items:center;
       justify-content:center;
       background: rgba(0,0,0,.22);
       border-bottom: 1px solid rgba(255,255,255,.10);
       position:relative;
+      padding: 10px;
     }
     @media(max-width:900px){
-      .mediaBox{ height: 160px; }
+      .mediaBox{ height: 210px; }
     }
 
     .mediaInner{
       width:100%;
       height:100%;
       display:flex;
-      align-items:center;
+      align-items:stretch;
       justify-content:center;
-      padding: 10px;
+      gap: 10px;
     }
 
-    .mediaInner video,
-    .mediaInner img{
+    /* MONTADOR PROFISSIONAL */
+    .builder{
+      position: relative;
+      flex: 1;
+      border-radius: 18px;
+      overflow: hidden;
+      background:
+        radial-gradient(900px 300px at 20% 10%, rgba(255,255,255,.10), transparent 60%),
+        radial-gradient(700px 300px at 80% 0%, rgba(0,255,213,.10), transparent 55%),
+        rgba(0,0,0,.25);
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 18px 60px rgba(0,0,0,.45);
+      user-select: none;
+      touch-action: none;
+    }
+
+    .builderBase{
+      position:absolute;
+      inset:0;
       width:100%;
       height:100%;
-      border-radius: 18px;
       object-fit: cover;
-      display:block;
-      background: rgba(0,0,0,.22);
-      border:1px solid rgba(255,255,255,.10);
-      box-shadow: 0 12px 30px rgba(0,0,0,.25);
+      filter: contrast(1.05) saturate(1.05);
+      opacity: .98;
     }
 
-    .soundBtn{
+    /* Grade sutil */
+    .builderGrid{
       position:absolute;
-      left: 12px;
-      bottom: 12px;
-      z-index: 4;
+      inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity:.15;
+      pointer-events:none;
+      mix-blend-mode: overlay;
+    }
+
+    .piece{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 62%;
+      max-width: 640px;
+      transform: translate(-50%, -50%);
+      cursor: grab;
+      will-change: transform;
+      transition: filter .15s ease, opacity .2s ease;
+      filter: drop-shadow(0 14px 28px rgba(0,0,0,.52));
+    }
+    .piece:active{ cursor: grabbing; }
+    .hidden{ opacity:0; pointer-events:none; }
+
+    .piece.active{
+      outline: 2px solid rgba(0,255,213,.45);
+      outline-offset: 6px;
+      filter: drop-shadow(0 18px 34px rgba(0,0,0,.62));
+    }
+
+    /* Painel lateral do montador */
+    .builderPanel{
+      width: 220px;
+      border-radius: 18px;
+      background: rgba(0,0,0,.22);
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 18px 60px rgba(0,0,0,.35);
+      backdrop-filter: blur(10px);
+      padding: 10px;
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+    }
+    @media(max-width: 980px){
+      .builderPanel{ width: 100%; }
+      .mediaInner{ flex-direction: column; }
+      .mediaBox{ height: auto; }
+      .builder{ height: 240px; }
+    }
+
+    .bpTitle{
+      font-weight: 1000;
+      font-size: 12px;
+      color: rgba(255,255,255,.92);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    .bpHint{
+      font-size: 12px;
+      color: rgba(255,255,255,.62);
+      line-height: 1.35;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(0,0,0,.18);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+
+    .layerList{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .layerRow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+      padding: 9px 10px;
+      border-radius: 14px;
+      background: rgba(0,0,0,.20);
+      border: 1px solid rgba(255,255,255,.10);
+      cursor:pointer;
+    }
+    .layerRow:hover{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.14);
+    }
+    .layerLeft{
       display:flex;
       align-items:center;
       gap:8px;
-      padding: 10px 12px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.35);
-      color: rgba(255,255,255,.92);
-      font-weight: 900;
-      cursor:pointer;
-      user-select:none;
-      box-shadow: 0 14px 35px rgba(0,0,0,.35);
-      backdrop-filter: blur(10px);
+      min-width: 0;
     }
-    .soundBtn:hover{ background: rgba(0,0,0,.45); }
-    .soundBtn:active{ transform: scale(.99); }
-    .soundBtn[disabled]{ opacity:.55; cursor:not-allowed; }
+    .dot{
+      width:10px; height:10px; border-radius:999px;
+      background: rgba(255,255,255,.22);
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: 0 10px 20px rgba(0,0,0,.35);
+      flex:0 0 auto;
+    }
+    .layerName{
+      font-size: 12px;
+      font-weight: 900;
+      color: rgba(255,255,255,.88);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
+    }
+    .layerRow.active{
+      outline: 2px solid rgba(0,255,213,.32);
+      outline-offset: 2px;
+      background: rgba(0,255,213,.10);
+    }
+    .miniBtn{
+      border:none;
+      cursor:pointer;
+      padding: 7px 9px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.9);
+      font-weight: 1000;
+      font-size: 12px;
+      user-select:none;
+    }
+    .miniBtn:active{ transform: scale(.99); }
+    .miniBtn[disabled]{ opacity:.55; cursor:not-allowed; }
+
+    .bpControls{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(0,0,0,.18);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    .ctrlRow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .ctrlLabel{
+      font-size:12px;
+      color: rgba(255,255,255,.75);
+      font-weight: 900;
+      white-space:nowrap;
+    }
+    input[type="range"]{
+      width:100%;
+      accent-color: #00ffd5;
+    }
+
+    .bpActions{
+      display:flex;
+      gap:10px;
+    }
+    .bpActions .miniBtn{
+      flex:1;
+      padding: 10px 10px;
+      border-radius: 14px;
+      font-size: 12px;
+    }
 
     .mediaCaption{
       padding: 12px 14px;
@@ -351,9 +522,7 @@
     }
 
     /* Painel */
-    .panel{
-      padding: 14px;
-    }
+    .panel{ padding: 14px; }
     .panel h2{
       margin: 2px 0 10px;
       font-size: 18px;
@@ -394,7 +563,6 @@
       justify-content:space-between;
       margin-top: 10px;
     }
-
     .toggle{
       display:flex;
       align-items:center;
@@ -427,7 +595,7 @@
     .switch.on{ background: rgba(0,255,213,.24); }
     .switch.on .knob{ left: 21px; background: rgba(255,255,255,.96); }
 
-    /* Versículo (maior) */
+    /* Versículo */
     .verseBox{
       margin-top: 12px;
       padding: 14px 14px;
@@ -465,11 +633,7 @@
       justify-content:space-between;
       gap: 10px;
     }
-    .sectionTitle h3{
-      margin:0;
-      font-size: 16px;
-      letter-spacing:.2px;
-    }
+    .sectionTitle h3{ margin:0; font-size: 16px; letter-spacing:.2px; }
     .badge{
       font-size: 12px;
       color: rgba(255,255,255,.65);
@@ -652,6 +816,7 @@
     }
     .side .line b{ color: rgba(255,255,255,.92); }
 
+    /* Assinatura */
     canvas{
       width:100%;
       height: 140px;
@@ -678,10 +843,11 @@
       font-size: 12px;
     }
 
+    /* responsivo */
     @media(max-width: 560px){
       .gradTitle{ font-size: 34px; }
-      .sloganBelow{ font-size: 14px; }
-      .logo{ width:54px; height:54px; }
+      .sloganBelow{ font-size: 16px; }
+      .logo{ width:150px; height:130px; }
     }
   </style>
 </head>
@@ -691,19 +857,16 @@
 
   <div class="wrap">
     <div class="floatingSlogan">
-      <span class="star">✨</span>
+      <span>✨</span>
       <span>Onde a imaginação vira festa</span>
     </div>
 
-    <!-- HEADER -->
     <div class="header" id="tiltHeader">
       <div class="headTop">
         <div class="brandCenter">
-
-          <!-- ✅ LOGO CORRIGIDO (com fallback FC e JS funcionando) -->
-          <div class="logo fallback" title="Logo" id="logoBox">
-            <img id="logoImg" alt="Faz de Conta Decorações" style="display:none"/>
-            <span id="logoFallbackText">FC</span>
+          <div class="logo" title="Logo" id="logoBox">
+            <img id="logoImg" alt="Faz de Conta Decorações"/>
+            <div class="logoFallback" id="logoFallbackText">FC</div>
           </div>
 
           <div style="min-width: 210px;">
@@ -713,7 +876,7 @@
         </div>
 
         <div class="metaRow">
-          <div class="chip">📍 <b id="cityChip">JACIARA/MT</b></div>
+          <div class="chip">📍 <b id="cityChip">Jaciara/MT</b></div>
           <div class="chip">💬 <b>WhatsApp:</b> <span id="whatsChip">(66) 99622-3481</span></div>
           <div class="chip">📅 <span id="today">--/--/----</span> • ⏰ <b id="clock">--:--</b></div>
         </div>
@@ -727,20 +890,57 @@
       </div>
     </div>
 
-    <!-- HERO -->
     <div class="hero">
       <div class="card" id="tiltBanner">
         <div class="mediaBox">
-          <div class="mediaInner" id="heroMedia"></div>
+          <div class="mediaInner">
+            <div class="builder" id="builder">
+              <img class="builderBase" id="builderBase" src="preview/base.jpg" alt="Base da montagem"/>
+              <div class="builderGrid"></div>
 
-          <button class="soundBtn" id="soundBtn" type="button" title="Tocar áudio 3 vezes (com intervalos)">
-            🔊 <span id="soundBtnLabel">Ativar som (3x)</span>
-          </button>
+              <img class="piece hidden" data-piece="cilindros" id="p-cilindros" src="preview/cilindros.png" alt="Cilindros"/>
+              <img class="piece hidden" data-piece="arco"      id="p-arco"      src="preview/arco.png"      alt="Arco"/>
+              <img class="piece hidden" data-piece="cortina"   id="p-cortina"   src="preview/cortina.png"   alt="Cortina LED"/>
+              <img class="piece hidden" data-piece="tapete"    id="p-tapete"    src="preview/tapete.png"    alt="Tapete"/>
+              <img class="piece hidden" data-piece="item"      id="p-item"      src="preview/item.png"      alt="Item decorativo"/>
+            </div>
+
+            <div class="builderPanel">
+              <div class="bpTitle">
+                <span>🧩 Montagem do Cliente</span>
+                <span style="opacity:.75;font-size:11px;">arraste/solte</span>
+              </div>
+
+              <div class="bpHint">
+                Selecione itens no catálogo e eles aparecem aqui. Toque no item da lista para editar, arraste no quadro para posicionar.
+              </div>
+
+              <div class="layerList" id="layerList"></div>
+
+              <div class="bpControls">
+                <div class="ctrlRow">
+                  <div class="ctrlLabel">Tamanho</div>
+                  <div style="min-width:64px;text-align:right;font-size:12px;color:rgba(255,255,255,.75);" id="scaleLabel">100%</div>
+                </div>
+                <input id="scaleRange" type="range" min="40" max="140" value="100"/>
+
+                <div class="ctrlRow">
+                  <button class="miniBtn" id="btnBack" type="button">⬇️ Camada</button>
+                  <button class="miniBtn" id="btnFront" type="button">⬆️ Camada</button>
+                </div>
+
+                <div class="bpActions">
+                  <button class="miniBtn" id="btnResetBuild" type="button">↩️ Reset</button>
+                  <button class="miniBtn" id="btnPrintHint" type="button">📸 Print</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="mediaCaption">
-          <span>📸 Banner do catálogo (vídeo automático se existir)</span>
-          <span style="opacity:.85">Dica: use <b>video-capa.mp4</b> ou <b>capa.jpg</b></span>
+          <span>✨ Monte sua decoração: arraste os itens no quadro</span>
+          <span style="opacity:.85">Arquivos: <b>preview/base.jpg</b> + <b>preview/*.png</b></span>
         </div>
       </div>
 
@@ -775,7 +975,6 @@
       </div>
     </div>
 
-    <!-- ITENS -->
     <div class="sectionTitle">
       <h3>✨ Itens do catálogo</h3>
       <div class="badge"><span id="itemsCount">0</span> itens</div>
@@ -786,7 +985,6 @@
     <div class="footer">© Faz de Conta Decorações • Catálogo</div>
   </div>
 
-  <!-- MODAL ITEM -->
   <div class="modalBack" id="modalItemBack">
     <div class="modal">
       <div class="modalHead">
@@ -826,7 +1024,6 @@
     </div>
   </div>
 
-  <!-- MODAL CONTRATO -->
   <div class="modalBack" id="modalContractBack">
     <div class="modal">
       <div class="modalHead">
@@ -869,10 +1066,7 @@
   const CONFIG = {
     whatsappNumber: "5566996223481",
     whatsappDisplay: "(66) 99622-3481",
-    cidade: "Jaciara/MT",
-    audioBurstSeconds: 6,
-    audioIntervalSeconds: 50,
-    audioTimes: 3
+    cidade: "Jaciara/MT"
   };
 
   // ========= ITENS =========
@@ -908,141 +1102,27 @@
   tick();
   setInterval(tick, 1000);
 
-  // ========= LOGO (aceita logo.png / logo.jpg / logo.jpeg / logo.webp) =========
+  // ========= LOGO (logo.png / logo.jpg / logo.jpeg / logo.webp) =========
   function loadLogo(){
     const img = el("logoImg");
     const box = el("logoBox");
-    const fb = el("logoFallbackText");
-
     const candidates = ["logo.png","logo.jpg","logo.jpeg","logo.webp"];
     let i = 0;
 
     function tryNext(){
       if(i >= candidates.length){
-        img.style.display = "none";
-        fb.style.display = "block";
         box.classList.add("fallback");
         return;
       }
       img.src = candidates[i++];
     }
 
-    img.onload = ()=>{
-      img.style.display = "block";
-      fb.style.display = "none";
-      box.classList.remove("fallback");
-    };
+    img.onload = ()=> box.classList.remove("fallback");
     img.onerror = tryNext;
 
     tryNext();
   }
   loadLogo();
-
-  // ========= HERO MEDIA (VIDEO > IMG) =========
-  let heroVideo = null;
-
-  function heroMedia(){
-    const box = el("heroMedia");
-    box.innerHTML = "";
-
-    const v = document.createElement("video");
-    v.src = "video-capa.mp4";
-    v.autoplay = true;
-    v.muted = true;
-    v.loop = true;
-    v.playsInline = true;
-    v.preload = "auto";
-
-    v.oncanplay = ()=>{
-      box.innerHTML = "";
-      box.appendChild(v);
-      heroVideo = v;
-    };
-
-    v.onerror = ()=>{
-      const img = document.createElement("img");
-      img.alt = "Capa";
-      img.src = "capa.jpg";
-      img.onerror = ()=> img.src = "capa.png";
-      box.innerHTML = "";
-      box.appendChild(img);
-      heroVideo = null;
-      el("soundBtn").style.display = "none";
-    };
-
-    box.appendChild(v);
-  }
-  heroMedia();
-
-  // ========= BOTÃO "ATIVAR SOM (3x)" =========
-  const soundBtn = el("soundBtn");
-  const soundBtnLabel = el("soundBtnLabel");
-
-  let audioRemaining = CONFIG.audioTimes;
-  let audioBusy = false;
-  let scheduleTimers = [];
-
-  function clearSchedule(){
-    scheduleTimers.forEach(t => clearTimeout(t));
-    scheduleTimers = [];
-  }
-
-  function setSoundLabel(){
-    soundBtnLabel.textContent = `Ativar som (${audioRemaining}x)`;
-    if(audioRemaining <= 0){
-      soundBtnLabel.textContent = "Som concluído";
-      soundBtn.setAttribute("disabled","disabled");
-    }
-  }
-  setSoundLabel();
-
-  function runAudioSchedule(){
-    if(!heroVideo) return;
-    if(audioBusy) return;
-    if(audioRemaining <= 0) return;
-
-    audioBusy = true;
-    clearSchedule();
-
-    const burstMs = Math.max(1000, CONFIG.audioBurstSeconds * 1000);
-    const intervalMs = Math.max(3000, CONFIG.audioIntervalSeconds * 1000);
-
-    heroVideo.play().catch(()=>{});
-
-    for(let n=0; n<CONFIG.audioTimes; n++){
-      const startAt = n * intervalMs;
-
-      scheduleTimers.push(setTimeout(()=>{
-        if(!heroVideo) return;
-        if(audioRemaining <= 0) return;
-        heroVideo.muted = false;
-        heroVideo.volume = 1;
-        heroVideo.play().catch(()=>{});
-      }, startAt));
-
-      scheduleTimers.push(setTimeout(()=>{
-        if(!heroVideo) return;
-        heroVideo.muted = true;
-
-        if(audioRemaining > 0){
-          audioRemaining--;
-          setSoundLabel();
-        }
-
-        if(n === CONFIG.audioTimes - 1){
-          audioBusy = false;
-          if(heroVideo) heroVideo.muted = true;
-        }
-      }, startAt + burstMs));
-    }
-  }
-
-  soundBtn.addEventListener("click", ()=>{
-    if(!heroVideo) return;
-    if(audioRemaining <= 0) return;
-    heroVideo.muted = true;
-    runAudioSchedule();
-  });
 
   // ========= FILTROS / PREÇOS =========
   let showPrices = false;
@@ -1077,7 +1157,6 @@
     render();
   });
 
-  // ========= CATEGORIAS =========
   function buildCats(){
     const s = new Set(ITENS.map(i=>i.cat));
     const sel = el("cat");
@@ -1089,7 +1168,6 @@
   }
   buildCats();
 
-  // ========= RENDER GRID =========
   function passFilter(item){
     const okCat = (state.cat === "Todas") || (item.cat === state.cat);
     const t = (item.nome + " " + item.desc + " " + item.cat).toLowerCase();
@@ -1159,6 +1237,7 @@
     });
 
     el("cartCount").textContent = [...state.cart.values()].reduce((a,b)=>a+b,0);
+    updateBuilderFromCart();
   }
   render();
 
@@ -1224,7 +1303,6 @@
     currentMediaList = mediaListFor(currentItem);
     mediaIndex = 0;
     renderViewer();
-
     el("modalItemBack").style.display = "flex";
   }
 
@@ -1380,13 +1458,11 @@
     { ref:"Mateus 11:28", text:"Vinde a mim, todos os que estais cansados e oprimidos, e eu vos aliviarei." },
     { ref:"João 14:27", text:"Deixo-vos a paz, a minha paz vos dou; não vo-la dou como o mundo a dá." }
   ];
-
   function dayOfYear(d){
     const start = new Date(d.getFullYear(), 0, 0);
     const diff = d - start;
     return Math.floor(diff / 86400000);
   }
-
   function setVerseOfDay(){
     const d = new Date();
     const idx = dayOfYear(d) % VERSES.length;
@@ -1395,6 +1471,235 @@
     el("verseRef").textContent = v.ref;
   }
   setVerseOfDay();
+
+  // ========= MONTADOR (arrastar + camadas + tamanho) =========
+  const builder = el("builder");
+  const pieces = [...document.querySelectorAll(".piece")];
+  const layerList = el("layerList");
+  const scaleRange = el("scaleRange");
+  const scaleLabel = el("scaleLabel");
+  const btnFront = el("btnFront");
+  const btnBack = el("btnBack");
+  const btnResetBuild = el("btnResetBuild");
+  const btnPrintHint = el("btnPrintHint");
+
+  const prettyName = {
+    cilindros: "Cilindros",
+    arco: "Arco",
+    cortina: "Cortina LED",
+    tapete: "Tapete",
+    item: "Item decorativo"
+  };
+
+  // posições iniciais (relativas)
+  const defaultPos = {
+    cortina:   { rx: 0.00, ry: -0.02, s: 1.00, z: 1 },
+    arco:      { rx: 0.00, ry: -0.10, s: 0.92, z: 3 },
+    cilindros: { rx: 0.00, ry:  0.18, s: 0.62, z: 4 },
+    tapete:    { rx: 0.00, ry:  0.30, s: 0.92, z: 2 },
+    item:      { rx: 0.20, ry:  0.18, s: 0.35, z: 5 }
+  };
+
+  function applyPieceTransform(img){
+    const x = Number(img.dataset.x || 0);
+    const y = Number(img.dataset.y || 0);
+    const s = Number(img.dataset.s || 1);
+    img.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) scale(${s})`;
+  }
+
+  function syncRelativeToPixels(){
+    const r = builder.getBoundingClientRect();
+    pieces.forEach(img=>{
+      const rx = Number(img.dataset.rx || 0);
+      const ry = Number(img.dataset.ry || 0);
+      img.dataset.x = rx * r.width;
+      img.dataset.y = ry * r.height;
+      applyPieceTransform(img);
+    });
+  }
+
+  window.addEventListener("resize", ()=>{ syncRelativeToPixels(); });
+
+  function resetBuilder(){
+    pieces.forEach(img=>{
+      const key = img.dataset.piece;
+      const d = defaultPos[key] || {rx:0,ry:0,s:1,z:1};
+      img.dataset.rx = d.rx;
+      img.dataset.ry = d.ry;
+      img.dataset.s = d.s;
+      img.style.zIndex = String(d.z);
+    });
+    syncRelativeToPixels();
+    setActivePiece(null);
+    updateLayerUI();
+    scaleRange.value = "100";
+    scaleLabel.textContent = "100%";
+  }
+
+  // monta lista de camadas
+  function updateLayerUI(){
+    layerList.innerHTML = "";
+    const visible = pieces.filter(p=>!p.classList.contains("hidden"));
+    visible
+      .sort((a,b)=>Number(a.style.zIndex||0) - Number(b.style.zIndex||0))
+      .forEach(p=>{
+        const key = p.dataset.piece;
+
+        const row = document.createElement("div");
+        row.className = "layerRow" + (activePiece===p ? " active" : "");
+        row.addEventListener("click", ()=> setActivePiece(p));
+
+        const left = document.createElement("div");
+        left.className = "layerLeft";
+
+        const dot = document.createElement("div");
+        dot.className = "dot";
+        dot.style.background = (key==="arco") ? "rgba(255,217,74,.35)"
+                          : (key==="cilindros") ? "rgba(0,255,213,.25)"
+                          : (key==="tapete") ? "rgba(122,66,255,.25)"
+                          : (key==="cortina") ? "rgba(255,75,216,.25)"
+                          : "rgba(255,255,255,.18)";
+
+        const nm = document.createElement("div");
+        nm.className = "layerName";
+        nm.textContent = prettyName[key] || key;
+
+        left.appendChild(dot);
+        left.appendChild(nm);
+
+        const eye = document.createElement("button");
+        eye.className = "miniBtn";
+        eye.type = "button";
+        eye.textContent = "👁";
+        eye.title = "Mostrar/ocultar";
+        eye.addEventListener("click",(e)=>{
+          e.stopPropagation();
+          const hidden = p.style.opacity === "0";
+          p.style.opacity = hidden ? "" : "0";
+          p.style.pointerEvents = hidden ? "" : "none";
+        });
+
+        row.appendChild(left);
+        row.appendChild(eye);
+        layerList.appendChild(row);
+      });
+
+    // se não tem nada no carrinho
+    if(visible.length === 0){
+      const hint = document.createElement("div");
+      hint.className = "bpHint";
+      hint.textContent = "Adicione itens no catálogo para aparecerem aqui na montagem.";
+      layerList.appendChild(hint);
+    }
+  }
+
+  // mostrar/ocultar peças conforme carrinho
+  function updateBuilderFromCart(){
+    pieces.forEach(img=>{
+      const key = img.dataset.piece;
+      const has = (state.cart.get(key) || 0) > 0;
+      img.classList.toggle("hidden", !has);
+      // se voltou a aparecer, restaura opacity/pointer
+      if(has){
+        img.style.opacity = "";
+        img.style.pointerEvents = "";
+      }
+    });
+
+    // garante que item ativo não sumiu
+    if(activePiece && activePiece.classList.contains("hidden")){
+      setActivePiece(null);
+    }
+    updateLayerUI();
+  }
+
+  // seleção ativa
+  let activePiece = null;
+  function setActivePiece(img){
+    pieces.forEach(p=>p.classList.remove("active"));
+    activePiece = img;
+    if(img){
+      img.classList.add("active");
+      const s = Number(img.dataset.s || 1);
+      const pct = Math.round(s * 100);
+      scaleRange.value = String(pct);
+      scaleLabel.textContent = pct + "%";
+    }
+    updateLayerUI();
+  }
+
+  // drag pointer
+  let dragging = false;
+  let startX=0, startY=0, baseX=0, baseY=0;
+
+  builder.addEventListener("pointerdown",(e)=>{
+    const img = e.target.closest(".piece");
+    if(!img || img.classList.contains("hidden")) return;
+    dragging = true;
+    setActivePiece(img);
+    img.setPointerCapture?.(e.pointerId);
+
+    startX = e.clientX;
+    startY = e.clientY;
+    baseX = Number(img.dataset.x || 0);
+    baseY = Number(img.dataset.y || 0);
+  });
+
+  builder.addEventListener("pointermove",(e)=>{
+    if(!dragging || !activePiece) return;
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+
+    const r = builder.getBoundingClientRect();
+    const nx = Math.max(-r.width*0.46, Math.min(r.width*0.46, baseX + dx));
+    const ny = Math.max(-r.height*0.46, Math.min(r.height*0.46, baseY + dy));
+
+    activePiece.dataset.x = nx;
+    activePiece.dataset.y = ny;
+    activePiece.dataset.rx = nx / r.width;
+    activePiece.dataset.ry = ny / r.height;
+    applyPieceTransform(activePiece);
+  });
+
+  window.addEventListener("pointerup", ()=>{ dragging = false; });
+
+  // escala
+  scaleRange.addEventListener("input", ()=>{
+    if(!activePiece) return;
+    const pct = Number(scaleRange.value || 100);
+    const s = pct / 100;
+    activePiece.dataset.s = s;
+    scaleLabel.textContent = pct + "%";
+    applyPieceTransform(activePiece);
+  });
+
+  // camadas
+  function bringFront(){
+    if(!activePiece) return;
+    const maxZ = Math.max(...pieces.map(p=>Number(p.style.zIndex||0)));
+    activePiece.style.zIndex = String(maxZ + 1);
+    updateLayerUI();
+  }
+  function sendBack(){
+    if(!activePiece) return;
+    const minZ = Math.min(...pieces.map(p=>Number(p.style.zIndex||0)));
+    activePiece.style.zIndex = String(minZ - 1);
+    updateLayerUI();
+  }
+  btnFront.addEventListener("click", bringFront);
+  btnBack.addEventListener("click", sendBack);
+
+  btnResetBuild.addEventListener("click", ()=> resetBuilder());
+  btnPrintHint.addEventListener("click", ()=> alert("Dica: tire um print (captura de tela) para salvar a montagem e enviar no WhatsApp 🙂"));
+
+  // inicializa montador
+  resetBuilder();
+  updateBuilderFromCart();
+
+  // ========= IMPORTANTE: atualiza montador quando mexe no carrinho do modal =========
+  // (o render() já chama updateBuilderFromCart, mas isso garante instantâneo)
+  el("addCart").addEventListener("click", ()=> setTimeout(updateBuilderFromCart, 0));
+  el("removeCart").addEventListener("click", ()=> setTimeout(updateBuilderFromCart, 0));
 </script>
 
 </body>
