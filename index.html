@@ -34,7 +34,6 @@
       overflow-x:hidden;
     }
 
-    /* brilho discreto */
     .spark{
       position:fixed; inset:0; pointer-events:none; opacity:.55;
       background:
@@ -51,7 +50,6 @@
       margin: 18px auto 48px;
     }
 
-    /* SLOGAN FIXO (CANTO SUPERIOR ESQUERDO) */
     .floatingSlogan{
       position: sticky;
       top: 10px;
@@ -69,10 +67,9 @@
       display:flex;
       align-items:center;
       gap:8px;
-      backdrop-filter: blur(10px);
     }
+    .floatingSlogan .star{ filter: drop-shadow(0 6px 14px rgba(0,0,0,.55)); }
 
-    /* HEADER */
     .header{
       display:flex;
       flex-direction:column;
@@ -86,20 +83,20 @@
       overflow:hidden;
       position:relative;
     }
+
     .header::before{
       content:"";
       position:absolute; inset:-2px;
-      background:
-        radial-gradient(700px 200px at 20% 10%, rgba(255,255,255,.10), transparent 55%),
-        radial-gradient(600px 240px at 80% 0%, rgba(0,255,213,.12), transparent 55%);
+      background: radial-gradient(700px 200px at 20% 10%, rgba(255,255,255,.10), transparent 55%),
+                  radial-gradient(600px 240px at 80% 0%, rgba(0,255,213,.12), transparent 55%);
       opacity:.65;
       pointer-events:none;
     }
 
     .headTop{
       display:flex;
-      gap:14px;
-      align-items:center;
+      gap:18px;
+      align-items:flex-start;
       justify-content:space-between;
       flex-wrap:wrap;
       position:relative;
@@ -108,15 +105,15 @@
 
     .brandCenter{
       flex: 1;
-      min-width: 280px;
+      min-width: 320px;
       display:flex;
       align-items:center;
-      justify-content:center;
+      justify-content:flex-start;
       gap:14px;
     }
 
     .logo{
-      width:190px; height:170px;
+      width:160px; height:140px;
       border-radius: 18px;
       background: rgba(0,0,0,.25);
       border:1px solid rgba(255,255,255,.12);
@@ -127,36 +124,24 @@
       display:flex;
       align-items:center;
       justify-content:center;
+      font-weight: 1000;
+      letter-spacing:.5px;
+      color: rgba(255,255,255,.85);
     }
     .logo img{
-      width:100%;
-      height:100%;
+      width:100%; height:100%;
       object-fit: cover;
       display:block;
     }
-    .logoFallback{
-      display:none;
-      font-weight: 1000;
-      letter-spacing:.6px;
-      color: rgba(255,255,255,.88);
-      text-shadow: 0 12px 24px rgba(0,0,0,.55);
-      background: linear-gradient(135deg, rgba(255,75,216,.25), rgba(0,255,213,.18));
-      width:100%;
-      height:100%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-    .logo.fallback .logoFallback{ display:flex; }
-    .logo.fallback img{ display:none; }
 
     .gradTitle{
       font-weight: 1000;
       font-size: 44px;
       line-height: 1.05;
-      text-align:center;
+      text-align:left;
       letter-spacing: .6px;
       text-transform: uppercase;
+
       background: linear-gradient(
         90deg,
         #ff4bd8 0%,
@@ -181,356 +166,31 @@
 
     .sloganBelow{
       margin-top: 6px;
-      text-align:center;
-      font-size: 18px; /* AQUI você aumenta/diminui */
+      text-align:left;
+      font-size: 17px;
       font-weight: 900;
       color: rgba(255,255,255,.92);
-      letter-spacing:.3px;
+      letter-spacing:.2px;
       text-shadow: 0 10px 26px rgba(0,0,0,.45);
     }
 
-    /* meta (EMPILHADO) */
-    .metaRow{
-      display: flex;
-      flex-direction: column;     /* um embaixo do outro */
-      gap: 10px;
-      align-items: flex-end;      /* colado à direita */
-      min-width: 260px;
-      position:relative;
-      z-index:1;
-    }
-    .chip{
-      display:inline-flex;
-      gap:8px;
-      align-items:center;
-      padding:8px 10px;
-      border-radius: 999px;
-      background: rgba(0,0,0,.22);
-      border:1px solid rgba(255,255,255,.12);
-      color: rgba(255,255,255,.78);
-      font-size: 12px;
-      white-space:nowrap;
-      box-shadow: 0 10px 26px rgba(0,0,0,.25);
-      backdrop-filter: blur(10px);
-    }
-
-    .actions{
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: flex-start;
-      margin-right: auto;
-      position:relative;
-      z-index:1;
-    }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      border:none;
-      cursor:pointer;
-      color: rgba(255,255,255,.92);
-      background: rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.14);
-      padding: 10px 12px;
-      border-radius: 14px;
-      font-weight: 800;
-      font-size: 13px;
-      box-shadow: 0 14px 35px rgba(0,0,0,.28);
-      transition: transform .15s ease, background .15s ease, border-color .15s ease;
-      user-select:none;
-    }
-    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.11); border-color: rgba(255,255,255,.18); }
-    .btn:active{ transform: translateY(0px) scale(.99); }
-    .btn.primary{
-      background: linear-gradient(90deg, rgba(255,75,216,.38), rgba(0,255,213,.26), rgba(255,217,74,.24));
-      border-color: rgba(255,255,255,.18);
-    }
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-width: 28px;
-      height: 22px;
-      padding: 0 8px;
-      border-radius: 999px;
-      background: rgba(0,0,0,.28);
-      border:1px solid rgba(255,255,255,.14);
-      font-weight: 1000;
-      font-size: 12px;
-      margin-left: 6px;
-    }
-
-    /* HERO */
-    .hero{
-      margin-top: 14px;
-      display:grid;
-      grid-template-columns: 1.25fr .95fr;
-      gap: 14px;
-      align-items:stretch;
-    }
-    @media(max-width: 980px){
-      .hero{ grid-template-columns: 1fr; }
-    }
-
-    .card{
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
-      border:1px solid var(--stroke);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-      overflow:hidden;
-      position:relative;
-    }
-
-    /* QUADRO (montador) */
-    .mediaBox{
-      height: 240px; /* aqui controla a altura do quadro */
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background: rgba(0,0,0,.22);
-      border-bottom: 1px solid rgba(255,255,255,.10);
-      position:relative;
-      padding: 10px;
-    }
-    @media(max-width:900px){
-      .mediaBox{ height: 210px; }
-    }
-
-    .mediaInner{
-      width:100%;
-      height:100%;
-      display:flex;
-      align-items:stretch;
-      justify-content:center;
-      gap: 10px;
-    }
-
-    /* MONTADOR PROFISSIONAL */
-    .builder{
-      position: relative;
-      flex: 1;
+    .panelTop{
+      width: 340px;
+      max-width: 100%;
       border-radius: 18px;
-      overflow: hidden;
-      background:
-        radial-gradient(900px 300px at 20% 10%, rgba(255,255,255,.10), transparent 60%),
-        radial-gradient(700px 300px at 80% 0%, rgba(0,255,213,.10), transparent 55%),
-        rgba(0,0,0,.25);
-      border: 1px solid rgba(255,255,255,.12);
-      box-shadow: 0 18px 60px rgba(0,0,0,.45);
-      user-select: none;
-      touch-action: none;
-    }
-
-    .builderBase{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      object-fit: cover;
-      filter: contrast(1.05) saturate(1.05);
-      opacity: .98;
-    }
-
-    /* Grade sutil */
-    .builderGrid{
-      position:absolute;
-      inset:0;
-      background-image:
-        linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
-      background-size: 28px 28px;
-      opacity:.15;
-      pointer-events:none;
-      mix-blend-mode: overlay;
-    }
-
-    .piece{
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 62%;
-      max-width: 640px;
-      transform: translate(-50%, -50%);
-      cursor: grab;
-      will-change: transform;
-      transition: filter .15s ease, opacity .2s ease;
-      filter: drop-shadow(0 14px 28px rgba(0,0,0,.52));
-    }
-    .piece:active{ cursor: grabbing; }
-    .hidden{ opacity:0; pointer-events:none; }
-
-    .piece.active{
-      outline: 2px solid rgba(0,255,213,.45);
-      outline-offset: 6px;
-      filter: drop-shadow(0 18px 34px rgba(0,0,0,.62));
-    }
-
-    /* Painel lateral do montador */
-    .builderPanel{
-      width: 220px;
-      border-radius: 18px;
-      background: rgba(0,0,0,.22);
-      border: 1px solid rgba(255,255,255,.12);
-      box-shadow: 0 18px 60px rgba(0,0,0,.35);
-      backdrop-filter: blur(10px);
-      padding: 10px;
-      display:flex;
-      flex-direction:column;
-      gap: 10px;
-    }
-    @media(max-width: 980px){
-      .builderPanel{ width: 100%; }
-      .mediaInner{ flex-direction: column; }
-      .mediaBox{ height: auto; }
-      .builder{ height: 240px; }
-    }
-
-    .bpTitle{
-      font-weight: 1000;
-      font-size: 12px;
-      color: rgba(255,255,255,.92);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.10);
-    }
-    .bpHint{
-      font-size: 12px;
-      color: rgba(255,255,255,.62);
-      line-height: 1.35;
-      padding: 10px 12px;
-      border-radius: 14px;
-      background: rgba(0,0,0,.18);
-      border: 1px solid rgba(255,255,255,.10);
-    }
-
-    .layerList{
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-    }
-    .layerRow{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:8px;
-      padding: 9px 10px;
-      border-radius: 14px;
       background: rgba(0,0,0,.20);
-      border: 1px solid rgba(255,255,255,.10);
-      cursor:pointer;
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow: 0 14px 35px rgba(0,0,0,.25);
+      padding: 14px;
     }
-    .layerRow:hover{
-      background: rgba(255,255,255,.06);
-      border-color: rgba(255,255,255,.14);
-    }
-    .layerLeft{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      min-width: 0;
-    }
-    .dot{
-      width:10px; height:10px; border-radius:999px;
-      background: rgba(255,255,255,.22);
-      border: 1px solid rgba(255,255,255,.18);
-      box-shadow: 0 10px 20px rgba(0,0,0,.35);
-      flex:0 0 auto;
-    }
-    .layerName{
-      font-size: 12px;
-      font-weight: 900;
-      color: rgba(255,255,255,.88);
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow: ellipsis;
-    }
-    .layerRow.active{
-      outline: 2px solid rgba(0,255,213,.32);
-      outline-offset: 2px;
-      background: rgba(0,255,213,.10);
-    }
-    .miniBtn{
-      border:none;
-      cursor:pointer;
-      padding: 7px 9px;
-      border-radius: 12px;
-      background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.12);
-      color: rgba(255,255,255,.9);
-      font-weight: 1000;
-      font-size: 12px;
-      user-select:none;
-    }
-    .miniBtn:active{ transform: scale(.99); }
-    .miniBtn[disabled]{ opacity:.55; cursor:not-allowed; }
-
-    .bpControls{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      background: rgba(0,0,0,.18);
-      border: 1px solid rgba(255,255,255,.10);
-    }
-    .ctrlRow{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-    }
-    .ctrlLabel{
-      font-size:12px;
-      color: rgba(255,255,255,.75);
-      font-weight: 900;
-      white-space:nowrap;
-    }
-    input[type="range"]{
-      width:100%;
-      accent-color: #00ffd5;
-    }
-
-    .bpActions{
-      display:flex;
-      gap:10px;
-    }
-    .bpActions .miniBtn{
-      flex:1;
-      padding: 10px 10px;
-      border-radius: 14px;
-      font-size: 12px;
-    }
-
-    .mediaCaption{
-      padding: 12px 14px;
-      color: rgba(255,255,255,.72);
-      font-size: 12px;
-      display:flex;
-      justify-content:space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    /* Painel */
-    .panel{ padding: 14px; }
-    .panel h2{
-      margin: 2px 0 10px;
+    .panelTop h2{
+      margin:0 0 8px;
       font-size: 18px;
       letter-spacing:.2px;
     }
-    .panel p{
-      margin: 0 0 10px;
-      color: var(--muted);
+    .panelTop p{
+      margin:0 0 12px;
+      color: rgba(255,255,255,.70);
       font-size: 13px;
       line-height:1.35;
     }
@@ -563,6 +223,7 @@
       justify-content:space-between;
       margin-top: 10px;
     }
+
     .toggle{
       display:flex;
       align-items:center;
@@ -595,37 +256,173 @@
     .switch.on{ background: rgba(0,255,213,.24); }
     .switch.on .knob{ left: 21px; background: rgba(255,255,255,.96); }
 
-    /* Versículo */
-    .verseBox{
-      margin-top: 12px;
-      padding: 14px 14px;
-      border-radius: 16px;
-      background: rgba(0,0,0,.22);
-      border:1px solid rgba(255,255,255,.12);
-      color: rgba(255,255,255,.86);
-    }
-    .verseTitle{
-      font-weight: 1000;
-      margin-bottom: 8px;
-      display:flex;
+    .btn{
+      display:inline-flex;
       align-items:center;
-      gap:8px;
-    }
-    .verseText{
-      color: rgba(255,255,255,.78);
-      line-height: 1.45;
+      justify-content:center;
+      gap:10px;
+      border:none;
+      cursor:pointer;
+      color: rgba(255,255,255,.92);
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.14);
+      padding: 10px 12px;
+      border-radius: 14px;
+      font-weight: 800;
       font-size: 13px;
-      margin:0;
+      box-shadow: 0 14px 35px rgba(0,0,0,.28);
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      user-select:none;
     }
-    .verseRef{
-      margin-top: 8px;
-      font-weight: 900;
-      color: rgba(255,255,255,.9);
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.11); border-color: rgba(255,255,255,.18); }
+    .btn.primary{
+      background: linear-gradient(90deg, rgba(255,75,216,.38), rgba(0,255,213,.26), rgba(255,217,74,.24));
+      border-color: rgba(255,255,255,.18);
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width: 28px;
+      height: 22px;
+      padding: 0 8px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.28);
+      border:1px solid rgba(255,255,255,.14);
+      font-weight: 1000;
       font-size: 12px;
-      opacity:.92;
+      margin-left: 6px;
     }
 
-    /* ITENS */
+    .actions{
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-start;
+      margin-top: 8px;
+      position:relative;
+      z-index:1;
+    }
+
+    /* ====== QUADRO GRANDE DE MONTAGEM ====== */
+    .builderWrap{
+      margin-top: 14px;
+      display:grid;
+      grid-template-columns: 1fr 340px;
+      gap: 14px;
+      align-items: stretch;
+    }
+    @media(max-width: 980px){
+      .builderWrap{ grid-template-columns: 1fr; }
+    }
+
+    .card{
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+      border:1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .builder{
+      height: 520px;
+      background: rgba(0,0,0,.22);
+      border-bottom: 1px solid rgba(255,255,255,.10);
+      position:relative;
+      border-radius: var(--radius);
+      overflow:hidden;
+    }
+    .builderBase{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      opacity:.95;
+      filter: saturate(1.05) contrast(1.05);
+      pointer-events:none;
+      user-select:none;
+    }
+
+    .piece{
+      position:absolute;
+      top: 40%;
+      left: 40%;
+      width: 180px;
+      transform: translate(-50%,-50%);
+      cursor: grab;
+      user-select:none;
+      touch-action:none;
+      filter: drop-shadow(0 18px 28px rgba(0,0,0,.55));
+      border-radius: 14px;
+    }
+    .piece:active{ cursor: grabbing; }
+    .hidden{ display:none; }
+
+    .builderSide{
+      padding: 14px;
+    }
+    .bpTitle{
+      font-size: 16px;
+      font-weight: 1000;
+      margin: 2px 0 10px;
+    }
+
+    .layerItem{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:10px 12px;
+      border-radius: 14px;
+      background: rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.10);
+      margin-bottom: 8px;
+      cursor:pointer;
+    }
+    .layerItem.active{
+      border-color: rgba(0,255,213,.35);
+      box-shadow: 0 10px 26px rgba(0,0,0,.25);
+    }
+    .layerItem b{ font-size: 13px; }
+    .layerItem small{ color: rgba(255,255,255,.65); }
+
+    .bpControls{
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(0,0,0,.20);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .ctrlLabel{
+      font-weight: 900;
+      font-size: 12px;
+      color: rgba(255,255,255,.75);
+      margin-bottom: 8px;
+    }
+    input[type="range"]{ width:100%; }
+
+    .miniBtns{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+      margin-top: 10px;
+    }
+    .miniBtn{
+      width:100%;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.08);
+      color: rgba(255,255,255,.92);
+      font-weight: 900;
+      cursor:pointer;
+    }
+    .miniBtn:hover{ background: rgba(255,255,255,.11); }
+
     .sectionTitle{
       margin: 18px 0 10px;
       display:flex;
@@ -633,7 +430,11 @@
       justify-content:space-between;
       gap: 10px;
     }
-    .sectionTitle h3{ margin:0; font-size: 16px; letter-spacing:.2px; }
+    .sectionTitle h3{
+      margin:0;
+      font-size: 16px;
+      letter-spacing:.2px;
+    }
     .badge{
       font-size: 12px;
       color: rgba(255,255,255,.65);
@@ -695,147 +496,6 @@
       border:1px solid rgba(255,255,255,.10);
     }
 
-    /* MODAL */
-    .modalBack{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,.6);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding: 16px;
-      z-index: 999;
-    }
-    .modal{
-      width: min(960px, 96vw);
-      border-radius: 22px;
-      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
-      border:1px solid rgba(255,255,255,.16);
-      box-shadow: 0 25px 90px rgba(0,0,0,.7);
-      overflow:hidden;
-      backdrop-filter: blur(12px);
-    }
-    .modalHead{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-      padding: 12px 14px;
-      border-bottom:1px solid rgba(255,255,255,.10);
-    }
-    .modalHead strong{ font-size: 14px; }
-    .x{
-      border:none;
-      width: 40px; height: 40px;
-      border-radius: 14px;
-      background: rgba(0,0,0,.25);
-      border:1px solid rgba(255,255,255,.12);
-      color: rgba(255,255,255,.88);
-      font-weight: 1000;
-      cursor:pointer;
-    }
-    .modalBody{
-      display:grid;
-      grid-template-columns: 1.35fr .65fr;
-      gap: 12px;
-      padding: 12px;
-    }
-    @media(max-width: 900px){ .modalBody{ grid-template-columns: 1fr; } }
-
-    .viewer{
-      border-radius: 18px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.22);
-      min-height: 280px;
-      position:relative;
-    }
-    .viewer img, .viewer video{
-      width:100%; height:100%;
-      object-fit: cover;
-      display:block;
-    }
-    .navBtn{
-      position:absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 44px; height: 44px;
-      border-radius: 16px;
-      background: rgba(0,0,0,.28);
-      border:1px solid rgba(255,255,255,.14);
-      color: rgba(255,255,255,.92);
-      cursor:pointer;
-      font-weight: 1000;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      user-select:none;
-    }
-    .navPrev{ left: 10px; }
-    .navNext{ right: 10px; }
-
-    .thumbs{
-      display:grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      margin-top: 10px;
-    }
-    .thumbs button{
-      padding:0;
-      border:none;
-      background: transparent;
-      cursor:pointer;
-    }
-    .mini{
-      height: 64px;
-      border-radius: 14px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.22);
-      opacity: .85;
-      transition: opacity .15s ease, transform .15s ease;
-    }
-    .mini img{ width:100%; height:100%; object-fit: cover; display:block; }
-    .thumbs button.active .mini{
-      opacity: 1;
-      transform: translateY(-1px);
-      border-color: rgba(0,255,213,.28);
-    }
-
-    .side{
-      padding: 12px;
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
-      height: 100%;
-    }
-    .side .line{
-      color: rgba(255,255,255,.70);
-      font-size: 13px;
-      margin-bottom: 10px;
-      line-height:1.35;
-    }
-    .side .line b{ color: rgba(255,255,255,.92); }
-
-    /* Assinatura */
-    canvas{
-      width:100%;
-      height: 140px;
-      background: rgba(0,0,0,.22);
-      border:1px solid rgba(255,255,255,.12);
-      border-radius: 14px;
-      display:block;
-      touch-action: none;
-    }
-    .checkRow{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      margin-top: 10px;
-      font-size: 12px;
-      color: rgba(255,255,255,.70);
-    }
-    .checkRow input{ margin-top: 2px; }
-
     .footer{
       margin-top: 18px;
       text-align:center;
@@ -843,11 +503,12 @@
       font-size: 12px;
     }
 
-    /* responsivo */
     @media(max-width: 560px){
       .gradTitle{ font-size: 34px; }
-      .sloganBelow{ font-size: 16px; }
-      .logo{ width:150px; height:130px; }
+      .sloganBelow{ font-size: 15px; }
+      .logo{ width:120px; height:110px; }
+      .builder{ height: 420px; }
+      .piece{ width: 150px; }
     }
   </style>
 </head>
@@ -857,126 +518,95 @@
 
   <div class="wrap">
     <div class="floatingSlogan">
-      <span>✨</span>
+      <span class="star">✨</span>
       <span>Onde a imaginação vira festa</span>
     </div>
 
-    <div class="header" id="tiltHeader">
+    <div class="header">
       <div class="headTop">
         <div class="brandCenter">
-          <div class="logo" title="Logo" id="logoBox">
-            <img id="logoImg" alt="Faz de Conta Decorações"/>
-            <div class="logoFallback" id="logoFallbackText">FC</div>
+          <div class="logo" title="Logo">
+            <img src="logo.png" alt="Faz de Conta Decorações">
           </div>
 
-          <div style="min-width: 210px;">
+          <div>
             <div class="gradTitle">FAZ DE CONTA DECORAÇÕES</div>
             <div class="sloganBelow">✨ Onde a imaginação vira festa</div>
-          </div>
-        </div>
 
-        <div class="metaRow">
-          <div class="chip">📍 <b id="cityChip">Jaciara/MT</b></div>
-          <div class="chip">💬 <b>WhatsApp:</b> <span id="whatsChip">(66) 99622-3481</span></div>
-          <div class="chip">📅 <span id="today">--/--/----</span> • ⏰ <b id="clock">--:--</b></div>
-        </div>
-      </div>
-
-      <div class="actions">
-        <button class="btn" id="btnWhats">💬 WhatsApp</button>
-        <button class="btn" id="btnCart">🛒 Carrinho <span class="pill" id="cartCount">0</span></button>
-        <button class="btn" id="btnContract">📝 Contrato</button>
-        <button class="btn primary" id="btnFinish">✅ Finalizar (Pix)</button>
-      </div>
-    </div>
-
-    <div class="hero">
-      <div class="card" id="tiltBanner">
-        <div class="mediaBox">
-          <div class="mediaInner">
-            <div class="builder" id="builder">
-              <img class="builderBase" id="builderBase" src="preview/base.jpg" alt="Base da montagem"/>
-              <div class="builderGrid"></div>
-
-              <img class="piece hidden" data-piece="cilindros" id="p-cilindros" src="preview/cilindros.png" alt="Cilindros"/>
-              <img class="piece hidden" data-piece="arco"      id="p-arco"      src="preview/arco.png"      alt="Arco"/>
-              <img class="piece hidden" data-piece="cortina"   id="p-cortina"   src="preview/cortina.png"   alt="Cortina LED"/>
-              <img class="piece hidden" data-piece="tapete"    id="p-tapete"    src="preview/tapete.png"    alt="Tapete"/>
-              <img class="piece hidden" data-piece="item"      id="p-item"      src="preview/item.png"      alt="Item decorativo"/>
-            </div>
-
-            <div class="builderPanel">
-              <div class="bpTitle">
-                <span>🧩 Montagem do Cliente</span>
-                <span style="opacity:.75;font-size:11px;">arraste/solte</span>
-              </div>
-
-              <div class="bpHint">
-                Selecione itens no catálogo e eles aparecem aqui. Toque no item da lista para editar, arraste no quadro para posicionar.
-              </div>
-
-              <div class="layerList" id="layerList"></div>
-
-              <div class="bpControls">
-                <div class="ctrlRow">
-                  <div class="ctrlLabel">Tamanho</div>
-                  <div style="min-width:64px;text-align:right;font-size:12px;color:rgba(255,255,255,.75);" id="scaleLabel">100%</div>
-                </div>
-                <input id="scaleRange" type="range" min="40" max="140" value="100"/>
-
-                <div class="ctrlRow">
-                  <button class="miniBtn" id="btnBack" type="button">⬇️ Camada</button>
-                  <button class="miniBtn" id="btnFront" type="button">⬆️ Camada</button>
-                </div>
-
-                <div class="bpActions">
-                  <button class="miniBtn" id="btnResetBuild" type="button">↩️ Reset</button>
-                  <button class="miniBtn" id="btnPrintHint" type="button">📸 Print</button>
-                </div>
-              </div>
+            <div class="actions">
+              <button class="btn" id="btnWhats">💬 WhatsApp</button>
+              <button class="btn" id="btnCart">🛒 Carrinho <span class="pill" id="cartCount">0</span></button>
+              <button class="btn" id="btnContract">📝 Contrato</button>
+              <button class="btn primary" id="btnFinish">✅ Finalizar (Pix)</button>
             </div>
           </div>
         </div>
 
-        <div class="mediaCaption">
-          <span>✨ Monte sua decoração: arraste os itens no quadro</span>
-          <span style="opacity:.85">Arquivos: <b>preview/base.jpg</b> + <b>preview/*.png</b></span>
-        </div>
-      </div>
+        <!-- MONTE SEU PEDIDO (AGORA NO TOPO DIREITO) -->
+        <div class="panelTop">
+          <h2>Monte seu pedido</h2>
+          <p>Pesquise e clique nos itens para eles aparecerem na montagem.</p>
 
-      <div class="card panel">
-        <h2>Monte seu pedido</h2>
-        <p>Pesquise, filtre e clique nos itens para ver as fotos. Você pode esconder/mostrar os preços.</p>
-
-        <div class="field">
-          🔎 <input id="q" placeholder="Pesquisar (ex: cilindro, arco, cortina...)"/>
-        </div>
-
-        <div class="field">
-          🧩
-          <select id="cat">
-            <option value="Todas">Todas as categorias</option>
-          </select>
-        </div>
-
-        <div class="row">
-          <div class="toggle">
-            🔒 Mostrar preços
-            <div class="switch" id="priceSwitch"><div class="knob"></div></div>
+          <div class="field">
+            🔎 <input id="q" placeholder="Pesquisar (ex: cilindro, arco, cortina...)"/>
           </div>
-          <button class="btn" id="btnClear">🧼 Limpar</button>
-        </div>
 
-        <div class="verseBox" id="verseBox">
-          <div class="verseTitle">📖 Versículo bíblico do dia</div>
-          <p class="verseText" id="verseText">Carregando…</p>
-          <div class="verseRef" id="verseRef"></div>
+          <div class="field">
+            🧩
+            <select id="cat">
+              <option value="Todas">Todas as categorias</option>
+            </select>
+          </div>
+
+          <div class="row">
+            <div class="toggle">
+              🔒 Mostrar preços
+              <div class="switch" id="priceSwitch"><div class="knob"></div></div>
+            </div>
+            <button class="btn" id="btnClear">🧼 Limpar</button>
+          </div>
         </div>
       </div>
     </div>
 
+    <!-- QUADRO GRANDE: MONTAGEM + CONTROLES -->
+    <div class="builderWrap">
+      <div class="card">
+        <div class="builder" id="builder">
+          <img class="builderBase" src="preview/base.jpg" alt="Base">
+
+          <img class="piece hidden" data-piece="cilindros" src="preview/cilindros.png" alt="Cilindros">
+          <img class="piece hidden" data-piece="arco" src="preview/arco.png" alt="Arco">
+          <img class="piece hidden" data-piece="cortina" src="preview/cortina.png" alt="Cortina">
+          <img class="piece hidden" data-piece="tapete" src="preview/tapete.png" alt="Tapete">
+          <img class="piece hidden" data-piece="item" src="preview/item.png" alt="Item">
+        </div>
+      </div>
+
+      <div class="card builderSide">
+        <div class="bpTitle">🎨 Montagem do cliente</div>
+        <div id="layerList"></div>
+
+        <div class="bpControls">
+          <div class="ctrlLabel">Tamanho do item selecionado</div>
+          <input type="range" id="scaleRange" min="40" max="160" value="100">
+          <div style="margin-top:6px; color:rgba(255,255,255,.75); font-weight:900">
+            Escala: <span id="scaleLabel">100%</span>
+          </div>
+
+          <div class="miniBtns">
+            <button class="miniBtn" id="btnFront">⬆️ Frente</button>
+            <button class="miniBtn" id="btnBack">⬇️ Fundo</button>
+            <button class="miniBtn" id="btnHide">👁️ Ocultar</button>
+            <button class="miniBtn" id="btnReset">↩️ Reset</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ITENS -->
     <div class="sectionTitle">
-      <h3>✨ Itens do catálogo</h3>
+      <h3>✨ Itens do catálogo (clique para jogar na montagem)</h3>
       <div class="badge"><span id="itemsCount">0</span> itens</div>
     </div>
 
@@ -985,154 +615,38 @@
     <div class="footer">© Faz de Conta Decorações • Catálogo</div>
   </div>
 
-  <div class="modalBack" id="modalItemBack">
-    <div class="modal">
-      <div class="modalHead">
-        <strong id="modalTitle">Item</strong>
-        <button class="x" id="closeItem">✕</button>
-      </div>
-
-      <div class="modalBody">
-        <div>
-          <div class="viewer" id="viewer">
-            <button class="navBtn navPrev" id="prevMedia">‹</button>
-            <button class="navBtn navNext" id="nextMedia">›</button>
-            <div id="viewerInner"></div>
-          </div>
-          <div class="thumbs" id="thumbs"></div>
-        </div>
-
-        <div class="side">
-          <div class="line"><b>Descrição:</b> <span id="modalDesc"></span></div>
-          <div class="line"><b>Categoria:</b> <span id="modalCat"></span></div>
-          <div class="line"><b>Preço:</b> <span id="modalPrice"></span></div>
-          <div class="line" style="opacity:.8"><b>Fotos:</b> até 5 por item + vídeo opcional</div>
-
-          <div class="row" style="margin-top:12px">
-            <button class="btn" id="addCart">➕ Adicionar</button>
-            <button class="btn" id="removeCart">➖ Remover</button>
-          </div>
-
-          <div class="verseBox" style="margin-top:12px;">
-            <div class="verseTitle">📌 Dica rápida</div>
-            <p class="verseText" style="margin:0;">
-              Para 5 fotos: use nomes tipo <b>arco-1.jpg</b> … <b>arco-5.jpg</b> (na raiz do projeto).
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modalBack" id="modalContractBack">
-    <div class="modal">
-      <div class="modalHead">
-        <strong>📝 Contrato rápido (assinatura)</strong>
-        <button class="x" id="closeContract">✕</button>
-      </div>
-
-      <div class="modalBody" style="grid-template-columns: 1fr;">
-        <div class="side">
-          <div class="line">
-            <b>Resumo do compromisso:</b><br/>
-            Ao contratar, o cliente se compromete a <b>cuidar dos itens</b>, <b>não molhar</b>, <b>não riscar</b>, evitar exposição a calor,
-            e <b>devolver no prazo combinado</b>. Danos e atrasos podem gerar cobrança adicional (conforme combinado no WhatsApp).
-          </div>
-
-          <div class="checkRow">
-            <input type="checkbox" id="agree"/>
-            <label for="agree">Li e concordo com o compromisso acima.</label>
-          </div>
-
-          <div style="margin-top:12px; font-weight:1000; opacity:.95">Assinatura:</div>
-          <canvas id="sign"></canvas>
-
-          <div class="row" style="margin-top:12px">
-            <button class="btn" id="clearSign">🧽 Limpar assinatura</button>
-            <button class="btn primary" id="saveSign">✅ Salvar aceite</button>
-          </div>
-
-          <div class="verseBox" id="signStatus" style="margin-top:12px">
-            <div class="verseTitle">Status</div>
-            <p class="verseText" style="margin:0;">Aguardando aceite.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
 <script>
   // ========= CONFIG =========
   const CONFIG = {
     whatsappNumber: "5566996223481",
     whatsappDisplay: "(66) 99622-3481",
-    cidade: "Jaciara/MT"
   };
 
-  // ========= ITENS =========
   const ITENS = [
     { id:"cilindros", nome:"Cilindros (Suporte)", cat:"Estruturas", desc:"Estruturas e suporte para decoração.", preco:180,
-      media:["cilindros-1.jpg","cilindros-2.jpg","cilindros-3.jpg","cilindros-4.jpg","cilindros-5.jpg"], video:"" },
+      thumb:"cilindros-1.jpg" },
     { id:"arco", nome:"Arco de balões", cat:"Balões", desc:"Arco orgânico e temático (montagem sob consulta).", preco:450,
-      media:["arco-1.jpg","arco-2.jpg","arco-3.jpg","arco-4.jpg","arco-5.jpg"], video:"" },
+      thumb:"arco-1.jpg" },
     { id:"cortina", nome:"Cortina de LED", cat:"Iluminação", desc:"Fundo e acabamento com luz.", preco:120,
-      media:["cortina-1.jpg","cortina-2.jpg","cortina-3.jpg","cortina-4.jpg","cortina-5.jpg"], video:"" },
+      thumb:"cortina-1.jpg" },
     { id:"tapete", nome:"Tapete para fotos", cat:"Cenário", desc:"Base para fotos e cenário.", preco:80,
-      media:["tapete-1.jpg","tapete-2.jpg","tapete-3.jpg","tapete-4.jpg","tapete-5.jpg"], video:"" },
+      thumb:"tapete-1.jpg" },
     { id:"item", nome:"Item decorativo", cat:"Cenário", desc:"Peça decorativa (troque a foto pelo seu item).", preco:60,
-      media:["item-1.jpg","item-2.jpg","item-3.jpg","item-4.jpg","item-5.jpg"], video:"" }
+      thumb:"item-1.jpg" }
   ];
 
-  // ========= UTIL =========
   const el = (id)=>document.getElementById(id);
   const money = (v)=> "R$ " + Number(v||0).toFixed(2).replace(".",",");
 
-  // ========= DATA / RELÓGIO =========
-  el("cityChip").textContent = CONFIG.cidade;
-  el("whatsChip").textContent = CONFIG.whatsappDisplay;
-
-  function tick(){
-    const d = new Date();
-    const dd = String(d.getDate()).padStart(2,"0");
-    const mm = String(d.getMonth()+1).padStart(2,"0");
-    const yy = d.getFullYear();
-    el("today").textContent = `${dd}/${mm}/${yy}`;
-    el("clock").textContent = d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
-  }
-  tick();
-  setInterval(tick, 1000);
-
-  // ========= LOGO (logo.png / logo.jpg / logo.jpeg / logo.webp) =========
-  function loadLogo(){
-    const img = el("logoImg");
-    const box = el("logoBox");
-    const candidates = ["logo.png","logo.jpg","logo.jpeg","logo.webp"];
-    let i = 0;
-
-    function tryNext(){
-      if(i >= candidates.length){
-        box.classList.add("fallback");
-        return;
-      }
-      img.src = candidates[i++];
-    }
-
-    img.onload = ()=> box.classList.remove("fallback");
-    img.onerror = tryNext;
-
-    tryNext();
-  }
-  loadLogo();
-
-  // ========= FILTROS / PREÇOS =========
+  // ======= ESTADO =======
   let showPrices = false;
   const state = {
     q: "",
     cat: "Todas",
     cart: new Map(),
-    contractOk: false
   };
 
+  // ======= SWITCH PREÇOS =======
   function setSwitch(on){
     const sw = el("priceSwitch");
     sw.classList.toggle("on", on);
@@ -1145,10 +659,12 @@
     state.q = (e.target.value||"").toLowerCase().trim();
     render();
   });
+
   el("cat").addEventListener("change",(e)=>{
     state.cat = e.target.value;
     render();
   });
+
   el("btnClear").addEventListener("click", ()=>{
     state.q = "";
     state.cat = "Todas";
@@ -1157,6 +673,7 @@
     render();
   });
 
+  // ======= CATEGORIAS =======
   function buildCats(){
     const s = new Set(ITENS.map(i=>i.cat));
     const sel = el("cat");
@@ -1168,6 +685,7 @@
   }
   buildCats();
 
+  // ======= RENDER GRID =======
   function passFilter(item){
     const okCat = (state.cat === "Todas") || (item.cat === state.cat);
     const t = (item.nome + " " + item.desc + " " + item.cat).toLowerCase();
@@ -1190,18 +708,8 @@
       thumb.className = "thumb";
 
       const img = document.createElement("img");
-      const medias = (item.media||[]).filter(Boolean);
-      let idx = 0;
-
-      function setImg(){
-        img.src = medias[idx] || "capa.jpg";
-      }
-      img.onerror = ()=>{
-        idx++;
-        if(idx < medias.length) setImg();
-        else img.src = "capa.jpg";
-      };
-      setImg();
+      img.src = item.thumb;
+      img.onerror = ()=> img.src = "capa.jpg";
 
       thumb.appendChild(img);
 
@@ -1232,197 +740,16 @@
       card.appendChild(desc);
       card.appendChild(footer);
 
-      card.addEventListener("click", ()=> openItem(item.id));
+      // CLIQUE NO ITEM => MOSTRA NA MONTAGEM E SELECIONA
+      card.addEventListener("click", ()=> addToBuilder(item.id, item.nome));
       grid.appendChild(card);
     });
 
     el("cartCount").textContent = [...state.cart.values()].reduce((a,b)=>a+b,0);
-    updateBuilderFromCart();
   }
   render();
 
-  // ========= MODAL ITENS =========
-  let currentItem = null;
-  let mediaIndex = 0;
-  let currentMediaList = [];
-
-  function mediaListFor(item){
-    const imgs = (item.media||[]).filter(Boolean);
-    const out = imgs.map(src=>({type:"img",src}));
-    if(item.video) out.push({type:"video", src:item.video});
-    return out.length ? out : [{type:"img",src:"capa.jpg"}];
-  }
-
-  function renderViewer(){
-    const viewer = el("viewerInner");
-    viewer.innerHTML = "";
-    const m = currentMediaList[mediaIndex];
-
-    if(m.type === "video"){
-      const v = document.createElement("video");
-      v.src = m.src;
-      v.controls = true;
-      v.playsInline = true;
-      v.style.background = "rgba(0,0,0,.22)";
-      viewer.appendChild(v);
-    }else{
-      const img = document.createElement("img");
-      img.src = m.src;
-      img.onerror = ()=> img.src = "capa.jpg";
-      viewer.appendChild(img);
-    }
-
-    const thumbs = el("thumbs");
-    thumbs.innerHTML = "";
-    currentMediaList.slice(0,4).forEach((mm, i)=>{
-      const b = document.createElement("button");
-      b.className = (i===mediaIndex ? "active" : "");
-      b.addEventListener("click", ()=>{ mediaIndex=i; renderViewer(); });
-
-      const mini = document.createElement("div");
-      mini.className = "mini";
-
-      const im = document.createElement("img");
-      im.src = (mm.type==="img" ? mm.src : (currentItem.media[0] || "capa.jpg"));
-      im.onerror = ()=> im.src = "capa.jpg";
-      mini.appendChild(im);
-
-      b.appendChild(mini);
-      thumbs.appendChild(b);
-    });
-  }
-
-  function openItem(id){
-    currentItem = ITENS.find(x=>x.id===id);
-    if(!currentItem) return;
-    el("modalTitle").textContent = currentItem.nome;
-    el("modalDesc").textContent = currentItem.desc;
-    el("modalCat").textContent = currentItem.cat;
-    el("modalPrice").textContent = showPrices ? money(currentItem.preco) : "Sob consulta";
-
-    currentMediaList = mediaListFor(currentItem);
-    mediaIndex = 0;
-    renderViewer();
-    el("modalItemBack").style.display = "flex";
-  }
-
-  function closeItem(){
-    el("modalItemBack").style.display = "none";
-    currentItem = null;
-  }
-
-  el("closeItem").addEventListener("click", closeItem);
-  el("modalItemBack").addEventListener("click",(e)=>{
-    if(e.target === el("modalItemBack")) closeItem();
-  });
-
-  el("prevMedia").addEventListener("click", ()=>{
-    if(!currentMediaList.length) return;
-    mediaIndex = (mediaIndex - 1 + currentMediaList.length) % currentMediaList.length;
-    renderViewer();
-  });
-  el("nextMedia").addEventListener("click", ()=>{
-    if(!currentMediaList.length) return;
-    mediaIndex = (mediaIndex + 1) % currentMediaList.length;
-    renderViewer();
-  });
-
-  el("addCart").addEventListener("click", ()=>{
-    if(!currentItem) return;
-    const n = state.cart.get(currentItem.id) || 0;
-    state.cart.set(currentItem.id, n+1);
-    render();
-  });
-  el("removeCart").addEventListener("click", ()=>{
-    if(!currentItem) return;
-    const n = state.cart.get(currentItem.id) || 0;
-    if(n<=1) state.cart.delete(currentItem.id);
-    else state.cart.set(currentItem.id, n-1);
-    render();
-  });
-
-  // ========= CONTRATO + ASSINATURA =========
-  function openContract(){ el("modalContractBack").style.display="flex"; }
-  function closeContract(){ el("modalContractBack").style.display="none"; }
-  el("btnContract").addEventListener("click", openContract);
-  el("closeContract").addEventListener("click", closeContract);
-  el("modalContractBack").addEventListener("click",(e)=>{
-    if(e.target === el("modalContractBack")) closeContract();
-  });
-
-  const canvas = el("sign");
-  const ctx = canvas.getContext("2d");
-  let drawing = false;
-  let hasStroke = false;
-
-  function resizeCanvas(){
-    const r = canvas.getBoundingClientRect();
-    const dpr = window.devicePixelRatio || 1;
-    canvas.width = Math.floor(r.width * dpr);
-    canvas.height = Math.floor(r.height * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.lineWidth = 2.4;
-    ctx.lineCap = "round";
-    ctx.strokeStyle = "rgba(255,255,255,.92)";
-  }
-  setTimeout(resizeCanvas, 60);
-  window.addEventListener("resize", ()=> setTimeout(resizeCanvas, 60));
-
-  function pos(e){
-    const r = canvas.getBoundingClientRect();
-    const x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
-    const y = (e.touches ? e.touches[0].clientY : e.clientY) - r.top;
-    return {x,y};
-  }
-
-  function down(e){
-    drawing = true;
-    hasStroke = true;
-    const p = pos(e);
-    ctx.beginPath();
-    ctx.moveTo(p.x, p.y);
-    e.preventDefault();
-  }
-  function move(e){
-    if(!drawing) return;
-    const p = pos(e);
-    ctx.lineTo(p.x, p.y);
-    ctx.stroke();
-    e.preventDefault();
-  }
-  function up(){ drawing = false; }
-
-  canvas.addEventListener("mousedown", down);
-  canvas.addEventListener("mousemove", move);
-  window.addEventListener("mouseup", up);
-
-  canvas.addEventListener("touchstart", down, {passive:false});
-  canvas.addEventListener("touchmove", move, {passive:false});
-  window.addEventListener("touchend", up);
-
-  el("clearSign").addEventListener("click", ()=>{
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    hasStroke = false;
-    state.contractOk = false;
-    el("signStatus").innerHTML = '<div class="verseTitle">Status</div><p class="verseText" style="margin:0;">Aguardando aceite.</p>';
-  });
-
-  el("saveSign").addEventListener("click", ()=>{
-    const agreed = el("agree").checked;
-    if(!agreed){
-      el("signStatus").innerHTML = '<div class="verseTitle">Status</div><p class="verseText" style="margin:0;">Marque "Li e concordo" para salvar.</p>';
-      return;
-    }
-    if(!hasStroke){
-      el("signStatus").innerHTML = '<div class="verseTitle">Status</div><p class="verseText" style="margin:0;">Assine no quadro para salvar.</p>';
-      return;
-    }
-    state.contractOk = true;
-    el("signStatus").innerHTML = '<div class="verseTitle">Status</div><p class="verseText" style="margin:0;">Aceite salvo ✅</p>';
-    closeContract();
-  });
-
-  // ========= AÇÕES =========
+  // ======= WHATS / CARRINHO =======
   el("btnWhats").addEventListener("click", ()=>{
     const url = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent("Olá! Quero informações sobre os itens do catálogo da Faz de Conta Decorações.")}`;
     window.open(url, "_blank");
@@ -1433,273 +760,199 @@
     alert("Carrinho: " + totalItens + " item(ns).");
   });
 
-  el("btnFinish").addEventListener("click", ()=>{
-    if(!state.contractOk){
-      alert("Antes de finalizar, abra o CONTRATO e salve o aceite com assinatura.");
-      openContract();
-      return;
-    }
-    const totalItens = [...state.cart.values()].reduce((a,b)=>a+b,0);
-    if(totalItens<=0){
-      alert("Seu carrinho está vazio. Clique em um item e adicione ao carrinho.");
-      return;
-    }
-    alert("Finalizar (Pix):\n(Próximo passo: gerar Pix Copia e Cola.)");
+  el("btnContract").addEventListener("click", ()=>{
+    alert("Contrato: você pode colocar aqui depois (assinatura etc).");
   });
 
-  // ========= VERSÍCULO DO DIA =========
-  const VERSES = [
-    { ref:"Romanos 12:12", text:"Alegrai-vos na esperança, sede pacientes na tribulação, perseverai na oração." },
-    { ref:"Salmos 23:1", text:"O Senhor é o meu pastor; nada me faltará." },
-    { ref:"Provérbios 3:5", text:"Confia no Senhor de todo o teu coração e não te estribes no teu próprio entendimento." },
-    { ref:"Isaías 41:10", text:"Não temas, porque eu sou contigo; não te assombres, porque eu sou o teu Deus." },
-    { ref:"Filipenses 4:13", text:"Tudo posso naquele que me fortalece." },
-    { ref:"Salmos 46:1", text:"Deus é o nosso refúgio e fortaleza, socorro bem presente na angústia." },
-    { ref:"Mateus 11:28", text:"Vinde a mim, todos os que estais cansados e oprimidos, e eu vos aliviarei." },
-    { ref:"João 14:27", text:"Deixo-vos a paz, a minha paz vos dou; não vo-la dou como o mundo a dá." }
-  ];
-  function dayOfYear(d){
-    const start = new Date(d.getFullYear(), 0, 0);
-    const diff = d - start;
-    return Math.floor(diff / 86400000);
-  }
-  function setVerseOfDay(){
-    const d = new Date();
-    const idx = dayOfYear(d) % VERSES.length;
-    const v = VERSES[idx];
-    el("verseText").textContent = `"${v.text}"`;
-    el("verseRef").textContent = v.ref;
-  }
-  setVerseOfDay();
+  el("btnFinish").addEventListener("click", ()=>{
+    alert("Finalizar (Pix): próximo passo é gerar Pix Copia e Cola.");
+  });
 
-  // ========= MONTADOR (arrastar + camadas + tamanho) =========
+  // ========= MONTAGEM (DRAG + CAMADAS) =========
   const builder = el("builder");
-  const pieces = [...document.querySelectorAll(".piece")];
   const layerList = el("layerList");
   const scaleRange = el("scaleRange");
   const scaleLabel = el("scaleLabel");
   const btnFront = el("btnFront");
   const btnBack = el("btnBack");
-  const btnResetBuild = el("btnResetBuild");
-  const btnPrintHint = el("btnPrintHint");
+  const btnHide = el("btnHide");
+  const btnReset = el("btnReset");
 
-  const prettyName = {
-    cilindros: "Cilindros",
-    arco: "Arco",
-    cortina: "Cortina LED",
-    tapete: "Tapete",
-    item: "Item decorativo"
-  };
-
-  // posições iniciais (relativas)
-  const defaultPos = {
-    cortina:   { rx: 0.00, ry: -0.02, s: 1.00, z: 1 },
-    arco:      { rx: 0.00, ry: -0.10, s: 0.92, z: 3 },
-    cilindros: { rx: 0.00, ry:  0.18, s: 0.62, z: 4 },
-    tapete:    { rx: 0.00, ry:  0.30, s: 0.92, z: 2 },
-    item:      { rx: 0.20, ry:  0.18, s: 0.35, z: 5 }
-  };
-
-  function applyPieceTransform(img){
-    const x = Number(img.dataset.x || 0);
-    const y = Number(img.dataset.y || 0);
-    const s = Number(img.dataset.s || 1);
-    img.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) scale(${s})`;
-  }
-
-  function syncRelativeToPixels(){
-    const r = builder.getBoundingClientRect();
-    pieces.forEach(img=>{
-      const rx = Number(img.dataset.rx || 0);
-      const ry = Number(img.dataset.ry || 0);
-      img.dataset.x = rx * r.width;
-      img.dataset.y = ry * r.height;
-      applyPieceTransform(img);
-    });
-  }
-
-  window.addEventListener("resize", ()=>{ syncRelativeToPixels(); });
-
-  function resetBuilder(){
-    pieces.forEach(img=>{
-      const key = img.dataset.piece;
-      const d = defaultPos[key] || {rx:0,ry:0,s:1,z:1};
-      img.dataset.rx = d.rx;
-      img.dataset.ry = d.ry;
-      img.dataset.s = d.s;
-      img.style.zIndex = String(d.z);
-    });
-    syncRelativeToPixels();
-    setActivePiece(null);
-    updateLayerUI();
-    scaleRange.value = "100";
-    scaleLabel.textContent = "100%";
-  }
-
-  // monta lista de camadas
-  function updateLayerUI(){
-    layerList.innerHTML = "";
-    const visible = pieces.filter(p=>!p.classList.contains("hidden"));
-    visible
-      .sort((a,b)=>Number(a.style.zIndex||0) - Number(b.style.zIndex||0))
-      .forEach(p=>{
-        const key = p.dataset.piece;
-
-        const row = document.createElement("div");
-        row.className = "layerRow" + (activePiece===p ? " active" : "");
-        row.addEventListener("click", ()=> setActivePiece(p));
-
-        const left = document.createElement("div");
-        left.className = "layerLeft";
-
-        const dot = document.createElement("div");
-        dot.className = "dot";
-        dot.style.background = (key==="arco") ? "rgba(255,217,74,.35)"
-                          : (key==="cilindros") ? "rgba(0,255,213,.25)"
-                          : (key==="tapete") ? "rgba(122,66,255,.25)"
-                          : (key==="cortina") ? "rgba(255,75,216,.25)"
-                          : "rgba(255,255,255,.18)";
-
-        const nm = document.createElement("div");
-        nm.className = "layerName";
-        nm.textContent = prettyName[key] || key;
-
-        left.appendChild(dot);
-        left.appendChild(nm);
-
-        const eye = document.createElement("button");
-        eye.className = "miniBtn";
-        eye.type = "button";
-        eye.textContent = "👁";
-        eye.title = "Mostrar/ocultar";
-        eye.addEventListener("click",(e)=>{
-          e.stopPropagation();
-          const hidden = p.style.opacity === "0";
-          p.style.opacity = hidden ? "" : "0";
-          p.style.pointerEvents = hidden ? "" : "none";
-        });
-
-        row.appendChild(left);
-        row.appendChild(eye);
-        layerList.appendChild(row);
-      });
-
-    // se não tem nada no carrinho
-    if(visible.length === 0){
-      const hint = document.createElement("div");
-      hint.className = "bpHint";
-      hint.textContent = "Adicione itens no catálogo para aparecerem aqui na montagem.";
-      layerList.appendChild(hint);
-    }
-  }
-
-  // mostrar/ocultar peças conforme carrinho
-  function updateBuilderFromCart(){
-    pieces.forEach(img=>{
-      const key = img.dataset.piece;
-      const has = (state.cart.get(key) || 0) > 0;
-      img.classList.toggle("hidden", !has);
-      // se voltou a aparecer, restaura opacity/pointer
-      if(has){
-        img.style.opacity = "";
-        img.style.pointerEvents = "";
-      }
-    });
-
-    // garante que item ativo não sumiu
-    if(activePiece && activePiece.classList.contains("hidden")){
-      setActivePiece(null);
-    }
-    updateLayerUI();
-  }
-
-  // seleção ativa
   let activePiece = null;
-  function setActivePiece(img){
-    pieces.forEach(p=>p.classList.remove("active"));
-    activePiece = img;
-    if(img){
-      img.classList.add("active");
-      const s = Number(img.dataset.s || 1);
-      const pct = Math.round(s * 100);
-      scaleRange.value = String(pct);
-      scaleLabel.textContent = pct + "%";
-    }
-    updateLayerUI();
+  let zTop = 10;
+
+  function listPieces(){
+    const pieces = [...builder.querySelectorAll(".piece")].filter(p=>!p.classList.contains("hidden"));
+    return pieces.sort((a,b)=> (Number(a.style.zIndex||0) - Number(b.style.zIndex||0)));
   }
 
-  // drag pointer
-  let dragging = false;
-  let startX=0, startY=0, baseX=0, baseY=0;
+  function selectPiece(p){
+    activePiece = p;
+    // destaca no painel
+    [...layerList.querySelectorAll(".layerItem")].forEach(x=>x.classList.remove("active"));
+    const li = layerList.querySelector(`[data-li="${p.dataset.piece}"]`);
+    if(li) li.classList.add("active");
 
-  builder.addEventListener("pointerdown",(e)=>{
-    const img = e.target.closest(".piece");
-    if(!img || img.classList.contains("hidden")) return;
-    dragging = true;
-    setActivePiece(img);
-    img.setPointerCapture?.(e.pointerId);
+    // atualiza escala
+    const scale = p.dataset.scale ? Number(p.dataset.scale) : 100;
+    scaleRange.value = scale;
+    scaleLabel.textContent = scale + "%";
+  }
 
-    startX = e.clientX;
-    startY = e.clientY;
-    baseX = Number(img.dataset.x || 0);
-    baseY = Number(img.dataset.y || 0);
-  });
+  function rebuildLayerPanel(){
+    const pieces = listPieces().reverse(); // topo primeiro
+    layerList.innerHTML = "";
 
-  builder.addEventListener("pointermove",(e)=>{
-    if(!dragging || !activePiece) return;
-    const dx = e.clientX - startX;
-    const dy = e.clientY - startY;
+    if(pieces.length === 0){
+      layerList.innerHTML = `<div style="color:rgba(255,255,255,.65);font-size:13px">
+        Selecione itens no catálogo e eles aparecerão aqui.
+      </div>`;
+      return;
+    }
 
-    const r = builder.getBoundingClientRect();
-    const nx = Math.max(-r.width*0.46, Math.min(r.width*0.46, baseX + dx));
-    const ny = Math.max(-r.height*0.46, Math.min(r.height*0.46, baseY + dy));
+    pieces.forEach(p=>{
+      const nameMap = {
+        cilindros:"Cilindros",
+        arco:"Arco",
+        cortina:"Cortina",
+        tapete:"Tapete",
+        item:"Item decorativo"
+      };
+      const div = document.createElement("div");
+      div.className = "layerItem";
+      div.dataset.li = p.dataset.piece;
+      div.innerHTML = `<div><b>${nameMap[p.dataset.piece] || p.dataset.piece}</b><br><small>clique para selecionar</small></div>
+                       <div style="opacity:.75;font-weight:900">#</div>`;
+      div.addEventListener("click", ()=> selectPiece(p));
+      layerList.appendChild(div);
+    });
 
-    activePiece.dataset.x = nx;
-    activePiece.dataset.y = ny;
-    activePiece.dataset.rx = nx / r.width;
-    activePiece.dataset.ry = ny / r.height;
-    applyPieceTransform(activePiece);
-  });
+    // se não tiver selecionado, seleciona o topo
+    if(!activePiece) selectPiece(pieces[0]);
+  }
 
-  window.addEventListener("pointerup", ()=>{ dragging = false; });
+  function addToBuilder(id, nome){
+    const p = builder.querySelector(`.piece[data-piece="${id}"]`);
+    if(!p) return;
 
-  // escala
+    p.classList.remove("hidden");
+    p.style.left = "50%";
+    p.style.top = "50%";
+    p.style.zIndex = String(++zTop);
+    p.dataset.scale = "100";
+    p.style.width = "180px";
+
+    // marca no carrinho
+    const n = state.cart.get(id) || 0;
+    state.cart.set(id, n+1);
+
+    selectPiece(p);
+    rebuildLayerPanel();
+    render();
+  }
+
+  // ======= DRAG =======
+  let drag = null;
+
+  function pointerDown(e){
+    const target = e.target.closest(".piece");
+    if(!target || target.classList.contains("hidden")) return;
+
+    selectPiece(target);
+    target.style.zIndex = String(++zTop);
+
+    const rect = builder.getBoundingClientRect();
+    const trect = target.getBoundingClientRect();
+
+    const px = (e.touches ? e.touches[0].clientX : e.clientX);
+    const py = (e.touches ? e.touches[0].clientY : e.clientY);
+
+    drag = {
+      target,
+      startX: px,
+      startY: py,
+      offX: px - trect.left,
+      offY: py - trect.top,
+      rect
+    };
+    e.preventDefault();
+  }
+
+  function pointerMove(e){
+    if(!drag) return;
+    const px = (e.touches ? e.touches[0].clientX : e.clientX);
+    const py = (e.touches ? e.touches[0].clientY : e.clientY);
+
+    const x = px - drag.rect.left - drag.offX;
+    const y = py - drag.rect.top - drag.offY;
+
+    drag.target.style.left = x + "px";
+    drag.target.style.top = y + "px";
+    drag.target.style.transform = "translate(0,0)";
+    e.preventDefault();
+  }
+
+  function pointerUp(){
+    drag = null;
+  }
+
+  builder.addEventListener("mousedown", pointerDown);
+  window.addEventListener("mousemove", pointerMove);
+  window.addEventListener("mouseup", pointerUp);
+
+  builder.addEventListener("touchstart", pointerDown, {passive:false});
+  window.addEventListener("touchmove", pointerMove, {passive:false});
+  window.addEventListener("touchend", pointerUp);
+
+  // ======= CONTROLES =======
   scaleRange.addEventListener("input", ()=>{
     if(!activePiece) return;
-    const pct = Number(scaleRange.value || 100);
-    const s = pct / 100;
-    activePiece.dataset.s = s;
-    scaleLabel.textContent = pct + "%";
-    applyPieceTransform(activePiece);
+    const v = Number(scaleRange.value);
+    activePiece.dataset.scale = String(v);
+    scaleLabel.textContent = v + "%";
+    // ajusta largura proporcional
+    const base = 180;
+    activePiece.style.width = Math.round(base * (v/100)) + "px";
   });
 
-  // camadas
-  function bringFront(){
+  btnFront.addEventListener("click", ()=>{
     if(!activePiece) return;
-    const maxZ = Math.max(...pieces.map(p=>Number(p.style.zIndex||0)));
-    activePiece.style.zIndex = String(maxZ + 1);
-    updateLayerUI();
-  }
-  function sendBack(){
+    activePiece.style.zIndex = String(++zTop);
+    rebuildLayerPanel();
+  });
+
+  btnBack.addEventListener("click", ()=>{
     if(!activePiece) return;
-    const minZ = Math.min(...pieces.map(p=>Number(p.style.zIndex||0)));
-    activePiece.style.zIndex = String(minZ - 1);
-    updateLayerUI();
-  }
-  btnFront.addEventListener("click", bringFront);
-  btnBack.addEventListener("click", sendBack);
+    activePiece.style.zIndex = "1";
+    rebuildLayerPanel();
+  });
 
-  btnResetBuild.addEventListener("click", ()=> resetBuilder());
-  btnPrintHint.addEventListener("click", ()=> alert("Dica: tire um print (captura de tela) para salvar a montagem e enviar no WhatsApp 🙂"));
+  btnHide.addEventListener("click", ()=>{
+    if(!activePiece) return;
+    activePiece.classList.add("hidden");
+    activePiece = null;
+    rebuildLayerPanel();
+  });
 
-  // inicializa montador
-  resetBuilder();
-  updateBuilderFromCart();
+  btnReset.addEventListener("click", ()=>{
+    // esconde tudo
+    builder.querySelectorAll(".piece").forEach(p=>{
+      p.classList.add("hidden");
+      p.style.left = "40%";
+      p.style.top = "40%";
+      p.style.transform = "translate(-50%,-50%)";
+      p.style.width = "180px";
+      p.style.zIndex = "1";
+      p.dataset.scale = "100";
+    });
+    activePiece = null;
+    zTop = 10;
+    state.cart.clear();
+    rebuildLayerPanel();
+    render();
+  });
 
-  // ========= IMPORTANTE: atualiza montador quando mexe no carrinho do modal =========
-  // (o render() já chama updateBuilderFromCart, mas isso garante instantâneo)
-  el("addCart").addEventListener("click", ()=> setTimeout(updateBuilderFromCart, 0));
-  el("removeCart").addEventListener("click", ()=> setTimeout(updateBuilderFromCart, 0));
+  rebuildLayerPanel();
 </script>
 
 </body>
