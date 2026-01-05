@@ -10,11 +10,9 @@
       --bg0:#070916;
       --bg1:#0b1230;
       --card: rgba(255,255,255,.08);
-      --card2: rgba(255,255,255,.06);
       --stroke: rgba(255,255,255,.14);
       --text: rgba(255,255,255,.92);
       --muted: rgba(255,255,255,.65);
-      --muted2: rgba(255,255,255,.45);
       --shadow: 0 18px 50px rgba(0,0,0,.55);
       --radius: 22px;
       --radius2: 18px;
@@ -46,30 +44,33 @@
     }
 
     .wrap{
-      width:min(1120px, 92vw);
+      width:min(1180px, 92vw);
       margin: 18px auto 48px;
     }
 
+    /* SLOGAN FIXO (TOP) */
     .floatingSlogan{
       position: sticky;
       top: 10px;
       z-index: 10;
       width: fit-content;
       margin-bottom: 10px;
-      padding: 8px 12px;
+      padding: 10px 14px;
       border-radius: 999px;
       background: rgba(0,0,0,.22);
       border:1px solid rgba(255,255,255,.12);
       box-shadow: 0 12px 30px rgba(0,0,0,.25);
       color: rgba(255,255,255,.92);
-      font-weight: 900;
+      font-weight: 1000;
       letter-spacing:.2px;
       display:flex;
       align-items:center;
-      gap:8px;
+      gap:10px;
+      font-size: 16px; /* aqui aumenta o “Onde a imaginação vira festa” do topo */
     }
     .floatingSlogan .star{ filter: drop-shadow(0 6px 14px rgba(0,0,0,.55)); }
 
+    /* HEADER */
     .header{
       display:flex;
       flex-direction:column;
@@ -94,26 +95,28 @@
     }
 
     .headTop{
-      display:flex;
-      gap:18px;
-      align-items:flex-start;
-      justify-content:space-between;
-      flex-wrap:wrap;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:14px;
+      align-items:stretch;
       position:relative;
       z-index:1;
     }
+    @media(max-width: 980px){
+      .headTop{ grid-template-columns: 1fr; }
+    }
 
-    .brandCenter{
-      flex: 1;
-      min-width: 320px;
+    /* Esquerda: marca */
+    .brandLeft{
       display:flex;
+      gap:14px;
       align-items:center;
       justify-content:flex-start;
-      gap:14px;
+      min-width: 280px;
     }
 
     .logo{
-      width:160px; height:140px;
+      width:190px; height:170px;
       border-radius: 18px;
       background: rgba(0,0,0,.25);
       border:1px solid rgba(255,255,255,.12);
@@ -131,8 +134,14 @@
     .logo img{
       width:100%; height:100%;
       object-fit: cover;
-      display:block;
+      display:none;
     }
+    .logo.fallback{
+      background: linear-gradient(135deg, rgba(255,75,216,.25), rgba(0,255,213,.18));
+    }
+    #logoFallbackText{ display:block; }
+
+    .titleBlock{ min-width: 210px; }
 
     .gradTitle{
       font-weight: 1000;
@@ -141,7 +150,6 @@
       text-align:left;
       letter-spacing: .6px;
       text-transform: uppercase;
-
       background: linear-gradient(
         90deg,
         #ff4bd8 0%,
@@ -167,30 +175,33 @@
     .sloganBelow{
       margin-top: 6px;
       text-align:left;
-      font-size: 17px;
-      font-weight: 900;
+      font-size: 16px; /* aqui aumenta o “Onde a imaginação vira festa” do título */
+      font-weight: 1000;
       color: rgba(255,255,255,.92);
       letter-spacing:.2px;
       text-shadow: 0 10px 26px rgba(0,0,0,.45);
+      display:flex;
+      align-items:center;
+      gap:8px;
     }
 
-    .panelTop{
-      width: 340px;
-      max-width: 100%;
+    /* Direita: “Monte seu pedido” (foi para o lugar do Jaciara/Whats/Data) */
+    .orderPanel{
       border-radius: 18px;
-      background: rgba(0,0,0,.20);
-      border:1px solid rgba(255,255,255,.12);
-      box-shadow: 0 14px 35px rgba(0,0,0,.25);
+      background: rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.10);
       padding: 14px;
+      height:100%;
+      box-shadow: 0 14px 35px rgba(0,0,0,.25);
     }
-    .panelTop h2{
-      margin:0 0 8px;
+    .orderPanel h2{
+      margin: 0 0 8px;
       font-size: 18px;
       letter-spacing:.2px;
     }
-    .panelTop p{
-      margin:0 0 12px;
-      color: rgba(255,255,255,.70);
+    .orderPanel p{
+      margin: 0 0 12px;
+      color: var(--muted);
       font-size: 13px;
       line-height:1.35;
     }
@@ -212,6 +223,7 @@
       background: transparent;
       color: rgba(255,255,255,.9);
       font-size: 13px;
+      font-weight: 800;
     }
     .field input::placeholder{ color: rgba(255,255,255,.35); }
 
@@ -235,6 +247,7 @@
       border-radius: 14px;
       padding: 10px 12px;
       user-select:none;
+      font-weight: 800;
     }
     .switch{
       width: 44px; height: 26px;
@@ -256,6 +269,17 @@
     .switch.on{ background: rgba(0,255,213,.24); }
     .switch.on .knob{ left: 21px; background: rgba(255,255,255,.96); }
 
+    /* botões */
+    .actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-start;
+      position:relative;
+      z-index:1;
+    }
+
     .btn{
       display:inline-flex;
       align-items:center;
@@ -268,17 +292,19 @@
       border:1px solid rgba(255,255,255,.14);
       padding: 10px 12px;
       border-radius: 14px;
-      font-weight: 800;
+      font-weight: 900;
       font-size: 13px;
       box-shadow: 0 14px 35px rgba(0,0,0,.28);
       transition: transform .15s ease, background .15s ease, border-color .15s ease;
       user-select:none;
     }
     .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.11); border-color: rgba(255,255,255,.18); }
+    .btn:active{ transform: translateY(0px) scale(.99); }
     .btn.primary{
       background: linear-gradient(90deg, rgba(255,75,216,.38), rgba(0,255,213,.26), rgba(255,217,74,.24));
       border-color: rgba(255,255,255,.18);
     }
+
     .pill{
       display:inline-flex;
       align-items:center;
@@ -294,30 +320,8 @@
       margin-left: 6px;
     }
 
-    .actions{
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: flex-start;
-      margin-top: 8px;
-      position:relative;
-      z-index:1;
-    }
-
-    /* ====== QUADRO GRANDE DE MONTAGEM ====== */
-    .builderWrap{
-      margin-top: 14px;
-      display:grid;
-      grid-template-columns: 1fr 340px;
-      gap: 14px;
-      align-items: stretch;
-    }
-    @media(max-width: 980px){
-      .builderWrap{ grid-template-columns: 1fr; }
-    }
-
-    .card{
+    /* ====== PALCO (MONTAGEM COM MINIATURAS) ====== */
+    .builderCard{
       border-radius: var(--radius);
       background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
       border:1px solid var(--stroke);
@@ -325,104 +329,121 @@
       backdrop-filter: blur(10px);
       overflow:hidden;
       position:relative;
+      margin-top: 14px;
     }
 
-    .builder{
-      height: 520px;
-      background: rgba(0,0,0,.22);
-      border-bottom: 1px solid rgba(255,255,255,.10);
-      position:relative;
-      border-radius: var(--radius);
-      overflow:hidden;
+    .builderWrap{
+      padding: 14px;
     }
-    .builderBase{
+
+    .builderStage{
+      height: 420px;
+      border-radius: 22px;
+      border:1px solid rgba(255,255,255,.14);
+      background:
+        radial-gradient(900px 400px at 50% 10%, rgba(255,255,255,.10), transparent 55%),
+        linear-gradient(180deg, rgba(10,14,40,.55), rgba(6,8,22,.75));
+      box-shadow: 0 18px 60px rgba(0,0,0,.45);
+      position: relative;
+      overflow: hidden;
+    }
+    .builderStage::after{
+      content:"";
       position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      object-fit: cover;
-      opacity:.95;
-      filter: saturate(1.05) contrast(1.05);
+      left:0; right:0; bottom:-90px;
+      height: 240px;
+      background: radial-gradient(700px 240px at 50% 0%, rgba(255,255,255,.12), transparent 70%);
+      transform: skewY(-6deg);
+      opacity:.9;
       pointer-events:none;
-      user-select:none;
+    }
+
+    .stageThemeLight{
+      background:
+        radial-gradient(900px 400px at 50% 10%, rgba(0,0,0,.06), transparent 55%),
+        linear-gradient(180deg, rgba(245,245,255,.95), rgba(220,230,255,.92));
+    }
+    .stageThemeDark{
+      background:
+        radial-gradient(900px 400px at 50% 10%, rgba(255,255,255,.10), transparent 55%),
+        linear-gradient(180deg, rgba(10,14,40,.55), rgba(6,8,22,.75));
+    }
+    .stageThemeParty{
+      background:
+        radial-gradient(900px 400px at 20% 10%, rgba(122,66,255,.25), transparent 60%),
+        radial-gradient(700px 300px at 80% 25%, rgba(0,255,213,.14), transparent 55%),
+        linear-gradient(180deg, rgba(8,10,25,.70), rgba(6,8,22,.90));
     }
 
     .piece{
       position:absolute;
-      top: 40%;
-      left: 40%;
-      width: 180px;
+      left: 50%;
+      top: 45%;
       transform: translate(-50%,-50%);
       cursor: grab;
-      user-select:none;
-      touch-action:none;
-      filter: drop-shadow(0 18px 28px rgba(0,0,0,.55));
-      border-radius: 14px;
+      user-select: none;
+      touch-action: none;
+      filter: drop-shadow(0 12px 30px rgba(0,0,0,.45));
     }
     .piece:active{ cursor: grabbing; }
-    .hidden{ display:none; }
-
-    .builderSide{
-      padding: 14px;
-    }
-    .bpTitle{
-      font-size: 16px;
+    .piece .label{
+      margin-top: 6px;
+      text-align:center;
+      font-size: 12px;
       font-weight: 1000;
-      margin: 2px 0 10px;
+      color: rgba(255,255,255,.86);
+      text-shadow: 0 10px 26px rgba(0,0,0,.45);
+    }
+    .piece svg{
+      display:block;
+      width: 140px;
+      height: 110px;
     }
 
-    .layerItem{
+    .builderControls{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 12px;
+      align-items:center;
+    }
+    .ctrl{
       display:flex;
       align-items:center;
-      justify-content:space-between;
       gap:10px;
-      padding:10px 12px;
-      border-radius: 14px;
-      background: rgba(0,0,0,.22);
-      border:1px solid rgba(255,255,255,.10);
-      margin-bottom: 8px;
-      cursor:pointer;
-    }
-    .layerItem.active{
-      border-color: rgba(0,255,213,.35);
-      box-shadow: 0 10px 26px rgba(0,0,0,.25);
-    }
-    .layerItem b{ font-size: 13px; }
-    .layerItem small{ color: rgba(255,255,255,.65); }
-
-    .bpControls{
-      margin-top: 12px;
-      padding: 12px;
-      border-radius: 16px;
-      background: rgba(0,0,0,.20);
-      border:1px solid rgba(255,255,255,.10);
-    }
-    .ctrlLabel{
-      font-weight: 900;
-      font-size: 12px;
-      color: rgba(255,255,255,.75);
-      margin-bottom: 8px;
-    }
-    input[type="range"]{ width:100%; }
-
-    .miniBtns{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:10px;
-      margin-top: 10px;
-    }
-    .miniBtn{
-      width:100%;
       padding: 10px 12px;
       border-radius: 14px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.08);
+      background: rgba(0,0,0,.20);
+      border:1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.80);
+      font-size: 13px;
+      font-weight: 900;
+    }
+    .ctrl select, .ctrl input{
+      background: transparent;
+      border:none;
+      outline:none;
       color: rgba(255,255,255,.92);
       font-weight: 900;
+    }
+    .ctrl input[type="color"]{
+      width: 42px;
+      height: 30px;
+      padding:0;
+      border-radius: 10px;
+      border:1px solid rgba(255,255,255,.18);
       cursor:pointer;
     }
-    .miniBtn:hover{ background: rgba(255,255,255,.11); }
+    .ctrl input[type="range"]{ width: 180px; }
 
+    .miniBar{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 12px;
+    }
+
+    /* SEÇÃO ITENS */
     .sectionTitle{
       margin: 18px 0 10px;
       display:flex;
@@ -442,6 +463,7 @@
       border-radius: 999px;
       background: rgba(0,0,0,.22);
       border:1px solid rgba(255,255,255,.12);
+      font-weight: 900;
     }
 
     .grid{
@@ -452,6 +474,16 @@
     @media(max-width: 980px){ .grid{ grid-template-columns: repeat(2, 1fr);} }
     @media(max-width: 560px){ .grid{ grid-template-columns: 1fr;} }
 
+    .card{
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+      border:1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      overflow:hidden;
+      position:relative;
+    }
+
     .item{ padding: 12px; cursor:pointer; }
     .thumb{
       height: 150px;
@@ -460,6 +492,7 @@
       background: rgba(0,0,0,.22);
       border:1px solid rgba(255,255,255,.10);
       box-shadow: 0 12px 30px rgba(0,0,0,.25);
+      position:relative;
     }
     .thumb img{
       width:100%; height:100%;
@@ -467,6 +500,18 @@
       display:block;
       transform: scale(1.02);
       transition: transform .25s ease;
+    }
+    .thumb .ph{
+      position:absolute; inset:0;
+      display:flex;
+      align-items:center; justify-content:center;
+      color: rgba(255,255,255,.70);
+      font-weight: 900;
+      letter-spacing:.2px;
+      background:
+        radial-gradient(300px 140px at 40% 30%, rgba(0,255,213,.14), transparent 60%),
+        radial-gradient(260px 120px at 70% 70%, rgba(255,75,216,.12), transparent 60%),
+        rgba(0,0,0,.22);
     }
     .item:hover .thumb img{ transform: scale(1.06); }
 
@@ -494,6 +539,7 @@
       border-radius: 999px;
       background: rgba(0,0,0,.22);
       border:1px solid rgba(255,255,255,.10);
+      font-weight: 900;
     }
 
     .footer{
@@ -503,12 +549,89 @@
       font-size: 12px;
     }
 
+    /* MODAL CONTRATO */
+    .modalBack{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.6);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 16px;
+      z-index: 999;
+    }
+    .modal{
+      width: min(860px, 96vw);
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+      border:1px solid rgba(255,255,255,.16);
+      box-shadow: 0 25px 90px rgba(0,0,0,.7);
+      overflow:hidden;
+      backdrop-filter: blur(12px);
+    }
+    .modalHead{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 12px 14px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+    }
+    .modalHead strong{ font-size: 14px; }
+    .x{
+      border:none;
+      width: 40px; height: 40px;
+      border-radius: 14px;
+      background: rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.88);
+      font-weight: 1000;
+      cursor:pointer;
+    }
+    .modalBody{
+      padding: 12px;
+    }
+
+    .side{
+      padding: 12px;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      height: 100%;
+    }
+    .side .line{
+      color: rgba(255,255,255,.70);
+      font-size: 13px;
+      margin-bottom: 10px;
+      line-height:1.35;
+    }
+    .side .line b{ color: rgba(255,255,255,.92); }
+
+    canvas{
+      width:100%;
+      height: 140px;
+      background: rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: 14px;
+      display:block;
+      touch-action: none;
+    }
+    .checkRow{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      margin-top: 10px;
+      font-size: 12px;
+      color: rgba(255,255,255,.70);
+    }
+    .checkRow input{ margin-top: 2px; }
+
+    /* responsivo */
     @media(max-width: 560px){
       .gradTitle{ font-size: 34px; }
       .sloganBelow{ font-size: 15px; }
       .logo{ width:120px; height:110px; }
-      .builder{ height: 420px; }
-      .piece{ width: 150px; }
+      .builderStage{ height: 360px; }
+      .floatingSlogan{ font-size: 15px; }
     }
   </style>
 </head>
@@ -522,18 +645,21 @@
       <span>Onde a imaginação vira festa</span>
     </div>
 
-    <div class="header">
+    <!-- HEADER -->
+    <div class="header" id="tiltHeader">
       <div class="headTop">
-        <div class="brandCenter">
-          <div class="logo" title="Logo">
-            <img src="logo.png" alt="Faz de Conta Decorações">
+        <!-- ESQUERDA -->
+        <div class="brandLeft">
+          <div class="logo fallback" title="Logo" id="logoBox">
+            <img id="logoImg" alt="Faz de Conta Decorações"/>
+            <span id="logoFallbackText">FC</span>
           </div>
 
-          <div>
-            <div class="gradTitle">FAZ DE CONTA DECORAÇÕES</div>
+          <div class="titleBlock">
+            <div class="gradTitle">FAZ DE CONTA<br/>DECORAÇÕES</div>
             <div class="sloganBelow">✨ Onde a imaginação vira festa</div>
 
-            <div class="actions">
+            <div class="actions" style="margin-top:12px">
               <button class="btn" id="btnWhats">💬 WhatsApp</button>
               <button class="btn" id="btnCart">🛒 Carrinho <span class="pill" id="cartCount">0</span></button>
               <button class="btn" id="btnContract">📝 Contrato</button>
@@ -542,10 +668,10 @@
           </div>
         </div>
 
-        <!-- MONTE SEU PEDIDO (AGORA NO TOPO DIREITO) -->
-        <div class="panelTop">
+        <!-- DIREITA (MONTE SEU PEDIDO) -->
+        <div class="orderPanel">
           <h2>Monte seu pedido</h2>
-          <p>Pesquise e clique nos itens para eles aparecerem na montagem.</p>
+          <p>Pesquise e clique nos itens para jogar na montagem. Você pode esconder/mostrar os preços.</p>
 
           <div class="field">
             🔎 <input id="q" placeholder="Pesquisar (ex: cilindro, arco, cortina...)"/>
@@ -565,41 +691,51 @@
             </div>
             <button class="btn" id="btnClear">🧼 Limpar</button>
           </div>
+
+          <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+            <div class="tag">📍 <b id="cityChip">Jaciara/MT</b></div>
+            <div class="tag">💬 <b>WhatsApp:</b> <span id="whatsChip">(66) 99622-3481</span></div>
+            <div class="tag">📅 <span id="today">--/--/----</span> • ⏰ <b id="clock">--:--</b></div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- QUADRO GRANDE: MONTAGEM + CONTROLES -->
-    <div class="builderWrap">
-      <div class="card">
-        <div class="builder" id="builder">
-          <img class="builderBase" src="preview/base.jpg" alt="Base">
+    <!-- PALCO / MONTAGEM -->
+    <div class="builderCard">
+      <div class="builderWrap">
+        <div class="builderStage stageThemeDark" id="builderStage"></div>
 
-          <img class="piece hidden" data-piece="cilindros" src="preview/cilindros.png" alt="Cilindros">
-          <img class="piece hidden" data-piece="arco" src="preview/arco.png" alt="Arco">
-          <img class="piece hidden" data-piece="cortina" src="preview/cortina.png" alt="Cortina">
-          <img class="piece hidden" data-piece="tapete" src="preview/tapete.png" alt="Tapete">
-          <img class="piece hidden" data-piece="item" src="preview/item.png" alt="Item">
+        <div class="builderControls">
+          <div class="ctrl">
+            Fundo:
+            <select id="bgTheme">
+              <option value="dark">Escuro (Premium)</option>
+              <option value="party">Festa (Colorido)</option>
+              <option value="light">Claro (Clean)</option>
+            </select>
+          </div>
+
+          <div class="ctrl">
+            Cor:
+            <input id="colorPicker" type="color" value="#00ffd5">
+          </div>
+
+          <div class="ctrl">
+            Tamanho:
+            <input id="scaleRange" type="range" min="60" max="170" value="100">
+            <span id="scaleLabel">100%</span>
+          </div>
+
+          <button class="btn" id="btnDeletePiece">🗑️ Remover selecionado</button>
+          <button class="btn" id="btnResetStage">🔄 Limpar palco</button>
         </div>
-      </div>
 
-      <div class="card builderSide">
-        <div class="bpTitle">🎨 Montagem do cliente</div>
-        <div id="layerList"></div>
-
-        <div class="bpControls">
-          <div class="ctrlLabel">Tamanho do item selecionado</div>
-          <input type="range" id="scaleRange" min="40" max="160" value="100">
-          <div style="margin-top:6px; color:rgba(255,255,255,.75); font-weight:900">
-            Escala: <span id="scaleLabel">100%</span>
-          </div>
-
-          <div class="miniBtns">
-            <button class="miniBtn" id="btnFront">⬆️ Frente</button>
-            <button class="miniBtn" id="btnBack">⬇️ Fundo</button>
-            <button class="miniBtn" id="btnHide">👁️ Ocultar</button>
-            <button class="miniBtn" id="btnReset">↩️ Reset</button>
-          </div>
+        <div class="miniBar">
+          <button class="btn" id="addArco">➕ Arco</button>
+          <button class="btn" id="addBaloes">➕ Balões</button>
+          <button class="btn" id="addTapete">➕ Tapete</button>
+          <button class="btn" id="addLed">➕ Cortina LED</button>
         </div>
       </div>
     </div>
@@ -615,38 +751,115 @@
     <div class="footer">© Faz de Conta Decorações • Catálogo</div>
   </div>
 
+  <!-- MODAL CONTRATO -->
+  <div class="modalBack" id="modalContractBack">
+    <div class="modal">
+      <div class="modalHead">
+        <strong>📝 Contrato rápido (assinatura)</strong>
+        <button class="x" id="closeContract">✕</button>
+      </div>
+
+      <div class="modalBody">
+        <div class="side">
+          <div class="line">
+            <b>Resumo do compromisso:</b><br/>
+            Ao contratar, o cliente se compromete a <b>cuidar dos itens</b>, <b>não molhar</b>, <b>não riscar</b>, evitar exposição a calor,
+            e <b>devolver no prazo combinado</b>. Danos e atrasos podem gerar cobrança adicional (conforme combinado no WhatsApp).
+          </div>
+
+          <div class="checkRow">
+            <input type="checkbox" id="agree"/>
+            <label for="agree">Li e concordo com o compromisso acima.</label>
+          </div>
+
+          <div style="margin-top:12px; font-weight:1000; opacity:.95">Assinatura:</div>
+          <canvas id="sign"></canvas>
+
+          <div class="row" style="margin-top:12px">
+            <button class="btn" id="clearSign">🧽 Limpar assinatura</button>
+            <button class="btn primary" id="saveSign">✅ Salvar aceite</button>
+          </div>
+
+          <div class="side" id="signStatus" style="margin-top:12px">
+            <div class="line"><b>Status:</b> Aguardando aceite.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 <script>
   // ========= CONFIG =========
   const CONFIG = {
     whatsappNumber: "5566996223481",
     whatsappDisplay: "(66) 99622-3481",
+    cidade: "Jaciara/MT"
   };
 
+  // ========= ITENS (edite seus itens aqui) =========
+  // Se você NÃO tiver as imagens no projeto, não tem problema: vai aparecer um placeholder.
   const ITENS = [
-    { id:"cilindros", nome:"Cilindros (Suporte)", cat:"Estruturas", desc:"Estruturas e suporte para decoração.", preco:180,
-      thumb:"cilindros-1.jpg" },
-    { id:"arco", nome:"Arco de balões", cat:"Balões", desc:"Arco orgânico e temático (montagem sob consulta).", preco:450,
-      thumb:"arco-1.jpg" },
-    { id:"cortina", nome:"Cortina de LED", cat:"Iluminação", desc:"Fundo e acabamento com luz.", preco:120,
-      thumb:"cortina-1.jpg" },
-    { id:"tapete", nome:"Tapete para fotos", cat:"Cenário", desc:"Base para fotos e cenário.", preco:80,
-      thumb:"tapete-1.jpg" },
-    { id:"item", nome:"Item decorativo", cat:"Cenário", desc:"Peça decorativa (troque a foto pelo seu item).", preco:60,
-      thumb:"item-1.jpg" }
+    { id:"cilindros", nome:"Cilindros (Suporte)", cat:"Estruturas", desc:"Estruturas e suporte para decoração.", preco:180, thumb:"cilindros-1.jpg", piece:"tapete" },
+    { id:"arco", nome:"Arco de balões", cat:"Balões", desc:"Arco orgânico e temático (montagem sob consulta).", preco:450, thumb:"arco-1.jpg", piece:"arco" },
+    { id:"cortina", nome:"Cortina de LED", cat:"Iluminação", desc:"Fundo e acabamento com luz.", preco:120, thumb:"cortina-1.jpg", piece:"led" },
+    { id:"tapete", nome:"Tapete para fotos", cat:"Cenário", desc:"Base para fotos e cenário.", preco:80, thumb:"tapete-1.jpg", piece:"tapete" },
+    { id:"baloes", nome:"Balões (conjunto)", cat:"Balões", desc:"Conjunto de balões (cores configuráveis).", preco:0, thumb:"baloes-1.jpg", piece:"baloes" }
   ];
 
+  // ========= UTIL =========
   const el = (id)=>document.getElementById(id);
   const money = (v)=> "R$ " + Number(v||0).toFixed(2).replace(".",",");
 
-  // ======= ESTADO =======
+  // ========= DATA / RELÓGIO =========
+  el("cityChip").textContent = CONFIG.cidade;
+  el("whatsChip").textContent = CONFIG.whatsappDisplay;
+  function tick(){
+    const d = new Date();
+    const dd = String(d.getDate()).padStart(2,"0");
+    const mm = String(d.getMonth()+1).padStart(2,"0");
+    const yy = d.getFullYear();
+    el("today").textContent = `${dd}/${mm}/${yy}`;
+    el("clock").textContent = d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
+  }
+  tick(); setInterval(tick, 1000);
+
+  // ========= LOGO =========
+  function loadLogo(){
+    const img = el("logoImg");
+    const box = el("logoBox");
+    const fb = el("logoFallbackText");
+    const candidates = ["logo.png","logo.jpg","logo.jpeg","logo.webp"];
+    let i = 0;
+
+    function tryNext(){
+      if(i >= candidates.length){
+        img.style.display = "none";
+        fb.style.display = "block";
+        box.classList.add("fallback");
+        return;
+      }
+      img.src = candidates[i++];
+    }
+
+    img.onload = ()=>{
+      img.style.display = "block";
+      fb.style.display = "none";
+      box.classList.remove("fallback");
+    };
+    img.onerror = tryNext;
+    tryNext();
+  }
+  loadLogo();
+
+  // ========= FILTROS / PREÇOS =========
   let showPrices = false;
   const state = {
     q: "",
     cat: "Todas",
     cart: new Map(),
+    contractOk: false
   };
 
-  // ======= SWITCH PREÇOS =======
   function setSwitch(on){
     const sw = el("priceSwitch");
     sw.classList.toggle("on", on);
@@ -659,12 +872,10 @@
     state.q = (e.target.value||"").toLowerCase().trim();
     render();
   });
-
   el("cat").addEventListener("change",(e)=>{
     state.cat = e.target.value;
     render();
   });
-
   el("btnClear").addEventListener("click", ()=>{
     state.q = "";
     state.cat = "Todas";
@@ -673,7 +884,6 @@
     render();
   });
 
-  // ======= CATEGORIAS =======
   function buildCats(){
     const s = new Set(ITENS.map(i=>i.cat));
     const sel = el("cat");
@@ -685,7 +895,6 @@
   }
   buildCats();
 
-  // ======= RENDER GRID =======
   function passFilter(item){
     const okCat = (state.cat === "Todas") || (item.cat === state.cat);
     const t = (item.nome + " " + item.desc + " " + item.cat).toLowerCase();
@@ -693,6 +902,184 @@
     return okCat && okQ;
   }
 
+  // ========= BUILDER (MINIATURAS) =========
+  const stage = el("builderStage");
+  const bgTheme = el("bgTheme");
+  const colorPicker = el("colorPicker");
+  const scaleRange = el("scaleRange");
+  const scaleLabel = el("scaleLabel");
+  const btnDeletePiece = el("btnDeletePiece");
+  const btnResetStage = el("btnResetStage");
+
+  let selectedPiece = null;
+  let zTop = 10;
+
+  function setTheme(v){
+    stage.classList.remove("stageThemeDark","stageThemeParty","stageThemeLight");
+    if(v==="party") stage.classList.add("stageThemeParty");
+    else if(v==="light") stage.classList.add("stageThemeLight");
+    else stage.classList.add("stageThemeDark");
+  }
+  bgTheme.addEventListener("change", e=> setTheme(e.target.value));
+  setTheme(bgTheme.value);
+
+  function svgFor(kind, color){
+    if(kind==="arco"){
+      return `
+      <svg viewBox="0 0 180 130" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 105 C40 20, 140 20, 160 105" fill="none" stroke="${color}" stroke-width="14" stroke-linecap="round"/>
+        <circle cx="48" cy="74" r="7" fill="${color}" opacity="0.9"/>
+        <circle cx="70" cy="52" r="7" fill="${color}" opacity="0.85"/>
+        <circle cx="92" cy="44" r="7" fill="${color}" opacity="0.8"/>
+        <circle cx="114" cy="52" r="7" fill="${color}" opacity="0.85"/>
+        <circle cx="136" cy="74" r="7" fill="${color}" opacity="0.9"/>
+      </svg>`;
+    }
+    if(kind==="baloes"){
+      return `
+      <svg viewBox="0 0 180 130" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="65" cy="55" rx="26" ry="34" fill="${color}" opacity="0.9"/>
+        <ellipse cx="102" cy="45" rx="24" ry="32" fill="${color}" opacity="0.75"/>
+        <ellipse cx="120" cy="65" rx="22" ry="30" fill="${color}" opacity="0.6"/>
+        <path d="M65 89 C60 100, 58 108, 55 118" stroke="${color}" stroke-width="4" fill="none" opacity="0.8"/>
+        <path d="M102 77 C98 95, 92 106, 88 118" stroke="${color}" stroke-width="4" fill="none" opacity="0.7"/>
+        <path d="M120 94 C118 104, 116 110, 112 118" stroke="${color}" stroke-width="4" fill="none" opacity="0.6"/>
+      </svg>`;
+    }
+    if(kind==="tapete"){
+      return `
+      <svg viewBox="0 0 180 130" xmlns="http://www.w3.org/2000/svg">
+        <rect x="18" y="40" width="144" height="70" rx="18" fill="${color}" opacity="0.75"/>
+        <rect x="28" y="50" width="124" height="50" rx="14" fill="rgba(255,255,255,.12)"/>
+      </svg>`;
+    }
+    return `
+    <svg viewBox="0 0 180 130" xmlns="http://www.w3.org/2000/svg">
+      <rect x="22" y="22" width="136" height="86" rx="16" fill="rgba(255,255,255,.08)" stroke="${color}" stroke-width="4" opacity="0.9"/>
+      ${Array.from({length:7}).map((_,i)=>{
+        const x = 40 + i*18;
+        return `<circle cx="${x}" cy="44" r="4" fill="${color}" opacity="${0.45 + i*0.05}"/>
+                <circle cx="${x}" cy="66" r="4" fill="${color}" opacity="${0.35 + i*0.05}"/>
+                <circle cx="${x}" cy="88" r="4" fill="${color}" opacity="${0.25 + i*0.05}"/>`;
+      }).join("")}
+    </svg>`;
+  }
+
+  function nameFor(kind){
+    if(kind==="arco") return "Arco";
+    if(kind==="baloes") return "Balões";
+    if(kind==="tapete") return "Tapete";
+    return "Cortina LED";
+  }
+
+  function createPiece(kind){
+    const color = colorPicker.value || "#00ffd5";
+    const piece = document.createElement("div");
+    piece.className = "piece";
+    piece.dataset.kind = kind;
+    piece.dataset.color = color;
+    piece.dataset.scale = "1";
+    piece.style.left = "55%";
+    piece.style.top = "55%";
+    piece.style.zIndex = (++zTop).toString();
+
+    piece.innerHTML = `
+      <div class="shape">${svgFor(kind, color)}</div>
+      <div class="label">${nameFor(kind)}</div>
+    `;
+
+    piece.addEventListener("pointerdown", (e)=>{
+      selectPiece(piece);
+      startDrag(e, piece);
+    });
+
+    stage.appendChild(piece);
+    selectPiece(piece);
+  }
+
+  function selectPiece(piece){
+    selectedPiece = piece;
+    colorPicker.value = piece.dataset.color || "#00ffd5";
+    const s = parseFloat(piece.dataset.scale || "1");
+    const pct = Math.round(s * 100);
+    scaleRange.value = String(pct);
+    scaleLabel.textContent = `${pct}%`;
+    piece.style.zIndex = (++zTop).toString();
+  }
+
+  function applyColor(piece, color){
+    piece.dataset.color = color;
+    piece.querySelector(".shape").innerHTML = svgFor(piece.dataset.kind, color);
+  }
+
+  function applyScale(piece, pct){
+    const s = pct / 100;
+    piece.dataset.scale = String(s);
+    piece.style.transform = `translate(-50%,-50%) scale(${s})`;
+  }
+
+  colorPicker.addEventListener("input", ()=>{
+    if(!selectedPiece) return;
+    applyColor(selectedPiece, colorPicker.value);
+  });
+
+  scaleRange.addEventListener("input", ()=>{
+    const pct = Number(scaleRange.value || 100);
+    scaleLabel.textContent = `${pct}%`;
+    if(!selectedPiece) return;
+    applyScale(selectedPiece, pct);
+  });
+
+  btnDeletePiece.addEventListener("click", ()=>{
+    if(!selectedPiece) return;
+    selectedPiece.remove();
+    selectedPiece = null;
+  });
+
+  btnResetStage.addEventListener("click", ()=>{
+    stage.innerHTML = "";
+    selectedPiece = null;
+  });
+
+  el("addArco").addEventListener("click", ()=> createPiece("arco"));
+  el("addBaloes").addEventListener("click", ()=> createPiece("baloes"));
+  el("addTapete").addEventListener("click", ()=> createPiece("tapete"));
+  el("addLed").addEventListener("click", ()=> createPiece("led"));
+
+  function startDrag(e, piece){
+    piece.setPointerCapture(e.pointerId);
+
+    const rect = stage.getBoundingClientRect();
+    const startX = e.clientX;
+    const startY = e.clientY;
+    const pLeft = parseFloat(piece.style.left);
+    const pTop  = parseFloat(piece.style.top);
+
+    function move(ev){
+      const dx = ev.clientX - startX;
+      const dy = ev.clientY - startY;
+
+      const leftPx = (pLeft/100)*rect.width + dx;
+      const topPx  = (pTop/100)*rect.height + dy;
+
+      const leftPct = (leftPx / rect.width) * 100;
+      const topPct  = (topPx  / rect.height) * 100;
+
+      piece.style.left = `${Math.max(5, Math.min(95, leftPct))}%`;
+      piece.style.top  = `${Math.max(8, Math.min(92, topPct))}%`;
+    }
+
+    function up(ev){
+      piece.releasePointerCapture(ev.pointerId);
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", up);
+    }
+
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", up);
+  }
+
+  // ========= RENDER GRID =========
   function render(){
     const list = ITENS.filter(passFilter);
     el("itemsCount").textContent = list.length;
@@ -708,10 +1095,24 @@
       thumb.className = "thumb";
 
       const img = document.createElement("img");
-      img.src = item.thumb;
-      img.onerror = ()=> img.src = "capa.jpg";
+      img.src = item.thumb || "";
+      img.alt = item.nome;
+
+      const ph = document.createElement("div");
+      ph.className = "ph";
+      ph.textContent = "Imagem não encontrada";
+
+      img.onerror = ()=> {
+        img.style.display = "none";
+        ph.style.display = "flex";
+      };
+      img.onload = ()=>{
+        ph.style.display = "none";
+        img.style.display = "block";
+      };
 
       thumb.appendChild(img);
+      thumb.appendChild(ph);
 
       const name = document.createElement("div");
       name.className = "itemName";
@@ -740,8 +1141,15 @@
       card.appendChild(desc);
       card.appendChild(footer);
 
-      // CLIQUE NO ITEM => MOSTRA NA MONTAGEM E SELECIONA
-      card.addEventListener("click", ()=> addToBuilder(item.id, item.nome));
+      // clique joga na montagem
+      card.addEventListener("click", ()=>{
+        createPiece(item.piece || "tapete");
+        // conta carrinho como “selecionado”
+        const n = state.cart.get(item.id) || 0;
+        state.cart.set(item.id, n+1);
+        el("cartCount").textContent = [...state.cart.values()].reduce((a,b)=>a+b,0);
+      });
+
       grid.appendChild(card);
     });
 
@@ -749,7 +1157,7 @@
   }
   render();
 
-  // ======= WHATS / CARRINHO =======
+  // ========= AÇÕES =========
   el("btnWhats").addEventListener("click", ()=>{
     const url = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent("Olá! Quero informações sobre os itens do catálogo da Faz de Conta Decorações.")}`;
     window.open(url, "_blank");
@@ -760,199 +1168,100 @@
     alert("Carrinho: " + totalItens + " item(ns).");
   });
 
-  el("btnContract").addEventListener("click", ()=>{
-    alert("Contrato: você pode colocar aqui depois (assinatura etc).");
+  // ========= CONTRATO + ASSINATURA =========
+  function openContract(){ el("modalContractBack").style.display="flex"; }
+  function closeContract(){ el("modalContractBack").style.display="none"; }
+  el("btnContract").addEventListener("click", openContract);
+  el("closeContract").addEventListener("click", closeContract);
+  el("modalContractBack").addEventListener("click",(e)=>{
+    if(e.target === el("modalContractBack")) closeContract();
+  });
+
+  const canvas = el("sign");
+  const ctx = canvas.getContext("2d");
+  let drawing = false;
+  let hasStroke = false;
+
+  function resizeCanvas(){
+    const r = canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = Math.floor(r.width * dpr);
+    canvas.height = Math.floor(r.height * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.lineWidth = 2.4;
+    ctx.lineCap = "round";
+    ctx.strokeStyle = "rgba(255,255,255,.92)";
+  }
+  setTimeout(resizeCanvas, 60);
+  window.addEventListener("resize", ()=> setTimeout(resizeCanvas, 60));
+
+  function pos(e){
+    const r = canvas.getBoundingClientRect();
+    const x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
+    const y = (e.touches ? e.touches[0].clientY : e.clientY) - r.top;
+    return {x,y};
+  }
+
+  function down(e){
+    drawing = true;
+    hasStroke = true;
+    const p = pos(e);
+    ctx.beginPath();
+    ctx.moveTo(p.x, p.y);
+    e.preventDefault();
+  }
+  function move(e){
+    if(!drawing) return;
+    const p = pos(e);
+    ctx.lineTo(p.x, p.y);
+    ctx.stroke();
+    e.preventDefault();
+  }
+  function up(){ drawing = false; }
+
+  canvas.addEventListener("mousedown", down);
+  canvas.addEventListener("mousemove", move);
+  window.addEventListener("mouseup", up);
+
+  canvas.addEventListener("touchstart", down, {passive:false});
+  canvas.addEventListener("touchmove", move, {passive:false});
+  window.addEventListener("touchend", up);
+
+  el("clearSign").addEventListener("click", ()=>{
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    hasStroke = false;
+    state.contractOk = false;
+    el("signStatus").innerHTML = '<div class="line"><b>Status:</b> Aguardando aceite.</div>';
+  });
+
+  el("saveSign").addEventListener("click", ()=>{
+    const agreed = el("agree").checked;
+    if(!agreed){
+      el("signStatus").innerHTML = '<div class="line"><b>Status:</b> Marque "Li e concordo" para salvar.</div>';
+      return;
+    }
+    if(!hasStroke){
+      el("signStatus").innerHTML = '<div class="line"><b>Status:</b> Assine no quadro para salvar.</div>';
+      return;
+    }
+    state.contractOk = true;
+    el("signStatus").innerHTML = '<div class="line"><b>Status:</b> Aceite salvo ✅</div>';
+    closeContract();
   });
 
   el("btnFinish").addEventListener("click", ()=>{
-    alert("Finalizar (Pix): próximo passo é gerar Pix Copia e Cola.");
-  });
-
-  // ========= MONTAGEM (DRAG + CAMADAS) =========
-  const builder = el("builder");
-  const layerList = el("layerList");
-  const scaleRange = el("scaleRange");
-  const scaleLabel = el("scaleLabel");
-  const btnFront = el("btnFront");
-  const btnBack = el("btnBack");
-  const btnHide = el("btnHide");
-  const btnReset = el("btnReset");
-
-  let activePiece = null;
-  let zTop = 10;
-
-  function listPieces(){
-    const pieces = [...builder.querySelectorAll(".piece")].filter(p=>!p.classList.contains("hidden"));
-    return pieces.sort((a,b)=> (Number(a.style.zIndex||0) - Number(b.style.zIndex||0)));
-  }
-
-  function selectPiece(p){
-    activePiece = p;
-    // destaca no painel
-    [...layerList.querySelectorAll(".layerItem")].forEach(x=>x.classList.remove("active"));
-    const li = layerList.querySelector(`[data-li="${p.dataset.piece}"]`);
-    if(li) li.classList.add("active");
-
-    // atualiza escala
-    const scale = p.dataset.scale ? Number(p.dataset.scale) : 100;
-    scaleRange.value = scale;
-    scaleLabel.textContent = scale + "%";
-  }
-
-  function rebuildLayerPanel(){
-    const pieces = listPieces().reverse(); // topo primeiro
-    layerList.innerHTML = "";
-
-    if(pieces.length === 0){
-      layerList.innerHTML = `<div style="color:rgba(255,255,255,.65);font-size:13px">
-        Selecione itens no catálogo e eles aparecerão aqui.
-      </div>`;
+    if(!state.contractOk){
+      alert("Antes de finalizar, abra o CONTRATO e salve o aceite com assinatura.");
+      openContract();
       return;
     }
-
-    pieces.forEach(p=>{
-      const nameMap = {
-        cilindros:"Cilindros",
-        arco:"Arco",
-        cortina:"Cortina",
-        tapete:"Tapete",
-        item:"Item decorativo"
-      };
-      const div = document.createElement("div");
-      div.className = "layerItem";
-      div.dataset.li = p.dataset.piece;
-      div.innerHTML = `<div><b>${nameMap[p.dataset.piece] || p.dataset.piece}</b><br><small>clique para selecionar</small></div>
-                       <div style="opacity:.75;font-weight:900">#</div>`;
-      div.addEventListener("click", ()=> selectPiece(p));
-      layerList.appendChild(div);
-    });
-
-    // se não tiver selecionado, seleciona o topo
-    if(!activePiece) selectPiece(pieces[0]);
-  }
-
-  function addToBuilder(id, nome){
-    const p = builder.querySelector(`.piece[data-piece="${id}"]`);
-    if(!p) return;
-
-    p.classList.remove("hidden");
-    p.style.left = "50%";
-    p.style.top = "50%";
-    p.style.zIndex = String(++zTop);
-    p.dataset.scale = "100";
-    p.style.width = "180px";
-
-    // marca no carrinho
-    const n = state.cart.get(id) || 0;
-    state.cart.set(id, n+1);
-
-    selectPiece(p);
-    rebuildLayerPanel();
-    render();
-  }
-
-  // ======= DRAG =======
-  let drag = null;
-
-  function pointerDown(e){
-    const target = e.target.closest(".piece");
-    if(!target || target.classList.contains("hidden")) return;
-
-    selectPiece(target);
-    target.style.zIndex = String(++zTop);
-
-    const rect = builder.getBoundingClientRect();
-    const trect = target.getBoundingClientRect();
-
-    const px = (e.touches ? e.touches[0].clientX : e.clientX);
-    const py = (e.touches ? e.touches[0].clientY : e.clientY);
-
-    drag = {
-      target,
-      startX: px,
-      startY: py,
-      offX: px - trect.left,
-      offY: py - trect.top,
-      rect
-    };
-    e.preventDefault();
-  }
-
-  function pointerMove(e){
-    if(!drag) return;
-    const px = (e.touches ? e.touches[0].clientX : e.clientX);
-    const py = (e.touches ? e.touches[0].clientY : e.clientY);
-
-    const x = px - drag.rect.left - drag.offX;
-    const y = py - drag.rect.top - drag.offY;
-
-    drag.target.style.left = x + "px";
-    drag.target.style.top = y + "px";
-    drag.target.style.transform = "translate(0,0)";
-    e.preventDefault();
-  }
-
-  function pointerUp(){
-    drag = null;
-  }
-
-  builder.addEventListener("mousedown", pointerDown);
-  window.addEventListener("mousemove", pointerMove);
-  window.addEventListener("mouseup", pointerUp);
-
-  builder.addEventListener("touchstart", pointerDown, {passive:false});
-  window.addEventListener("touchmove", pointerMove, {passive:false});
-  window.addEventListener("touchend", pointerUp);
-
-  // ======= CONTROLES =======
-  scaleRange.addEventListener("input", ()=>{
-    if(!activePiece) return;
-    const v = Number(scaleRange.value);
-    activePiece.dataset.scale = String(v);
-    scaleLabel.textContent = v + "%";
-    // ajusta largura proporcional
-    const base = 180;
-    activePiece.style.width = Math.round(base * (v/100)) + "px";
+    const totalItens = [...state.cart.values()].reduce((a,b)=>a+b,0);
+    if(totalItens<=0){
+      alert("Seu carrinho está vazio. Clique em um item para adicionar.");
+      return;
+    }
+    alert("Finalizar (Pix):\n(Próximo passo: gerar Pix Copia e Cola.)");
   });
-
-  btnFront.addEventListener("click", ()=>{
-    if(!activePiece) return;
-    activePiece.style.zIndex = String(++zTop);
-    rebuildLayerPanel();
-  });
-
-  btnBack.addEventListener("click", ()=>{
-    if(!activePiece) return;
-    activePiece.style.zIndex = "1";
-    rebuildLayerPanel();
-  });
-
-  btnHide.addEventListener("click", ()=>{
-    if(!activePiece) return;
-    activePiece.classList.add("hidden");
-    activePiece = null;
-    rebuildLayerPanel();
-  });
-
-  btnReset.addEventListener("click", ()=>{
-    // esconde tudo
-    builder.querySelectorAll(".piece").forEach(p=>{
-      p.classList.add("hidden");
-      p.style.left = "40%";
-      p.style.top = "40%";
-      p.style.transform = "translate(-50%,-50%)";
-      p.style.width = "180px";
-      p.style.zIndex = "1";
-      p.dataset.scale = "100";
-    });
-    activePiece = null;
-    zTop = 10;
-    state.cart.clear();
-    rebuildLayerPanel();
-    render();
-  });
-
-  rebuildLayerPanel();
 </script>
 
 </body>
