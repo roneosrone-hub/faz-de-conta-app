@@ -2,11 +2,8 @@
 <html lang="pt-br">
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Faz de Conta Decorações • Montagem</title>
-
-  <!-- Konva (canvas editor) -->
-  <script src="https://unpkg.com/konva@9/konva.min.js"></script>
 
   <style>
     :root{
@@ -17,890 +14,1028 @@
       --stroke: rgba(255,255,255,.14);
       --text: rgba(255,255,255,.92);
       --muted: rgba(255,255,255,.65);
+      --muted2: rgba(255,255,255,.45);
       --shadow: 0 18px 50px rgba(0,0,0,.55);
-      --radius: 18px;
-      --radius2: 14px;
-      --accent: #7cf0d6;
-      --accent2:#8aa7ff;
+      --radius: 20px;
+      --radius2: 16px;
+      --accent1:#00f2ff;
+      --accent2:#9d00ff;
+      --accent3:#ff00c8;
+      --good:#2bf48b;
+      --warn:#ffcc66;
+      --bad:#ff5d6c;
     }
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      color:var(--text);
       background:
-        radial-gradient(1100px 520px at 20% -10%, rgba(124,240,214,.18), transparent 55%),
-        radial-gradient(900px 560px at 110% 20%, rgba(138,167,255,.18), transparent 55%),
+        radial-gradient(1200px 700px at 20% -10%, rgba(157,0,255,.25), transparent 55%),
+        radial-gradient(900px 600px at 70% 0%, rgba(0,242,255,.18), transparent 60%),
+        radial-gradient(900px 600px at 80% 100%, rgba(255,0,200,.12), transparent 55%),
         linear-gradient(180deg, var(--bg0), var(--bg1));
-    }
-
-    .wrap{max-width:1200px;margin:0 auto;padding:16px}
-    .topTag{
-      display:inline-flex;gap:8px;align-items:center;
-      padding:6px 10px;border:1px solid var(--stroke);
-      border-radius:999px;background:rgba(255,255,255,.06);
-      color:var(--text);font-weight:700;font-size:12px;
-    }
-
-    .header{
-      margin-top:12px;
-      background:linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
-      border:1px solid var(--stroke);
-      border-radius:22px;
-      box-shadow:var(--shadow);
-      padding:14px;
-      display:grid;
-      grid-template-columns: 120px 1fr;
-      gap:14px;
-    }
-    .logoBox{
-      width:120px;height:120px;border-radius:18px;
-      background:rgba(0,0,0,.35);
-      border:1px solid var(--stroke);
-      display:flex;align-items:center;justify-content:center;
-      overflow:hidden;
-    }
-    .logoBox img{width:100%;height:100%;object-fit:cover}
-    .brand h1{
-      margin:0;
-      font-size:28px;letter-spacing:.5px;
-      background: linear-gradient(90deg, #b46cff, #53e6ff, #9aff7a, #ffdd6b, #ff6bd8);
-      -webkit-background-clip:text;background-clip:text;color:transparent;
-      font-weight:900;
-    }
-    .brand .sub{
-      margin-top:6px;
-      color:var(--muted);
-      font-weight:800;
-      text-shadow:0 10px 26px rgba(0,0,0,.45);
-      font-size:14px;
-      display:flex;gap:8px;align-items:center;
-    }
-    .chips{margin-top:12px;display:flex;flex-wrap:wrap;gap:10px}
-    .chip{
-      padding:10px 12px;border-radius:999px;
-      border:1px solid var(--stroke);
-      background:rgba(255,255,255,.06);
       color:var(--text);
-      font-weight:800;
-      display:inline-flex;align-items:center;gap:8px;
-      cursor:pointer;
-      user-select:none;
+      overflow-x:hidden;
     }
-    .chip.primary{
-      background:linear-gradient(90deg, rgba(124,240,214,.20), rgba(138,167,255,.14));
-    }
-    .chip.danger{background:rgba(255,80,80,.12)}
-    .chip input{display:none}
 
-    .meta{
-      margin-top:10px;
-      display:grid;
-      gap:8px;
-    }
-    .metaRow{
-      border:1px solid var(--stroke);
-      background:rgba(255,255,255,.05);
-      border-radius:14px;
-      padding:10px 12px;
-      color:var(--muted);
-      font-weight:800;
-      display:flex;align-items:center;gap:10px;
-    }
-    .metaRow b{color:var(--text)}
-    .grid{
-      margin-top:14px;
-      display:grid;
-      grid-template-columns: 1.3fr .7fr;
+    .wrap{
+      width:min(1200px, 92vw);
+      margin:18px auto 30px;
+      display:flex;
+      flex-direction:column;
       gap:14px;
     }
-    @media (max-width: 980px){
-      .grid{grid-template-columns:1fr}
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 10px;
+      border-radius:999px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      color:var(--muted);
+      font-size:12.5px;
+      user-select:none;
+      white-space:nowrap;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap:14px;
+    }
+
+    @media (max-width: 960px){
+      .grid{ grid-template-columns: 1fr; }
     }
 
     .card{
-      background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
-      border:1px solid var(--stroke);
-      border-radius:22px;
-      box-shadow:var(--shadow);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
       overflow:hidden;
     }
-    .cardHead{
-      padding:12px 14px;
-      display:flex;align-items:center;justify-content:space-between;gap:10px;
-      border-bottom:1px solid rgba(255,255,255,.08);
+
+    .header{
+      display:flex;
+      gap:14px;
+      padding:16px;
+      align-items:center;
+      background:
+        radial-gradient(800px 260px at 10% 0%, rgba(157,0,255,.22), transparent 60%),
+        radial-gradient(700px 240px at 60% 10%, rgba(0,242,255,.16), transparent 60%),
+        radial-gradient(700px 240px at 90% 20%, rgba(255,0,200,.12), transparent 60%),
+        rgba(255,255,255,.04);
+      border-bottom:1px solid rgba(255,255,255,.10);
     }
-    .cardHead .title{
-      font-weight:900;
-      display:flex;align-items:center;gap:10px;
+
+    .logo{
+      width:78px;height:78px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(0,0,0,.25);
+      overflow:hidden;
+      flex:0 0 auto;
+    }
+    .logo img{ width:100%;height:100%;object-fit:cover;display:block; }
+
+    .brand{
+      flex:1;
+      min-width: 0;
+    }
+
+    .brand h1{
+      margin:0;
+      font-size:28px;
+      line-height:1.05;
+      letter-spacing:.4px;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2), var(--accent3));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+      text-shadow: 0 12px 40px rgba(0,0,0,.35);
+    }
+    .brand .slogan{
+      margin:6px 0 0;
+      color:rgba(255,255,255,.88);
+      font-weight:700;
+      letter-spacing:.2px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-size:14px;
+    }
+
+    .actions{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .btn{
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.07);
       color:var(--text);
+      padding:10px 12px;
+      border-radius:14px;
+      font-weight:700;
+      font-size:13px;
+      cursor:pointer;
+      transition: transform .08s ease, background .2s ease, border-color .2s ease;
+      user-select:none;
     }
-    .cardHead .hint{
-      color:var(--muted);font-weight:800;font-size:12px;
+    .btn:active{ transform: translateY(1px); }
+    .btn.primary{
+      background: linear-gradient(90deg, rgba(0,242,255,.22), rgba(157,0,255,.18));
+      border-color: rgba(0,242,255,.25);
     }
-    #stageWrap{
-      height:420px;
-      background: radial-gradient(900px 380px at 20% 0%, rgba(124,240,214,.10), transparent 55%),
-                  radial-gradient(900px 380px at 90% 40%, rgba(138,167,255,.10), transparent 55%),
-                  rgba(0,0,0,.25);
-      border-top:1px solid rgba(255,255,255,.06);
-      border-bottom:1px solid rgba(255,255,255,.06);
+    .btn.good{
+      background: linear-gradient(90deg, rgba(43,244,139,.22), rgba(0,242,255,.15));
+      border-color: rgba(43,244,139,.28);
+    }
+    .btn.danger{
+      background: rgba(255,93,108,.14);
+      border-color: rgba(255,93,108,.24);
+    }
+
+    .metaCol{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      margin-top:10px;
+    }
+
+    .metaRow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:10px 12px;
+      border-radius:14px;
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+      color:var(--muted);
+      font-size:13px;
+    }
+    .metaRow b{ color:rgba(255,255,255,.9); font-weight:800; }
+    .small{ color:var(--muted2); font-size:12px; }
+
+    .body{
+      padding:14px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .canvasWrap{
+      background:
+        radial-gradient(900px 500px at 30% 0%, rgba(157,0,255,.15), transparent 60%),
+        radial-gradient(900px 500px at 80% 100%, rgba(0,242,255,.10), transparent 60%),
+        linear-gradient(160deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius2);
+      overflow:hidden;
+      position:relative;
+      min-height:420px;
+    }
+
+    .canvasTop{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:10px 12px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+    }
+    .canvasTop .title{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-weight:900;
+      letter-spacing:.2px;
+    }
+
+    #stage{
+      position:relative;
+      height: min(520px, 60vh);
+      min-height: 380px;
+      overflow:hidden;
+      touch-action:none;
+    }
+
+    .item{
+      position:absolute;
+      left:120px; top:120px;
+      transform-origin:center center;
+      cursor:grab;
+      user-select:none;
+      touch-action:none;
+      filter: drop-shadow(0 18px 26px rgba(0,0,0,.35));
+    }
+    .item:active{ cursor:grabbing; }
+
+    .item img{
+      display:block;
+      width:220px;
+      height:auto;
+      pointer-events:none;
+      user-select:none;
+    }
+
+    .selected{
+      outline: 2px solid rgba(0,242,255,.45);
+      outline-offset: 6px;
+      border-radius: 14px;
     }
 
     .panel{
-      padding:12px 14px;
-      display:grid;
+      padding:12px;
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius2);
+    }
+
+    .panel h3{
+      margin:0 0 10px;
+      font-size:14px;
+      color:rgba(255,255,255,.92);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
       gap:10px;
     }
-    .field{
-      display:grid;
-      gap:6px;
+
+    .row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
     }
-    label{font-size:12px;color:var(--muted);font-weight:900}
+
+    .field{
+      width:100%;
+      display:flex;
+      gap:8px;
+    }
+
     input[type="text"], select{
       width:100%;
-      padding:12px 12px;
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(0,0,0,.25);
+      padding:11px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.25);
       color:var(--text);
       outline:none;
-      font-weight:800;
     }
-    .row{
+
+    .grid2{
       display:grid;
       grid-template-columns: 1fr 1fr;
       gap:10px;
     }
-    .row3{
+    @media (max-width: 960px){
+      .grid2{ grid-template-columns: 1fr; }
+    }
+
+    .slider{
+      width:100%;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      margin-top:10px;
+    }
+    .slider label{
+      display:flex;
+      justify-content:space-between;
+      color:var(--muted);
+      font-size:12.5px;
+    }
+    input[type="range"]{ width:100%; }
+
+    .catalog{
       display:grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
       gap:10px;
     }
     @media (max-width: 520px){
-      .row, .row3{grid-template-columns:1fr}
+      .catalog{ grid-template-columns: 1fr; }
     }
 
-    .toggle{
-      display:flex;align-items:center;gap:10px;justify-content:space-between;
-      padding:10px 12px;border:1px solid rgba(255,255,255,.12);
-      border-radius:12px;background:rgba(255,255,255,.04);
-    }
-    .toggle span{color:var(--muted);font-weight:900}
-    .toggle input{transform:scale(1.2)}
-
-    .controls{
-      display:grid;
-      gap:10px;
-      padding:12px 14px;
-      border-top:1px solid rgba(255,255,255,.08);
-    }
-    .slider{
-      display:grid;gap:6px;
-    }
-    .slider .top{
-      display:flex;align-items:center;justify-content:space-between;
-      color:var(--muted);font-weight:900;font-size:12px;
-    }
-    input[type="range"]{width:100%}
-
-    .btnRow{
-      display:grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap:10px;
-    }
-    @media (max-width: 520px){ .btnRow{grid-template-columns:1fr} }
-    .btn{
-      padding:10px 12px;
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.06);
-      color:var(--text);
-      font-weight:900;
-      cursor:pointer;
-      user-select:none;
-      display:flex;align-items:center;justify-content:center;gap:8px;
-    }
-    .btn.primary{background:linear-gradient(90deg, rgba(124,240,214,.22), rgba(138,167,255,.16))}
-    .btn.danger{background:rgba(255,80,80,.12)}
-    .btn:active{transform:translateY(1px)}
-
-    .catalog{
-      padding:12px 14px 14px;
-      display:grid;
-      gap:10px;
-    }
-    .catGrid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:12px;
-    }
-    @media (max-width: 520px){ .catGrid{grid-template-columns:1fr} }
-
-    .item{
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.05);
+    .tile{
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
       border-radius:16px;
       overflow:hidden;
       cursor:pointer;
-      user-select:none;
+      transition: transform .08s ease, border-color .2s ease;
     }
+    .tile:active{ transform: translateY(1px); }
+    .tile:hover{ border-color: rgba(0,242,255,.22); }
+
     .thumb{
       height:110px;
-      background:rgba(0,0,0,.30);
-      display:flex;align-items:center;justify-content:center;
+      background: rgba(0,0,0,.30);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
     }
-    .thumb img{width:100%;height:100%;object-fit:cover}
-    .itemBody{padding:10px 10px 12px}
-    .itemBody .nm{font-weight:900}
-    .itemBody .ds{color:var(--muted);font-weight:800;font-size:12px;margin-top:4px}
-    .itemBody .pr{margin-top:8px;color:var(--muted);font-weight:900;font-size:12px;display:none}
-    .showPrices .itemBody .pr{display:block}
+    .thumb img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      opacity:.95;
+    }
 
-    .smallNote{color:var(--muted);font-weight:800;font-size:12px;line-height:1.35}
+    .tile .info{
+      padding:10px;
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+    }
+    .tile .name{
+      font-weight:900;
+      font-size:13px;
+      color:rgba(255,255,255,.92);
+    }
+    .tile .desc{
+      color:var(--muted);
+      font-size:12px;
+      min-height: 28px;
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      font-size:11.5px;
+      color:rgba(255,255,255,.86);
+      padding:4px 8px;
+      border-radius:999px;
+      background: rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.10);
+      width:max-content;
+    }
+
+    .hint{
+      margin-top:10px;
+      color:var(--muted2);
+      font-size:12px;
+      line-height:1.35;
+    }
+
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom:18px;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,.72);
+      border:1px solid rgba(255,255,255,.14);
+      color:rgba(255,255,255,.92);
+      padding:10px 12px;
+      border-radius: 999px;
+      font-size:13px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.55);
+      opacity:0;
+      pointer-events:none;
+      transition: opacity .2s ease, transform .2s ease;
+      z-index:9999;
+    }
+    .toast.show{
+      opacity:1;
+      transform: translateX(-50%) translateY(-4px);
+    }
   </style>
 </head>
 
 <body>
   <div class="wrap">
-    <div class="topTag">✨ Onde a imaginação vira festa</div>
 
-    <section class="header">
-      <div class="logoBox">
-        <img id="logoImg" alt="Logo" src="assets/logo.png" onerror="this.style.display='none'; this.parentElement.textContent='FC';"/>
-      </div>
-      <div class="brand">
-        <h1>FAZ DE CONTA DECORAÇÕES</h1>
-        <div class="sub">✨ <span>Onde a imaginação vira festa</span></div>
+    <div class="topbar">
+      <div class="pill">✨ Faz de Conta • Montagem</div>
+      <div class="pill" id="nowPill">⏱️ --/--/---- • --:--</div>
+    </div>
 
-        <div class="chips">
-          <div class="chip primary" id="btnWhats">💬 WhatsApp</div>
-          <div class="chip" id="chipCount">🧺 Selecionados <b id="countSel" style="margin-left:6px">0</b></div>
-          <div class="chip danger" id="btnClear">🧽 Limpar montagem</div>
-          <div class="chip primary" id="btnExport">📸 Exportar imagem</div>
-          <label class="chip" style="cursor:pointer">
-            ⬆️ Enviar item (PNG)
-            <input id="fileAdd" type="file" accept="image/*">
-          </label>
+    <div class="card">
+      <div class="header">
+        <div class="logo">
+          <!-- Troque se quiser: assets/capa.jpg -->
+          <img src="assets/capa.jpg" alt="Logo">
         </div>
 
-        <div class="meta">
-          <div class="metaRow">📍 <b>Jaciara/MT</b></div>
-          <div class="metaRow">📱 <span>WhatsApp:</span> <b id="whatsNum">(66) 99622-3481</b></div>
-          <div class="metaRow">📅 <b id="dtNow"></b> ⏱️ <b id="tmNow"></b></div>
+        <div class="brand">
+          <h1>FAZ DE CONTA DECORAÇÕES</h1>
+          <div class="slogan">✨ Onde a imaginação vira festa</div>
+
+          <!-- METAS EM COLUNA (DE CIMA PRA BAIXO) -->
+          <div class="metaCol">
+            <div class="metaRow"><span>📍 Cidade</span> <b>Jaciara/MT</b></div>
+            <div class="metaRow"><span>💬 WhatsApp</span> <b>(66) 99622-3481</b></div>
+            <div class="metaRow"><span>📅 Data/Hora</span> <b id="dateLine">--/--/---- • --:--</b></div>
+          </div>
         </div>
-      </div>
-    </section>
 
-    <section class="grid">
-      <!-- Montagem -->
-      <div class="card">
-        <div class="cardHead">
-          <div class="title">🧩 Montagem do cliente</div>
-          <div class="hint">Toque no item no catálogo → ele entra aqui. Arraste e ajuste.</div>
-        </div>
-        <div id="stageWrap"></div>
-
-        <div class="controls">
-          <div class="smallNote">
-            Dica: para ficar realista, use PNG/WebP com fundo transparente. JPG quase sempre “vira foto inteira”.
-          </div>
-
-          <div class="row3">
-            <div class="slider">
-              <div class="top"><span>Escala</span><b id="vScale">100%</b></div>
-              <input id="scaleR" type="range" min="20" max="220" value="100">
-            </div>
-            <div class="slider">
-              <div class="top"><span>Rotação</span><b id="vRot">0°</b></div>
-              <input id="rotR" type="range" min="-180" max="180" value="0">
-            </div>
-            <div class="slider">
-              <div class="top"><span>Opacidade</span><b id="vOp">100%</b></div>
-              <input id="opR" type="range" min="10" max="100" value="100">
-            </div>
-          </div>
-
-          <div class="btnRow">
-            <div class="btn" id="btnFront">⬆️ Frente</div>
-            <div class="btn" id="btnBack">⬇️ Trás</div>
-            <div class="btn" id="btnDup">🧬 Duplicar</div>
-          </div>
-
-          <div class="btnRow">
-            <div class="btn" id="btnCenter">🎯 Centralizar</div>
-            <div class="btn" id="btnResetColor">🎨 Reset cor</div>
-            <div class="btn danger" id="btnDel">🗑️ Remover</div>
-          </div>
-
-          <div class="row">
-            <div class="slider">
-              <div class="top"><span>Cor (Hue)</span><b id="vHue">0</b></div>
-              <input id="hueR" type="range" min="0" max="360" value="0">
-            </div>
-            <div class="slider">
-              <div class="top"><span>Saturação</span><b id="vSat">100%</b></div>
-              <input id="satR" type="range" min="0" max="200" value="100">
-            </div>
-          </div>
+        <div class="actions">
+          <button class="btn primary" onclick="openWhats()">💬 WhatsApp</button>
+          <button class="btn" onclick="clearStage()">🧼 Limpar montagem</button>
+          <button class="btn good" onclick="exportPNG()">📸 Exportar imagem</button>
+          <button class="btn danger" onclick="deleteSelected()">🗑️ Apagar item</button>
         </div>
       </div>
 
-      <!-- Assistente do pedido -->
-      <div class="card">
-        <div class="cardHead">
-          <div class="title">🧠 Assistente de montagem</div>
-          <div class="hint">Buscar e filtrar itens</div>
+      <div class="body">
+        <div class="canvasWrap">
+          <div class="canvasTop">
+            <div class="title">🧩 Montagem do cliente</div>
+            <div class="small">Toque/clique no item pra selecionar • arraste pra mover</div>
+          </div>
+
+          <div id="stage" aria-label="Área de montagem"></div>
         </div>
 
-        <div class="panel">
-          <div class="field">
-            <label>Pesquisar</label>
-            <input id="q" type="text" placeholder="Pesquisar (ex: arco, balões, tapete, LED...)">
+        <div class="grid2">
+          <div class="panel">
+            <h3>
+              🎛️ Controles do item
+              <span class="small" id="selName">Selecionado: nenhum</span>
+            </h3>
+
+            <div class="row">
+              <button class="btn" onclick="bringFront()">⬆️ Frente</button>
+              <button class="btn" onclick="sendBack()">⬇️ Trás</button>
+              <button class="btn" onclick="duplicateSelected()">🧬 Duplicar</button>
+              <button class="btn" onclick="centerSelected()">🎯 Centralizar</button>
+            </div>
+
+            <div class="slider">
+              <label><span>Escala</span><span id="scaleVal">100%</span></label>
+              <input id="scale" type="range" min="20" max="220" value="100" oninput="applyControls()"/>
+            </div>
+
+            <div class="slider">
+              <label><span>Rotação</span><span id="rotVal">0°</span></label>
+              <input id="rot" type="range" min="-180" max="180" value="0" oninput="applyControls()"/>
+            </div>
+
+            <div class="slider">
+              <label><span>Opacidade</span><span id="opaVal">100%</span></label>
+              <input id="opa" type="range" min="10" max="100" value="100" oninput="applyControls()"/>
+            </div>
+
+            <div class="panel" style="margin-top:12px;">
+              <h3>🧼 Remover fundo (BETA)</h3>
+              <div class="small">
+                Isso tenta tirar fundo <b>preto/branco</b> mesmo em JPG, deixando o item “solto”.
+                <br/>Funciona muito bem em balões com fundo preto.
+              </div>
+              <div class="row" style="margin-top:10px;">
+                <button class="btn" onclick="removeBgSelected('auto')">✨ Auto</button>
+                <button class="btn" onclick="removeBgSelected('black')">⬛ Tirar preto</button>
+                <button class="btn" onclick="removeBgSelected('white')">⬜ Tirar branco</button>
+                <button class="btn" onclick="resetImageSelected()">↩️ Voltar original</button>
+              </div>
+              <div class="small" style="margin-top:10px;">
+                Dica: se ficar “serrilhado”, use <b>Opacidade</b> 95–98%.
+              </div>
+            </div>
+
           </div>
 
-          <div class="field">
-            <label>Categoria</label>
-            <select id="cat">
-              <option value="all">Todas as categorias</option>
-            </select>
-          </div>
+          <div class="panel">
+            <h3>🛒 Catálogo (toque para adicionar)</h3>
 
-          <div class="toggle" id="togglePrices">
-            <span>🔒 Mostrar preços</span>
-            <input id="showPrices" type="checkbox">
-          </div>
+            <div class="field">
+              <input id="q" type="text" placeholder="Pesquisar (ex: arco, balões, cortina...)" oninput="renderCatalog()"/>
+            </div>
 
-          <div class="btn primary" id="btnResetFilters">🧼 Limpar filtros</div>
+            <div class="field" style="margin-top:10px;">
+              <select id="cat" onchange="renderCatalog()">
+                <option value="all">🧩 Todas as categorias</option>
+                <option value="baloes">🎈 Balões</option>
+                <option value="estruturas">🧱 Estruturas</option>
+                <option value="fundos">🖼️ Fundos</option>
+                <option value="tapetes">🧸 Tapetes</option>
+                <option value="luz">💡 Iluminação</option>
+              </select>
+            </div>
 
-          <div class="smallNote">
-            Observação: se as imagens “somem” no Vercel, é quase sempre nome de arquivo diferente (maiúscula/minúscula) ou pasta errada.
+            <div class="hint">
+              Se o item entrar com “fundo”, selecione ele e use <b>Remover fundo (BETA)</b>.
+            </div>
+
+            <div style="height:10px"></div>
+            <div class="catalog" id="catalog"></div>
+
           </div>
         </div>
 
-        <div class="catalog">
-          <div class="title" style="font-weight:900">✨ Itens do catálogo (toque para adicionar)</div>
-          <div class="catGrid" id="grid"></div>
-        </div>
       </div>
-    </section>
+    </div>
   </div>
 
-  <script>
-    // ===========
-    // DATA/HORA
-    // ===========
-    function pad(n){ return String(n).padStart(2,'0'); }
-    function updateClock(){
-      const d = new Date();
-      document.getElementById('dtNow').textContent = pad(d.getDate()) + '/' + pad(d.getMonth()+1) + '/' + d.getFullYear();
-      document.getElementById('tmNow').textContent = pad(d.getHours()) + ':' + pad(d.getMinutes());
-    }
-    updateClock();
-    setInterval(updateClock, 15000);
+  <div class="toast" id="toast">Ok</div>
 
-    // ===========
-    // CATÁLOGO (edite aqui os itens e caminhos)
-    // Coloque suas imagens em /assets/ (nomes minúsculos!)
-    // ===========
-    const CATALOG = [
-      { id:'baloes', name:'Balões (Arco Orgânico)', cat:'Balões', price:'sob consulta', desc:'Balões realistas para montagem.', src:'assets/baloes.png' },
-      { id:'arco', name:'Arco (Estrutura)', cat:'Estruturas', price:'sob consulta', desc:'Estrutura para arco/painel.', src:'assets/arco.png' },
-      { id:'painel', name:'Painel Redondo', cat:'Painéis', price:'sob consulta', desc:'Painel redondo (fundo).', src:'assets/painel-redondo.png' },
-      { id:'cilindros', name:'Cilindros (Suporte)', cat:'Estruturas', price:'sob consulta', desc:'Cilindros para mesa/bolo.', src:'assets/cilindros.png' },
-      { id:'led', name:'Cortina de LED', cat:'Iluminação', price:'sob consulta', desc:'LED para fundo e brilho.', src:'assets/cortina-led.png' },
-      { id:'tapete', name:'Tapete para fotos', cat:'Cenário', price:'sob consulta', desc:'Tapete para base.', src:'assets/tapete.png' },
-    ];
+<script>
+/** ===============================
+ *  CONFIG: ITENS DO CATÁLOGO
+ *  =============================== */
+const ITEMS = [
+  {
+    id:"baloes-arco",
+    name:"Balões (Arco Orgânico)",
+    desc:"Balões realistas para montagem. Use remover fundo se precisar.",
+    cat:"baloes",
+    src:"assets/arco-baloes.jpg"
+  },
+  {
+    id:"arco-1",
+    name:"Arco (Estrutura)",
+    desc:"Estrutura para balões/painel.",
+    cat:"estruturas",
+    src:"assets/arco-1.jpg"
+  },
+  {
+    id:"arco-2",
+    name:"Arco (Estrutura 2)",
+    desc:"Outra opção de arco.",
+    cat:"estruturas",
+    src:"assets/arco-2.jpg"
+  },
+  {
+    id:"cilindros",
+    name:"Cilindros (Suporte)",
+    desc:"Estruturas para mesa/bolo.",
+    cat:"estruturas",
+    src:"assets/cilindros.jpg"
+  },
+  {
+    id:"cortina-led",
+    name:"Cortina de LED",
+    desc:"Iluminação para fundo e brilho.",
+    cat:"luz",
+    src:"assets/cortina-led.jpg"
+  },
+  {
+    id:"tapete",
+    name:"Tapete para fotos",
+    desc:"Base para fotos e cenário.",
+    cat:"tapetes",
+    src:"assets/tapete.jpg"
+  },
+  {
+    id:"painel",
+    name:"Painel/Fundo",
+    desc:"Use como fundo principal (opcional).",
+    cat:"fundos",
+    src:"assets/capa.jpg"
+  }
+];
 
-    // ===========
-    // UI catálogo
-    // ===========
-    const grid = document.getElementById('grid');
-    const q = document.getElementById('q');
-    const catSel = document.getElementById('cat');
-    const showPrices = document.getElementById('showPrices');
-    const body = document.body;
+/** ===============================
+ *  ESTADO
+ *  =============================== */
+const stage = document.getElementById("stage");
+let selected = null;
+let zTop = 10;
 
-    // popular categorias
-    const cats = Array.from(new Set(CATALOG.map(i=>i.cat))).sort();
-    for(const c of cats){
-      const opt = document.createElement('option');
-      opt.value = c;
-      opt.textContent = c;
-      catSel.appendChild(opt);
-    }
+const ui = {
+  scale: document.getElementById("scale"),
+  rot: document.getElementById("rot"),
+  opa: document.getElementById("opa"),
+  scaleVal: document.getElementById("scaleVal"),
+  rotVal: document.getElementById("rotVal"),
+  opaVal: document.getElementById("opaVal"),
+  selName: document.getElementById("selName"),
+  toast: document.getElementById("toast"),
+};
 
-    function renderCatalog(){
-      const term = (q.value||'').trim().toLowerCase();
-      const cat = catSel.value;
+/** ===============================
+ *  UTIL
+ *  =============================== */
+function toast(msg){
+  ui.toast.textContent = msg;
+  ui.toast.classList.add("show");
+  setTimeout(()=>ui.toast.classList.remove("show"), 1600);
+}
 
-      grid.innerHTML = '';
-      const items = CATALOG.filter(it=>{
-        const okTerm = !term || (it.name.toLowerCase().includes(term) || it.desc.toLowerCase().includes(term));
-        const okCat = (cat==='all') || (it.cat===cat);
-        return okTerm && okCat;
-      });
+function nowBr(){
+  const d = new Date();
+  const dd = String(d.getDate()).padStart(2,'0');
+  const mm = String(d.getMonth()+1).padStart(2,'0');
+  const yy = d.getFullYear();
+  const hh = String(d.getHours()).padStart(2,'0');
+  const mi = String(d.getMinutes()).padStart(2,'0');
+  return `${dd}/${mm}/${yy} • ${hh}:${mi}`;
+}
 
-      for(const it of items){
-        const card = document.createElement('div');
-        card.className = 'item';
-        card.innerHTML = `
-          <div class="thumb"><img src="${it.src}" alt="${it.name}" loading="lazy"
-            onerror="this.style.display='none'; this.parentElement.textContent='Imagem não encontrada';"></div>
-          <div class="itemBody">
-            <div class="nm">${it.name}</div>
-            <div class="ds">${it.desc}</div>
-            <div class="pr">Preço: ${it.price}</div>
-          </div>
-        `;
-        card.addEventListener('click', ()=> addItemToStage(it));
-        grid.appendChild(card);
-      }
-    }
+function openWhats(){
+  const phone = "5566996223481";
+  const txt = encodeURIComponent("Olá! Quero montar uma decoração. 😊");
+  window.open(`https://wa.me/${phone}?text=${txt}`, "_blank");
+}
 
-    q.addEventListener('input', renderCatalog);
-    catSel.addEventListener('change', renderCatalog);
-    showPrices.addEventListener('change', ()=>{
-      body.classList.toggle('showPrices', showPrices.checked);
-    });
+/** ===============================
+ *  CATÁLOGO
+ *  =============================== */
+function renderCatalog(){
+  const q = (document.getElementById("q").value || "").toLowerCase().trim();
+  const cat = document.getElementById("cat").value;
 
-    document.getElementById('btnResetFilters').addEventListener('click', ()=>{
-      q.value='';
-      catSel.value='all';
-      showPrices.checked=false;
-      body.classList.remove('showPrices');
-      renderCatalog();
-    });
+  const list = ITEMS.filter(it=>{
+    const okQ = !q || (it.name.toLowerCase().includes(q) || it.desc.toLowerCase().includes(q));
+    const okC = (cat==="all") || (it.cat===cat);
+    return okQ && okC;
+  });
 
-    renderCatalog();
+  const el = document.getElementById("catalog");
+  el.innerHTML = "";
 
-    // ===========
-    // KONVA stage
-    // ===========
-    const stageWrap = document.getElementById('stageWrap');
+  list.forEach(it=>{
+    const tile = document.createElement("div");
+    tile.className = "tile";
+    tile.onclick = ()=> addItem(it);
 
-    function makeStage(){
-      const w = stageWrap.clientWidth;
-      const h = stageWrap.clientHeight;
+    tile.innerHTML = `
+      <div class="thumb"><img src="${it.src}" alt="${it.name}" onerror="this.style.opacity=.25"></div>
+      <div class="info">
+        <div class="name">${it.name}</div>
+        <div class="desc">${it.desc}</div>
+        <div class="chip">📁 ${it.cat}</div>
+      </div>
+    `;
+    el.appendChild(tile);
+  });
 
-      const stage = new Konva.Stage({
-        container: 'stageWrap',
-        width: w,
-        height: h
-      });
+  if(!list.length){
+    const empty = document.createElement("div");
+    empty.className = "small";
+    empty.textContent = "Nada encontrado.";
+    el.appendChild(empty);
+  }
+}
 
-      const layerBG = new Konva.Layer();
-      const layer = new Konva.Layer();
+/** ===============================
+ *  MONTAGEM: ADD ITEM
+ *  =============================== */
+function addItem(item){
+  const wrap = document.createElement("div");
+  wrap.className = "item";
+  wrap.dataset.name = item.name;
+  wrap.dataset.srcOriginal = item.src;
+  wrap.dataset.scale = "100";
+  wrap.dataset.rot = "0";
+  wrap.dataset.opa = "100";
+  wrap.style.zIndex = String(++zTop);
 
-      stage.add(layerBG);
-      stage.add(layer);
+  const img = document.createElement("img");
+  img.src = item.src;
+  img.alt = item.name;
+  img.draggable = false;
 
-      // fundo (opcional)
-      const bgRect = new Konva.Rect({
-        x:0,y:0,width:w,height:h,
-        fillLinearGradientStartPoint: {x:0, y:0},
-        fillLinearGradientEndPoint: {x:w, y:h},
-        fillLinearGradientColorStops: [0,'rgba(0,0,0,0.18)', 1,'rgba(255,255,255,0.06)']
-      });
-      layerBG.add(bgRect);
+  // Se não carregar, avisa (igual seu erro)
+  img.onerror = ()=>{
+    toast(`Não carregou: ${item.src} (confira se existe em /assets)`);
+  };
 
-      // transformer
-      const tr = new Konva.Transformer({
-        rotateEnabled: true,
-        ignoreStroke: true,
-        keepRatio: false,
-        enabledAnchors: ['top-left','top-right','bottom-left','bottom-right'],
-        boundBoxFunc: (oldBox, newBox) => {
-          // evita sumir por ficar pequeno demais
-          if (newBox.width < 30 || newBox.height < 30) return oldBox;
-          return newBox;
-        }
-      });
-      layer.add(tr);
+  wrap.appendChild(img);
+  stage.appendChild(wrap);
 
-      // clique no vazio desmarca
-      stage.on('pointerdown', (e)=>{
-        if(e.target === stage || e.target === bgRect){
-          tr.nodes([]);
-          selected = null;
-          syncUI();
-        }
-      });
+  // posição inicial
+  const r = stage.getBoundingClientRect();
+  wrap.style.left = Math.max(20, (r.width/2 - 120)) + "px";
+  wrap.style.top  = Math.max(20, (r.height/2 - 120)) + "px";
 
-      layerBG.draw();
-      layer.draw();
+  enableDrag(wrap);
+  select(wrap);
 
-      return {stage, layerBG, layer, tr};
-    }
+  toast("Item adicionado. Toque nele para editar.");
+}
 
-    let {stage, layerBG, layer, tr} = makeStage();
-    let selected = null;
-    let selectedMeta = null;
-    let selectedCount = 0;
+/** ===============================
+ *  SELEÇÃO / CONTROLES
+ *  =============================== */
+function select(el){
+  if(selected) selected.classList.remove("selected");
+  selected = el;
+  if(selected){
+    selected.classList.add("selected");
+    ui.selName.textContent = `Selecionado: ${selected.dataset.name}`;
+    ui.scale.value = selected.dataset.scale || "100";
+    ui.rot.value   = selected.dataset.rot   || "0";
+    ui.opa.value   = selected.dataset.opa   || "100";
+    applyControls(false);
+  }else{
+    ui.selName.textContent = "Selecionado: nenhum";
+  }
+}
 
-    // resize responsivo
-    window.addEventListener('resize', ()=>{
-      const data = exportState(); // salva
-      stage.destroy();
-      ({stage, layerBG, layer, tr} = makeStage());
-      importState(data); // restaura
-    });
+function applyControls(updateSelected=true){
+  const s = Number(ui.scale.value);
+  const r = Number(ui.rot.value);
+  const o = Number(ui.opa.value);
 
-    // ===========
-    // Helpers (carregar imagem)
-    // ===========
-    function loadImage(src){
-      return new Promise((resolve, reject)=>{
-        const img = new Image();
-        img.crossOrigin = 'anonymous';
-        img.onload = ()=> resolve(img);
-        img.onerror = ()=> reject(new Error('Falha ao carregar: ' + src));
-        img.src = src;
-      });
-    }
+  ui.scaleVal.textContent = `${s}%`;
+  ui.rotVal.textContent   = `${r}°`;
+  ui.opaVal.textContent   = `${o}%`;
 
-    // ===========
-    // Adicionar item na montagem
-    // ===========
-    async function addItemToStage(item){
-      try{
-        const img = await loadImage(item.src);
+  if(!selected) return;
 
-        const maxW = stage.width() * 0.55;
-        const maxH = stage.height() * 0.70;
+  if(updateSelected){
+    selected.dataset.scale = String(s);
+    selected.dataset.rot   = String(r);
+    selected.dataset.opa   = String(o);
+  }
 
-        const scale = Math.min(maxW / img.width, maxH / img.height, 1);
+  selected.style.transform = `rotate(${r}deg) scale(${s/100})`;
+  selected.style.opacity = String(o/100);
+}
 
-        const kimg = new Konva.Image({
-          image: img,
-          x: stage.width()/2,
-          y: stage.height()/2,
-          offsetX: img.width/2,
-          offsetY: img.height/2,
-          scaleX: scale,
-          scaleY: scale,
-          draggable: true,
-          shadowColor: 'rgba(0,0,0,.55)',
-          shadowBlur: 18,
-          shadowOffset: {x:0, y:10},
-          shadowOpacity: 0.35
-        });
+function bringFront(){
+  if(!selected) return;
+  selected.style.zIndex = String(++zTop);
+  toast("Trouxe pra frente");
+}
 
-        // metadados
-        kimg.setAttr('meta', {
-          id: item.id,
-          name: item.name,
-          cat: item.cat
-        });
+function sendBack(){
+  if(!selected) return;
+  selected.style.zIndex = "1";
+  toast("Mandou pra trás");
+}
 
-        // selecionar ao tocar
-        kimg.on('pointerdown', ()=>{
-          selected = kimg;
-          tr.nodes([kimg]);
-          selectedMeta = kimg.getAttr('meta');
-          selectedCount++;
-          document.getElementById('countSel').textContent = String(layer.children.length - 1); // - transformer
-          syncUI();
-        });
+function duplicateSelected(){
+  if(!selected) return;
+  const src = selected.querySelector("img").src;
+  const name = selected.dataset.name + " (cópia)";
+  const fake = { name, desc:"", cat:"", src: selected.dataset.srcOriginal || src };
+  addItem(fake);
+  // copiar estado
+  if(selected){
+    ui.scale.value = selected.dataset.scale || "100";
+    ui.rot.value = selected.dataset.rot || "0";
+    ui.opa.value = selected.dataset.opa || "100";
+  }
+  toast("Duplicado");
+}
 
-        layer.add(kimg);
-        layer.draw();
+function deleteSelected(){
+  if(!selected) { toast("Selecione um item"); return; }
+  const old = selected;
+  select(null);
+  old.remove();
+  toast("Item apagado");
+}
 
-        // auto selecionar
-        selected = kimg;
-        tr.nodes([kimg]);
-        syncUI();
+function centerSelected(){
+  if(!selected) return;
+  const r = stage.getBoundingClientRect();
+  selected.style.left = (r.width/2 - 120) + "px";
+  selected.style.top  = (r.height/2 - 120) + "px";
+  toast("Centralizado");
+}
 
-        document.getElementById('countSel').textContent = String(layer.children.length - 1);
-      }catch(err){
-        alert(
-          "Não consegui carregar a imagem.\n\n" +
-          "Confira se o arquivo existe em /assets e se o nome está igualzinho (minúsculo/sem espaço).\n\n" +
-          "Detalhe: " + err.message
-        );
-      }
-    }
+function clearStage(){
+  stage.innerHTML = "";
+  selected = null;
+  ui.selName.textContent = "Selecionado: nenhum";
+  toast("Montagem limpa");
+}
 
-    // ===========
-    // UI controls
-    // ===========
-    const scaleR = document.getElementById('scaleR');
-    const rotR   = document.getElementById('rotR');
-    const opR    = document.getElementById('opR');
-    const hueR   = document.getElementById('hueR');
-    const satR   = document.getElementById('satR');
+/** ===============================
+ *  DRAG (mouse + touch)
+ *  =============================== */
+function enableDrag(el){
+  el.addEventListener("mousedown", startDrag);
+  el.addEventListener("touchstart", startDrag, {passive:false});
+  el.addEventListener("click", (e)=>{ e.stopPropagation(); select(el); });
+}
 
-    function syncUI(){
-      const has = !!selected;
-      const setDisabled = (el, v)=> el.disabled = !has;
+let dragState = null;
 
-      [scaleR, rotR, opR, hueR, satR].forEach(el=>setDisabled(el));
+function startDrag(e){
+  e.preventDefault();
+  const el = e.currentTarget;
+  select(el);
+  const p = getPoint(e);
+  const rect = el.getBoundingClientRect();
+  const parent = stage.getBoundingClientRect();
+  dragState = {
+    el,
+    startX: p.x,
+    startY: p.y,
+    offX: rect.left - parent.left,
+    offY: rect.top - parent.top
+  };
+  window.addEventListener("mousemove", onDrag);
+  window.addEventListener("touchmove", onDrag, {passive:false});
+  window.addEventListener("mouseup", endDrag);
+  window.addEventListener("touchend", endDrag);
+}
 
-      if(!has){
-        document.getElementById('vScale').textContent = '100%';
-        document.getElementById('vRot').textContent = '0°';
-        document.getElementById('vOp').textContent = '100%';
-        document.getElementById('vHue').textContent = '0';
-        document.getElementById('vSat').textContent = '100%';
-        return;
-      }
+function onDrag(e){
+  if(!dragState) return;
+  e.preventDefault();
+  const p = getPoint(e);
+  const dx = p.x - dragState.startX;
+  const dy = p.y - dragState.startY;
 
-      const sc = Math.round(selected.scaleX() * 100);
-      const rt = Math.round(selected.rotation());
-      const op = Math.round(selected.opacity() * 100);
+  let x = dragState.offX + dx;
+  let y = dragState.offY + dy;
 
-      scaleR.value = sc;
-      rotR.value = rt;
-      opR.value = op;
+  // limites leves
+  x = Math.max(-80, Math.min(stage.clientWidth - 60, x));
+  y = Math.max(-80, Math.min(stage.clientHeight - 60, y));
 
-      document.getElementById('vScale').textContent = sc + '%';
-      document.getElementById('vRot').textContent = rt + '°';
-      document.getElementById('vOp').textContent = op + '%';
+  dragState.el.style.left = x + "px";
+  dragState.el.style.top  = y + "px";
+}
 
-      // hue/sat guardados em attrs
-      const fx = selected.getAttr('fx') || {hue:0, sat:100};
-      hueR.value = fx.hue;
-      satR.value = fx.sat;
-      document.getElementById('vHue').textContent = String(fx.hue);
-      document.getElementById('vSat').textContent = fx.sat + '%';
-    }
+function endDrag(){
+  dragState = null;
+  window.removeEventListener("mousemove", onDrag);
+  window.removeEventListener("touchmove", onDrag);
+  window.removeEventListener("mouseup", endDrag);
+  window.removeEventListener("touchend", endDrag);
+}
 
-    function applyHueSat(node, hue, sat){
-      // Konva HSL filter
-      node.cache();
-      node.filters([Konva.Filters.HSL]);
-      // Konva HSL: hue (-180..180), saturation (-1..1), luminance (-1..1)
-      // Vamos mapear:
-      const hueNorm = (hue > 180) ? hue - 360 : hue; // 0..360 -> -180..180
-      const satNorm = (sat - 100) / 100; // 0..200 -> -1..+1
-      node.hue(hueNorm);
-      node.saturation(satNorm);
-      node.luminance(0);
-      node.setAttr('fx', {hue, sat});
-      layer.batchDraw();
-    }
+function getPoint(e){
+  if(e.touches && e.touches[0]) return {x:e.touches[0].clientX, y:e.touches[0].clientY};
+  return {x:e.clientX, y:e.clientY};
+}
 
-    scaleR.addEventListener('input', ()=>{
-      if(!selected) return;
-      const v = Number(scaleR.value)/100;
-      selected.scaleX(v);
-      selected.scaleY(v);
-      document.getElementById('vScale').textContent = Math.round(v*100)+'%';
-      layer.batchDraw();
-    });
+stage.addEventListener("click", ()=> select(null));
 
-    rotR.addEventListener('input', ()=>{
-      if(!selected) return;
-      const v = Number(rotR.value);
-      selected.rotation(v);
-      document.getElementById('vRot').textContent = v+'°';
-      layer.batchDraw();
-    });
+/** ===============================
+ *  REMOVER FUNDO (BETA) - CLIENT SIDE
+ *  - funciona mesmo em JPG
+ *  - remove preto / branco / auto (detecta pelos cantos)
+ *  =============================== */
+function removeBgSelected(mode){
+  if(!selected){ toast("Selecione um item"); return; }
 
-    opR.addEventListener('input', ()=>{
-      if(!selected) return;
-      const v = Number(opR.value)/100;
-      selected.opacity(v);
-      document.getElementById('vOp').textContent = Math.round(v*100)+'%';
-      layer.batchDraw();
-    });
+  const img = selected.querySelector("img");
+  const src = selected.dataset.srcOriginal || img.src;
 
-    hueR.addEventListener('input', ()=>{
-      if(!selected) return;
-      const hue = Number(hueR.value);
-      const sat = Number(satR.value);
-      document.getElementById('vHue').textContent = String(hue);
-      applyHueSat(selected, hue, sat);
-    });
+  const im = new Image();
+  im.crossOrigin = "anonymous";
+  im.onload = ()=>{
+    const c = document.createElement("canvas");
+    c.width = im.width;
+    c.height = im.height;
+    const ctx = c.getContext("2d");
+    ctx.drawImage(im,0,0);
 
-    satR.addEventListener('input', ()=>{
-      if(!selected) return;
-      const hue = Number(hueR.value);
-      const sat = Number(satR.value);
-      document.getElementById('vSat').textContent = sat+'%';
-      applyHueSat(selected, hue, sat);
-    });
+    const id = ctx.getImageData(0,0,c.width,c.height);
+    const data = id.data;
 
-    document.getElementById('btnFront').addEventListener('click', ()=>{
-      if(!selected) return;
-      selected.moveToTop();
-      tr.moveToTop();
-      layer.batchDraw();
-    });
-
-    document.getElementById('btnBack').addEventListener('click', ()=>{
-      if(!selected) return;
-      selected.moveToBottom();
-      layer.batchDraw();
-    });
-
-    document.getElementById('btnDup').addEventListener('click', ()=>{
-      if(!selected) return;
-      const clone = selected.clone({ x: selected.x()+20, y: selected.y()+20, draggable:true });
-      clone.on('pointerdown', ()=>{
-        selected = clone;
-        tr.nodes([clone]);
-        selectedMeta = clone.getAttr('meta');
-        syncUI();
-      });
-      layer.add(clone);
-      layer.batchDraw();
-      document.getElementById('countSel').textContent = String(layer.children.length - 1);
-    });
-
-    document.getElementById('btnDel').addEventListener('click', ()=>{
-      if(!selected) return;
-      selected.destroy();
-      tr.nodes([]);
-      selected = null;
-      layer.batchDraw();
-      document.getElementById('countSel').textContent = String(layer.children.length - 1);
-      syncUI();
-    });
-
-    document.getElementById('btnCenter').addEventListener('click', ()=>{
-      if(!selected) return;
-      selected.position({x: stage.width()/2, y: stage.height()/2});
-      layer.batchDraw();
-    });
-
-    document.getElementById('btnResetColor').addEventListener('click', ()=>{
-      if(!selected) return;
-      selected.clearCache();
-      selected.filters([]);
-      selected.setAttr('fx', {hue:0, sat:100});
-      hueR.value = 0; satR.value = 100;
-      document.getElementById('vHue').textContent = '0';
-      document.getElementById('vSat').textContent = '100%';
-      layer.batchDraw();
-    });
-
-    // ===========
-    // Limpar montagem
-    // ===========
-    document.getElementById('btnClear').addEventListener('click', ()=>{
-      const kids = layer.getChildren().toArray().filter(n=> n !== tr);
-      kids.forEach(n=>n.destroy());
-      tr.nodes([]);
-      selected = null;
-      layer.batchDraw();
-      document.getElementById('countSel').textContent = '0';
-      syncUI();
-    });
-
-    // ===========
-    // Export PNG
-    // ===========
-    document.getElementById('btnExport').addEventListener('click', ()=>{
-      // tira transformer antes de exportar
-      const old = tr.nodes();
-      tr.nodes([]);
-      layer.draw();
-
-      const uri = stage.toDataURL({ pixelRatio: 2 });
-
-      // volta transformer
-      tr.nodes(old);
-      layer.draw();
-
-      const a = document.createElement('a');
-      a.href = uri;
-      a.download = 'montagem-faz-de-conta.png';
-      a.click();
-    });
-
-    // ===========
-    // WhatsApp
-    // ===========
-    document.getElementById('btnWhats').addEventListener('click', ()=>{
-      const num = "5566996223481"; // ajuste se quiser
-      const count = layer.children.length - 1; // - transformer
-      const msg = encodeURIComponent(
-        "Oi! Fiz uma prévia da minha decoração no site da Faz de Conta. " +
-        "Itens na montagem: " + count + ". " +
-        "Pode me ajudar a fechar o orçamento?"
-      );
-      window.open("https://wa.me/" + num + "?text=" + msg, "_blank");
-    });
-
-    // ===========
-    // Upload de imagem do cliente (para você testar itens)
-    // ===========
-    document.getElementById('fileAdd').addEventListener('change', async (ev)=>{
-      const f = ev.target.files && ev.target.files[0];
-      if(!f) return;
-
-      const url = URL.createObjectURL(f);
-      const temp = { id:'upload', name:f.name, cat:'Upload', price:'-', desc:'Item enviado', src:url };
-      await addItemToStage(temp);
-
-      // limpa input pra permitir enviar o mesmo arquivo de novo
-      ev.target.value = "";
-    });
-
-    // ===========
-    // Persistência simples (pra não quebrar no resize)
-    // ===========
-    function exportState(){
-      const nodes = layer.getChildren().toArray()
-        .filter(n=> n !== tr)
-        .map(n=>{
-          const meta = n.getAttr('meta') || {};
-          const fx = n.getAttr('fx') || {hue:0,sat:100};
-          return {
-            src: (n.image() && n.image().src) ? n.image().src : null,
-            x:n.x(), y:n.y(),
-            offX:n.offsetX(), offY:n.offsetY(),
-            scX:n.scaleX(), scY:n.scaleY(),
-            rot:n.rotation(),
-            op:n.opacity(),
-            fx,
-            meta
-          };
-        });
-      return {nodes};
-    }
-
-    async function importState(state){
-      if(!state || !state.nodes) return;
-      for(const s of state.nodes){
-        try{
-          const img = await loadImage(s.src);
-          const n = new Konva.Image({
-            image: img,
-            x: s.x, y: s.y,
-            offsetX: s.offX, offsetY: s.offY,
-            scaleX: s.scX, scaleY: s.scY,
-            rotation: s.rot,
-            opacity: s.op,
-            draggable: true,
-            shadowColor: 'rgba(0,0,0,.55)',
-            shadowBlur: 18,
-            shadowOffset: {x:0, y:10},
-            shadowOpacity: 0.35
-          });
-          n.setAttr('meta', s.meta || {});
-          n.on('pointerdown', ()=>{
-            selected = n;
-            tr.nodes([n]);
-            syncUI();
-          });
-          layer.add(n);
-          if(s.fx && (s.fx.hue !== 0 || s.fx.sat !== 100)){
-            applyHueSat(n, s.fx.hue, s.fx.sat);
-          }
-        }catch(e){
-          // ignora
+    // pega cor do "fundo" pelos cantos (auto)
+    function avgCorner(x0,y0){
+      let r=0,g=0,b=0,n=0;
+      const step = 4;
+      for(let y=y0; y<y0+20; y+=step){
+        for(let x=x0; x<x0+20; x+=step){
+          const i = (y*c.width + x)*4;
+          r += data[i]; g += data[i+1]; b += data[i+2]; n++;
         }
       }
-      layer.draw();
-      document.getElementById('countSel').textContent = String(layer.children.length - 1);
+      return {r:r/n,g:g/n,b:b/n};
+    }
+    const c1 = avgCorner(0,0);
+    const c2 = avgCorner(c.width-20,0);
+    const c3 = avgCorner(0,c.height-20);
+    const c4 = avgCorner(c.width-20,c.height-20);
+
+    const bg = {
+      r: (c1.r+c2.r+c3.r+c4.r)/4,
+      g: (c1.g+c2.g+c3.g+c4.g)/4,
+      b: (c1.b+c2.b+c3.b+c4.b)/4
+    };
+
+    // define cor alvo
+    let target = bg;
+    if(mode==="black") target = {r:0,g:0,b:0};
+    if(mode==="white") target = {r:255,g:255,b:255};
+
+    // threshold (quanto maior, remove mais)
+    const thr = (mode==="auto") ? 42 : 55;
+
+    // remove pixels parecidos com o fundo
+    for(let i=0;i<data.length;i+=4){
+      const r=data[i], g=data[i+1], b=data[i+2];
+      const dr=r-target.r, dg=g-target.g, db=b-target.b;
+      const dist = Math.sqrt(dr*dr+dg*dg+db*db);
+      if(dist < thr){
+        data[i+3]=0; // alpha 0
+      }
     }
 
-    // inicial
-    syncUI();
-  </script>
+    ctx.putImageData(id,0,0);
+    const out = c.toDataURL("image/png");
+    img.src = out;
+    toast("Fundo removido (BETA). Se precisar, use Opacidade 95–98%");
+  };
+
+  im.onerror = ()=>{
+    toast("Não consegui ler a imagem pra remover fundo. Confira /assets.");
+  };
+
+  im.src = src;
+}
+
+function resetImageSelected(){
+  if(!selected){ toast("Selecione um item"); return; }
+  const img = selected.querySelector("img");
+  img.src = selected.dataset.srcOriginal || img.src;
+  toast("Voltou para original");
+}
+
+/** ===============================
+ *  EXPORTAR IMAGEM (print do stage)
+ *  =============================== */
+async function exportPNG(){
+  // captura simples: cria um canvas e desenha o fundo + itens
+  const r = stage.getBoundingClientRect();
+  const c = document.createElement("canvas");
+  c.width = Math.round(r.width * 2);
+  c.height = Math.round(r.height * 2);
+  const ctx = c.getContext("2d");
+
+  // fundo
+  const grd = ctx.createLinearGradient(0,0,c.width,c.height);
+  grd.addColorStop(0, "#10163a");
+  grd.addColorStop(1, "#071022");
+  ctx.fillStyle = grd;
+  ctx.fillRect(0,0,c.width,c.height);
+
+  // desenhar itens pela ordem de zIndex
+  const nodes = Array.from(stage.querySelectorAll(".item"))
+    .sort((a,b)=>(Number(a.style.zIndex||0) - Number(b.style.zIndex||0)));
+
+  for(const el of nodes){
+    const img = el.querySelector("img");
+    // espera carregar
+    if(!img.complete) await new Promise(res=>{ img.onload=res; img.onerror=res; });
+
+    const x = parseFloat(el.style.left||"0") * 2;
+    const y = parseFloat(el.style.top||"0") * 2;
+    const scale = (Number(el.dataset.scale||100)/100);
+    const rot = (Number(el.dataset.rot||0) * Math.PI/180);
+    const opa = Number(el.dataset.opa||100)/100;
+
+    const w = (img.naturalWidth || 400) * 2;
+    const h = (img.naturalHeight || 300) * 2;
+
+    ctx.save();
+    ctx.globalAlpha = opa;
+    ctx.translate(x + (w/2)*scale, y + (h/2)*scale);
+    ctx.rotate(rot);
+    ctx.scale(scale, scale);
+    ctx.drawImage(img, -w/2, -h/2, w, h);
+    ctx.restore();
+  }
+
+  const url = c.toDataURL("image/png");
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "montagem-faz-de-conta.png";
+  a.click();
+
+  toast("Imagem exportada!");
+}
+
+/** ===============================
+ *  INIT
+ *  =============================== */
+function tickTime(){
+  const t = nowBr();
+  document.getElementById("nowPill").textContent = "⏱️ " + t;
+  document.getElementById("dateLine").textContent = t;
+}
+tickTime();
+setInterval(tickTime, 15000);
+
+renderCatalog();
+toast("Pronto! Toque em um item do catálogo para montar.");
+</script>
+
 </body>
 </html>
