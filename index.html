@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Faz de Conta Decorações • Catálogo</title>
+  <title>Faz de Conta Decorações • Catálogo + Montagem</title>
 
   <style>
     :root{
@@ -18,6 +18,9 @@
       --shadow: 0 18px 50px rgba(0,0,0,.55);
       --radius: 22px;
       --radius2: 18px;
+      --good: rgba(0,255,213,.25);
+      --warn: rgba(255,217,74,.20);
+      --bad: rgba(255,75,216,.18);
     }
 
     *{ box-sizing:border-box; }
@@ -46,11 +49,10 @@
     }
 
     .wrap{
-      width:min(1200px, 92vw);
+      width:min(1120px, 92vw);
       margin: 18px auto 48px;
     }
 
-    /* slogan fixo */
     .floatingSlogan{
       position: sticky;
       top: 10px;
@@ -70,19 +72,11 @@
       gap:8px;
     }
 
-    .card{
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
-      border:1px solid var(--stroke);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-      overflow:hidden;
-      position:relative;
-    }
-
-    /* header topo */
     .header{
-      padding: 16px;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      padding: 18px;
       border-radius: var(--radius);
       background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
       border:1px solid var(--stroke);
@@ -100,51 +94,63 @@
       pointer-events:none;
     }
 
-    .headGrid{
+    .headTop{
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
+      justify-content:space-between;
+      flex-wrap:wrap;
       position:relative;
       z-index:1;
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      align-items:stretch;
-    }
-    @media(max-width: 980px){
-      .headGrid{ grid-template-columns: 1fr; }
     }
 
-    /* bloco marca */
-    .brandBlock{
+    .brandLeft{
       display:flex;
       gap:14px;
       align-items:center;
-      min-height: 140px;
+      flex: 1;
+      min-width: 260px;
     }
+
     .logoBox{
-      width:140px; height:140px;
+      width: 96px; height: 86px;
       border-radius: 18px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.12);
       background: rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.12);
+      overflow:hidden;
       box-shadow: 0 14px 35px rgba(0,0,0,.35);
       flex:0 0 auto;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:1000;
-      color: rgba(255,255,255,.85);
+      display:flex; align-items:center; justify-content:center;
+      position:relative;
     }
     .logoBox img{ width:100%; height:100%; object-fit:cover; display:block; }
-    .logoFallback{ display:none; }
+    .logoBox .fallback{
+      font-weight: 1000;
+      letter-spacing:.8px;
+      color: rgba(255,255,255,.85);
+      background: linear-gradient(135deg, rgba(255,75,216,.25), rgba(0,255,213,.18));
+      width:100%; height:100%;
+      display:flex; align-items:center; justify-content:center;
+    }
 
-    .brandText{ flex:1; min-width: 220px; }
+    .brandText{ min-width: 210px; }
+
     .gradTitle{
       font-weight: 1000;
       font-size: 40px;
       line-height: 1.05;
       letter-spacing: .6px;
       text-transform: uppercase;
-
-      background: linear-gradient(90deg,#ff4bd8 0%,#7a42ff 18%,#00c7ff 34%,#00ffd5 50%,#7dff6a 66%,#ffd94a 82%,#ff4bd8 100%);
+      background: linear-gradient(
+        90deg,
+        #ff4bd8 0%,
+        #7a42ff 18%,
+        #00c7ff 34%,
+        #00ffd5 50%,
+        #7dff6a 66%,
+        #ffd94a 82%,
+        #ff4bd8 100%
+      );
       background-size: 260% 100%;
       -webkit-background-clip:text;
       background-clip:text;
@@ -152,26 +158,52 @@
       animation: gradMove 6.5s linear infinite;
       filter: drop-shadow(0 10px 30px rgba(0,0,0,.55));
     }
-    @keyframes gradMove{ 0%{background-position:0% 50%;} 100%{background-position:260% 50%;} }
+    @keyframes gradMove{
+      0%{ background-position:0% 50%; }
+      100%{ background-position:260% 50%; }
+    }
 
     .sloganBelow{
       margin-top: 6px;
-      font-size: 17px; /* maior */
+      font-size: 16px; /* <<< aqui aumenta o “Onde a imaginação vira festa” */
       font-weight: 900;
       color: rgba(255,255,255,.92);
+      letter-spacing:.2px;
       text-shadow: 0 10px 26px rgba(0,0,0,.45);
+    }
+
+    /* METAS À DIREITA (DE CIMA PRA BAIXO) */
+    .metaCol{
       display:flex;
-      align-items:center;
+      flex-direction:column;
+      gap:10px;
+      align-items:flex-end;
+      min-width: 220px;
+      position:relative;
+      z-index:1;
+    }
+    .chip{
+      display:inline-flex;
       gap:8px;
-      opacity:.98;
+      align-items:center;
+      padding:8px 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.78);
+      font-size: 12px;
+      white-space:nowrap;
+      box-shadow: 0 10px 26px rgba(0,0,0,.25);
     }
 
     .actions{
-      margin-top: 10px;
       display:flex;
       gap:10px;
       flex-wrap:wrap;
       align-items:center;
+      justify-content:flex-start;
+      position:relative;
+      z-index:1;
     }
 
     .btn{
@@ -189,10 +221,12 @@
       font-weight: 800;
       font-size: 13px;
       box-shadow: 0 14px 35px rgba(0,0,0,.28);
+      transform: translateZ(0);
       transition: transform .15s ease, background .15s ease, border-color .15s ease;
       user-select:none;
     }
     .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.11); border-color: rgba(255,255,255,.18); }
+    .btn:active{ transform: translateY(0px) scale(.99); }
     .btn.primary{
       background: linear-gradient(90deg, rgba(255,75,216,.38), rgba(0,255,213,.26), rgba(255,217,74,.24));
       border-color: rgba(255,255,255,.18);
@@ -212,18 +246,117 @@
       margin-left: 6px;
     }
 
-    /* painel "Monte seu pedido" no lugar do Jaciara/Whats/data */
+    /* LAYOUT PRINCIPAL */
+    .hero{
+      margin-top: 14px;
+      display:grid;
+      grid-template-columns: 1.45fr .95fr;
+      gap: 14px;
+      align-items:stretch;
+    }
+    @media(max-width: 980px){ .hero{ grid-template-columns: 1fr; } }
+
+    .card{
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+      border:1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      overflow:hidden;
+      position:relative;
+    }
+
+    /* MONTAGEM (NO LUGAR DO VIDEO) */
+    .stageHead{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.16);
+    }
+    .stageHead .title{
+      font-weight: 1000;
+      letter-spacing:.2px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .hint{
+      color: rgba(255,255,255,.60);
+      font-size: 12px;
+      text-align:right;
+    }
+
+    .stageWrap{
+      padding: 12px;
+    }
+
+    .stage{
+      position:relative;
+      height: 420px;
+      border-radius: 18px;
+      background:
+        radial-gradient(800px 320px at 30% 15%, rgba(122,66,255,.18), transparent 60%),
+        radial-gradient(700px 280px at 80% 30%, rgba(0,255,213,.10), transparent 55%),
+        linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,.10));
+      border:1px solid rgba(255,255,255,.12);
+      overflow:hidden;
+      box-shadow: 0 16px 40px rgba(0,0,0,.35);
+      touch-action:none;
+    }
+    @media(max-width: 980px){ .stage{ height: 360px; } }
+
+    .stage::after{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(2px 2px at 18% 28%, rgba(255,255,255,.12), transparent 60%),
+        radial-gradient(2px 2px at 72% 22%, rgba(255,255,255,.08), transparent 60%),
+        radial-gradient(2px 2px at 85% 70%, rgba(255,255,255,.07), transparent 60%);
+      pointer-events:none;
+      mix-blend-mode: screen;
+      opacity:.6;
+    }
+
+    .obj{
+      position:absolute;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      user-select:none;
+      cursor: grab;
+      filter: drop-shadow(0 10px 24px rgba(0,0,0,.35));
+    }
+    .obj:active{ cursor: grabbing; }
+    .obj.selected{
+      outline: 2px solid rgba(0,255,213,.25);
+      outline-offset: 6px;
+      border-radius: 14px;
+    }
+    .obj img{
+      display:block;
+      max-width: 520px;
+      max-height: 520px;
+      width: 260px; /* tamanho inicial */
+      height: auto;
+      pointer-events:none;
+    }
+
+    /* Painel da direita */
     .panel{
       padding: 14px;
-      border-radius: var(--radius);
+      display:flex;
+      flex-direction:column;
+      gap:12px;
     }
     .panel h2{
-      margin: 2px 0 6px;
+      margin: 2px 0 0;
       font-size: 18px;
       letter-spacing:.2px;
     }
     .panel p{
-      margin: 0 0 10px;
+      margin: 0;
       color: var(--muted);
       font-size: 13px;
       line-height:1.35;
@@ -237,7 +370,6 @@
       border-radius: 14px;
       background: rgba(0,0,0,.22);
       border:1px solid rgba(255,255,255,.12);
-      margin-bottom: 10px;
     }
     .field input, .field select{
       width:100%;
@@ -255,8 +387,8 @@
       flex-wrap:wrap;
       align-items:center;
       justify-content:space-between;
-      margin-top: 6px;
     }
+
     .toggle{
       display:flex;
       align-items:center;
@@ -289,105 +421,47 @@
     .switch.on{ background: rgba(0,255,213,.24); }
     .switch.on .knob{ left: 21px; background: rgba(255,255,255,.96); }
 
-    /* montagem */
-    .montagemCard{ margin-top: 14px; padding: 12px; }
-    .montagemHead{
+    /* CONTROLES DA MONTAGEM */
+    .controls{
+      padding: 12px;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.16);
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .controls .cap{
+      font-size: 12px;
+      color: rgba(255,255,255,.65);
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:10px;
-      flex-wrap:wrap;
-      margin-bottom: 10px;
     }
-    .montagemHead .hint{
-      color: rgba(255,255,255,.65);
-      font-size: 12px;
+    .slider{
+      width:100%;
+      accent-color: #00ffd5;
     }
-    .stageWrap{
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.22);
-      overflow:hidden;
-      position:relative;
-      height: 420px;
-    }
-    @media(max-width: 980px){ .stageWrap{ height: 360px; } }
-    @media(max-width: 560px){ .stageWrap{ height: 320px; } }
-
-    /* fundo bonito no stage */
-    .stageBg{
-      position:absolute; inset:0;
-      background:
-        radial-gradient(900px 500px at 30% 20%, rgba(122,66,255,.18), transparent 60%),
-        radial-gradient(700px 420px at 80% 60%, rgba(0,255,213,.10), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
-      pointer-events:none;
-    }
-
-    .stage{
-      position:absolute; inset:0;
-      touch-action:none;
-    }
-
-    .layer{
-      position:absolute;
-      left: 50%; top: 50%;
-      transform: translate(-50%,-50%);
-      user-select:none;
-      cursor: grab;
-      will-change: transform, opacity;
-    }
-    .layer:active{ cursor: grabbing; }
-
-    .layer img{
-      display:block;
-      width: 240px;
-      height: auto;
-      filter: drop-shadow(0 18px 30px rgba(0,0,0,.45));
-      pointer-events:none;
-    }
-
-    .layer.selected{
-      outline: 2px dashed rgba(0,255,213,.55);
-      outline-offset: 6px;
-      border-radius: 12px;
-    }
-
-    /* controles */
-    .controls{
-      margin-top: 10px;
-      padding: 12px;
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
-    }
-    .controls .line{
-      color: rgba(255,255,255,.70);
-      font-size: 13px;
-      margin-bottom: 10px;
-      line-height:1.35;
-    }
-    .controls b{ color: rgba(255,255,255,.92); }
-
-    .sliderRow{
-      display:grid;
-      grid-template-columns: 170px 1fr 70px;
-      gap: 10px;
-      align-items:center;
-      margin: 10px 0;
-    }
-    @media(max-width: 560px){ .sliderRow{ grid-template-columns: 130px 1fr 60px; } }
-    input[type="range"]{ width:100%; }
 
     .btnRow{
       display:grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin-top: 10px;
+      gap:10px;
     }
-    @media(max-width: 560px){ .btnRow{ grid-template-columns: 1fr; } }
+    .btnRow .btn{ width:100%; }
 
-    /* catálogo */
+    .note{
+      font-size: 12px;
+      color: rgba(255,255,255,.60);
+      line-height:1.35;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.16);
+    }
+
+    /* GRID ITENS */
     .sectionTitle{
       margin: 18px 0 10px;
       display:flex;
@@ -395,7 +469,11 @@
       justify-content:space-between;
       gap: 10px;
     }
-    .sectionTitle h3{ margin:0; font-size: 16px; letter-spacing:.2px; }
+    .sectionTitle h3{
+      margin:0;
+      font-size: 16px;
+      letter-spacing:.2px;
+    }
     .badge{
       font-size: 12px;
       color: rgba(255,255,255,.65);
@@ -433,6 +511,7 @@
       transition: transform .25s ease;
     }
     .item:hover .thumb img{ transform: scale(1.06); }
+
     .itemName{ margin: 10px 0 6px; font-weight: 1000; letter-spacing:.2px; }
     .itemDesc{
       margin:0;
@@ -465,6 +544,13 @@
       color: rgba(255,255,255,.45);
       font-size: 12px;
     }
+
+    @media(max-width: 560px){
+      .gradTitle{ font-size: 30px; }
+      .sloganBelow{ font-size: 15px; }
+      .logoBox{ width:74px; height:66px; }
+      .btnRow{ grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 
@@ -473,104 +559,120 @@
 
   <div class="wrap">
     <div class="floatingSlogan">
-      <span>✨</span>
+      <span class="star">✨</span>
       <span>Onde a imaginação vira festa</span>
     </div>
 
-    <!-- HEADER -->
-    <div class="header card">
-      <div class="headGrid">
-        <!-- Marca + botões -->
-        <div class="brandBlock">
-          <div class="logoBox" id="logoBox">
-            <img id="logoImg" src="/assets/logo.png" alt="Faz de Conta Decorações"/>
-            <div class="logoFallback" id="logoFallback">FC</div>
+    <div class="header">
+      <div class="headTop">
+        <div class="brandLeft">
+          <div class="logoBox" id="logoBox" title="Logo">
+            <img id="logoImg" alt="Faz de Conta Decorações" style="display:none;">
+            <div class="fallback" id="logoFallback">FC</div>
           </div>
 
           <div class="brandText">
             <div class="gradTitle">FAZ DE CONTA DECORAÇÕES</div>
             <div class="sloganBelow">✨ Onde a imaginação vira festa</div>
-
-            <div class="actions">
-              <button class="btn" id="btnWhats">💬 WhatsApp</button>
-              <button class="btn" id="btnCart">🛒 Carrinho <span class="pill" id="cartCount">0</span></button>
-              <button class="btn" id="btnClearStage">🧼 Limpar montagem</button>
-              <button class="btn primary" id="btnFinish">✅ Finalizar (Pix)</button>
-            </div>
           </div>
         </div>
 
-        <!-- Monte seu pedido (ficou no lugar da barra com Jaciara/Whats/data) -->
-        <div class="panel card">
-          <h2>Monte seu pedido</h2>
-          <p>Pesquise e clique nos itens para eles aparecerem na montagem. Depois arraste e ajuste.</p>
-
-          <div class="field">
-            🔎 <input id="q" placeholder="Pesquisar (ex: arco, cortina, tapete...)"/>
-          </div>
-
-          <div class="field">
-            🧩
-            <select id="cat">
-              <option value="Todas">Todas as categorias</option>
-            </select>
-          </div>
-
-          <div class="row">
-            <div class="toggle">
-              🔒 Mostrar preços
-              <div class="switch" id="priceSwitch"><div class="knob"></div></div>
-            </div>
-            <button class="btn" id="btnClear">🧼 Limpar filtros</button>
-          </div>
+        <div class="metaCol">
+          <div class="chip">📍 <b id="cityChip">Jaciara/MT</b></div>
+          <div class="chip">💬 <b>WhatsApp:</b> <span id="whatsChip">(66) 99622-3481</span></div>
+          <div class="chip">📅 <span id="today">--/--/----</span> • ⏰ <b id="clock">--:--</b></div>
         </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn" id="btnWhats">💬 WhatsApp</button>
+        <button class="btn" id="btnCart">🛒 Carrinho <span class="pill" id="cartCount">0</span></button>
+        <button class="btn" id="btnClearStage">🧼 Limpar montagem</button>
+        <button class="btn primary" id="btnFinish">✅ Finalizar (Pix)</button>
       </div>
     </div>
 
-    <!-- MONTAGEM -->
-    <div class="card montagemCard">
-      <div class="montagemHead">
-        <div style="font-weight:1000;">🧩 Montagem do cliente</div>
-        <div class="hint">Clique num item do catálogo → ele entra aqui. Arraste com dedo/mouse.</div>
-      </div>
-
-      <div class="stageWrap" id="stageWrap">
-        <div class="stageBg"></div>
-        <div class="stage" id="stage"></div>
-      </div>
-
-      <div class="controls">
-        <div class="line"><b>Item selecionado:</b> <span id="selName">Nenhum</span></div>
-
-        <div class="sliderRow">
-          <div>Escala:</div>
-          <input type="range" id="scale" min="20" max="200" value="100"/>
-          <div><span id="scaleVal">100</span>%</div>
-        </div>
-
-        <div class="sliderRow">
-          <div>Rotação:</div>
-          <input type="range" id="rot" min="-180" max="180" value="0"/>
-          <div><span id="rotVal">0</span>°</div>
-        </div>
-
-        <div class="sliderRow">
-          <div>Opacidade:</div>
-          <input type="range" id="opa" min="10" max="100" value="100"/>
-          <div><span id="opaVal">100</span>%</div>
-        </div>
-
-        <div class="btnRow">
-          <button class="btn" id="btnFront">⬆️ Frente</button>
-          <button class="btn" id="btnBack">⬇️ Fundo</button>
-          <button class="btn" id="btnDuplicate">📌 Duplicar</button>
-          <button class="btn primary" id="btnDelete">🗑️ Apagar</button>
-        </div>
-
-        <div class="controls" style="margin-top:12px;">
-          <div class="line" style="margin:0; font-size:12px; opacity:.85;">
-            💡 Dica: para o arco/balões ficar “menos forte” em cima do cenário, diminua a <b>opacidade</b>.
+    <div class="hero">
+      <!-- MONTAGEM -->
+      <div class="card">
+        <div class="stageHead">
+          <div class="title">🧩 Montagem do cliente</div>
+          <div class="hint">
+            Clique em um item do catálogo ➜ ele aparece aqui.<br/>
+            Depois arraste com o dedo/mouse.
           </div>
+        </div>
+
+        <div class="stageWrap">
+          <div class="stage" id="stage"></div>
+
+          <div class="controls" style="margin-top:12px;">
+            <div class="cap">
+              <span>Item selecionado:</span>
+              <b id="selName">Nenhum</b>
+            </div>
+
+            <div class="cap"><span>Escala:</span> <span id="scaleTxt">100%</span></div>
+            <input class="slider" id="scale" type="range" min="30" max="220" value="100"/>
+
+            <div class="cap"><span>Rotação:</span> <span id="rotTxt">0°</span></div>
+            <input class="slider" id="rot" type="range" min="-180" max="180" value="0"/>
+
+            <div class="cap"><span>Opacidade:</span> <span id="opTxt">100%</span></div>
+            <input class="slider" id="op" type="range" min="20" max="100" value="100"/>
+
+            <div class="btnRow">
+              <button class="btn" id="btnFront">⬆️ Frente</button>
+              <button class="btn" id="btnBack">⬇️ Fundo</button>
+              <button class="btn" id="btnDup">📌 Duplicar</button>
+              <button class="btn" id="btnDel">🗑️ Apagar</button>
+            </div>
+
+            <div class="note">
+              🎨 <b>Cor (opcional):</b> funciona melhor em balões/LED.<br/>
+              (É ajuste de cor por matiz/saturação — fica “real” sem virar desenho.)
+            </div>
+
+            <div class="cap"><span>Matiz (Hue):</span> <span id="hueTxt">0</span></div>
+            <input class="slider" id="hue" type="range" min="0" max="360" value="0"/>
+
+            <div class="cap"><span>Saturação:</span> <span id="satTxt">100%</span></div>
+            <input class="slider" id="sat" type="range" min="0" max="220" value="100"/>
+
+            <div class="btnRow">
+              <button class="btn" id="btnColorReset">🔁 Reset cor</button>
+              <button class="btn" id="btnCenter">🎯 Centralizar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAINEL / FILTROS -->
+      <div class="card panel">
+        <h2>Monte seu pedido</h2>
+        <p>Pesquise e clique nos itens para eles aparecerem na montagem. Depois arraste e ajuste.</p>
+
+        <div class="field">
+          🔎 <input id="q" placeholder="Pesquisar (ex: arco, balões, cilindro, LED...)"/>
+        </div>
+
+        <div class="field">
+          🧩
+          <select id="cat">
+            <option value="Todas">Todas as categorias</option>
+          </select>
+        </div>
+
+        <div class="row">
+          <div class="toggle">
+            🔒 Mostrar preços
+            <div class="switch" id="priceSwitch"><div class="knob"></div></div>
+          </div>
+          <button class="btn" id="btnClear">🧼 Limpar filtros</button>
+        </div>
+
+        <div class="note" id="statusBox" style="border-color: rgba(255,255,255,.14);">
+          ✅ Dica: se “sumir tudo” no Vercel, quase sempre é branch errada (main vs principal) ou nome do arquivo diferente.
         </div>
       </div>
     </div>
@@ -583,380 +685,594 @@
 
     <div class="grid" id="grid"></div>
 
-    <div class="footer">© Faz de Conta Decorações • Catálogo</div>
+    <div class="footer">© Faz de Conta Decorações • Catálogo + Montagem</div>
   </div>
 
 <script>
-  // ========= CONFIG =========
-  const CONFIG = {
-    whatsappNumber: "5566996223481",
-    whatsappDisplay: "(66) 99622-3481",
+/* =========================================================
+   CONFIG (edite aqui)
+========================================================= */
+const CONFIG = {
+  whatsappNumber: "5566996223481",  // só números (55 + DDD + número)
+  whatsappDisplay: "(66) 99622-3481",
+  cidade: "Jaciara/MT",
+  logoCandidates: ["logo.png","logo.jpg","logo.jpeg","logo.webp"]
+};
+
+/* =========================================================
+   ITENS DO CATÁLOGO (use os nomes EXATOS dos seus arquivos)
+   ✅ Pelo seu print, você já tem: arco-baloes.jpg, arco-1.jpg, arco-2.jpg, cilindros-1.jpg etc.
+========================================================= */
+const ITENS = [
+  {
+    id:"baloes_arco",
+    nome:"Balões (Arco Orgânico)",
+    cat:"Balões",
+    desc:"Balões para montagem. Ajuste escala/rotação/cor para simular o tema.",
+    preco:450,
+    // imagem principal usada na montagem
+    sprite:["arco-baloes.png","arco-baloes.jpg","arco-1.jpg","arco-2.jpg","capa.jpg"],
+    // miniatura do card
+    thumb:["arco-baloes.jpg","arco-1.jpg","arco-2.jpg","capa.jpg"]
+  },
+  {
+    id:"cilindros",
+    nome:"Cilindros (Suporte)",
+    cat:"Estruturas",
+    desc:"Estruturas e suporte para decoração.",
+    preco:180,
+    sprite:["cilindros-1.jpg","cilindros-2.jpg","cilindros-3.jpg","cilindros-4.jpg","cilindros.jpg","capa.jpg"],
+    thumb:["cilindros-1.jpg","cilindros-2.jpg","cilindros-3.jpg","capa.jpg"]
+  },
+  {
+    id:"arco_metal",
+    nome:"Arco (Estrutura)",
+    cat:"Estruturas",
+    desc:"Arco metálico (estrutura). Combine com balões/LED.",
+    preco:180,
+    sprite:["arco-quadrado.jpg","arco-estrutura.jpg","capa.jpg"],
+    thumb:["arco-quadrado.jpg","capa.jpg"]
+  },
+  {
+    id:"cortina_led",
+    nome:"Cortina de LED",
+    cat:"Iluminação",
+    desc:"Cortina LED para fundo e brilho. Fica ótima com opacidade e saturação.",
+    preco:120,
+    sprite:["cortina-led.png","cortina-led.jpg","cortina-1.jpg","cortina-2.jpg","capa.jpg"],
+    thumb:["cortina-led.jpg","cortina-1.jpg","cortina-2.jpg","capa.jpg"]
+  },
+  {
+    id:"tapete",
+    nome:"Tapete para fotos",
+    cat:"Cenário",
+    desc:"Base para fotos e cenário. Ajuste escala para “encher” o chão.",
+    preco:80,
+    sprite:["tapete.png","tapete.jpg","tapete-1.jpg","tapete-2.jpg","capa.jpg"],
+    thumb:["tapete.jpg","tapete-1.jpg","tapete-2.jpg","capa.jpg"]
+  }
+];
+
+/* =========================================================
+   UTIL
+========================================================= */
+const el = (id)=>document.getElementById(id);
+const money = (v)=> "R$ " + Number(v||0).toFixed(2).replace(".",",");
+
+// tenta carregar uma lista de arquivos: usa o primeiro que existir
+function loadFirstExisting(candidates, onOk, onFail){
+  if(!candidates || !candidates.length){ onFail?.(); return; }
+  let i = 0;
+  const img = new Image();
+
+  const tryNext = ()=>{
+    if(i >= candidates.length){ onFail?.(); return; }
+    img.src = candidates[i++];
   };
 
-  // ========= ITENS =========
-  // IMPORTANTE: coloque as imagens dentro de /assets/
-  // Exemplo de nomes abaixo. Troque pelos seus arquivos reais.
-  const ITENS = [
-    {
-      id:"baloes",
-      nome:"Balões (Arco Orgânico)",
-      cat:"Balões",
-      desc:"Balões realistas para montagem. Arraste e ajuste.",
-      preco: 450,
-      thumb: "/assets/thumb-baloes.jpg",
-      img: "/assets/baloes.png"
+  img.onload = ()=> onOk?.(img.src);
+  img.onerror = tryNext;
+  tryNext();
+}
+
+// cria URL relativa segura
+function fileUrl(name){
+  // garante que não venha com espaços estranhos
+  return "./" + String(name).trim();
+}
+
+/* =========================================================
+   DATA / RELÓGIO
+========================================================= */
+el("cityChip").textContent = CONFIG.cidade;
+el("whatsChip").textContent = CONFIG.whatsappDisplay;
+
+function tick(){
+  const d = new Date();
+  const dd = String(d.getDate()).padStart(2,"0");
+  const mm = String(d.getMonth()+1).padStart(2,"0");
+  const yy = d.getFullYear();
+  el("today").textContent = `${dd}/${mm}/${yy}`;
+  el("clock").textContent = d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
+}
+tick();
+setInterval(tick, 1000);
+
+/* =========================================================
+   LOGO
+========================================================= */
+(function loadLogo(){
+  const imgEl = el("logoImg");
+  const fb = el("logoFallback");
+
+  const candidates = CONFIG.logoCandidates.map(fileUrl);
+
+  loadFirstExisting(
+    candidates,
+    (src)=>{
+      imgEl.src = src;
+      imgEl.style.display = "block";
+      fb.style.display = "none";
     },
-    {
-      id:"cortina_led",
-      nome:"Cortina de LED",
-      cat:"Iluminação",
-      desc:"Cortina de LED para fundo e brilho.",
-      preco: 120,
-      thumb: "/assets/thumb-led.jpg",
-      img: "/assets/led.png"
-    },
-    {
-      id:"arco_estrutura",
-      nome:"Arco (Estrutura)",
-      cat:"Estruturas",
-      desc:"Estrutura para decoração (arco).",
-      preco: 180,
-      thumb: "/assets/thumb-arco.jpg",
-      img: "/assets/arco.png"
-    },
-    {
-      id:"tapete",
-      nome:"Tapete para fotos",
-      cat:"Cenário",
-      desc:"Tapete base para fotos/cenário.",
-      preco: 80,
-      thumb: "/assets/thumb-tapete.jpg",
-      img: "/assets/tapete.png"
-    },
-    {
-      id:"painel",
-      nome:"Painel (Estrutura)",
-      cat:"Estruturas",
-      desc:"Painel para fundo (retangular).",
-      preco: 200,
-      thumb: "/assets/thumb-painel.jpg",
-      img: "/assets/painel.png"
-    },
-  ];
-
-  // ========= UTIL =========
-  const el = (id)=>document.getElementById(id);
-  const money = (v)=> "R$ " + Number(v||0).toFixed(2).replace(".",",");
-
-  // ========= LOGO fallback =========
-  (function(){
-    const img = el("logoImg");
-    const fb = el("logoFallback");
-    img.onerror = ()=>{
-      img.style.display="none";
-      fb.style.display="block";
-    };
-  })();
-
-  // ========= Whats =========
-  el("btnWhats").addEventListener("click", ()=>{
-    const url = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent("Olá! Quero informações sobre os itens do catálogo da Faz de Conta Decorações.")}`;
-    window.open(url, "_blank");
-  });
-
-  // ========= FILTROS / PREÇOS =========
-  let showPrices = false;
-  const state = {
-    q: "",
-    cat: "Todas",
-    cart: new Map(),
-  };
-
-  function setSwitch(on){
-    const sw = el("priceSwitch");
-    sw.classList.toggle("on", on);
-    showPrices = on;
-    renderCatalog();
-  }
-  el("priceSwitch").addEventListener("click", ()=> setSwitch(!showPrices));
-
-  el("q").addEventListener("input",(e)=>{
-    state.q = (e.target.value||"").toLowerCase().trim();
-    renderCatalog();
-  });
-  el("cat").addEventListener("change",(e)=>{
-    state.cat = e.target.value;
-    renderCatalog();
-  });
-  el("btnClear").addEventListener("click", ()=>{
-    state.q = "";
-    state.cat = "Todas";
-    el("q").value = "";
-    el("cat").value = "Todas";
-    renderCatalog();
-  });
-
-  // ========= categorias =========
-  function buildCats(){
-    const s = new Set(ITENS.map(i=>i.cat));
-    const sel = el("cat");
-    [...s].sort().forEach(c=>{
-      const opt = document.createElement("option");
-      opt.value = c; opt.textContent = c;
-      sel.appendChild(opt);
-    });
-  }
-  buildCats();
-
-  function passFilter(item){
-    const okCat = (state.cat === "Todas") || (item.cat === state.cat);
-    const t = (item.nome + " " + item.desc + " " + item.cat).toLowerCase();
-    const okQ = !state.q || t.includes(state.q);
-    return okCat && okQ;
-  }
-
-  // ========= MONTAGEM (drag + transform) =========
-  const stage = el("stage");
-  let selected = null;
-
-  // layers state
-  let zCounter = 1;
-
-  function selectLayer(node){
-    [...stage.querySelectorAll(".layer")].forEach(n=>n.classList.remove("selected"));
-    selected = node;
-    if(selected){
-      selected.classList.add("selected");
-      el("selName").textContent = selected.dataset.name || "Item";
-      // sync sliders
-      el("scale").value = selected.dataset.scale || 100;
-      el("rot").value = selected.dataset.rot || 0;
-      el("opa").value = Math.round((parseFloat(selected.dataset.opa || "1"))*100);
-      updateSliderLabels();
-      applyTransform(selected);
-    }else{
-      el("selName").textContent = "Nenhum";
+    ()=>{
+      imgEl.style.display = "none";
+      fb.style.display = "flex";
     }
-  }
+  );
+})();
 
-  function updateSliderLabels(){
-    el("scaleVal").textContent = el("scale").value;
-    el("rotVal").textContent = el("rot").value;
-    el("opaVal").textContent = el("opa").value;
-  }
-  updateSliderLabels();
+/* =========================================================
+   FILTROS / PREÇOS
+========================================================= */
+let showPrices = false;
+const state = {
+  q: "",
+  cat: "Todas",
+  cart: new Map()
+};
 
-  function applyTransform(node){
-    if(!node) return;
-    const x = parseFloat(node.dataset.x || "0");
-    const y = parseFloat(node.dataset.y || "0");
-    const scale = parseFloat(node.dataset.scale || "100")/100;
-    const rot = parseFloat(node.dataset.rot || "0");
-    const opa = parseFloat(node.dataset.opa || "1");
-    node.style.transform = `translate(${x}px, ${y}px) rotate(${rot}deg) scale(${scale})`;
-    node.style.opacity = opa;
-  }
+function setSwitch(on){
+  const sw = el("priceSwitch");
+  sw.classList.toggle("on", on);
+  showPrices = on;
+  renderGrid();
+}
+el("priceSwitch").addEventListener("click", ()=> setSwitch(!showPrices));
 
-  function createLayer(item){
-    const layer = document.createElement("div");
-    layer.className = "layer";
-    layer.dataset.id = item.id;
-    layer.dataset.name = item.nome;
-    layer.dataset.x = "0";
-    layer.dataset.y = "0";
-    layer.dataset.scale = "100";
-    layer.dataset.rot = "0";
-    layer.dataset.opa = "1";
-    layer.style.zIndex = String(++zCounter);
+el("q").addEventListener("input",(e)=>{
+  state.q = (e.target.value||"").toLowerCase().trim();
+  renderGrid();
+});
+el("cat").addEventListener("change",(e)=>{
+  state.cat = e.target.value;
+  renderGrid();
+});
+el("btnClear").addEventListener("click", ()=>{
+  state.q = "";
+  state.cat = "Todas";
+  el("q").value = "";
+  el("cat").value = "Todas";
+  renderGrid();
+});
+
+/* =========================================================
+   CATEGORIAS
+========================================================= */
+(function buildCats(){
+  const s = new Set(ITENS.map(i=>i.cat));
+  const sel = el("cat");
+  [...s].sort().forEach(c=>{
+    const opt = document.createElement("option");
+    opt.value = c; opt.textContent = c;
+    sel.appendChild(opt);
+  });
+})();
+
+function passFilter(item){
+  const okCat = (state.cat === "Todas") || (item.cat === state.cat);
+  const t = (item.nome + " " + item.desc + " " + item.cat).toLowerCase();
+  const okQ = !state.q || t.includes(state.q);
+  return okCat && okQ;
+}
+
+/* =========================================================
+   RENDER GRID
+========================================================= */
+function renderGrid(){
+  const list = ITENS.filter(passFilter);
+  el("itemsCount").textContent = list.length;
+
+  const grid = el("grid");
+  grid.innerHTML = "";
+
+  list.forEach(item=>{
+    const card = document.createElement("div");
+    card.className = "card item";
+
+    const thumb = document.createElement("div");
+    thumb.className = "thumb";
 
     const img = document.createElement("img");
-    img.src = item.img;
     img.alt = item.nome;
-    img.onerror = ()=>{
-      // fallback simples se o arquivo não existir
-      img.style.width = "220px";
-      img.style.height = "140px";
-      img.style.objectFit = "cover";
-      img.src = "/assets/placeholder.png";
-    };
-    layer.appendChild(img);
 
-    // select on click
-    layer.addEventListener("pointerdown", (e)=>{
-      e.stopPropagation();
-      selectLayer(layer);
+    loadFirstExisting(
+      (item.thumb || []).map(fileUrl),
+      (src)=>{ img.src = src; },
+      ()=>{ img.src = fileUrl("capa.jpg"); }
+    );
+
+    thumb.appendChild(img);
+
+    const name = document.createElement("div");
+    name.className = "itemName";
+    name.textContent = item.nome;
+
+    const desc = document.createElement("p");
+    desc.className = "itemDesc";
+    desc.textContent = item.desc;
+
+    const footer = document.createElement("div");
+    footer.className = "itemFooter";
+
+    const price = document.createElement("div");
+    price.className = "price";
+    price.textContent = showPrices ? money(item.preco) : "Preço: sob consulta";
+
+    const tag = document.createElement("div");
+    tag.className = "tag";
+    tag.textContent = item.cat;
+
+    footer.appendChild(tag);
+    footer.appendChild(price);
+
+    card.appendChild(thumb);
+    card.appendChild(name);
+    card.appendChild(desc);
+    card.appendChild(footer);
+
+    // clique: adiciona na montagem + soma carrinho
+    card.addEventListener("click", ()=> {
+      addToStage(item);
+      const n = state.cart.get(item.id) || 0;
+      state.cart.set(item.id, n+1);
+      el("cartCount").textContent = [...state.cart.values()].reduce((a,b)=>a+b,0);
     });
 
-    // drag
-    let dragging = false;
-    let startX=0, startY=0, baseX=0, baseY=0;
+    grid.appendChild(card);
+  });
 
-    layer.addEventListener("pointerdown", (e)=>{
-      e.preventDefault();
-      dragging = true;
-      layer.setPointerCapture(e.pointerId);
-      startX = e.clientX;
-      startY = e.clientY;
-      baseX = parseFloat(layer.dataset.x || "0");
-      baseY = parseFloat(layer.dataset.y || "0");
-      layer.style.zIndex = String(++zCounter);
-    });
+  el("cartCount").textContent = [...state.cart.values()].reduce((a,b)=>a+b,0);
+}
+renderGrid();
 
-    layer.addEventListener("pointermove", (e)=>{
-      if(!dragging) return;
-      const dx = e.clientX - startX;
-      const dy = e.clientY - startY;
-      layer.dataset.x = String(baseX + dx);
-      layer.dataset.y = String(baseY + dy);
-      applyTransform(layer);
-    });
+/* =========================================================
+   MONTAGEM (DRAG / ESCALA / ROTAÇÃO / OPACIDADE / COR)
+========================================================= */
+const stage = el("stage");
+let selected = null;
 
-    layer.addEventListener("pointerup", ()=>{
-      dragging = false;
-    });
+const ui = {
+  name: el("selName"),
+  scale: el("scale"),
+  rot: el("rot"),
+  op: el("op"),
+  hue: el("hue"),
+  sat: el("sat"),
+  scaleTxt: el("scaleTxt"),
+  rotTxt: el("rotTxt"),
+  opTxt: el("opTxt"),
+  hueTxt: el("hueTxt"),
+  satTxt: el("satTxt")
+};
 
-    stage.appendChild(layer);
-    selectLayer(layer);
-    // adiciona carrinho (conta)
-    const n = state.cart.get(item.id) || 0;
-    state.cart.set(item.id, n+1);
-    updateCartCount();
+function setSelected(node){
+  if(selected && selected.el){
+    selected.el.classList.remove("selected");
+  }
+  selected = node;
+
+  if(!selected){
+    ui.name.textContent = "Nenhum";
+    return;
   }
 
-  stage.addEventListener("pointerdown", ()=> selectLayer(null));
+  selected.el.classList.add("selected");
+  ui.name.textContent = selected.itemName;
 
-  // sliders -> layer
-  function bindSlider(id, setter){
-    el(id).addEventListener("input", ()=>{
-      updateSliderLabels();
-      if(!selected) return;
-      setter(selected);
-      applyTransform(selected);
-    });
+  // popula sliders
+  ui.scale.value = Math.round(selected.scale*100);
+  ui.rot.value = Math.round(selected.rot);
+  ui.op.value = Math.round(selected.opacity*100);
+  ui.hue.value = Math.round(selected.hue);
+  ui.sat.value = Math.round(selected.sat*100);
+
+  syncTexts();
+}
+
+function syncTexts(){
+  ui.scaleTxt.textContent = ui.scale.value + "%";
+  ui.rotTxt.textContent = ui.rot.value + "°";
+  ui.opTxt.textContent = ui.op.value + "%";
+  ui.hueTxt.textContent = ui.hue.value;
+  ui.satTxt.textContent = ui.sat.value + "%";
+}
+
+function applyTransforms(node){
+  if(!node) return;
+
+  const x = node.x, y = node.y;
+  const s = node.scale;
+  const r = node.rot;
+  const o = node.opacity;
+
+  node.el.style.left = x + "px";
+  node.el.style.top  = y + "px";
+  node.el.style.transform = `translate(-50%, -50%) rotate(${r}deg) scale(${s})`;
+  node.el.style.opacity = String(o);
+
+  // cor via filter (mantém foto realista)
+  const hue = node.hue;
+  const sat = node.sat;
+  node.img.style.filter = `hue-rotate(${hue}deg) saturate(${sat})`;
+
+  // LED ganha “brilho”
+  if(node.isLed){
+    node.el.style.mixBlendMode = "screen";
+    node.el.style.filter = "drop-shadow(0 12px 30px rgba(255,255,255,.18))";
+  }else{
+    node.el.style.mixBlendMode = "normal";
   }
+}
 
-  bindSlider("scale", (node)=> node.dataset.scale = el("scale").value );
-  bindSlider("rot",   (node)=> node.dataset.rot   = el("rot").value );
-  bindSlider("opa",   (node)=> node.dataset.opa   = String(parseInt(el("opa").value,10)/100) );
+function addToStage(item){
+  // cria objeto
+  const obj = document.createElement("div");
+  obj.className = "obj";
+  obj.tabIndex = 0;
 
-  // buttons
-  el("btnFront").addEventListener("click", ()=>{
+  const img = document.createElement("img");
+  img.alt = item.nome;
+
+  obj.appendChild(img);
+  stage.appendChild(obj);
+
+  const node = {
+    id: "obj_" + Math.random().toString(16).slice(2),
+    el: obj,
+    img,
+    itemId: item.id,
+    itemName: item.nome,
+    x: stage.clientWidth/2,
+    y: stage.clientHeight/2,
+    scale: 1.0,
+    rot: 0,
+    opacity: 1.0,
+    hue: 0,
+    sat: 1.0,
+    isLed: /led/i.test(item.nome)
+  };
+
+  // carrega sprite
+  loadFirstExisting(
+    (item.sprite || []).map(fileUrl),
+    (src)=>{ img.src = src; },
+    ()=>{ img.src = fileUrl("capa.jpg"); }
+  );
+
+  // selecionar ao clicar
+  obj.addEventListener("pointerdown", (e)=>{
+    e.stopPropagation();
+    setSelected(node);
+    bringToFront(node);
+    startDrag(e, node);
+  });
+
+  // aplica
+  applyTransforms(node);
+  setSelected(node);
+}
+
+stage.addEventListener("pointerdown", ()=>{
+  setSelected(null);
+});
+
+function bringToFront(node){
+  if(!node) return;
+  node.el.parentNode.appendChild(node.el);
+}
+function sendToBack(node){
+  if(!node) return;
+  node.el.parentNode.insertBefore(node.el, node.el.parentNode.firstChild);
+}
+
+/* DRAG */
+let drag = null;
+
+function startDrag(e, node){
+  const rect = stage.getBoundingClientRect();
+  const startX = e.clientX;
+  const startY = e.clientY;
+
+  drag = {
+    node,
+    startX, startY,
+    origX: node.x,
+    origY: node.y,
+    rect
+  };
+
+  node.el.setPointerCapture(e.pointerId);
+  node.el.addEventListener("pointermove", onDragMove);
+  node.el.addEventListener("pointerup", onDragUp, { once:true });
+  node.el.addEventListener("pointercancel", onDragUp, { once:true });
+}
+
+function onDragMove(e){
+  if(!drag) return;
+  const { node, startX, startY, origX, origY } = drag;
+
+  const dx = e.clientX - startX;
+  const dy = e.clientY - startY;
+
+  node.x = origX + dx;
+  node.y = origY + dy;
+
+  // limita dentro do stage
+  node.x = Math.max(0, Math.min(stage.clientWidth, node.x));
+  node.y = Math.max(0, Math.min(stage.clientHeight, node.y));
+
+  applyTransforms(node);
+}
+
+function onDragUp(e){
+  if(!drag) return;
+  const { node } = drag;
+  node.el.removeEventListener("pointermove", onDragMove);
+  drag = null;
+}
+
+/* SLIDERS */
+function bindSlider(slider, fn){
+  slider.addEventListener("input", ()=>{
     if(!selected) return;
-    selected.style.zIndex = String(++zCounter);
+    fn();
+    syncTexts();
+    applyTransforms(selected);
   });
-  el("btnBack").addEventListener("click", ()=>{
-    if(!selected) return;
-    selected.style.zIndex = "1";
-  });
-  el("btnDuplicate").addEventListener("click", ()=>{
-    if(!selected) return;
-    const item = ITENS.find(i=>i.id===selected.dataset.id);
-    if(!item) return;
-    createLayer(item);
-    if(selected){
-      // desloca um pouco o novo pra não ficar em cima
-      selected.dataset.x = String(parseFloat(selected.dataset.x || "0") + 30);
-      selected.dataset.y = String(parseFloat(selected.dataset.y || "0") + 20);
-      applyTransform(selected);
-    }
-  });
-  el("btnDelete").addEventListener("click", ()=>{
-    if(!selected) return;
-    const id = selected.dataset.id;
-    selected.remove();
-    selected = null;
-    el("selName").textContent = "Nenhum";
-    // reduz carrinho
-    const n = state.cart.get(id) || 0;
-    if(n<=1) state.cart.delete(id);
-    else state.cart.set(id, n-1);
-    updateCartCount();
-  });
+}
 
-  function clearStage(){
-    stage.innerHTML = "";
-    selected = null;
-    el("selName").textContent = "Nenhum";
-    state.cart.clear();
-    updateCartCount();
+bindSlider(ui.scale, ()=>{
+  selected.scale = Number(ui.scale.value)/100;
+});
+bindSlider(ui.rot, ()=>{
+  selected.rot = Number(ui.rot.value);
+});
+bindSlider(ui.op, ()=>{
+  selected.opacity = Number(ui.op.value)/100;
+});
+bindSlider(ui.hue, ()=>{
+  selected.hue = Number(ui.hue.value);
+});
+bindSlider(ui.sat, ()=>{
+  selected.sat = Number(ui.sat.value)/100;
+});
+
+/* BOTÕES */
+el("btnFront").addEventListener("click", ()=>{
+  if(!selected) return;
+  bringToFront(selected);
+});
+el("btnBack").addEventListener("click", ()=>{
+  if(!selected) return;
+  sendToBack(selected);
+});
+el("btnDup").addEventListener("click", ()=>{
+  if(!selected) return;
+  // duplica no DOM
+  const item = ITENS.find(i=>i.id===selected.itemId);
+  if(!item) return;
+  addToStage(item);
+  // copia ajustes
+  if(selected){
+    // o último criado virou selected (no addToStage)
+    selected.scale = (Number(ui.scale.value)/100);
+    selected.rot = Number(ui.rot.value);
+    selected.opacity = Number(ui.op.value)/100;
+    selected.hue = Number(ui.hue.value);
+    selected.sat = Number(ui.sat.value)/100;
+    // desloca um pouco
+    selected.x += 24;
+    selected.y += 18;
+    applyTransforms(selected);
   }
-  el("btnClearStage").addEventListener("click", clearStage);
+});
+el("btnDel").addEventListener("click", ()=>{
+  if(!selected) return;
+  selected.el.remove();
+  setSelected(null);
+});
 
-  // ========= carrinho =========
-  function updateCartCount(){
-    el("cartCount").textContent = [...state.cart.values()].reduce((a,b)=>a+b,0);
+el("btnColorReset").addEventListener("click", ()=>{
+  if(!selected) return;
+  selected.hue = 0;
+  selected.sat = 1;
+  ui.hue.value = 0;
+  ui.sat.value = 100;
+  syncTexts();
+  applyTransforms(selected);
+});
+
+el("btnCenter").addEventListener("click", ()=>{
+  if(!selected) return;
+  selected.x = stage.clientWidth/2;
+  selected.y = stage.clientHeight/2;
+  applyTransforms(selected);
+});
+
+el("btnClearStage").addEventListener("click", ()=>{
+  stage.innerHTML = "";
+  setSelected(null);
+});
+
+/* =========================================================
+   AÇÕES (WHATS / CARRINHO / FINALIZAR)
+========================================================= */
+el("btnWhats").addEventListener("click", ()=>{
+  const url = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent("Olá! Quero informações sobre os itens do catálogo da Faz de Conta Decorações.")}`;
+  window.open(url, "_blank");
+});
+
+el("btnCart").addEventListener("click", ()=>{
+  const totalItens = [...state.cart.values()].reduce((a,b)=>a+b,0);
+  alert("Carrinho: " + totalItens + " item(ns).");
+});
+
+el("btnFinish").addEventListener("click", ()=>{
+  const totalItens = [...state.cart.values()].reduce((a,b)=>a+b,0);
+  if(totalItens<=0){
+    alert("Seu carrinho está vazio. Clique em um item do catálogo para adicionar.");
+    return;
   }
-  updateCartCount();
+  alert("Finalizar (Pix):\nPróximo passo: gerar Pix Copia e Cola (integração).");
+});
 
-  el("btnCart").addEventListener("click", ()=>{
-    const totalItens = [...state.cart.values()].reduce((a,b)=>a+b,0);
-    alert("Carrinho: " + totalItens + " item(ns) na montagem.");
-  });
-
-  el("btnFinish").addEventListener("click", ()=>{
-    const totalItens = [...state.cart.values()].reduce((a,b)=>a+b,0);
-    if(totalItens<=0){
-      alert("Seu carrinho/montagem está vazio. Clique em um item do catálogo para adicionar.");
-      return;
-    }
-    alert("Finalizar (Pix):\n(Próximo passo: gerar Pix Copia e Cola.)");
-  });
-
-  // ========= catálogo render =========
-  function renderCatalog(){
-    const list = ITENS.filter(passFilter);
-    el("itemsCount").textContent = list.length;
-
-    const grid = el("grid");
-    grid.innerHTML = "";
-
-    list.forEach(item=>{
-      const card = document.createElement("div");
-      card.className = "card item";
-
-      const thumb = document.createElement("div");
-      thumb.className = "thumb";
-      const img = document.createElement("img");
-      img.src = item.thumb || item.img;
-      img.alt = item.nome;
-      img.onerror = ()=> img.src = "/assets/placeholder.png";
-      thumb.appendChild(img);
-
-      const name = document.createElement("div");
-      name.className = "itemName";
-      name.textContent = item.nome;
-
-      const desc = document.createElement("p");
-      desc.className = "itemDesc";
-      desc.textContent = item.desc;
-
-      const footer = document.createElement("div");
-      footer.className = "itemFooter";
-
-      const price = document.createElement("div");
-      price.className = "price";
-      price.textContent = showPrices ? money(item.preco) : "Preço: sob consulta";
-
-      const tag = document.createElement("div");
-      tag.className = "tag";
-      tag.textContent = item.cat;
-
-      footer.appendChild(tag);
-      footer.appendChild(price);
-
-      card.appendChild(thumb);
-      card.appendChild(name);
-      card.appendChild(desc);
-      card.appendChild(footer);
-
-      card.addEventListener("click", ()=> createLayer(item));
-      grid.appendChild(card);
-    });
-
-    updateCartCount();
-  }
-  renderCatalog();
+/* =========================================================
+   STATUS (ajuda rápida quando imagens somem)
+========================================================= */
+(function quickChecks(){
+  // Se capa.jpg não existir, avisa (pra não ficar tudo “em branco”)
+  const test = new Image();
+  test.onload = ()=>{};
+  test.onerror = ()=>{
+    el("statusBox").innerHTML =
+      "⚠️ <b>Atenção:</b> não encontrei <b>capa.jpg</b> na mesma pasta do index.html. " +
+      "Coloque um arquivo <b>capa.jpg</b> na raiz para servir de fallback (quando alguma imagem falhar).";
+    el("statusBox").style.borderColor = "rgba(255,217,74,.25)";
+  };
+  test.src = fileUrl("capa.jpg");
+})();
 </script>
 
+<!--
+===========================================================
+✅ COMO DEIXAR OS NOMES (REGRA SIMPLES)
+===========================================================
+1) Coloque as imagens na MESMA PASTA do index.html (raiz).
+2) Use nomes SEM acento e tudo minúsculo, com hífen:
+   - arco-baloes.jpg
+   - arco-1.jpg
+   - cilindros-1.jpg
+   - cortina-led.jpg
+   - tapete.jpg
+3) O nome no código TEM que ser IGUALZINHO ao nome do arquivo.
+   Ex: se no GitHub está "arco-baloes.jpg", no código tem que estar "arco-baloes.jpg".
+
+✅ TESTE RÁPIDO (se a imagem aparece no deploy do Vercel):
+Abra no navegador:
+https://SEU-SITE.vercel.app/arco-baloes.jpg
+Se der 404 -> Vercel não publicou (branch errada ou arquivo não foi commitado)
+
+===========================================================
+-->
 </body>
 </html>
