@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="pt-br">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Faz de Conta Decorações • Montagem</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Faz de Conta Decorações • Catálogo</title>
 
   <style>
     :root{
@@ -13,1166 +13,1655 @@
       --card2: rgba(255,255,255,.06);
       --stroke: rgba(255,255,255,.14);
       --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.70);
+      --muted: rgba(255,255,255,.65);
       --muted2: rgba(255,255,255,.45);
-      --shadow: 0 18px 55px rgba(0,0,0,.55);
+      --shadow: 0 18px 50px rgba(0,0,0,.55);
       --radius: 22px;
       --radius2: 18px;
-
-      --accentA:#ff4ecd;
-      --accentB:#5fe7ff;
-      --accentC:#7cff7e;
+      --ok: rgba(0,255,213,.25);
+      --pink: rgba(255,75,216,.35);
     }
 
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue";
-      background: radial-gradient(1100px 600px at 15% 10%, rgba(255,78,205,.16), transparent 55%),
-                  radial-gradient(1000px 650px at 85% 20%, rgba(95,231,255,.14), transparent 55%),
-                  radial-gradient(900px 700px at 40% 95%, rgba(124,255,126,.10), transparent 55%),
-                  linear-gradient(180deg, var(--bg0), var(--bg1));
-      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans";
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 15% 15%, rgba(122, 66, 255,.25), transparent 60%),
+        radial-gradient(900px 600px at 80% 30%, rgba(0, 255, 213,.14), transparent 55%),
+        radial-gradient(900px 600px at 40% 90%, rgba(255, 64, 208,.12), transparent 50%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+    }
+
+    .spark{
+      position:fixed; inset:0; pointer-events:none; opacity:.55;
+      background:
+        radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,.25), transparent 60%),
+        radial-gradient(2px 2px at 35% 55%, rgba(255,255,255,.18), transparent 60%),
+        radial-gradient(1px 1px at 70% 20%, rgba(255,255,255,.20), transparent 60%),
+        radial-gradient(2px 2px at 85% 70%, rgba(255,255,255,.16), transparent 60%);
+      filter: blur(.2px);
+      mix-blend-mode: screen;
     }
 
     .wrap{
-      width:min(1250px, 94vw);
-      margin: 18px auto 30px;
-      display:flex;
-      flex-direction:column;
-      gap:14px;
+      width:min(1200px, 94vw);
+      margin: 18px auto 52px;
     }
 
-    .topline{
+    /* ====== TOP BAR (SLOGAN FIXO) ====== */
+    .floatingSlogan{
+      position: sticky;
+      top: 10px;
+      z-index: 20;
+      width: fit-content;
+      margin: 0 0 12px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.24);
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow: 0 12px 30px rgba(0,0,0,.25);
       display:flex;
-      justify-content:space-between;
       align-items:center;
       gap:10px;
-      opacity:.95;
-    }
-
-    .chip{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:7px 11px;
-      border-radius:999px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.10);
-      color: var(--muted);
-      font-size:12px;
       backdrop-filter: blur(10px);
     }
-    .chip b{ color: var(--text); font-weight:700; }
-    .spark{
-      width:10px;height:10px;border-radius:99px;
-      background: linear-gradient(135deg, var(--accentA), var(--accentB));
-      box-shadow: 0 0 18px rgba(255,78,205,.35);
+    .floatingSlogan .txt{
+      font-weight: 950;
+      letter-spacing:.15px;
+      font-size: 15px;
+      color: rgba(255,255,255,.94);
+      text-shadow: 0 10px 26px rgba(0,0,0,.45);
     }
 
-    .hero{
-      display:grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap:14px;
-    }
-
-    .card{
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.04));
-      border: 1px solid rgba(255,255,255,.11);
+    /* ====== HEADER ====== */
+    .header{
       border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+      border:1px solid var(--stroke);
       box-shadow: var(--shadow);
       backdrop-filter: blur(10px);
       overflow:hidden;
+      position:relative;
+      padding: 16px;
+    }
+    .header::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(700px 200px at 20% 10%, rgba(255,255,255,.10), transparent 55%),
+                  radial-gradient(600px 240px at 80% 0%, rgba(0,255,213,.12), transparent 55%);
+      opacity:.65;
+      pointer-events:none;
     }
 
-    .brand{
-      padding:16px;
-      display:grid;
-      grid-template-columns: 110px 1fr;
-      gap:14px;
-      align-items:center;
+    .headGrid{
       position:relative;
+      z-index:1;
+      display:grid;
+      grid-template-columns: 1fr 240px;
+      gap: 14px;
+      align-items:start;
+    }
+    @media(max-width: 980px){
+      .headGrid{ grid-template-columns: 1fr; }
+    }
+
+    .brandRow{
+      display:flex;
+      align-items:center;
+      gap: 14px;
+      flex-wrap:wrap;
+      justify-content:center;
+      padding: 6px 4px 10px;
     }
 
     .logoBox{
-      width:110px;height:110px;border-radius:18px;
-      background: radial-gradient(90px 90px at 30% 25%, rgba(255,78,205,.25), transparent 60%),
-                  radial-gradient(90px 90px at 75% 60%, rgba(95,231,255,.20), transparent 60%),
-                  rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.14);
-      display:grid;
-      place-items:center;
-      position:relative;
+      width: 160px;
+      height: 140px;
+      border-radius: 18px;
+      background: rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow: 0 14px 35px rgba(0,0,0,.35);
       overflow:hidden;
-    }
-
-    .logoMark{
-      width:74px;height:74px;border-radius:20px;
-      background: linear-gradient(135deg, rgba(255,78,205,.95), rgba(95,231,255,.95));
-      box-shadow: 0 18px 40px rgba(0,0,0,.35);
       position:relative;
-      transform: rotate(-6deg);
-    }
-    .logoMark:after{
-      content:"FC";
-      position:absolute; inset:0;
-      display:grid; place-items:center;
-      font-weight:900;
-      letter-spacing:.6px;
-      color: rgba(5,8,22,.88);
-      font-size:28px;
-    }
-
-    .title{
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-      min-width:0;
-    }
-    .title h1{
-      margin:0;
-      font-size: clamp(22px, 2.8vw, 34px);
-      letter-spacing:.5px;
-      line-height:1.05;
-      background: linear-gradient(90deg, var(--accentA), var(--accentB), var(--accentC));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-      text-shadow: 0 10px 30px rgba(0,0,0,.35);
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .title .slogan{
       display:flex;
       align-items:center;
-      gap:8px;
-      color: rgba(255,255,255,.90);
-      font-weight:800;
-      letter-spacing:.2px;
-      opacity:.92;
-      text-shadow: 0 12px 26px rgba(0,0,0,.45);
-      font-size: 14px;
-      flex-wrap:wrap;
+      justify-content:center;
+      flex: 0 0 auto;
     }
-    .star{
-      width:14px;height:14px;
-      filter: drop-shadow(0 10px 18px rgba(0,0,0,.55));
+    .logoBox img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:none;
+    }
+    .logoFallback{
+      font-weight: 1000;
+      letter-spacing:.6px;
+      color: rgba(255,255,255,.90);
+      opacity:.9;
+      display:flex;
+      flex-direction:column;
+      gap: 6px;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding: 10px;
+    }
+    .logoFallback small{ opacity:.75; font-weight: 800; }
+
+    .titleStack{ min-width: 240px; text-align:center; }
+
+    .gradTitle{
+      font-weight: 1000;
+      font-size: 46px;
+      line-height: 1.05;
+      letter-spacing: .7px;
+      text-transform: uppercase;
+      background: linear-gradient(
+        90deg,
+        #ff4bd8 0%,
+        #7a42ff 18%,
+        #00c7ff 34%,
+        #00ffd5 50%,
+        #7dff6a 66%,
+        #ffd94a 82%,
+        #ff4bd8 100%
+      );
+      background-size: 260% 100%;
+      -webkit-background-clip:text;
+      background-clip:text;
+      color: transparent;
+      animation: gradMove 6.5s linear infinite;
+      filter: drop-shadow(0 10px 30px rgba(0,0,0,.55));
+      margin: 0;
+    }
+    @keyframes gradMove{
+      0%{ background-position:0% 50%; }
+      100%{ background-position:260% 50%; }
     }
 
+    .sloganBelow{
+      margin-top: 8px;
+      font-size: 17px;
+      font-weight: 950;
+      color: rgba(255,255,255,.94);
+      letter-spacing:.2px;
+      text-shadow: 0 10px 26px rgba(0,0,0,.45);
+    }
+
+    /* META VERTICAL (direita) */
+    .metaCol{
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      align-items:stretch;
+      justify-content:flex-start;
+    }
+    .chip{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.80);
+      font-size: 12.8px;
+      box-shadow: 0 10px 26px rgba(0,0,0,.25);
+      white-space:nowrap;
+    }
+    .chip b{ color: rgba(255,255,255,.92); }
+
+    /* BOTÕES */
     .actions{
       display:flex;
       gap:10px;
       flex-wrap:wrap;
-      margin-top:6px;
+      align-items:center;
+      justify-content:flex-start;
+      margin-top: 12px;
+      position:relative;
+      z-index:1;
     }
     .btn{
-      appearance:none;
-      border:none;
-      border-radius:999px;
-      padding:10px 12px;
-      background: rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.12);
-      color: rgba(255,255,255,.92);
-      font-weight:800;
-      cursor:pointer;
       display:inline-flex;
       align-items:center;
-      gap:8px;
-      transition: transform .08s ease, background .15s ease, border .15s ease;
-      user-select:none;
-      font-size: 13px;
-    }
-    .btn:hover{ background: rgba(255,255,255,.085); border-color: rgba(255,255,255,.18); }
-    .btn:active{ transform: scale(.985); }
-    .btn.primary{
-      background: linear-gradient(90deg, rgba(255,78,205,.22), rgba(95,231,255,.18));
-      border-color: rgba(255,255,255,.18);
-    }
-    .btn.good{
-      background: linear-gradient(90deg, rgba(124,255,126,.22), rgba(95,231,255,.16));
-      border-color: rgba(255,255,255,.18);
-    }
-    .btn.warn{
-      background: linear-gradient(90deg, rgba(255,170,74,.20), rgba(255,78,205,.14));
-      border-color: rgba(255,255,255,.18);
-    }
-
-    .rightPanel{
-      padding:16px;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-    }
-    .panelTitle{
-      font-weight:900;
-      letter-spacing:.2px;
-      font-size:16px;
-      display:flex;
-      align-items:center;
+      justify-content:center;
       gap:10px;
-    }
-    .panelTitle small{
-      color: var(--muted2);
-      font-weight:700;
-      margin-left:auto;
-    }
-    .field{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      background: rgba(0,0,0,.18);
-      border: 1px solid rgba(255,255,255,.10);
-      border-radius: 14px;
+      border:none;
+      cursor:pointer;
+      color: rgba(255,255,255,.92);
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.14);
       padding: 10px 12px;
-    }
-    .field input, .field select{
-      width:100%;
-      background: transparent;
-      border: none;
-      outline: none;
-      color: var(--text);
-      font-weight:700;
+      border-radius: 14px;
+      font-weight: 850;
       font-size: 13px;
+      box-shadow: 0 14px 35px rgba(0,0,0,.28);
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      user-select:none;
     }
-    .field input::placeholder{ color: rgba(255,255,255,.35); }
-    .hint{
-      color: rgba(255,255,255,.55);
-      font-size:12px;
-      line-height:1.35;
-      margin-top:-4px;
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.11); border-color: rgba(255,255,255,.18); }
+    .btn:active{ transform: translateY(0px) scale(.99); }
+    .btn.primary{
+      background: linear-gradient(90deg, rgba(255,75,216,.38), rgba(0,255,213,.26), rgba(255,217,74,.24));
+      border-color: rgba(255,255,255,.18);
     }
-
-    /* Montagem + Controles */
-    .studio{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:14px;
-    }
-    .studioRow{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:14px;
-    }
-    .montagemCard{
-      padding:12px;
-    }
-    .montagemHead{
-      display:flex;
+    .pill{
+      display:inline-flex;
       align-items:center;
-      gap:10px;
-      padding:8px 10px 12px;
-      color: rgba(255,255,255,.85);
-      font-weight:900;
-    }
-    .montagemHead .miniTip{
-      margin-left:auto;
-      color: rgba(255,255,255,.42);
-      font-weight:700;
-      font-size:12px;
-      text-align:right;
-      line-height:1.2;
+      justify-content:center;
+      min-width: 28px;
+      height: 22px;
+      padding: 0 8px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.28);
+      border:1px solid rgba(255,255,255,.14);
+      font-weight: 1000;
+      font-size: 12px;
+      margin-left: 6px;
     }
 
-    #stage{
-      height: 430px;
-      border-radius: 16px;
-      background:
-        radial-gradient(900px 500px at 20% 15%, rgba(255,78,205,.12), transparent 55%),
-        radial-gradient(850px 540px at 85% 25%, rgba(95,231,255,.10), transparent 55%),
-        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
-      border: 1px solid rgba(255,255,255,.11);
-      box-shadow: inset 0 0 0 1px rgba(0,0,0,.25);
+    /* ====== MAIN (MONTAGEM + CONTROLES) ====== */
+    .main{
+      margin-top: 14px;
+      display:grid;
+      grid-template-columns: 1.35fr .65fr;
+      gap: 14px;
+      align-items:stretch;
+    }
+    @media(max-width: 980px){
+      .main{ grid-template-columns: 1fr; }
+    }
+
+    .card{
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+      border:1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
       overflow:hidden;
       position:relative;
-      touch-action:none;
     }
 
-    .ghost{
-      position:absolute; inset:0;
-      display:grid;
-      place-items:center;
-      pointer-events:none;
-      opacity:.40;
-      font-weight:900;
+    /* QUADRO DA MONTAGEM */
+    .stageHead{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      flex-wrap:wrap;
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.16);
+    }
+    .stageHead .title{
+      font-weight: 1000;
       letter-spacing:.2px;
-      color: rgba(255,255,255,.20);
-      text-shadow: 0 14px 30px rgba(0,0,0,.55);
+    }
+    .stageHead .miniHint{
+      font-size: 12px;
+      color: rgba(255,255,255,.65);
     }
 
-    .obj{
+    .stage{
+      position:relative;
+      height: 440px;
+      background:
+        radial-gradient(900px 500px at 20% 15%, rgba(255,255,255,.06), transparent 60%),
+        radial-gradient(700px 450px at 80% 35%, rgba(0,255,213,.08), transparent 60%),
+        linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.28));
+      overflow:hidden;
+    }
+    @media(max-width: 560px){
+      .stage{ height: 380px; }
+    }
+
+    /* “fundo” bonitinho (opcional) */
+    .stageBackdrop{
       position:absolute;
-      left: 30px; top: 30px;
-      width: 220px;
+      inset: 14px;
+      border-radius: 18px;
+      border:1px dashed rgba(255,255,255,.18);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      pointer-events:none;
+    }
+
+    .stageGrid{
+      position:absolute;
+      inset: 14px;
+      border-radius: 18px;
+      background:
+        linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
+      background-size: 32px 32px;
+      opacity:.16;
+      pointer-events:none;
+      mix-blend-mode: screen;
+    }
+
+    /* sticker (recorte) */
+    .sticker{
+      position:absolute;
+      left: 80px;
+      top: 80px;
+      width: 180px;
+      height: 180px;
       transform: translate3d(0,0,0);
-      cursor: grab;
       user-select:none;
       touch-action:none;
-      filter: drop-shadow(0 16px 26px rgba(0,0,0,.45));
+      cursor: grab;
+      border-radius: 16px;
+      outline: 1px solid rgba(255,255,255,.00);
     }
-    .obj:active{ cursor: grabbing; }
-    .obj.selected{
-      outline: 2px solid rgba(95,231,255,.35);
-      outline-offset: 8px;
-      border-radius: 14px;
+    .sticker:active{ cursor: grabbing; }
+    .sticker.selected{
+      outline: 1px solid rgba(0,255,213,.45);
+      box-shadow: 0 0 0 6px rgba(0,255,213,.10), 0 18px 60px rgba(0,0,0,.55);
     }
-
-    .controls{
-      padding:12px;
-      display:grid;
-      gap:10px;
-    }
-    .controlsGrid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:10px;
-    }
-
-    .ctl{
-      background: rgba(0,0,0,.18);
-      border: 1px solid rgba(255,255,255,.10);
-      border-radius: 14px;
-      padding: 10px 12px;
-    }
-    .ctl label{
-      display:flex;
-      justify-content:space-between;
-      font-size:12px;
-      color: rgba(255,255,255,.65);
-      font-weight:800;
-      margin-bottom:6px;
-    }
-    .ctl input[type="range"]{
+    .sticker img{
       width:100%;
-      accent-color: #5fe7ff;
+      height:100%;
+      object-fit: contain;
+      display:block;
+      pointer-events:none;
+      filter: drop-shadow(0 14px 30px rgba(0,0,0,.55));
     }
-    .ctlRow{
+
+    /* alças de resize */
+    .handle{
+      position:absolute;
+      width: 14px;
+      height: 14px;
+      border-radius: 8px;
+      background: rgba(255,255,255,.92);
+      border: 1px solid rgba(0,0,0,.35);
+      box-shadow: 0 10px 24px rgba(0,0,0,.45);
+      display:none;
+    }
+    .sticker.selected .handle{ display:block; }
+    .h-br{ right: -7px; bottom: -7px; cursor: nwse-resize; }
+    .h-tr{ right: -7px; top: -7px; cursor: nesw-resize; }
+    .h-bl{ left: -7px; bottom: -7px; cursor: nesw-resize; }
+    .h-tl{ left: -7px; top: -7px; cursor: nwse-resize; }
+
+    /* barra inferior do quadro */
+    .stageBar{
       display:flex;
       gap:10px;
-      align-items:center;
       flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      padding: 12px 14px;
+      border-top: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.14);
     }
-    .ctlRow .btn{ flex:1; justify-content:center; }
-    .colorRow{
+    .stageBar .left{
       display:flex;
       gap:10px;
-      align-items:center;
       flex-wrap:wrap;
+      align-items:center;
     }
-    .colorRow input[type="color"]{
-      width:50px;height:42px;
+    .badgeSmall{
+      font-size: 12px;
+      color: rgba(255,255,255,.70);
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.12);
+    }
+
+    /* PAINEL CONTROLE (lado direito) */
+    .panel{
+      padding: 14px;
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+    }
+
+    .panelTitle{
+      font-weight: 1000;
+      letter-spacing:.2px;
+      font-size: 16px;
+      margin: 0;
+    }
+    .panelText{
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height:1.4;
+    }
+
+    .field{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.12);
+    }
+    .field input, .field select, .field textarea{
+      width:100%;
       border:none;
+      outline:none;
       background: transparent;
-      padding:0;
-      cursor:pointer;
+      color: rgba(255,255,255,.9);
+      font-size: 13px;
+      font-family: inherit;
+      resize:none;
     }
+    .field textarea{ min-height: 64px; }
+
+    .row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+    }
+
     .toggle{
       display:flex;
       align-items:center;
       gap:10px;
-      flex:1;
-      padding:10px 12px;
-      border-radius:14px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.10);
-      color: rgba(255,255,255,.88);
-      font-weight:900;
-      cursor:pointer;
+      color: rgba(255,255,255,.75);
+      font-size: 13px;
+      background: rgba(0,0,0,.20);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: 14px;
+      padding: 10px 12px;
       user-select:none;
     }
-    .toggle small{
-      color: rgba(255,255,255,.48);
-      font-weight:800;
-      margin-left:auto;
-    }
-    .sw{
-      width:44px;height:26px;border-radius:999px;
-      background: rgba(255,255,255,.18);
-      border: 1px solid rgba(255,255,255,.16);
+    .switch{
+      width: 44px; height: 26px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.14);
       position:relative;
+      cursor:pointer;
       flex:0 0 auto;
     }
-    .sw::after{
-      content:"";
-      width:20px;height:20px;border-radius:999px;
-      position:absolute; top:2px; left:2px;
-      background: rgba(255,255,255,.90);
-      transition: left .16s ease;
-      box-shadow: 0 10px 18px rgba(0,0,0,.45);
+    .knob{
+      width: 22px; height: 22px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.92);
+      position:absolute;
+      top:1px; left:1px;
+      transition: left .18s ease, background .18s ease;
     }
-    .toggle.on .sw{
-      background: rgba(95,231,255,.26);
-      border-color: rgba(95,231,255,.35);
-    }
-    .toggle.on .sw::after{ left:22px; }
+    .switch.on{ background: rgba(0,255,213,.24); }
+    .switch.on .knob{ left: 21px; background: rgba(255,255,255,.96); }
 
-    /* Catálogo */
-    .catalog{
-      padding:12px;
+    .verseBox{
+      padding: 14px 14px;
+      border-radius: 16px;
+      background: rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.86);
     }
-    .catHead{
+    .verseTitle{
+      font-weight: 1000;
+      margin-bottom: 8px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .verseText{
+      color: rgba(255,255,255,.78);
+      line-height: 1.45;
+      font-size: 13px;
+      margin:0;
+    }
+    .verseRef{
+      margin-top: 8px;
+      font-weight: 900;
+      color: rgba(255,255,255,.9);
+      font-size: 12px;
+      opacity:.92;
+    }
+
+    /* CONTROLES DO ITEM SELECIONADO */
+    .controlGroup{
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(0,0,0,.20);
+      border:1px solid rgba(255,255,255,.12);
+    }
+    .controlGroup .label{
+      font-size: 12px;
+      color: rgba(255,255,255,.72);
+      margin-bottom: 8px;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      padding: 6px 8px 10px;
       gap:10px;
     }
-    .catHead h3{
-      margin:0;
-      font-size:14px;
-      font-weight:900;
-      letter-spacing:.2px;
-      color: rgba(255,255,255,.86);
+    .controlGroup .label b{ color: rgba(255,255,255,.92); }
+    .slider{
+      width:100%;
     }
-    .count{
-      font-size:12px;
-      color: rgba(255,255,255,.50);
-      font-weight:800;
+    .miniBtns{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 10px;
+    }
+    .btnMini{
+      padding: 9px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 900;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.14);
+      color: rgba(255,255,255,.92);
+      cursor:pointer;
+    }
+    .btnMini:hover{ background: rgba(255,255,255,.11); }
+    .btnMini.danger{
+      background: rgba(255,64,208,.12);
+      border-color: rgba(255,64,208,.22);
+    }
+
+    /* ====== CATALOGO GRID ====== */
+    .sectionTitle{
+      margin: 18px 0 10px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+    }
+    .sectionTitle h3{
+      margin:0;
+      font-size: 16px;
+      letter-spacing:.2px;
+    }
+    .badge{
+      font-size: 12px;
+      color: rgba(255,255,255,.65);
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.12);
     }
     .grid{
       display:grid;
-      grid-template-columns: repeat(2, minmax(0,1fr));
-      gap:12px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
     }
-    .tile{
-      border-radius: 16px;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.10);
-      overflow:hidden;
+    @media(max-width: 980px){ .grid{ grid-template-columns: repeat(2, 1fr);} }
+    @media(max-width: 560px){ .grid{ grid-template-columns: 1fr;} }
+
+    .itemCard{
+      padding: 12px;
       cursor:pointer;
-      transition: transform .08s ease, border .15s ease, background .15s ease;
-      box-shadow: 0 16px 40px rgba(0,0,0,.35);
     }
-    .tile:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.16); background: rgba(255,255,255,.07); }
-    .tile:active{ transform: translateY(0); }
     .thumb{
-      height: 122px;
-      display:grid;
-      place-items:center;
-      position:relative;
-      background:
-        radial-gradient(140px 90px at 40% 30%, rgba(255,78,205,.12), transparent 65%),
-        radial-gradient(140px 90px at 70% 70%, rgba(95,231,255,.10), transparent 65%),
-        rgba(0,0,0,.18);
-      border-bottom: 1px solid rgba(255,255,255,.08);
-    }
-    .thumb svg{ width: 92%; height: 92%; }
-    .meta{
-      padding:10px 10px 12px;
+      height: 150px;
+      border-radius: 18px;
+      overflow:hidden;
+      background: rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow: 0 12px 30px rgba(0,0,0,.25);
       display:flex;
-      flex-direction:column;
-      gap:6px;
+      align-items:center;
+      justify-content:center;
     }
-    .meta b{
-      font-size:13px;
-      font-weight:900;
-      color: rgba(255,255,255,.90);
-      line-height:1.15;
+    .thumb img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+      transform: scale(1.02);
+      transition: transform .25s ease;
     }
-    .meta span{
-      color: rgba(255,255,255,.55);
-      font-size:12px;
-      line-height:1.2;
+    .itemCard:hover .thumb img{ transform: scale(1.06); }
+
+    .itemName{
+      margin: 10px 0 6px;
+      font-weight: 1000;
+      letter-spacing:.2px;
+    }
+    .itemDesc{
+      margin:0;
+      color: rgba(255,255,255,.65);
+      font-size: 12px;
+      line-height:1.35;
+      min-height: 32px;
+    }
+    .itemFooter{
+      margin-top: 10px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      flex-wrap:wrap;
+    }
+    .price{
+      font-weight: 1000;
+      font-size: 13px;
+      color: rgba(255,255,255,.88);
+    }
+    .tag{
+      font-size: 12px;
+      color: rgba(255,255,255,.65);
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.10);
     }
 
-    @media (max-width: 980px){
-      .hero{ grid-template-columns: 1fr; }
-      .grid{ grid-template-columns: 1fr; }
-      #stage{ height: 420px; }
-      .controlsGrid{ grid-template-columns: 1fr; }
+    .footer{
+      margin-top: 18px;
+      text-align:center;
+      color: rgba(255,255,255,.45);
+      font-size: 12px;
+    }
+
+    /* ====== MODAL ITEM ====== */
+    .modalBack{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.6);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 16px;
+      z-index: 999;
+    }
+    .modal{
+      width: min(980px, 96vw);
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+      border:1px solid rgba(255,255,255,.16);
+      box-shadow: 0 25px 90px rgba(0,0,0,.7);
+      overflow:hidden;
+      backdrop-filter: blur(12px);
+    }
+    .modalHead{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 12px 14px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+    }
+    .modalHead strong{ font-size: 14px; }
+    .x{
+      border:none;
+      width: 40px; height: 40px;
+      border-radius: 14px;
+      background: rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.88);
+      font-weight: 1000;
+      cursor:pointer;
+    }
+    .modalBody{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 12px;
+      padding: 12px;
+    }
+    @media(max-width: 900px){ .modalBody{ grid-template-columns: 1fr; } }
+
+    .viewer{
+      border-radius: 18px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.22);
+      min-height: 300px;
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .viewer img{
+      width:100%;
+      height:100%;
+      object-fit: contain;
+      display:block;
+      padding: 12px;
+      filter: drop-shadow(0 14px 30px rgba(0,0,0,.55));
+    }
+
+    .side{
+      padding: 12px;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      height: 100%;
+    }
+    .line{
+      color: rgba(255,255,255,.70);
+      font-size: 13px;
+      margin-bottom: 10px;
+      line-height:1.35;
+    }
+    .line b{ color: rgba(255,255,255,.92); }
+
+    .ctaRow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 12px;
+    }
+
+    @media(max-width: 560px){
+      .gradTitle{ font-size: 34px; }
+      .sloganBelow{ font-size: 15px; }
+      .logoBox{ width: 120px; height: 110px; }
+      .floatingSlogan .txt{ font-size: 14px; }
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
+  <div class="spark"></div>
 
-    <div class="topline">
-      <div class="chip"><span class="spark"></span> <b>Faz de Conta</b> • Montagem interativa</div>
-      <div class="chip">📍 <b>Jaciara/MT</b> • WhatsApp <b>(66) 99622-3481</b></div>
+  <div class="wrap">
+    <div class="floatingSlogan">
+      <span>✨</span>
+      <div class="txt">Onde a imaginação vira festa</div>
     </div>
 
-    <section class="hero">
-      <div class="card brand">
-        <div class="logoBox">
-          <div class="logoMark"></div>
-        </div>
-        <div class="title">
-          <h1>FAZ DE CONTA DECORAÇÕES</h1>
-          <div class="slogan">
-            <svg class="star" viewBox="0 0 24 24" fill="none">
-              <path d="M12 2l2.2 6.7H21l-5.4 3.9 2.1 6.7L12 15.7 6.3 19.3l2.1-6.7L3 8.7h6.8L12 2z" fill="rgba(255,255,255,.92)"/>
-            </svg>
-            Onde a imaginação vira festa
+    <div class="header">
+      <div class="headGrid">
+        <div>
+          <div class="brandRow">
+            <div class="logoBox" id="logoBox" title="Logo">
+              <img id="logoImg" alt="Logo Faz de Conta"/>
+              <div class="logoFallback" id="logoFallback">
+                <div style="font-size:28px;">FC</div>
+                <small>Envie logo.png ou logo.jpg</small>
+              </div>
+            </div>
+
+            <div class="titleStack">
+              <h1 class="gradTitle">FAZ DE CONTA DECORAÇÕES</h1>
+              <div class="sloganBelow">✨ Onde a imaginação vira festa</div>
+            </div>
           </div>
 
           <div class="actions">
-            <button class="btn primary" id="btnWhats">💬 WhatsApp</button>
-            <button class="btn" id="btnCarrinho">🛒 Carrinho <span id="cartCount" style="opacity:.8;font-weight:900">(0)</span></button>
-            <button class="btn warn" id="btnLimpar">🧹 Limpar montagem</button>
-            <button class="btn good" id="btnFinalizar">✅ Finalizar (Pix)</button>
+            <button class="btn" id="btnWhats">💬 WhatsApp</button>
+            <button class="btn" id="btnCart">🛒 Selecionados <span class="pill" id="cartCount">0</span></button>
+            <button class="btn" id="btnClearStage">🧼 Limpar montagem</button>
+            <button class="btn primary" id="btnFinish">✅ Finalizar</button>
+          </div>
+        </div>
+
+        <div class="metaCol">
+          <div class="chip">📍 <b id="cityChip">Jaciara/MT</b></div>
+          <div class="chip">💬 <b>WhatsApp:</b> <span id="whatsChip">(66) 99622-3481</span></div>
+          <div class="chip">📅 <span id="today">--/--/----</span> • ⏰ <b id="clock">--:--</b></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="main">
+      <!-- QUADRO (montagem) -->
+      <div class="card">
+        <div class="stageHead">
+          <div>
+            <div class="title">🧩 Montagem do cliente</div>
+            <div class="miniHint">Clique em um item do catálogo e “Adicionar na montagem”. Arraste, redimensione e mude a cor.</div>
+          </div>
+          <div class="badgeSmall" id="stageHint">Dica: selecione um item na montagem para editar.</div>
+        </div>
+
+        <div class="stage" id="stage">
+          <div class="stageBackdrop"></div>
+          <div class="stageGrid"></div>
+        </div>
+
+        <div class="stageBar">
+          <div class="left">
+            <span class="badgeSmall">Selecionado: <b id="selectedName">nenhum</b></span>
+            <span class="badgeSmall">Camadas: <b id="layerInfo">—</b></span>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btnMini" id="btnExport">📸 Exportar imagem</button>
+            <button class="btnMini" id="btnDeselect">✋ Desmarcar</button>
           </div>
         </div>
       </div>
 
-      <div class="card rightPanel">
-        <div class="panelTitle">Monte seu pedido <small>clique → entra na montagem</small></div>
+      <!-- PAINEL (filtros + controles) -->
+      <div class="card panel">
+        <div>
+          <h3 class="panelTitle">🧠 Assistente de montagem</h3>
+          <p class="panelText">Aqui você controla o item selecionado e monta uma prévia rápida para o cliente.</p>
+        </div>
 
         <div class="field">
-          🔎
-          <input id="q" type="text" placeholder="Pesquisar (ex: balões, arco, LED, tapete...)" />
+          🔎 <input id="q" placeholder="Pesquisar (ex: arco, balões, tapete...)"/>
         </div>
 
         <div class="field">
           🧩
           <select id="cat">
-            <option value="all">Todas as categorias</option>
-            <option value="baloes">Balões</option>
-            <option value="estruturas">Estruturas</option>
-            <option value="fundos">Fundos / LED</option>
-            <option value="base">Base / Tapetes</option>
+            <option value="Todas">Todas as categorias</option>
           </select>
         </div>
 
-        <div class="hint">
-          💡 Dica: depois que o item entrar na montagem, você pode <b>arrastar</b>, <b>mudar tamanho</b>, <b>girar</b> e <b>trocar cor</b>.
-          <br/>Nos balões dá pra trocar cor <b>do conjunto</b> ou <b>por bolão</b>.
-        </div>
-      </div>
-    </section>
-
-    <section class="studio">
-      <div class="card montagemCard">
-        <div class="montagemHead">
-          🧩 Montagem do cliente
-          <div class="miniTip">
-            Toque/clique em um item pra selecionar.<br/>
-            Arraste com dedo/mouse.
+        <div class="row">
+          <div class="toggle">
+            🔒 Mostrar preços
+            <div class="switch" id="priceSwitch"><div class="knob"></div></div>
           </div>
+          <button class="btn" id="btnClear">🧼 Limpar filtro</button>
         </div>
 
-        <div id="stage">
-          <div class="ghost">Solte os itens aqui ✨</div>
-        </div>
-      </div>
-
-      <div class="card controls">
-        <div style="display:flex;align-items:center;gap:10px;padding:4px 6px;">
-          <div style="font-weight:900;letter-spacing:.2px;">🎛️ Ajustes do item selecionado</div>
-          <div id="selName" style="margin-left:auto;color:rgba(255,255,255,.55);font-weight:800;font-size:12px;">Nenhum item selecionado</div>
+        <div class="verseBox" id="verseBox">
+          <div class="verseTitle">📖 Versículo bíblico do dia</div>
+          <p class="verseText" id="verseText">Carregando…</p>
+          <div class="verseRef" id="verseRef"></div>
         </div>
 
-        <div class="controlsGrid">
-          <div class="ctl">
-            <label><span>Escala</span><b id="vScale">100%</b></label>
-            <input id="scale" type="range" min="20" max="220" value="100">
+        <div class="controlGroup">
+          <div class="label">
+            <span>🎯 Item selecionado</span>
+            <b id="ctrlStatus">Nenhum</b>
           </div>
 
-          <div class="ctl">
-            <label><span>Rotação</span><b id="vRot">0°</b></label>
-            <input id="rot" type="range" min="-180" max="180" value="0">
-          </div>
+          <div class="label"><span>Cor (tint)</span><b id="colorRead">—</b></div>
+          <input type="color" id="ctrlColor" value="#ffffff" style="width:100%; height:44px; border-radius:12px; border:1px solid rgba(255,255,255,.14); background: rgba(0,0,0,.18);">
 
-          <div class="ctl">
-            <label><span>Opacidade</span><b id="vOp">100%</b></label>
-            <input id="op" type="range" min="10" max="100" value="100">
-          </div>
+          <div style="height:10px"></div>
 
-          <div class="ctl">
-            <label><span>Camadas</span><b>Organizar</b></label>
-            <div class="ctlRow">
-              <button class="btn" id="toFront">⬆️ Frente</button>
-              <button class="btn" id="toBack">⬇️ Fundo</button>
-            </div>
+          <div class="label"><span>Opacidade</span><b id="opacityRead">100%</b></div>
+          <input class="slider" type="range" id="ctrlOpacity" min="10" max="100" value="100">
+
+          <div style="height:10px"></div>
+
+          <div class="label"><span>Rotação</span><b id="rotateRead">0°</b></div>
+          <input class="slider" type="range" id="ctrlRotate" min="-180" max="180" value="0">
+
+          <div style="height:10px"></div>
+
+          <div class="label"><span>Tamanho</span><b id="sizeRead">100%</b></div>
+          <input class="slider" type="range" id="ctrlSize" min="40" max="220" value="100">
+
+          <div class="miniBtns">
+            <button class="btnMini" id="btnFront">⬆️ Frente</button>
+            <button class="btnMini" id="btnBack">⬇️ Trás</button>
+            <button class="btnMini danger" id="btnDelete">🗑️ Remover</button>
           </div>
         </div>
 
-        <div class="ctl">
-          <label><span>Cor</span><b>realista (sem “foto”)</b></label>
-          <div class="colorRow">
-            <input id="color" type="color" value="#4aa8ff" />
-            <div class="toggle" id="unitToggle" title="Nos balões: trocar cor por bolão (unidade)">
-              <div class="sw"></div>
-              Cor por unidade <small>balões</small>
-            </div>
-            <button class="btn" id="resetColor">↩️ Reset cor</button>
-          </div>
-          <div class="hint" style="margin-top:8px;">
-            Se <b>Cor por unidade</b> estiver ligada e o item for <b>balões</b>, toque em um bolão pra pintar só ele.
-          </div>
-        </div>
-
-        <div class="ctl">
-          <label><span>Ações</span><b>rápido</b></label>
-          <div class="ctlRow">
-            <button class="btn" id="dup">📌 Duplicar</button>
-            <button class="btn warn" id="del">🗑️ Apagar</button>
-            <button class="btn primary" id="center">🎯 Centralizar</button>
+        <div class="controlGroup">
+          <div class="label"><span>💡 Observação</span><b>Pro</b></div>
+          <div style="font-size:12px;color:rgba(255,255,255,.65);line-height:1.45;">
+            Para ficar “miniatura real” na montagem, suba recortes em PNG com fundo transparente (ex: <b>baloes.png</b>, <b>arco.png</b>).
+            Se tiver fundo preto, a montagem sempre vai parecer “foto”. PNG transparente resolve.
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="card catalog">
-        <div class="catHead">
-          <h3>✨ Itens do catálogo (clique para jogar na montagem)</h3>
-          <div class="count"><span id="shownCount">0</span> itens</div>
-        </div>
-        <div class="grid" id="grid"></div>
-      </div>
-    </section>
+    <div class="sectionTitle">
+      <h3>✨ Itens do catálogo</h3>
+      <div class="badge"><span id="itemsCount">0</span> itens</div>
+    </div>
 
+    <div class="grid" id="grid"></div>
+
+    <div class="footer">© Faz de Conta Decorações • Catálogo</div>
   </div>
 
-  <script>
-    // ====== ÍCONES (SVG REALISTA SEM FOTO) ======
-    // Tudo inline (não some no Vercel). Miniaturas e itens de montagem usam o MESMO SVG.
-    const SVGS = {
-      balloons: (palette) => `
-        <svg viewBox="0 0 520 520" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <radialGradient id="g1" cx="35%" cy="30%" r="65%">
-              <stop offset="0%" stop-color="${shade(palette.a, 35)}" stop-opacity="1"/>
-              <stop offset="55%" stop-color="${palette.a}" stop-opacity="1"/>
-              <stop offset="100%" stop-color="${shade(palette.a, -25)}" stop-opacity="1"/>
-            </radialGradient>
-            <radialGradient id="g2" cx="35%" cy="30%" r="65%">
-              <stop offset="0%" stop-color="${shade(palette.b, 35)}" stop-opacity="1"/>
-              <stop offset="55%" stop-color="${palette.b}" stop-opacity="1"/>
-              <stop offset="100%" stop-color="${shade(palette.b, -25)}" stop-opacity="1"/>
-            </radialGradient>
-            <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="0.8" result="b"/>
-              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-          </defs>
+  <!-- MODAL ITEM -->
+  <div class="modalBack" id="modalItemBack">
+    <div class="modal">
+      <div class="modalHead">
+        <strong id="modalTitle">Item</strong>
+        <button class="x" id="closeItem">✕</button>
+      </div>
 
-          <!-- arco orgânico (várias bolinhas clicáveis) -->
-          <g filter="url(#soft)">
-            ${balloonCircle(120,390,95,"a")}
-            ${balloonCircle(190,410,78,"b")}
-            ${balloonCircle(260,415,62,"a")}
-            ${balloonCircle(310,450,58,"b")}
-            ${balloonCircle(360,455,86,"b")}
+      <div class="modalBody">
+        <div class="viewer">
+          <img id="modalImg" alt="Prévia do item"/>
+        </div>
 
-            ${balloonCircle(140,300,88,"a")}
-            ${balloonCircle(230,310,86,"a")}
-            ${balloonCircle(315,320,74,"b")}
-            ${balloonCircle(400,310,65,"a")}
-            ${balloonCircle(445,265,58,"a")}
+        <div class="side">
+          <div class="line"><b>Descrição:</b> <span id="modalDesc"></span></div>
+          <div class="line"><b>Categoria:</b> <span id="modalCat"></span></div>
+          <div class="line"><b>Preço:</b> <span id="modalPrice"></span></div>
+          <div class="line" style="opacity:.85"><b>Miniatura (montagem):</b> <span id="modalCutoutName">—</span></div>
 
-            ${balloonCircle(170,210,84,"a")}
-            ${balloonCircle(250,205,70,"b")}
-            ${balloonCircle(320,220,94,"a")}
-            ${balloonCircle(410,205,76,"b")}
-            ${balloonCircle(460,165,64,"a")}
+          <div class="ctaRow">
+            <button class="btn primary" id="btnAddToStage">➕ Adicionar na montagem</button>
+            <button class="btn" id="btnAddCart">🛒 Selecionar</button>
+          </div>
 
-            ${balloonCircle(235,135,88,"b")}
-            ${balloonCircle(325,120,82,"a")}
-            ${balloonCircle(400,120,70,"b")}
-            ${balloonCircle(455,105,60,"a")}
-
-            ${balloonCircle(305,70,74,"a")}
-            ${balloonCircle(375,60,88,"b")}
-          </g>
-        </svg>
-      `,
-
-      roundArch: (metal="#d8b35a") => `
-        <svg viewBox="0 0 520 520" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="m" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="${shade(metal, 25)}"/>
-              <stop offset="50%" stop-color="${metal}"/>
-              <stop offset="100%" stop-color="${shade(metal, -25)}"/>
-            </linearGradient>
-            <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
-              <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="rgba(0,0,0,.45)"/>
-            </filter>
-          </defs>
-          <g filter="url(#glow)">
-            <circle cx="260" cy="230" r="190" fill="none" stroke="url(#m)" stroke-width="16"/>
-            <rect x="165" y="430" width="190" height="18" rx="9" fill="url(#m)"/>
-            <rect x="170" y="440" width="18" height="60" rx="9" fill="url(#m)"/>
-            <rect x="332" y="440" width="18" height="60" rx="9" fill="url(#m)"/>
-          </g>
-        </svg>
-      `,
-
-      ledCurtain: (warm=false) => `
-        <svg viewBox="0 0 520 520" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <filter id="ledGlow" x="-40%" y="-40%" width="180%" height="180%">
-              <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="${warm ? 'rgba(255,201,92,.65)' : 'rgba(220,245,255,.70)'}"/>
-            </filter>
-          </defs>
-          <rect x="40" y="80" width="440" height="360" rx="18" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.10)"/>
-          ${[70,115,160,205,250,295,340,385,430].map(x=>ledStrand(x, warm)).join("")}
-        </svg>
-      `,
-
-      carpet: (c="#ff7fd1") => `
-        <svg viewBox="0 0 520 520" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="car" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="${shade(c, 25)}"/>
-              <stop offset="55%" stop-color="${c}"/>
-              <stop offset="100%" stop-color="${shade(c, -22)}"/>
-            </linearGradient>
-            <filter id="fur" x="-20%" y="-20%" width="140%" height="140%">
-              <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="8" result="n"/>
-              <feDisplacementMap in="SourceGraphic" in2="n" scale="10" xChannelSelector="R" yChannelSelector="G"/>
-              <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="rgba(0,0,0,.45)"/>
-            </filter>
-          </defs>
-          <g filter="url(#fur)">
-            <rect x="70" y="120" width="380" height="280" rx="28" fill="url(#car)" stroke="rgba(255,255,255,.10)"/>
-          </g>
-        </svg>
-      `,
-
-      cylinders: (base="#caa7ff") => `
-        <svg viewBox="0 0 520 520" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="cx" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="${shade(base, 18)}"/>
-              <stop offset="55%" stop-color="${base}"/>
-              <stop offset="100%" stop-color="${shade(base, -20)}"/>
-            </linearGradient>
-          </defs>
-          <g>
-            <ellipse cx="190" cy="260" rx="80" ry="20" fill="rgba(0,0,0,.25)"/>
-            <rect x="110" y="180" width="160" height="160" rx="24" fill="url(#cx)" stroke="rgba(255,255,255,.12)"/>
-            <ellipse cx="190" cy="180" rx="80" ry="20" fill="${shade(base, 30)}" opacity=".95"/>
-
-            <ellipse cx="330" cy="330" rx="92" ry="24" fill="rgba(0,0,0,.25)"/>
-            <rect x="238" y="225" width="184" height="210" rx="26" fill="url(#cx)" opacity=".92" stroke="rgba(255,255,255,.12)"/>
-            <ellipse cx="330" cy="225" rx="92" ry="24" fill="${shade(base, 32)}" opacity=".92"/>
-          </g>
-        </svg>
-      `
-    };
-
-    function balloonCircle(cx, cy, r, type){
-      // type "a" usa gradiente g1, type "b" usa g2
-      const grad = type === "a" ? "g1" : "g2";
-      return `
-        <g class="balloon" data-balloon="1" data-type="${type}">
-          <circle cx="${cx}" cy="${cy}" r="${r}" fill="url(#${grad})" stroke="rgba(255,255,255,.10)"/>
-          <circle cx="${cx - r*0.30}" cy="${cy - r*0.30}" r="${r*0.26}" fill="rgba(255,255,255,.18)" />
-        </g>
-      `;
-    }
-
-    function ledStrand(x, warm){
-      const dot = warm ? "rgba(255,210,120,.95)" : "rgba(235,250,255,.95)";
-      const dot2 = warm ? "rgba(255,210,120,.55)" : "rgba(235,250,255,.55)";
-      const y0 = 120, y1 = 400;
-      const pts = [140, 175, 215, 255, 300, 340, 380].map(y=>{
-        const big = Math.random() > 0.55;
-        return `<circle cx="${x}" cy="${y}" r="${big?5:3.3}" fill="${dot}" filter="url(#ledGlow)"/>
-                <circle cx="${x+2}" cy="${y-2}" r="${big?3:2.2}" fill="${dot2}" />`;
-      }).join("");
-      return `
-        <g>
-          <path d="M${x} ${y0} C ${x+6} ${y0+50}, ${x-6} ${y0+90}, ${x} ${y1}"
-                stroke="rgba(255,255,255,.22)" stroke-width="2.2" fill="none"/>
-          ${pts}
-        </g>
-      `;
-    }
-
-    function shade(hex, amt){
-      // clareia/escurece
-      hex = hex.replace("#","");
-      if(hex.length===3) hex = hex.split("").map(x=>x+x).join("");
-      const n = parseInt(hex,16);
-      let r = (n>>16)&255, g = (n>>8)&255, b = n&255;
-      r = Math.min(255, Math.max(0, r + amt));
-      g = Math.min(255, Math.max(0, g + amt));
-      b = Math.min(255, Math.max(0, b + amt));
-      return "#" + ((1<<24) + (r<<16) + (g<<8) + b).toString(16).slice(1);
-    }
-
-    // ====== CATÁLOGO ======
-    const ITEMS = [
-      {
-        id:"baloes_arco",
-        name:"Balões (Arco Orgânico)",
-        cat:"baloes",
-        desc:"Miniatura realista (sem foto). Troca cor do conjunto ou por bolão.",
-        make: ()=> SVGS.balloons({a:"#71c6ff", b:"#2f6cff"}),
-        default: {scale: 120, rot: 0, op: 100},
-        colorable:true,
-        unitColor:true
-      },
-      {
-        id:"arco_redondo",
-        name:"Arco Redondo (Estrutura)",
-        cat:"estruturas",
-        desc:"Estrutura metálica. Combine com balões/LED.",
-        make: ()=> SVGS.roundArch("#d8b35a"),
-        default: {scale: 110, rot: 0, op: 100},
-        colorable:true,
-        unitColor:false
-      },
-      {
-        id:"cortina_led",
-        name:"Cortina de LED",
-        cat:"fundos",
-        desc:"Fundo com brilho. Ajuste opacidade e cor/efeito.",
-        make: ()=> SVGS.ledCurtain(false),
-        default: {scale: 140, rot: 0, op: 85},
-        colorable:true,
-        unitColor:false
-      },
-      {
-        id:"tapete",
-        name:"Tapete",
-        cat:"base",
-        desc:"Base para fotos. Troque cor pra combinar o tema.",
-        make: ()=> SVGS.carpet("#ff7fd1"),
-        default: {scale: 160, rot: 0, op: 95},
-        colorable:true,
-        unitColor:false
-      },
-      {
-        id:"cilindros",
-        name:"Cilindros (Suporte)",
-        cat:"estruturas",
-        desc:"Suporte para doces/bolo. Ajuste escala e posição.",
-        make: ()=> SVGS.cylinders("#caa7ff"),
-        default: {scale: 115, rot: 0, op: 95},
-        colorable:true,
-        unitColor:false
-      }
-    ];
-
-    const grid = document.getElementById("grid");
-    const shownCount = document.getElementById("shownCount");
-    const q = document.getElementById("q");
-    const cat = document.getElementById("cat");
-
-    function renderCatalog(){
-      const term = (q.value || "").trim().toLowerCase();
-      const c = cat.value;
-
-      const filtered = ITEMS.filter(it=>{
-        const okCat = (c==="all") || (it.cat===c);
-        const okTerm = !term || (it.name.toLowerCase().includes(term) || it.desc.toLowerCase().includes(term));
-        return okCat && okTerm;
-      });
-
-      shownCount.textContent = filtered.length;
-      grid.innerHTML = filtered.map(it=>`
-        <div class="tile" data-id="${it.id}">
-          <div class="thumb">${it.make()}</div>
-          <div class="meta">
-            <b>${it.name}</b>
-            <span>${it.desc}</span>
+          <div class="verseBox" style="margin-top:12px;">
+            <div class="verseTitle">📌 Nome dos arquivos</div>
+            <p class="verseText" style="margin:0;">
+              Suba na raiz do projeto: <b>logo.png</b> (ou <b>logo.jpg</b>) e as imagens dos itens. Para miniaturas na montagem, use PNG transparente (ex: <b>arco.png</b>, <b>baloes.png</b>).
+            </p>
           </div>
         </div>
-      `).join("");
+      </div>
+    </div>
+  </div>
 
-      grid.querySelectorAll(".tile").forEach(el=>{
-        el.addEventListener("click", ()=>{
-          const id = el.getAttribute("data-id");
-          addToStage(id);
-          addCart(1);
-        });
-      });
+<script>
+  // ===================== CONFIG =====================
+  const CONFIG = {
+    whatsappNumber: "5566996223481",
+    whatsappDisplay: "(66) 99622-3481",
+    cidade: "Jaciara/MT"
+  };
+
+  // ===================== ITENS (edite aqui) =====================
+  // photo: foto normal do catálogo (pode ser jpg)
+  // cutout: recorte/miniatura para a montagem (ideal: PNG transparente)
+  const ITENS = [
+    {
+      id:"baloes",
+      nome:"Balões (arranjo)",
+      cat:"Balões",
+      desc:"Balões para composição (use recorte em PNG para montagem ficar real).",
+      preco: 0,
+      photo: "baloes-foto.jpg",
+      cutout: "baloes.png"
+    },
+    {
+      id:"arco",
+      nome:"Arco de balões",
+      cat:"Balões",
+      desc:"Arco orgânico e temático (montagem sob consulta).",
+      preco: 0,
+      photo: "arco-foto.jpg",
+      cutout: "arco.png"
+    },
+    {
+      id:"cortina",
+      nome:"Cortina de LED",
+      cat:"Iluminação",
+      desc:"Fundo e acabamento com luz.",
+      preco: 0,
+      photo: "cortina-foto.jpg",
+      cutout: "cortina-led.png"
+    },
+    {
+      id:"tapete",
+      nome:"Tapete para fotos",
+      cat:"Cenário",
+      desc:"Base para fotos e cenário.",
+      preco: 0,
+      photo: "tapete-foto.jpg",
+      cutout: "tapete.png"
+    },
+    {
+      id:"cilindros",
+      nome:"Cilindros (suporte)",
+      cat:"Estruturas",
+      desc:"Estruturas e suporte para decoração.",
+      preco: 0,
+      photo: "cilindros-foto.jpg",
+      cutout: "cilindros.png"
     }
+  ];
 
-    q.addEventListener("input", renderCatalog);
-    cat.addEventListener("change", renderCatalog);
+  // ===================== UTIL =====================
+  const el = (id)=>document.getElementById(id);
+  const money = (v)=> "R$ " + Number(v||0).toFixed(2).replace(".",",");
 
-    // ====== STAGE / OBJETOS ======
-    const stage = document.getElementById("stage");
-    const ghost = stage.querySelector(".ghost");
+  // ===================== DATA / RELÓGIO =====================
+  el("cityChip").textContent = CONFIG.cidade;
+  el("whatsChip").textContent = CONFIG.whatsappDisplay;
 
-    let selected = null;
-    let zTop = 10;
+  function tick(){
+    const d = new Date();
+    const dd = String(d.getDate()).padStart(2,"0");
+    const mm = String(d.getMonth()+1).padStart(2,"0");
+    const yy = d.getFullYear();
+    el("today").textContent = `${dd}/${mm}/${yy}`;
+    el("clock").textContent = d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
+  }
+  tick(); setInterval(tick, 1000);
 
-    function addToStage(id){
-      const item = ITEMS.find(x=>x.id===id);
-      if(!item) return;
+  // ===================== LOGO (logo.png/jpg/jpeg/webp) =====================
+  function loadLogo(){
+    const img = el("logoImg");
+    const fb = el("logoFallback");
+    const candidates = ["logo.png","logo.jpg","logo.jpeg","logo.webp"];
+    let i = 0;
 
-      const wrap = document.createElement("div");
-      wrap.className = "obj";
-      wrap.dataset.id = item.id;
-      wrap.dataset.name = item.name;
-      wrap.dataset.colorable = item.colorable ? "1" : "0";
-      wrap.dataset.unitColor = item.unitColor ? "1" : "0";
-      wrap.dataset.baseSvg = item.make(); // guarda a base
-
-      wrap.innerHTML = item.make();
-      wrap.style.width = (item.default.scale || 120) * 2 + "px";
-      wrap.style.opacity = (item.default.op || 100)/100;
-      wrap.style.transform = `rotate(${item.default.rot||0}deg)`;
-      wrap.style.zIndex = (++zTop).toString();
-      wrap.style.left = (40 + Math.random()*120) + "px";
-      wrap.style.top  = (40 + Math.random()*80) + "px";
-
-      stage.appendChild(wrap);
-      ghost.style.display = "none";
-      selectObj(wrap);
-
-      enableDrag(wrap);
-      enableUnitBalloonPaint(wrap);
-    }
-
-    function selectObj(el){
-      stage.querySelectorAll(".obj").forEach(o=>o.classList.remove("selected"));
-      selected = el;
-      if(!selected){
-        document.getElementById("selName").textContent = "Nenhum item selecionado";
+    function tryNext(){
+      if(i >= candidates.length){
+        img.style.display = "none";
+        fb.style.display = "flex";
         return;
       }
-      selected.classList.add("selected");
-      document.getElementById("selName").textContent = selected.dataset.name;
-
-      // sincroniza sliders
-      const w = parseFloat(selected.style.width) || 240;
-      const scaleVal = Math.round(w/2);
-      setSlider("scale", scaleVal, "vScale", scaleVal + "%");
-
-      const rotVal = getRotation(selected);
-      setSlider("rot", rotVal, "vRot", rotVal + "°");
-
-      const opVal = Math.round((parseFloat(selected.style.opacity)||1)*100);
-      setSlider("op", opVal, "vOp", opVal + "%");
+      img.src = candidates[i++];
     }
 
-    function setSlider(id, v, labelId, text){
-      const el = document.getElementById(id);
-      el.value = v;
-      document.getElementById(labelId).textContent = text;
-    }
+    img.onload = ()=>{
+      img.style.display = "block";
+      fb.style.display = "none";
+    };
+    img.onerror = tryNext;
+    tryNext();
+  }
+  loadLogo();
 
-    function getRotation(el){
-      // pega rotate(deg)
-      const t = el.style.transform || "";
-      const m = t.match(/rotate\((-?\d+)deg\)/);
-      return m ? parseInt(m[1],10) : 0;
-    }
+  // ===================== FILTROS / PREÇOS =====================
+  let showPrices = false;
+  const state = {
+    q: "",
+    cat: "Todas",
+    cart: new Map()
+  };
 
-    stage.addEventListener("pointerdown", (e)=>{
-      const obj = e.target.closest(".obj");
-      if(obj) selectObj(obj);
-      else { selected = null; stage.querySelectorAll(".obj").forEach(o=>o.classList.remove("selected")); document.getElementById("selName").textContent = "Nenhum item selecionado"; }
+  function setSwitch(on){
+    const sw = el("priceSwitch");
+    sw.classList.toggle("on", on);
+    showPrices = on;
+    render();
+  }
+  el("priceSwitch").addEventListener("click", ()=> setSwitch(!showPrices));
+
+  el("q").addEventListener("input",(e)=>{
+    state.q = (e.target.value||"").toLowerCase().trim();
+    render();
+  });
+  el("cat").addEventListener("change",(e)=>{
+    state.cat = e.target.value;
+    render();
+  });
+  el("btnClear").addEventListener("click", ()=>{
+    state.q = "";
+    state.cat = "Todas";
+    el("q").value = "";
+    el("cat").value = "Todas";
+    render();
+  });
+
+  function buildCats(){
+    const s = new Set(ITENS.map(i=>i.cat));
+    const sel = el("cat");
+    [...s].sort().forEach(c=>{
+      const opt = document.createElement("option");
+      opt.value = c; opt.textContent = c;
+      sel.appendChild(opt);
+    });
+  }
+  buildCats();
+
+  function passFilter(item){
+    const okCat = (state.cat === "Todas") || (item.cat === state.cat);
+    const t = (item.nome + " " + item.desc + " " + item.cat).toLowerCase();
+    const okQ = !state.q || t.includes(state.q);
+    return okCat && okQ;
+  }
+
+  // ===================== GRID (CATÁLOGO) =====================
+  let currentItem = null;
+
+  function render(){
+    const list = ITENS.filter(passFilter);
+    el("itemsCount").textContent = list.length;
+
+    const grid = el("grid");
+    grid.innerHTML = "";
+
+    list.forEach(item=>{
+      const card = document.createElement("div");
+      card.className = "card itemCard";
+
+      const thumb = document.createElement("div");
+      thumb.className = "thumb";
+
+      const img = document.createElement("img");
+      img.alt = item.nome;
+
+      // tenta photo, se falhar tenta cutout, se falhar capa
+      const candidates = [item.photo, item.cutout, "capa.jpg", "capa.png"].filter(Boolean);
+      let i = 0;
+      function tryNext(){
+        if(i >= candidates.length) return;
+        img.src = candidates[i++];
+      }
+      img.onload = ()=>{};
+      img.onerror = tryNext;
+      tryNext();
+
+      thumb.appendChild(img);
+
+      const name = document.createElement("div");
+      name.className = "itemName";
+      name.textContent = item.nome;
+
+      const desc = document.createElement("p");
+      desc.className = "itemDesc";
+      desc.textContent = item.desc;
+
+      const footer = document.createElement("div");
+      footer.className = "itemFooter";
+
+      const price = document.createElement("div");
+      price.className = "price";
+      price.textContent = showPrices ? money(item.preco) : "Preço: sob consulta";
+
+      const tag = document.createElement("div");
+      tag.className = "tag";
+      tag.textContent = item.cat;
+
+      footer.appendChild(tag);
+      footer.appendChild(price);
+
+      card.appendChild(thumb);
+      card.appendChild(name);
+      card.appendChild(desc);
+      card.appendChild(footer);
+
+      card.addEventListener("click", ()=> openItem(item.id));
+      grid.appendChild(card);
     });
 
-    function enableDrag(el){
-      let startX=0, startY=0, origX=0, origY=0;
-      el.addEventListener("pointerdown", (e)=>{
-        if(e.button !== undefined && e.button !== 0) return;
-        selectObj(el);
-        el.setPointerCapture(e.pointerId);
+    el("cartCount").textContent = [...state.cart.values()].reduce((a,b)=>a+b,0);
+  }
+  render();
 
-        startX = e.clientX;
-        startY = e.clientY;
-        origX = parseFloat(el.style.left) || 0;
-        origY = parseFloat(el.style.top) || 0;
+  // ===================== MODAL =====================
+  function openItem(id){
+    currentItem = ITENS.find(x=>x.id===id);
+    if(!currentItem) return;
 
-        const move = (ev)=>{
+    el("modalTitle").textContent = currentItem.nome;
+    el("modalDesc").textContent = currentItem.desc;
+    el("modalCat").textContent = currentItem.cat;
+    el("modalPrice").textContent = showPrices ? money(currentItem.preco) : "Sob consulta";
+    el("modalCutoutName").textContent = currentItem.cutout || "—";
+
+    const img = el("modalImg");
+    const candidates = [currentItem.photo, currentItem.cutout, "capa.jpg", "capa.png"].filter(Boolean);
+    let i = 0;
+    function tryNext(){
+      if(i >= candidates.length) return;
+      img.src = candidates[i++];
+    }
+    img.onerror = tryNext;
+    tryNext();
+
+    el("modalItemBack").style.display = "flex";
+  }
+  function closeItem(){
+    el("modalItemBack").style.display = "none";
+    currentItem = null;
+  }
+  el("closeItem").addEventListener("click", closeItem);
+  el("modalItemBack").addEventListener("click",(e)=>{
+    if(e.target === el("modalItemBack")) closeItem();
+  });
+
+  // ===================== MONTAGEM (STAGE) =====================
+  const stage = el("stage");
+  let selectedSticker = null;
+  let zCounter = 10;
+
+  function deselect(){
+    if(selectedSticker){
+      selectedSticker.classList.remove("selected");
+      selectedSticker = null;
+    }
+    updateControls();
+  }
+  stage.addEventListener("pointerdown",(e)=>{
+    // clique no fundo: desmarcar
+    if(e.target === stage) deselect();
+  });
+
+  function selectSticker(node){
+    if(selectedSticker && selectedSticker !== node){
+      selectedSticker.classList.remove("selected");
+    }
+    selectedSticker = node;
+    selectedSticker.classList.add("selected");
+    selectedSticker.style.zIndex = ++zCounter;
+    updateControls();
+  }
+
+  function applyStickerVisual(node){
+    // usa CSS variables guardadas no dataset
+    const tint = node.dataset.tint || "#ffffff";
+    const opacity = Number(node.dataset.opacity || 100);
+    const rotate = Number(node.dataset.rotate || 0);
+    const scalePct = Number(node.dataset.scale || 100);
+
+    // filtro de tint simples: mistura via brightness/saturate + hue-rotate aproximado
+    // (para “colorir” balões melhor, o ideal é recorte já neutro; aqui é um efeito visual)
+    // vamos aplicar um overlay com mix-blend-mode via pseudo? (mais complexo). Aqui: hue-rotate aproximado.
+    const hue = hexToHue(tint);
+    const sat = 1.15;
+    const bright = 1.05;
+
+    node.style.opacity = (opacity/100).toFixed(2);
+    node.style.transform = `rotate(${rotate}deg) scale(${(scalePct/100).toFixed(3)})`;
+    const img = node.querySelector("img");
+    if(img){
+      img.style.filter = `drop-shadow(0 14px 30px rgba(0,0,0,.55)) hue-rotate(${hue}deg) saturate(${sat}) brightness(${bright})`;
+    }
+  }
+
+  function addStickerFromItem(item){
+    const node = document.createElement("div");
+    node.className = "sticker";
+    node.dataset.itemId = item.id;
+    node.dataset.name = item.nome;
+
+    // estado visual
+    node.dataset.tint = "#ffffff";
+    node.dataset.opacity = "100";
+    node.dataset.rotate = "0";
+    node.dataset.scale = "100";
+    node.style.left = "90px";
+    node.style.top = "90px";
+    node.style.zIndex = ++zCounter;
+
+    // imagem
+    const img = document.createElement("img");
+    img.alt = item.nome;
+
+    const candidates = [item.cutout, item.photo, "capa.png", "capa.jpg"].filter(Boolean);
+    let i = 0;
+    function tryNext(){
+      if(i >= candidates.length) return;
+      img.src = candidates[i++];
+    }
+    img.onerror = tryNext;
+    tryNext();
+
+    node.appendChild(img);
+
+    // handles
+    const hTL = document.createElement("div"); hTL.className="handle h-tl"; node.appendChild(hTL);
+    const hTR = document.createElement("div"); hTR.className="handle h-tr"; node.appendChild(hTR);
+    const hBL = document.createElement("div"); hBL.className="handle h-bl"; node.appendChild(hBL);
+    const hBR = document.createElement("div"); hBR.className="handle h-br"; node.appendChild(hBR);
+
+    // eventos
+    node.addEventListener("pointerdown",(e)=>{
+      e.stopPropagation();
+      selectSticker(node);
+    });
+
+    makeDraggable(node);
+    makeResizable(node);
+
+    stage.appendChild(node);
+    selectSticker(node);
+    updateLayerInfo();
+  }
+
+  // Drag
+  function makeDraggable(node){
+    let dragging = false;
+    let startX=0, startY=0, startL=0, startT=0;
+
+    node.addEventListener("pointerdown",(e)=>{
+      // se clicou em handle, não arrasta
+      if(e.target.classList.contains("handle")) return;
+
+      dragging = true;
+      node.setPointerCapture(e.pointerId);
+
+      const rect = node.getBoundingClientRect();
+      startX = e.clientX;
+      startY = e.clientY;
+      startL = rect.left;
+      startT = rect.top;
+
+      node.style.cursor = "grabbing";
+      e.preventDefault();
+    });
+
+    node.addEventListener("pointermove",(e)=>{
+      if(!dragging) return;
+      const stageRect = stage.getBoundingClientRect();
+
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+
+      // posição relativa ao stage
+      const newLeft = (startL - stageRect.left) + dx;
+      const newTop  = (startT - stageRect.top) + dy;
+
+      node.style.left = clamp(newLeft, -40, stageRect.width - 40) + "px";
+      node.style.top  = clamp(newTop,  -40, stageRect.height - 40) + "px";
+    });
+
+    node.addEventListener("pointerup",(e)=>{
+      dragging = false;
+      node.style.cursor = "grab";
+      try{ node.releasePointerCapture(e.pointerId); }catch(_){}
+    });
+  }
+
+  // Resize (mantém proporção)
+  function makeResizable(node){
+    const handles = node.querySelectorAll(".handle");
+    handles.forEach(h=>{
+      h.addEventListener("pointerdown",(e)=>{
+        e.stopPropagation();
+        selectSticker(node);
+
+        const startW = node.offsetWidth;
+        const startH = node.offsetHeight;
+        const startX = e.clientX;
+        const startY = e.clientY;
+
+        node.setPointerCapture(e.pointerId);
+
+        const onMove = (ev)=>{
           const dx = ev.clientX - startX;
           const dy = ev.clientY - startY;
-          el.style.left = (origX + dx) + "px";
-          el.style.top  = (origY + dy) + "px";
-        };
-        const up = ()=>{
-          el.releasePointerCapture(e.pointerId);
-          window.removeEventListener("pointermove", move);
-          window.removeEventListener("pointerup", up);
+          const delta = Math.max(dx, dy);
+          const newW = clamp(startW + delta, 70, 520);
+          const ratio = startH / startW;
+          node.style.width = newW + "px";
+          node.style.height = Math.round(newW * ratio) + "px";
         };
 
-        window.addEventListener("pointermove", move);
-        window.addEventListener("pointerup", up);
+        const onUp = (ev)=>{
+          node.removeEventListener("pointermove", onMove);
+          node.removeEventListener("pointerup", onUp);
+          try{ node.releasePointerCapture(ev.pointerId); }catch(_){}
+          updateControls(); // reflete em sliders
+        };
+
+        node.addEventListener("pointermove", onMove);
+        node.addEventListener("pointerup", onUp);
       });
+    });
+  }
+
+  function clamp(v, a, b){ return Math.max(a, Math.min(b, v)); }
+
+  // ===================== CONTROLES (painel) =====================
+  const ctrlStatus = el("ctrlStatus");
+  const selectedName = el("selectedName");
+  const layerInfo = el("layerInfo");
+
+  const ctrlColor = el("ctrlColor");
+  const ctrlOpacity = el("ctrlOpacity");
+  const ctrlRotate = el("ctrlRotate");
+  const ctrlSize = el("ctrlSize");
+
+  const colorRead = el("colorRead");
+  const opacityRead = el("opacityRead");
+  const rotateRead = el("rotateRead");
+  const sizeRead = el("sizeRead");
+
+  function updateLayerInfo(){
+    const stickers = [...stage.querySelectorAll(".sticker")];
+    layerInfo.textContent = `${stickers.length} item(ns)`;
+  }
+
+  function updateControls(){
+    if(!selectedSticker){
+      ctrlStatus.textContent = "Nenhum";
+      selectedName.textContent = "nenhum";
+      colorRead.textContent = "—";
+      opacityRead.textContent = "100%";
+      rotateRead.textContent = "0°";
+      sizeRead.textContent = "100%";
+      return;
     }
 
-    // ====== CONTROLES ======
-    const scale = document.getElementById("scale");
-    const rot = document.getElementById("rot");
-    const op = document.getElementById("op");
-    const color = document.getElementById("color");
+    const name = selectedSticker.dataset.name || "Item";
+    ctrlStatus.textContent = "Ativo";
+    selectedName.textContent = name;
 
-    scale.addEventListener("input", ()=>{
-      if(!selected) return;
-      const v = parseInt(scale.value,10);
-      selected.style.width = (v*2) + "px";
-      document.getElementById("vScale").textContent = v + "%";
+    const tint = selectedSticker.dataset.tint || "#ffffff";
+    const opacity = Number(selectedSticker.dataset.opacity || 100);
+    const rotate = Number(selectedSticker.dataset.rotate || 0);
+    const scalePct = Number(selectedSticker.dataset.scale || 100);
+
+    ctrlColor.value = tint;
+    ctrlOpacity.value = String(opacity);
+    ctrlRotate.value = String(rotate);
+    ctrlSize.value = String(scalePct);
+
+    colorRead.textContent = tint.toUpperCase();
+    opacityRead.textContent = opacity + "%";
+    rotateRead.textContent = rotate + "°";
+    sizeRead.textContent = scalePct + "%";
+  }
+
+  ctrlColor.addEventListener("input", ()=>{
+    if(!selectedSticker) return;
+    selectedSticker.dataset.tint = ctrlColor.value;
+    applyStickerVisual(selectedSticker);
+    updateControls();
+  });
+
+  ctrlOpacity.addEventListener("input", ()=>{
+    if(!selectedSticker) return;
+    selectedSticker.dataset.opacity = ctrlOpacity.value;
+    applyStickerVisual(selectedSticker);
+    updateControls();
+  });
+
+  ctrlRotate.addEventListener("input", ()=>{
+    if(!selectedSticker) return;
+    selectedSticker.dataset.rotate = ctrlRotate.value;
+    applyStickerVisual(selectedSticker);
+    updateControls();
+  });
+
+  ctrlSize.addEventListener("input", ()=>{
+    if(!selectedSticker) return;
+    selectedSticker.dataset.scale = ctrlSize.value;
+    applyStickerVisual(selectedSticker);
+    updateControls();
+  });
+
+  el("btnFront").addEventListener("click", ()=>{
+    if(!selectedSticker) return;
+    selectedSticker.style.zIndex = ++zCounter;
+  });
+
+  el("btnBack").addEventListener("click", ()=>{
+    if(!selectedSticker) return;
+    selectedSticker.style.zIndex = 1;
+  });
+
+  el("btnDelete").addEventListener("click", ()=>{
+    if(!selectedSticker) return;
+    selectedSticker.remove();
+    selectedSticker = null;
+    updateLayerInfo();
+    updateControls();
+  });
+
+  el("btnDeselect").addEventListener("click", deselect);
+
+  // ===================== BOTÕES TOP =====================
+  el("btnWhats").addEventListener("click", ()=>{
+    const url = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent("Olá! Quero informações sobre os itens do catálogo da Faz de Conta Decorações.")}`;
+    window.open(url, "_blank");
+  });
+
+  el("btnCart").addEventListener("click", ()=>{
+    const total = [...state.cart.values()].reduce((a,b)=>a+b,0);
+    const ids = [...state.cart.entries()].map(([k,v])=>{
+      const it = ITENS.find(x=>x.id===k);
+      return `• ${it ? it.nome : k} x${v}`;
+    }).join("\n");
+    alert(`Selecionados: ${total} item(ns)\n\n${ids || "(vazio)"}`);
+  });
+
+  el("btnClearStage").addEventListener("click", ()=>{
+    [...stage.querySelectorAll(".sticker")].forEach(n=>n.remove());
+    deselect();
+    updateLayerInfo();
+  });
+
+  el("btnFinish").addEventListener("click", ()=>{
+    const total = [...state.cart.values()].reduce((a,b)=>a+b,0);
+    const stageCount = stage.querySelectorAll(".sticker").length;
+    alert(`Perfeito ✅\n\nSelecionados no catálogo: ${total}\nItens na montagem: ${stageCount}\n\n(Próximo passo: gerar orçamento + mensagem automática pro WhatsApp.)`);
+  });
+
+  // ===================== MODAL CTA =====================
+  el("btnAddCart").addEventListener("click", ()=>{
+    if(!currentItem) return;
+    const n = state.cart.get(currentItem.id) || 0;
+    state.cart.set(currentItem.id, n+1);
+    render();
+    alert("Item selecionado ✅");
+  });
+
+  el("btnAddToStage").addEventListener("click", ()=>{
+    if(!currentItem) return;
+    addStickerFromItem(currentItem);
+    closeItem();
+  });
+
+  // ===================== EXPORTAR “FOTO” DA MONTAGEM =====================
+  el("btnExport").addEventListener("click", async ()=>{
+    // export simples via html2canvas (sem lib externa): fazemos um print básico com canvas manual
+    // pega tamanho do stage e desenha as imagens na ordem de zIndex
+    const rect = stage.getBoundingClientRect();
+    const w = Math.round(rect.width);
+    const h = Math.round(rect.height);
+
+    const canvas = document.createElement("canvas");
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    const ctx = canvas.getContext("2d");
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+
+    // fundo leve
+    const grd = ctx.createLinearGradient(0,0,0,h);
+    grd.addColorStop(0, "rgba(0,0,0,.20)");
+    grd.addColorStop(1, "rgba(0,0,0,.32)");
+    ctx.fillStyle = grd;
+    ctx.fillRect(0,0,w,h);
+
+    const nodes = [...stage.querySelectorAll(".sticker")].sort((a,b)=>{
+      const za = Number(a.style.zIndex||0);
+      const zb = Number(b.style.zIndex||0);
+      return za - zb;
     });
 
-    rot.addEventListener("input", ()=>{
-      if(!selected) return;
-      const v = parseInt(rot.value,10);
-      selected.style.transform = `rotate(${v}deg)`;
-      document.getElementById("vRot").textContent = v + "°";
-    });
+    for(const n of nodes){
+      const img = n.querySelector("img");
+      if(!img || !img.src) continue;
 
-    op.addEventListener("input", ()=>{
-      if(!selected) return;
-      const v = parseInt(op.value,10);
-      selected.style.opacity = v/100;
-      document.getElementById("vOp").textContent = v + "%";
-    });
+      const x = parseFloat(n.style.left||"0");
+      const y = parseFloat(n.style.top||"0");
+      const bw = n.offsetWidth;
+      const bh = n.offsetHeight;
 
-    // Cor: aplicada por filtro (universal) OU por bolão (balões)
-    // Para manter “realista sem foto”, usamos tint via CSS filter para itens não-bolões
-    function applyColorToSelected(hex){
-      if(!selected) return;
-      if(selected.dataset.colorable !== "1") return;
+      const scalePct = Number(n.dataset.scale || 100)/100;
+      const rotate = Number(n.dataset.rotate || 0) * Math.PI/180;
+      const opacity = Number(n.dataset.opacity || 100)/100;
 
-      // se for balões e modo unidade estiver ON, a cor por unidade vai ser via clique no bolão
-      const isBalloons = selected.dataset.id === "baloes_arco";
-      if(isBalloons && unitModeOn()){
-        // apenas prepara cor "pincel", pintura acontece no clique do bolão
-        return;
-      }
+      // carrega imagem
+      const bitmap = await loadImage(img.src).catch(()=>null);
+      if(!bitmap) continue;
 
-      // padrão: aplica filtro simples (hue shift) baseado na cor escolhida
-      // (não destrói o desenho, fica mais natural)
-      const hue = hexToHue(hex);
-      selected.querySelector("svg").style.filter = `hue-rotate(${hue}deg) saturate(1.08)`;
+      ctx.save();
+      ctx.globalAlpha = opacity;
+
+      // desenha com rotação no centro do sticker
+      const cx = x + bw/2;
+      const cy = y + bh/2;
+
+      ctx.translate(cx, cy);
+      ctx.rotate(rotate);
+      ctx.scale(scalePct, scalePct);
+
+      // desenha contain
+      const iw = bitmap.width, ih = bitmap.height;
+      const scale = Math.min(bw/iw, bh/ih);
+      const dw = iw * scale;
+      const dh = ih * scale;
+      ctx.drawImage(bitmap, -dw/2, -dh/2, dw, dh);
+
+      ctx.restore();
     }
 
-    color.addEventListener("input", ()=> applyColorToSelected(color.value));
-
-    document.getElementById("resetColor").addEventListener("click", ()=>{
-      if(!selected) return;
-      const svg = selected.querySelector("svg");
-      if(svg) svg.style.filter = "";
-      // reset cor de bolões pintados individualmente:
-      if(selected.dataset.id === "baloes_arco"){
-        selected.innerHTML = selected.dataset.baseSvg;
-        enableDrag(selected);
-        enableUnitBalloonPaint(selected);
-        selectObj(selected);
-      }
-    });
-
-    document.getElementById("toFront").addEventListener("click", ()=>{
-      if(!selected) return;
-      selected.style.zIndex = (++zTop).toString();
-    });
-    document.getElementById("toBack").addEventListener("click", ()=>{
-      if(!selected) return;
-      selected.style.zIndex = "1";
-    });
-
-    document.getElementById("dup").addEventListener("click", ()=>{
-      if(!selected) return;
-      const copy = selected.cloneNode(true);
-      copy.classList.remove("selected");
-      copy.style.left = (parseFloat(selected.style.left||"0")+28)+"px";
-      copy.style.top  = (parseFloat(selected.style.top||"0")+18)+"px";
-      copy.style.zIndex = (++zTop).toString();
-      stage.appendChild(copy);
-      enableDrag(copy);
-      enableUnitBalloonPaint(copy);
-      selectObj(copy);
-      addCart(1);
-    });
-
-    document.getElementById("del").addEventListener("click", ()=>{
-      if(!selected) return;
-      selected.remove();
-      selected = null;
-      document.getElementById("selName").textContent = "Nenhum item selecionado";
-      if(stage.querySelectorAll(".obj").length === 0) ghost.style.display = "grid";
-      addCart(-1);
-    });
-
-    document.getElementById("center").addEventListener("click", ()=>{
-      if(!selected) return;
-      const rect = stage.getBoundingClientRect();
-      selected.style.left = (rect.width/2 - (parseFloat(selected.style.width)||240)/2) + "px";
-      selected.style.top  = (rect.height/2 - 140) + "px";
-    });
-
-    // ====== COR POR UNIDADE (BALÕES) ======
-    const unitToggle = document.getElementById("unitToggle");
-    unitToggle.addEventListener("click", ()=>{
-      unitToggle.classList.toggle("on");
-    });
-    function unitModeOn(){ return unitToggle.classList.contains("on"); }
-
-    function enableUnitBalloonPaint(wrap){
-      // se não for balões, ignora
-      if(wrap.dataset.id !== "baloes_arco") return;
-
-      // delega clique nas bolinhas
-      wrap.addEventListener("click", (e)=>{
-        if(!unitModeOn()) return;
-        const g = e.target.closest(".balloon");
-        if(!g) return;
-        e.stopPropagation();
-
-        const desired = color.value || "#4aa8ff";
-        // acha o circle principal (o 1º circle dentro do g)
-        const circles = g.querySelectorAll("circle");
-        const main = circles[0];
-        const highlight = circles[1];
-        if(!main) return;
-
-        // pinta mantendo brilho
-        main.setAttribute("fill", desired);
-        main.setAttribute("stroke","rgba(255,255,255,.12)");
-        if(highlight) highlight.setAttribute("fill","rgba(255,255,255,.18)");
-      }, {capture:true});
+    // abre em nova aba
+    const url = canvas.toDataURL("image/png");
+    const win = window.open();
+    if(win){
+      win.document.write(`<title>Montagem • Faz de Conta</title><img src="${url}" style="max-width:100%;height:auto;display:block;margin:0 auto;background:#111"/>`);
+    }else{
+      alert("Seu navegador bloqueou pop-up. Permita pop-up e tente novamente.");
     }
+  });
 
-    // ====== UTIL: HEX -> HUE ======
-    function hexToHue(hex){
-      let r=0,g=0,b=0;
-      hex = hex.replace("#","");
-      if(hex.length===3) hex = hex.split("").map(x=>x+x).join("");
-      r = parseInt(hex.slice(0,2),16)/255;
-      g = parseInt(hex.slice(2,4),16)/255;
-      b = parseInt(hex.slice(4,6),16)/255;
-      const max = Math.max(r,g,b), min = Math.min(r,g,b);
-      let h = 0;
-      if(max===min) h = 0;
-      else if(max===r) h = (60*((g-b)/(max-min))+360)%360;
-      else if(max===g) h = (60*((b-r)/(max-min))+120)%360;
-      else h = (60*((r-g)/(max-min))+240)%360;
-      return Math.round(h);
-    }
-
-    // ====== TOP BUTTONS ======
-    const cartCount = document.getElementById("cartCount");
-    let cart = 0;
-    function addCart(n){
-      cart = Math.max(0, cart + n);
-      cartCount.textContent = `(${cart})`;
-    }
-
-    document.getElementById("btnLimpar").addEventListener("click", ()=>{
-      stage.querySelectorAll(".obj").forEach(o=>o.remove());
-      selected = null;
-      ghost.style.display = "grid";
-      addCart(-9999);
-      document.getElementById("selName").textContent = "Nenhum item selecionado";
+  function loadImage(src){
+    return new Promise((resolve,reject)=>{
+      const im = new Image();
+      im.crossOrigin = "anonymous";
+      im.onload = ()=> resolve(im);
+      im.onerror = reject;
+      im.src = src;
     });
+  }
 
-    document.getElementById("btnWhats").addEventListener("click", ()=>{
-      const txt = encodeURIComponent("Olá! Quero montar uma decoração. Pode me ajudar? 😊");
-      // número ajustável aqui:
-      const phone = "5566996223481";
-      window.open(`https://wa.me/${phone}?text=${txt}`, "_blank");
-    });
+  // ===================== VERSÍCULO DO DIA =====================
+  const VERSES = [
+    { ref:"Romanos 12:12", text:"Alegrai-vos na esperança, sede pacientes na tribulação, perseverai na oração." },
+    { ref:"Salmos 23:1", text:"O Senhor é o meu pastor; nada me faltará." },
+    { ref:"Provérbios 3:5", text:"Confia no Senhor de todo o teu coração e não te estribes no teu próprio entendimento." },
+    { ref:"Isaías 41:10", text:"Não temas, porque eu sou contigo; não te assombres, porque eu sou o teu Deus." },
+    { ref:"Filipenses 4:13", text:"Tudo posso naquele que me fortalece." },
+    { ref:"Salmos 46:1", text:"Deus é o nosso refúgio e fortaleza, socorro bem presente na angústia." },
+    { ref:"Mateus 11:28", text:"Vinde a mim, todos os que estais cansados e oprimidos, e eu vos aliviarei." },
+    { ref:"João 14:27", text:"Deixo-vos a paz, a minha paz vos dou; não vo-la dou como o mundo a dá." }
+  ];
+  function dayOfYear(d){
+    const start = new Date(d.getFullYear(), 0, 0);
+    const diff = d - start;
+    return Math.floor(diff / 86400000);
+  }
+  function setVerseOfDay(){
+    const d = new Date();
+    const idx = dayOfYear(d) % VERSES.length;
+    const v = VERSES[idx];
+    el("verseText").textContent = `"${v.text}"`;
+    el("verseRef").textContent = v.ref;
+  }
+  setVerseOfDay();
 
-    document.getElementById("btnCarrinho").addEventListener("click", ()=>{
-      alert(`Itens adicionados na montagem: ${cart}\n\n(Esse é um contador simples. Quando você quiser, eu coloco carrinho real com lista e resumo.)`);
-    });
+  // ===================== TINT (hex -> hue) =====================
+  function hexToHue(hex){
+    // converte cor para matiz aproximado (0..360)
+    if(!hex || hex[0] !== "#") return 0;
+    const r = parseInt(hex.slice(1,3),16)/255;
+    const g = parseInt(hex.slice(3,5),16)/255;
+    const b = parseInt(hex.slice(5,7),16)/255;
 
-    document.getElementById("btnFinalizar").addEventListener("click", ()=>{
-      alert("Finalizar (Pix):\n\nAqui entra seu link/QR do Pix, contrato e envio do pedido.\nSe quiser, eu implemento a tela final com resumo + envio pro WhatsApp.");
-    });
+    const max = Math.max(r,g,b);
+    const min = Math.min(r,g,b);
+    const d = max - min;
+    if(d === 0) return 0;
 
-    // ====== START ======
-    renderCatalog();
-  </script>
+    let h = 0;
+    if(max === r) h = ((g-b)/d) % 6;
+    else if(max === g) h = (b-r)/d + 2;
+    else h = (r-g)/d + 4;
+
+    h = Math.round(h * 60);
+    if(h < 0) h += 360;
+    return h;
+  }
+
+  // ===================== INIT UI =====================
+  updateLayerInfo();
+  updateControls();
+</script>
 </body>
 </html>
