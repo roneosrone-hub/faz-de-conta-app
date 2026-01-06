@@ -2,9 +2,8 @@
 <html lang="pt-br">
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Faz de Conta Decorações • Catálogo</title>
-
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/>
+  <title>Faz de Conta Decorações • Montagem</title>
   <style>
     :root{
       --bg0:#070916;
@@ -18,931 +17,452 @@
       --shadow: 0 18px 50px rgba(0,0,0,.55);
       --radius: 22px;
       --radius2: 18px;
-      --ok: rgba(0,255,213,.25);
-      --pink: rgba(255,75,216,.35);
+      --accentA:#8a5cff;
+      --accentB:#19d3ff;
+      --accentC:#50ffa7;
     }
-
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
+    *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans";
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
       color:var(--text);
       background:
-        radial-gradient(1200px 700px at 15% 15%, rgba(122, 66, 255,.25), transparent 60%),
-        radial-gradient(900px 600px at 80% 30%, rgba(0, 255, 213,.14), transparent 55%),
-        radial-gradient(900px 600px at 40% 90%, rgba(255, 64, 208,.12), transparent 50%),
+        radial-gradient(1200px 800px at 20% 10%, rgba(138,92,255,.22), transparent 55%),
+        radial-gradient(900px 700px at 85% 30%, rgba(25,211,255,.18), transparent 60%),
+        radial-gradient(900px 700px at 70% 90%, rgba(80,255,167,.12), transparent 55%),
         linear-gradient(180deg, var(--bg0), var(--bg1));
-      overflow-x:hidden;
     }
+    a{color:inherit}
 
-    .spark{
-      position:fixed; inset:0; pointer-events:none; opacity:.55;
-      background:
-        radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,.25), transparent 60%),
-        radial-gradient(2px 2px at 35% 55%, rgba(255,255,255,.18), transparent 60%),
-        radial-gradient(1px 1px at 70% 20%, rgba(255,255,255,.20), transparent 60%),
-        radial-gradient(2px 2px at 85% 70%, rgba(255,255,255,.16), transparent 60%);
-      filter: blur(.2px);
-      mix-blend-mode: screen;
-    }
-
-    .wrap{
-      width:min(1200px, 94vw);
-      margin: 18px auto 52px;
-    }
-
-    /* ====== TOP BAR (SLOGAN FIXO) ====== */
-    .floatingSlogan{
-      position: sticky;
-      top: 10px;
-      z-index: 20;
-      width: fit-content;
-      margin: 0 0 12px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(0,0,0,.24);
-      border:1px solid rgba(255,255,255,.14);
-      box-shadow: 0 12px 30px rgba(0,0,0,.25);
-      display:flex;
-      align-items:center;
-      gap:10px;
-      backdrop-filter: blur(10px);
-    }
-    .floatingSlogan .txt{
-      font-weight: 950;
-      letter-spacing:.15px;
-      font-size: 15px;
-      color: rgba(255,255,255,.94);
-      text-shadow: 0 10px 26px rgba(0,0,0,.45);
-    }
-
-    /* ====== HEADER ====== */
-    .header{
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
-      border:1px solid var(--stroke);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-      overflow:hidden;
-      position:relative;
-      padding: 16px;
-    }
-    .header::before{
-      content:"";
-      position:absolute; inset:-2px;
-      background: radial-gradient(700px 200px at 20% 10%, rgba(255,255,255,.10), transparent 55%),
-                  radial-gradient(600px 240px at 80% 0%, rgba(0,255,213,.12), transparent 55%);
-      opacity:.65;
-      pointer-events:none;
-    }
-
-    .headGrid{
-      position:relative;
-      z-index:1;
-      display:grid;
-      grid-template-columns: 1fr 240px;
-      gap: 14px;
-      align-items:start;
-    }
-    @media(max-width: 980px){
-      .headGrid{ grid-template-columns: 1fr; }
-    }
-
-    .brandRow{
-      display:flex;
-      align-items:center;
-      gap: 14px;
-      flex-wrap:wrap;
-      justify-content:center;
-      padding: 6px 4px 10px;
-    }
-
-    .logoBox{
-      width: 160px;
-      height: 140px;
-      border-radius: 18px;
-      background: rgba(0,0,0,.25);
-      border:1px solid rgba(255,255,255,.14);
-      box-shadow: 0 14px 35px rgba(0,0,0,.35);
-      overflow:hidden;
-      position:relative;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      flex: 0 0 auto;
-    }
-    .logoBox img{
-      width:100%;
-      height:100%;
-      object-fit: cover;
-      display:none;
-    }
-    .logoFallback{
-      font-weight: 1000;
-      letter-spacing:.6px;
-      color: rgba(255,255,255,.90);
-      opacity:.9;
-      display:flex;
-      flex-direction:column;
-      gap: 6px;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      padding: 10px;
-    }
-    .logoFallback small{ opacity:.75; font-weight: 800; }
-
-    .titleStack{ min-width: 240px; text-align:center; }
-
-    .gradTitle{
-      font-weight: 1000;
-      font-size: 46px;
-      line-height: 1.05;
-      letter-spacing: .7px;
-      text-transform: uppercase;
-      background: linear-gradient(
-        90deg,
-        #ff4bd8 0%,
-        #7a42ff 18%,
-        #00c7ff 34%,
-        #00ffd5 50%,
-        #7dff6a 66%,
-        #ffd94a 82%,
-        #ff4bd8 100%
-      );
-      background-size: 260% 100%;
-      -webkit-background-clip:text;
-      background-clip:text;
-      color: transparent;
-      animation: gradMove 6.5s linear infinite;
-      filter: drop-shadow(0 10px 30px rgba(0,0,0,.55));
-      margin: 0;
-    }
-    @keyframes gradMove{
-      0%{ background-position:0% 50%; }
-      100%{ background-position:260% 50%; }
-    }
-
-    .sloganBelow{
-      margin-top: 8px;
-      font-size: 17px;
-      font-weight: 950;
-      color: rgba(255,255,255,.94);
-      letter-spacing:.2px;
-      text-shadow: 0 10px 26px rgba(0,0,0,.45);
-    }
-
-    /* META VERTICAL (direita) */
-    .metaCol{
-      display:flex;
-      flex-direction:column;
-      gap: 10px;
-      align-items:stretch;
-      justify-content:flex-start;
-    }
-    .chip{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      padding: 10px 12px;
-      border-radius: 16px;
-      background: rgba(0,0,0,.22);
-      border:1px solid rgba(255,255,255,.12);
-      color: rgba(255,255,255,.80);
-      font-size: 12.8px;
-      box-shadow: 0 10px 26px rgba(0,0,0,.25);
-      white-space:nowrap;
-    }
-    .chip b{ color: rgba(255,255,255,.92); }
-
-    /* BOTÕES */
-    .actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:flex-start;
-      margin-top: 12px;
-      position:relative;
-      z-index:1;
-    }
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      border:none;
-      cursor:pointer;
-      color: rgba(255,255,255,.92);
-      background: rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.14);
-      padding: 10px 12px;
-      border-radius: 14px;
-      font-weight: 850;
-      font-size: 13px;
-      box-shadow: 0 14px 35px rgba(0,0,0,.28);
-      transition: transform .15s ease, background .15s ease, border-color .15s ease;
-      user-select:none;
-    }
-    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.11); border-color: rgba(255,255,255,.18); }
-    .btn:active{ transform: translateY(0px) scale(.99); }
-    .btn.primary{
-      background: linear-gradient(90deg, rgba(255,75,216,.38), rgba(0,255,213,.26), rgba(255,217,74,.24));
-      border-color: rgba(255,255,255,.18);
-    }
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-width: 28px;
-      height: 22px;
-      padding: 0 8px;
-      border-radius: 999px;
-      background: rgba(0,0,0,.28);
-      border:1px solid rgba(255,255,255,.14);
-      font-weight: 1000;
-      font-size: 12px;
-      margin-left: 6px;
-    }
-
-    /* ====== MAIN (MONTAGEM + CONTROLES) ====== */
-    .main{
-      margin-top: 14px;
-      display:grid;
-      grid-template-columns: 1.35fr .65fr;
-      gap: 14px;
-      align-items:stretch;
-    }
-    @media(max-width: 980px){
-      .main{ grid-template-columns: 1fr; }
-    }
-
-    .card{
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
-      border:1px solid var(--stroke);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-      overflow:hidden;
-      position:relative;
-    }
-
-    /* QUADRO DA MONTAGEM */
-    .stageHead{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-      flex-wrap:wrap;
-      padding: 12px 14px;
-      border-bottom: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.16);
-    }
-    .stageHead .title{
-      font-weight: 1000;
-      letter-spacing:.2px;
-    }
-    .stageHead .miniHint{
-      font-size: 12px;
-      color: rgba(255,255,255,.65);
-    }
-
-    .stage{
-      position:relative;
-      height: 440px;
-      background:
-        radial-gradient(900px 500px at 20% 15%, rgba(255,255,255,.06), transparent 60%),
-        radial-gradient(700px 450px at 80% 35%, rgba(0,255,213,.08), transparent 60%),
-        linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.28));
-      overflow:hidden;
-    }
-    @media(max-width: 560px){
-      .stage{ height: 380px; }
-    }
-
-    /* “fundo” bonitinho (opcional) */
-    .stageBackdrop{
-      position:absolute;
-      inset: 14px;
-      border-radius: 18px;
-      border:1px dashed rgba(255,255,255,.18);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      pointer-events:none;
-    }
-
-    .stageGrid{
-      position:absolute;
-      inset: 14px;
-      border-radius: 18px;
-      background:
-        linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
-      background-size: 32px 32px;
-      opacity:.16;
-      pointer-events:none;
-      mix-blend-mode: screen;
-    }
-
-    /* sticker (recorte) */
-    .sticker{
-      position:absolute;
-      left: 80px;
-      top: 80px;
-      width: 180px;
-      height: 180px;
-      transform: translate3d(0,0,0);
-      user-select:none;
-      touch-action:none;
-      cursor: grab;
-      border-radius: 16px;
-      outline: 1px solid rgba(255,255,255,.00);
-    }
-    .sticker:active{ cursor: grabbing; }
-    .sticker.selected{
-      outline: 1px solid rgba(0,255,213,.45);
-      box-shadow: 0 0 0 6px rgba(0,255,213,.10), 0 18px 60px rgba(0,0,0,.55);
-    }
-    .sticker img{
-      width:100%;
-      height:100%;
-      object-fit: contain;
-      display:block;
-      pointer-events:none;
-      filter: drop-shadow(0 14px 30px rgba(0,0,0,.55));
-    }
-
-    /* alças de resize */
-    .handle{
-      position:absolute;
-      width: 14px;
-      height: 14px;
-      border-radius: 8px;
-      background: rgba(255,255,255,.92);
-      border: 1px solid rgba(0,0,0,.35);
-      box-shadow: 0 10px 24px rgba(0,0,0,.45);
-      display:none;
-    }
-    .sticker.selected .handle{ display:block; }
-    .h-br{ right: -7px; bottom: -7px; cursor: nwse-resize; }
-    .h-tr{ right: -7px; top: -7px; cursor: nesw-resize; }
-    .h-bl{ left: -7px; bottom: -7px; cursor: nesw-resize; }
-    .h-tl{ left: -7px; top: -7px; cursor: nwse-resize; }
-
-    /* barra inferior do quadro */
-    .stageBar{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
-      padding: 12px 14px;
-      border-top: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.14);
-    }
-    .stageBar .left{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-    }
-    .badgeSmall{
-      font-size: 12px;
-      color: rgba(255,255,255,.70);
-      padding: 8px 10px;
-      border-radius: 999px;
-      background: rgba(0,0,0,.22);
-      border:1px solid rgba(255,255,255,.12);
-    }
-
-    /* PAINEL CONTROLE (lado direito) */
-    .panel{
-      padding: 14px;
-      display:flex;
-      flex-direction:column;
-      gap: 12px;
-    }
-
-    .panelTitle{
-      font-weight: 1000;
-      letter-spacing:.2px;
-      font-size: 16px;
-      margin: 0;
-    }
-    .panelText{
-      margin: 0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height:1.4;
-    }
-
-    .field{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      background: rgba(0,0,0,.22);
-      border:1px solid rgba(255,255,255,.12);
-    }
-    .field input, .field select, .field textarea{
-      width:100%;
-      border:none;
-      outline:none;
-      background: transparent;
-      color: rgba(255,255,255,.9);
-      font-size: 13px;
-      font-family: inherit;
-      resize:none;
-    }
-    .field textarea{ min-height: 64px; }
-
-    .row{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
-    }
-
-    .toggle{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      color: rgba(255,255,255,.75);
-      font-size: 13px;
-      background: rgba(0,0,0,.20);
-      border:1px solid rgba(255,255,255,.12);
-      border-radius: 14px;
-      padding: 10px 12px;
-      user-select:none;
-    }
-    .switch{
-      width: 44px; height: 26px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.14);
-      border:1px solid rgba(255,255,255,.14);
-      position:relative;
-      cursor:pointer;
-      flex:0 0 auto;
-    }
-    .knob{
-      width: 22px; height: 22px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.92);
-      position:absolute;
-      top:1px; left:1px;
-      transition: left .18s ease, background .18s ease;
-    }
-    .switch.on{ background: rgba(0,255,213,.24); }
-    .switch.on .knob{ left: 21px; background: rgba(255,255,255,.96); }
-
-    .verseBox{
-      padding: 14px 14px;
-      border-radius: 16px;
-      background: rgba(0,0,0,.22);
-      border:1px solid rgba(255,255,255,.12);
-      color: rgba(255,255,255,.86);
-    }
-    .verseTitle{
-      font-weight: 1000;
-      margin-bottom: 8px;
-      display:flex;
-      align-items:center;
-      gap:8px;
-    }
-    .verseText{
-      color: rgba(255,255,255,.78);
-      line-height: 1.45;
-      font-size: 13px;
-      margin:0;
-    }
-    .verseRef{
-      margin-top: 8px;
-      font-weight: 900;
-      color: rgba(255,255,255,.9);
-      font-size: 12px;
-      opacity:.92;
-    }
-
-    /* CONTROLES DO ITEM SELECIONADO */
-    .controlGroup{
-      padding: 12px;
-      border-radius: 16px;
-      background: rgba(0,0,0,.20);
-      border:1px solid rgba(255,255,255,.12);
-    }
-    .controlGroup .label{
-      font-size: 12px;
-      color: rgba(255,255,255,.72);
-      margin-bottom: 8px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-    }
-    .controlGroup .label b{ color: rgba(255,255,255,.92); }
-    .slider{
-      width:100%;
-    }
-    .miniBtns{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top: 10px;
-    }
-    .btnMini{
-      padding: 9px 10px;
-      border-radius: 12px;
-      font-size: 12px;
-      font-weight: 900;
-      background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.14);
-      color: rgba(255,255,255,.92);
-      cursor:pointer;
-    }
-    .btnMini:hover{ background: rgba(255,255,255,.11); }
-    .btnMini.danger{
-      background: rgba(255,64,208,.12);
-      border-color: rgba(255,64,208,.22);
-    }
-
-    /* ====== CATALOGO GRID ====== */
-    .sectionTitle{
-      margin: 18px 0 10px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-    }
-    .sectionTitle h3{
-      margin:0;
-      font-size: 16px;
-      letter-spacing:.2px;
-    }
-    .badge{
-      font-size: 12px;
-      color: rgba(255,255,255,.65);
-      padding: 8px 10px;
-      border-radius: 999px;
-      background: rgba(0,0,0,.22);
-      border:1px solid rgba(255,255,255,.12);
+    .wrap{max-width:1100px;margin:18px auto 34px; padding:0 14px}
+    .topNote{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:6px 10px; border:1px solid var(--stroke);
+      background: rgba(255,255,255,.05);
+      border-radius:999px; color:var(--muted);
+      font-size:12px;
     }
     .grid{
       display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
+      grid-template-columns: 1.05fr .95fr;
+      gap:14px;
+      margin-top:12px;
     }
-    @media(max-width: 980px){ .grid{ grid-template-columns: repeat(2, 1fr);} }
-    @media(max-width: 560px){ .grid{ grid-template-columns: 1fr;} }
+    @media (max-width: 980px){
+      .grid{grid-template-columns:1fr}
+    }
 
-    .itemCard{
-      padding: 12px;
-      cursor:pointer;
-    }
-    .thumb{
-      height: 150px;
-      border-radius: 18px;
+    .card{
+      border:1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
       overflow:hidden;
-      background: rgba(0,0,0,.22);
-      border:1px solid rgba(255,255,255,.10);
-      box-shadow: 0 12px 30px rgba(0,0,0,.25);
-      display:flex;
-      align-items:center;
-      justify-content:center;
     }
-    .thumb img{
-      width:100%;
-      height:100%;
-      object-fit: cover;
-      display:block;
-      transform: scale(1.02);
-      transition: transform .25s ease;
-    }
-    .itemCard:hover .thumb img{ transform: scale(1.06); }
+    .cardPad{padding:14px}
 
-    .itemName{
-      margin: 10px 0 6px;
-      font-weight: 1000;
-      letter-spacing:.2px;
-    }
-    .itemDesc{
-      margin:0;
-      color: rgba(255,255,255,.65);
-      font-size: 12px;
-      line-height:1.35;
-      min-height: 32px;
-    }
-    .itemFooter{
-      margin-top: 10px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-      flex-wrap:wrap;
-    }
-    .price{
-      font-weight: 1000;
-      font-size: 13px;
-      color: rgba(255,255,255,.88);
-    }
-    .tag{
-      font-size: 12px;
-      color: rgba(255,255,255,.65);
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(0,0,0,.22);
-      border:1px solid rgba(255,255,255,.10);
-    }
-
-    .footer{
-      margin-top: 18px;
-      text-align:center;
-      color: rgba(255,255,255,.45);
-      font-size: 12px;
-    }
-
-    /* ====== MODAL ITEM ====== */
-    .modalBack{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,.6);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding: 16px;
-      z-index: 999;
-    }
-    .modal{
-      width: min(980px, 96vw);
-      border-radius: 22px;
-      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
-      border:1px solid rgba(255,255,255,.16);
-      box-shadow: 0 25px 90px rgba(0,0,0,.7);
-      overflow:hidden;
-      backdrop-filter: blur(12px);
-    }
-    .modalHead{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-      padding: 12px 14px;
-      border-bottom:1px solid rgba(255,255,255,.10);
-    }
-    .modalHead strong{ font-size: 14px; }
-    .x{
-      border:none;
-      width: 40px; height: 40px;
-      border-radius: 14px;
-      background: rgba(0,0,0,.25);
-      border:1px solid rgba(255,255,255,.12);
-      color: rgba(255,255,255,.88);
-      font-weight: 1000;
-      cursor:pointer;
-    }
-    .modalBody{
+    /* Header */
+    .hero{
       display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap: 12px;
-      padding: 12px;
-    }
-    @media(max-width: 900px){ .modalBody{ grid-template-columns: 1fr; } }
-
-    .viewer{
-      border-radius: 18px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.22);
-      min-height: 300px;
-      position:relative;
-      display:flex;
+      grid-template-columns: 86px 1fr;
+      gap:14px;
       align-items:center;
-      justify-content:center;
+      padding:16px;
+      background:
+        radial-gradient(700px 260px at 0% 0%, rgba(138,92,255,.24), transparent 60%),
+        radial-gradient(700px 260px at 100% 40%, rgba(25,211,255,.18), transparent 65%),
+        linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
     }
-    .viewer img{
-      width:100%;
-      height:100%;
-      object-fit: contain;
-      display:block;
-      padding: 12px;
-      filter: drop-shadow(0 14px 30px rgba(0,0,0,.55));
+    .logoBox{
+      width:86px;height:86px;border-radius:18px;
+      border:1px solid var(--stroke);
+      background: rgba(0,0,0,.25);
+      overflow:hidden;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .logoBox img{width:100%;height:100%;object-fit:cover;display:block}
+    .brand h1{
+      margin:0;
+      font-size:28px;
+      letter-spacing:.6px;
+      line-height:1.05;
+      background: linear-gradient(90deg, var(--accentA), var(--accentB), var(--accentC));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+      text-transform:uppercase;
+    }
+    .brand .slogan{
+      margin-top:6px;
+      color: rgba(255,255,255,.90);
+      font-weight:800;
+      letter-spacing:.2px;
+      text-shadow: 0 10px 26px rgba(0,0,0,.45);
+      font-size:15px;
     }
 
-    .side{
-      padding: 12px;
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
-      height: 100%;
+    .pills{
+      margin-top:10px;
+      display:flex; flex-wrap:wrap; gap:8px;
+      align-items:center;
+    }
+    .pill{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.05);
+      font-size:12px; color:var(--muted);
+      user-select:none;
+    }
+    .btn{
+      cursor:pointer;
+      color:var(--text);
+      background: rgba(255,255,255,.07);
+      border:1px solid var(--stroke);
+      border-radius:999px;
+      padding:9px 12px;
+      font-weight:700;
+      font-size:12px;
+      display:inline-flex; align-items:center; gap:8px;
+    }
+    .btn:hover{background: rgba(255,255,255,.10)}
+    .btnPrimary{
+      border-color: rgba(138,92,255,.55);
+      background: linear-gradient(90deg, rgba(138,92,255,.35), rgba(25,211,255,.18));
+    }
+    .btnDanger{
+      border-color: rgba(255,90,120,.55);
+      background: rgba(255,90,120,.12);
+    }
+
+    /* Info lines (vertical) */
+    .infoLines{
+      padding:12px 16px 16px;
+      display:grid;
+      gap:8px;
     }
     .line{
-      color: rgba(255,255,255,.70);
-      font-size: 13px;
-      margin-bottom: 10px;
-      line-height:1.35;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:10px 12px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.04);
+      border-radius:14px;
+      font-size:12px;
+      color:var(--muted);
     }
-    .line b{ color: rgba(255,255,255,.92); }
+    .line b{color:var(--text); font-weight:800}
+    .line .left{display:flex; gap:8px; align-items:center}
+    .tag{
+      font-size:11px;
+      padding:3px 8px;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background: rgba(0,0,0,.18);
+      color:var(--muted);
+    }
 
-    .ctaRow{
-      display:flex;
+    /* Montage */
+    .montageHeader{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px; margin-bottom:10px;
+    }
+    .montageHeader .title{
+      display:flex; gap:8px; align-items:center;
+      font-weight:900;
+    }
+    .hint{
+      color: var(--muted2);
+      font-size:11px;
+      max-width:380px;
+      text-align:right;
+    }
+
+    .stage{
+      height: 380px;
+      border:1px solid var(--stroke);
+      border-radius: var(--radius2);
+      background:
+        radial-gradient(900px 500px at 20% 10%, rgba(138,92,255,.18), transparent 60%),
+        radial-gradient(900px 500px at 85% 35%, rgba(25,211,255,.14), transparent 65%),
+        linear-gradient(135deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      position:relative;
+      overflow:hidden;
+      touch-action:none;
+    }
+    .stage::after{
+      content:"";
+      position:absolute; inset:0;
+      background: radial-gradient(800px 600px at 50% 70%, rgba(0,0,0,.18), transparent 55%);
+      pointer-events:none;
+    }
+    .stageGrid{
+      position:absolute; inset:0;
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.05) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity:.22;
+      pointer-events:none;
+    }
+
+    .item{
+      position:absolute;
+      left:50%; top:50%;
+      transform: translate(-50%,-50%) rotate(0deg) scale(1);
+      transform-origin:center;
+      user-select:none;
+      touch-action:none;
+    }
+    .item img{
+      display:block;
+      width:240px; height:auto;
+      pointer-events:none;
+      filter: drop-shadow(0 18px 28px rgba(0,0,0,.45));
+    }
+    .item.selected{
+      outline: 2px solid rgba(25,211,255,.55);
+      outline-offset: 4px;
+      border-radius: 12px;
+    }
+
+    /* Controls */
+    .controlsRow{
+      display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;
+    }
+    .slab{
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.04);
+      border-radius: var(--radius2);
+      padding:12px;
+    }
+    .slab h3{margin:0 0 10px; font-size:13px}
+    .field{display:grid; gap:6px; margin:8px 0}
+    .field label{font-size:11px; color:var(--muted)}
+    input[type="range"]{width:100%}
+    textarea{
+      width:100%;
+      min-height:84px;
+      resize:vertical;
+      border-radius:14px;
+      border:1px solid var(--stroke);
+      background: rgba(0,0,0,.22);
+      color:var(--text);
+      padding:10px 12px;
+      outline:none;
+    }
+    input[type="text"], select{
+      width:100%;
+      border-radius:12px;
+      border:1px solid var(--stroke);
+      background: rgba(0,0,0,.22);
+      color:var(--text);
+      padding:10px 12px;
+      outline:none;
+      font-size:13px;
+    }
+
+    /* Catalog */
+    .catalogHeader{
+      display:flex; gap:10px; align-items:center; justify-content:space-between;
+      margin-bottom:10px;
+    }
+    .catalogHeader .left{
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+      width:100%;
+    }
+    .catalogGrid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
       gap:10px;
-      flex-wrap:wrap;
-      margin-top: 12px;
+    }
+    @media (max-width:560px){
+      .catalogGrid{grid-template-columns:1fr}
+    }
+    .catCard{
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.04);
+      border-radius:18px;
+      overflow:hidden;
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease;
+    }
+    .catCard:hover{transform: translateY(-2px); background: rgba(255,255,255,.06)}
+    .thumb{
+      height:96px;
+      background: rgba(0,0,0,.18);
+      display:flex; align-items:center; justify-content:center;
+      overflow:hidden;
+    }
+    .thumb img{width:100%; height:100%; object-fit:cover; display:block}
+    .catBody{padding:10px 10px 12px}
+    .catTitle{font-weight:900; font-size:13px; margin:0 0 4px}
+    .catDesc{margin:0; font-size:11px; color:var(--muted)}
+    .price{margin-top:8px; font-size:11px; color:var(--muted)}
+    .badge{display:inline-flex; padding:3px 8px; border-radius:999px; border:1px solid var(--stroke); font-size:11px; color:var(--muted); background: rgba(0,0,0,.18)}
+    .row2{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:14px;
     }
 
-    @media(max-width: 560px){
-      .gradTitle{ font-size: 34px; }
-      .sloganBelow{ font-size: 15px; }
-      .logoBox{ width: 120px; height: 110px; }
-      .floatingSlogan .txt{ font-size: 14px; }
-    }
+    .smallNote{font-size:11px;color:var(--muted2);margin-top:8px;line-height:1.35}
+    .err{color:#ffb3c2}
   </style>
 </head>
-
 <body>
-  <div class="spark"></div>
-
   <div class="wrap">
-    <div class="floatingSlogan">
-      <span>✨</span>
-      <div class="txt">Onde a imaginação vira festa</div>
+    <div class="topNote">✨ Montagem interativa • Arraste os itens • IA por texto/voz • Exporta imagem</div>
+
+    <!-- HEADER -->
+    <div class="card" style="margin-top:12px">
+      <div class="hero">
+        <div class="logoBox">
+          <img id="logoImg" src="assets/logo.png" alt="Logo" onerror="this.style.display='none'; this.parentElement.textContent='FC'; this.parentElement.style.fontWeight='900'">
+        </div>
+        <div class="brand">
+          <h1>FAZ DE CONTA DECORAÇÕES</h1>
+          <div class="slogan">✨ Onde a imaginação vira festa</div>
+
+          <div class="pills">
+            <button class="btn" id="btnWhats">💬 WhatsApp</button>
+            <span class="pill">🛒 Selecionados: <b id="selCount" style="color:var(--text)">0</b></span>
+            <button class="btn btnDanger" id="btnClearAll">🧹 Limpar montagem</button>
+            <button class="btn btnPrimary" id="btnExport">⬇️ Exportar imagem</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- INFO (vertical like you wanted) -->
+      <div class="infoLines">
+        <div class="line">
+          <div class="left">📍 <b>Jaciara/MT</b> <span class="tag">Atendimento</span></div>
+          <div class="tag">Faz de Conta</div>
+        </div>
+        <div class="line">
+          <div class="left">📞 <b id="phoneText">(66) 99622-3481</b> <span class="tag">WhatsApp</span></div>
+          <button class="btn" id="btnCopy">📋 Copiar</button>
+        </div>
+        <div class="line">
+          <div class="left">📅 <b id="dateText">--/--/----</b> <span class="tag">Data</span></div>
+          <div class="tag" id="timeText">--:--</div>
+        </div>
+      </div>
     </div>
 
-    <div class="header">
-      <div class="headGrid">
-        <div>
-          <div class="brandRow">
-            <div class="logoBox" id="logoBox" title="Logo">
-              <img id="logoImg" alt="Logo Faz de Conta"/>
-              <div class="logoFallback" id="logoFallback">
-                <div style="font-size:28px;">FC</div>
-                <small>Envie logo.png ou logo.jpg</small>
+    <div class="grid">
+      <!-- LEFT: Montage + Controls -->
+      <div class="row2">
+        <div class="card">
+          <div class="cardPad">
+            <div class="montageHeader">
+              <div class="title">🧩 Montagem do cliente</div>
+              <div class="hint">Dica: toque no item para selecionar. Arraste para mover. Depois use os controles abaixo.</div>
+            </div>
+
+            <div id="stage" class="stage">
+              <div class="stageGrid"></div>
+              <!-- items injected -->
+            </div>
+
+            <div class="controlsRow" style="margin-top:12px">
+              <div class="btn" id="btnFront">⬆️ Frente</div>
+              <div class="btn" id="btnBack">⬇️ Trás</div>
+              <div class="btn" id="btnDup">📌 Duplicar</div>
+              <div class="btn btnDanger" id="btnDel">🗑️ Remover</div>
+              <div class="btn" id="btnCenter">🎯 Centralizar</div>
+            </div>
+
+            <div class="slab" style="margin-top:12px">
+              <h3>🎛️ Ajustes do item selecionado</h3>
+
+              <div class="field">
+                <label>Escala (tamanho)</label>
+                <input id="rngScale" type="range" min="20" max="220" value="100">
+              </div>
+              <div class="field">
+                <label>Rotação</label>
+                <input id="rngRot" type="range" min="-180" max="180" value="0">
+              </div>
+              <div class="field">
+                <label>Opacidade</label>
+                <input id="rngOp" type="range" min="15" max="100" value="100">
+              </div>
+
+              <div class="field">
+                <label>Cor (Hue) — bom para balões/LED</label>
+                <input id="rngHue" type="range" min="0" max="360" value="0">
+              </div>
+              <div class="field">
+                <label>Saturação</label>
+                <input id="rngSat" type="range" min="0" max="200" value="100">
+              </div>
+
+              <div class="controlsRow" style="margin-top:10px">
+                <button class="btn" id="btnReset">♻️ Reset</button>
+                <button class="btn" id="btnResetColor">🎨 Reset cor</button>
+              </div>
+
+              <div class="smallNote">
+                Se alguma imagem “sumir” no Vercel: quase sempre é <b>nome diferente</b> (maiúscula/minúscula) ou caminho errado.
+                Use <b>assets/arquivo.png</b> e nomes simples.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: IA + Catalog -->
+      <div class="row2">
+        <div class="card">
+          <div class="cardPad">
+            <div class="catalogHeader">
+              <div class="left" style="flex:1">
+                <div style="font-weight:900">🤖 Assistente (IA por texto/voz)</div>
+                <span class="badge">sem chave • automático inteligente</span>
               </div>
             </div>
 
-            <div class="titleStack">
-              <h1 class="gradTitle">FAZ DE CONTA DECORAÇÕES</h1>
-              <div class="sloganBelow">✨ Onde a imaginação vira festa</div>
+            <textarea id="aiText" placeholder="Ex.: tema princesas, arco de balões rosa e lilás do lado esquerdo, cortina de LED no fundo, tapete rosa no chão, dois cilindros no centro."></textarea>
+
+            <div class="controlsRow" style="margin-top:10px">
+              <button class="btn btnPrimary" id="btnAi">✨ Gerar cenário</button>
+              <button class="btn" id="btnMic">🎙️ Falar</button>
+              <button class="btn" id="btnAiClear">🧹 Limpar texto</button>
             </div>
-          </div>
 
-          <div class="actions">
-            <button class="btn" id="btnWhats">💬 WhatsApp</button>
-            <button class="btn" id="btnCart">🛒 Selecionados <span class="pill" id="cartCount">0</span></button>
-            <button class="btn" id="btnClearStage">🧼 Limpar montagem</button>
-            <button class="btn primary" id="btnFinish">✅ Finalizar</button>
+            <div id="micStatus" class="smallNote"></div>
+            <div id="aiStatus" class="smallNote"></div>
           </div>
         </div>
 
-        <div class="metaCol">
-          <div class="chip">📍 <b id="cityChip">Jaciara/MT</b></div>
-          <div class="chip">💬 <b>WhatsApp:</b> <span id="whatsChip">(66) 99622-3481</span></div>
-          <div class="chip">📅 <span id="today">--/--/----</span> • ⏰ <b id="clock">--:--</b></div>
-        </div>
-      </div>
-    </div>
+        <div class="card">
+          <div class="cardPad">
+            <div class="catalogHeader">
+              <div class="left">
+                <div style="font-weight:900">🧺 Itens do catálogo</div>
+                <span class="badge">clique para adicionar</span>
+              </div>
+            </div>
 
-    <div class="main">
-      <!-- QUADRO (montagem) -->
-      <div class="card">
-        <div class="stageHead">
-          <div>
-            <div class="title">🧩 Montagem do cliente</div>
-            <div class="miniHint">Clique em um item do catálogo e “Adicionar na montagem”. Arraste, redimensione e mude a cor.</div>
-          </div>
-          <div class="badgeSmall" id="stageHint">Dica: selecione um item na montagem para editar.</div>
-        </div>
+            <div style="display:grid; gap:10px">
+              <input id="search" type="text" placeholder="Pesquisar (ex: arco, balões, tapete, led, cilindro)">
+              <select id="catFilter">
+                <option value="all">Todas as categorias</option>
+                <option value="balões">Balões</option>
+                <option value="estrutura">Estrutura</option>
+                <option value="iluminação">Iluminação</option>
+                <option value="cenário">Cenário</option>
+                <option value="suporte">Suporte</option>
+              </select>
+            </div>
 
-        <div class="stage" id="stage">
-          <div class="stageBackdrop"></div>
-          <div class="stageGrid"></div>
-        </div>
+            <div class="smallNote">
+              Se você quiser trocar imagens depois: só troque os arquivos dentro de <b>assets/</b> mantendo o mesmo nome.
+            </div>
 
-        <div class="stageBar">
-          <div class="left">
-            <span class="badgeSmall">Selecionado: <b id="selectedName">nenhum</b></span>
-            <span class="badgeSmall">Camadas: <b id="layerInfo">—</b></span>
-          </div>
-          <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <button class="btnMini" id="btnExport">📸 Exportar imagem</button>
-            <button class="btnMini" id="btnDeselect">✋ Desmarcar</button>
-          </div>
-        </div>
-      </div>
+            <div style="margin-top:12px" class="catalogGrid" id="catalog"></div>
 
-      <!-- PAINEL (filtros + controles) -->
-      <div class="card panel">
-        <div>
-          <h3 class="panelTitle">🧠 Assistente de montagem</h3>
-          <p class="panelText">Aqui você controla o item selecionado e monta uma prévia rápida para o cliente.</p>
-        </div>
-
-        <div class="field">
-          🔎 <input id="q" placeholder="Pesquisar (ex: arco, balões, tapete...)"/>
-        </div>
-
-        <div class="field">
-          🧩
-          <select id="cat">
-            <option value="Todas">Todas as categorias</option>
-          </select>
-        </div>
-
-        <div class="row">
-          <div class="toggle">
-            🔒 Mostrar preços
-            <div class="switch" id="priceSwitch"><div class="knob"></div></div>
-          </div>
-          <button class="btn" id="btnClear">🧼 Limpar filtro</button>
-        </div>
-
-        <div class="verseBox" id="verseBox">
-          <div class="verseTitle">📖 Versículo bíblico do dia</div>
-          <p class="verseText" id="verseText">Carregando…</p>
-          <div class="verseRef" id="verseRef"></div>
-        </div>
-
-        <div class="controlGroup">
-          <div class="label">
-            <span>🎯 Item selecionado</span>
-            <b id="ctrlStatus">Nenhum</b>
-          </div>
-
-          <div class="label"><span>Cor (tint)</span><b id="colorRead">—</b></div>
-          <input type="color" id="ctrlColor" value="#ffffff" style="width:100%; height:44px; border-radius:12px; border:1px solid rgba(255,255,255,.14); background: rgba(0,0,0,.18);">
-
-          <div style="height:10px"></div>
-
-          <div class="label"><span>Opacidade</span><b id="opacityRead">100%</b></div>
-          <input class="slider" type="range" id="ctrlOpacity" min="10" max="100" value="100">
-
-          <div style="height:10px"></div>
-
-          <div class="label"><span>Rotação</span><b id="rotateRead">0°</b></div>
-          <input class="slider" type="range" id="ctrlRotate" min="-180" max="180" value="0">
-
-          <div style="height:10px"></div>
-
-          <div class="label"><span>Tamanho</span><b id="sizeRead">100%</b></div>
-          <input class="slider" type="range" id="ctrlSize" min="40" max="220" value="100">
-
-          <div class="miniBtns">
-            <button class="btnMini" id="btnFront">⬆️ Frente</button>
-            <button class="btnMini" id="btnBack">⬇️ Trás</button>
-            <button class="btnMini danger" id="btnDelete">🗑️ Remover</button>
-          </div>
-        </div>
-
-        <div class="controlGroup">
-          <div class="label"><span>💡 Observação</span><b>Pro</b></div>
-          <div style="font-size:12px;color:rgba(255,255,255,.65);line-height:1.45;">
-            Para ficar “miniatura real” na montagem, suba recortes em PNG com fundo transparente (ex: <b>baloes.png</b>, <b>arco.png</b>).
-            Se tiver fundo preto, a montagem sempre vai parecer “foto”. PNG transparente resolve.
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="sectionTitle">
-      <h3>✨ Itens do catálogo</h3>
-      <div class="badge"><span id="itemsCount">0</span> itens</div>
-    </div>
-
-    <div class="grid" id="grid"></div>
-
-    <div class="footer">© Faz de Conta Decorações • Catálogo</div>
-  </div>
-
-  <!-- MODAL ITEM -->
-  <div class="modalBack" id="modalItemBack">
-    <div class="modal">
-      <div class="modalHead">
-        <strong id="modalTitle">Item</strong>
-        <button class="x" id="closeItem">✕</button>
-      </div>
-
-      <div class="modalBody">
-        <div class="viewer">
-          <img id="modalImg" alt="Prévia do item"/>
-        </div>
-
-        <div class="side">
-          <div class="line"><b>Descrição:</b> <span id="modalDesc"></span></div>
-          <div class="line"><b>Categoria:</b> <span id="modalCat"></span></div>
-          <div class="line"><b>Preço:</b> <span id="modalPrice"></span></div>
-          <div class="line" style="opacity:.85"><b>Miniatura (montagem):</b> <span id="modalCutoutName">—</span></div>
-
-          <div class="ctaRow">
-            <button class="btn primary" id="btnAddToStage">➕ Adicionar na montagem</button>
-            <button class="btn" id="btnAddCart">🛒 Selecionar</button>
-          </div>
-
-          <div class="verseBox" style="margin-top:12px;">
-            <div class="verseTitle">📌 Nome dos arquivos</div>
-            <p class="verseText" style="margin:0;">
-              Suba na raiz do projeto: <b>logo.png</b> (ou <b>logo.jpg</b>) e as imagens dos itens. Para miniaturas na montagem, use PNG transparente (ex: <b>arco.png</b>, <b>baloes.png</b>).
-            </p>
+            <div id="imgWarn" class="smallNote err" style="display:none;margin-top:10px"></div>
           </div>
         </div>
       </div>
@@ -950,718 +470,636 @@
   </div>
 
 <script>
-  // ===================== CONFIG =====================
-  const CONFIG = {
-    whatsappNumber: "5566996223481",
-    whatsappDisplay: "(66) 99622-3481",
-    cidade: "Jaciara/MT"
-  };
+/* =========================
+   CONFIG: SEUS ITENS AQUI
+   ========================= */
+const CATALOG = [
+  {
+    id:"baloes",
+    name:"Balões (Arco Orgânico)",
+    category:"balões",
+    desc:"Balões para montagem (prefira PNG com fundo transparente).",
+    src:"assets/arco-baloes.png",
+    w:260
+  },
+  {
+    id:"arco",
+    name:"Arco (Estrutura)",
+    category:"estrutura",
+    desc:"Estrutura do arco. Combine com balões/LED.",
+    src:"assets/arco.png",
+    w:280
+  },
+  {
+    id:"cilindros",
+    name:"Cilindros (Suporte)",
+    category:"suporte",
+    desc:"Estruturas e suporte para decoração.",
+    src:"assets/cilindros.png",
+    w:260
+  },
+  {
+    id:"led",
+    name:"Cortina de LED",
+    category:"iluminação",
+    desc:"Para fundo e brilho (fica linda com tema).",
+    src:"assets/led.png",
+    w:320
+  },
+  {
+    id:"tapete",
+    name:"Tapete",
+    category:"cenário",
+    desc:"Base para fotos e cenário.",
+    src:"assets/tapete.png",
+    w:360
+  },
+];
 
-  // ===================== ITENS (edite aqui) =====================
-  // photo: foto normal do catálogo (pode ser jpg)
-  // cutout: recorte/miniatura para a montagem (ideal: PNG transparente)
-  const ITENS = [
-    {
-      id:"baloes",
-      nome:"Balões (arranjo)",
-      cat:"Balões",
-      desc:"Balões para composição (use recorte em PNG para montagem ficar real).",
-      preco: 0,
-      photo: "baloes-foto.jpg",
-      cutout: "baloes.png"
-    },
-    {
-      id:"arco",
-      nome:"Arco de balões",
-      cat:"Balões",
-      desc:"Arco orgânico e temático (montagem sob consulta).",
-      preco: 0,
-      photo: "arco-foto.jpg",
-      cutout: "arco.png"
-    },
-    {
-      id:"cortina",
-      nome:"Cortina de LED",
-      cat:"Iluminação",
-      desc:"Fundo e acabamento com luz.",
-      preco: 0,
-      photo: "cortina-foto.jpg",
-      cutout: "cortina-led.png"
-    },
-    {
-      id:"tapete",
-      nome:"Tapete para fotos",
-      cat:"Cenário",
-      desc:"Base para fotos e cenário.",
-      preco: 0,
-      photo: "tapete-foto.jpg",
-      cutout: "tapete.png"
-    },
-    {
-      id:"cilindros",
-      nome:"Cilindros (suporte)",
-      cat:"Estruturas",
-      desc:"Estruturas e suporte para decoração.",
-      preco: 0,
-      photo: "cilindros-foto.jpg",
-      cutout: "cilindros.png"
-    }
-  ];
+/* =========================
+   HELPERS
+   ========================= */
+const $ = (s)=>document.querySelector(s);
+const stage = $("#stage");
+const catalogEl = $("#catalog");
+const selCount = $("#selCount");
 
-  // ===================== UTIL =====================
-  const el = (id)=>document.getElementById(id);
-  const money = (v)=> "R$ " + Number(v||0).toFixed(2).replace(".",",");
+let items = []; // {id, catId, name, src, x,y, scale, rot, op, hue, sat, z, w, img}
+let selectedId = null;
+let zCounter = 10;
 
-  // ===================== DATA / RELÓGIO =====================
-  el("cityChip").textContent = CONFIG.cidade;
-  el("whatsChip").textContent = CONFIG.whatsappDisplay;
+function nowDateTime(){
+  const d = new Date();
+  const dd = String(d.getDate()).padStart(2,"0");
+  const mm = String(d.getMonth()+1).padStart(2,"0");
+  const yy = d.getFullYear();
+  const hh = String(d.getHours()).padStart(2,"0");
+  const mi = String(d.getMinutes()).padStart(2,"0");
+  $("#dateText").textContent = `${dd}/${mm}/${yy}`;
+  $("#timeText").textContent = `${hh}:${mi}`;
+}
+nowDateTime();
+setInterval(nowDateTime, 20000);
 
-  function tick(){
-    const d = new Date();
-    const dd = String(d.getDate()).padStart(2,"0");
-    const mm = String(d.getMonth()+1).padStart(2,"0");
-    const yy = d.getFullYear();
-    el("today").textContent = `${dd}/${mm}/${yy}`;
-    el("clock").textContent = d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
-  }
-  tick(); setInterval(tick, 1000);
+/* =========================
+   CATALOG RENDER
+   ========================= */
+function renderCatalog(){
+  const q = $("#search").value.trim().toLowerCase();
+  const f = $("#catFilter").value;
 
-  // ===================== LOGO (logo.png/jpg/jpeg/webp) =====================
-  function loadLogo(){
-    const img = el("logoImg");
-    const fb = el("logoFallback");
-    const candidates = ["logo.png","logo.jpg","logo.jpeg","logo.webp"];
-    let i = 0;
+  catalogEl.innerHTML = "";
+  let missing = [];
 
-    function tryNext(){
-      if(i >= candidates.length){
-        img.style.display = "none";
-        fb.style.display = "flex";
-        return;
-      }
-      img.src = candidates[i++];
-    }
-
-    img.onload = ()=>{
-      img.style.display = "block";
-      fb.style.display = "none";
-    };
-    img.onerror = tryNext;
-    tryNext();
-  }
-  loadLogo();
-
-  // ===================== FILTROS / PREÇOS =====================
-  let showPrices = false;
-  const state = {
-    q: "",
-    cat: "Todas",
-    cart: new Map()
-  };
-
-  function setSwitch(on){
-    const sw = el("priceSwitch");
-    sw.classList.toggle("on", on);
-    showPrices = on;
-    render();
-  }
-  el("priceSwitch").addEventListener("click", ()=> setSwitch(!showPrices));
-
-  el("q").addEventListener("input",(e)=>{
-    state.q = (e.target.value||"").toLowerCase().trim();
-    render();
-  });
-  el("cat").addEventListener("change",(e)=>{
-    state.cat = e.target.value;
-    render();
-  });
-  el("btnClear").addEventListener("click", ()=>{
-    state.q = "";
-    state.cat = "Todas";
-    el("q").value = "";
-    el("cat").value = "Todas";
-    render();
-  });
-
-  function buildCats(){
-    const s = new Set(ITENS.map(i=>i.cat));
-    const sel = el("cat");
-    [...s].sort().forEach(c=>{
-      const opt = document.createElement("option");
-      opt.value = c; opt.textContent = c;
-      sel.appendChild(opt);
-    });
-  }
-  buildCats();
-
-  function passFilter(item){
-    const okCat = (state.cat === "Todas") || (item.cat === state.cat);
-    const t = (item.nome + " " + item.desc + " " + item.cat).toLowerCase();
-    const okQ = !state.q || t.includes(state.q);
-    return okCat && okQ;
-  }
-
-  // ===================== GRID (CATÁLOGO) =====================
-  let currentItem = null;
-
-  function render(){
-    const list = ITENS.filter(passFilter);
-    el("itemsCount").textContent = list.length;
-
-    const grid = el("grid");
-    grid.innerHTML = "";
-
-    list.forEach(item=>{
+  CATALOG
+    .filter(it=>{
+      const okText = (it.name + " " + it.desc).toLowerCase().includes(q);
+      const okCat = (f==="all" || it.category===f);
+      return okText && okCat;
+    })
+    .forEach(it=>{
       const card = document.createElement("div");
-      card.className = "card itemCard";
+      card.className="catCard";
+      card.innerHTML = `
+        <div class="thumb"><img alt="${it.name}" src="${it.src}"></div>
+        <div class="catBody">
+          <div class="catTitle">${it.name}</div>
+          <p class="catDesc">${it.desc}</p>
+          <div class="price"><span class="badge">${it.category}</span> &nbsp; <span>Preço: sob consulta</span></div>
+        </div>
+      `;
 
-      const thumb = document.createElement("div");
-      thumb.className = "thumb";
+      const img = card.querySelector("img");
+      img.onerror = ()=>{ missing.push(it.src); img.style.opacity=.25; };
 
-      const img = document.createElement("img");
-      img.alt = item.nome;
-
-      // tenta photo, se falhar tenta cutout, se falhar capa
-      const candidates = [item.photo, item.cutout, "capa.jpg", "capa.png"].filter(Boolean);
-      let i = 0;
-      function tryNext(){
-        if(i >= candidates.length) return;
-        img.src = candidates[i++];
-      }
-      img.onload = ()=>{};
-      img.onerror = tryNext;
-      tryNext();
-
-      thumb.appendChild(img);
-
-      const name = document.createElement("div");
-      name.className = "itemName";
-      name.textContent = item.nome;
-
-      const desc = document.createElement("p");
-      desc.className = "itemDesc";
-      desc.textContent = item.desc;
-
-      const footer = document.createElement("div");
-      footer.className = "itemFooter";
-
-      const price = document.createElement("div");
-      price.className = "price";
-      price.textContent = showPrices ? money(item.preco) : "Preço: sob consulta";
-
-      const tag = document.createElement("div");
-      tag.className = "tag";
-      tag.textContent = item.cat;
-
-      footer.appendChild(tag);
-      footer.appendChild(price);
-
-      card.appendChild(thumb);
-      card.appendChild(name);
-      card.appendChild(desc);
-      card.appendChild(footer);
-
-      card.addEventListener("click", ()=> openItem(item.id));
-      grid.appendChild(card);
+      card.addEventListener("click", ()=> addItemFromCatalog(it.id));
+      catalogEl.appendChild(card);
     });
 
-    el("cartCount").textContent = [...state.cart.values()].reduce((a,b)=>a+b,0);
-  }
-  render();
-
-  // ===================== MODAL =====================
-  function openItem(id){
-    currentItem = ITENS.find(x=>x.id===id);
-    if(!currentItem) return;
-
-    el("modalTitle").textContent = currentItem.nome;
-    el("modalDesc").textContent = currentItem.desc;
-    el("modalCat").textContent = currentItem.cat;
-    el("modalPrice").textContent = showPrices ? money(currentItem.preco) : "Sob consulta";
-    el("modalCutoutName").textContent = currentItem.cutout || "—";
-
-    const img = el("modalImg");
-    const candidates = [currentItem.photo, currentItem.cutout, "capa.jpg", "capa.png"].filter(Boolean);
-    let i = 0;
-    function tryNext(){
-      if(i >= candidates.length) return;
-      img.src = candidates[i++];
-    }
-    img.onerror = tryNext;
-    tryNext();
-
-    el("modalItemBack").style.display = "flex";
-  }
-  function closeItem(){
-    el("modalItemBack").style.display = "none";
-    currentItem = null;
-  }
-  el("closeItem").addEventListener("click", closeItem);
-  el("modalItemBack").addEventListener("click",(e)=>{
-    if(e.target === el("modalItemBack")) closeItem();
-  });
-
-  // ===================== MONTAGEM (STAGE) =====================
-  const stage = el("stage");
-  let selectedSticker = null;
-  let zCounter = 10;
-
-  function deselect(){
-    if(selectedSticker){
-      selectedSticker.classList.remove("selected");
-      selectedSticker = null;
-    }
-    updateControls();
-  }
-  stage.addEventListener("pointerdown",(e)=>{
-    // clique no fundo: desmarcar
-    if(e.target === stage) deselect();
-  });
-
-  function selectSticker(node){
-    if(selectedSticker && selectedSticker !== node){
-      selectedSticker.classList.remove("selected");
-    }
-    selectedSticker = node;
-    selectedSticker.classList.add("selected");
-    selectedSticker.style.zIndex = ++zCounter;
-    updateControls();
-  }
-
-  function applyStickerVisual(node){
-    // usa CSS variables guardadas no dataset
-    const tint = node.dataset.tint || "#ffffff";
-    const opacity = Number(node.dataset.opacity || 100);
-    const rotate = Number(node.dataset.rotate || 0);
-    const scalePct = Number(node.dataset.scale || 100);
-
-    // filtro de tint simples: mistura via brightness/saturate + hue-rotate aproximado
-    // (para “colorir” balões melhor, o ideal é recorte já neutro; aqui é um efeito visual)
-    // vamos aplicar um overlay com mix-blend-mode via pseudo? (mais complexo). Aqui: hue-rotate aproximado.
-    const hue = hexToHue(tint);
-    const sat = 1.15;
-    const bright = 1.05;
-
-    node.style.opacity = (opacity/100).toFixed(2);
-    node.style.transform = `rotate(${rotate}deg) scale(${(scalePct/100).toFixed(3)})`;
-    const img = node.querySelector("img");
-    if(img){
-      img.style.filter = `drop-shadow(0 14px 30px rgba(0,0,0,.55)) hue-rotate(${hue}deg) saturate(${sat}) brightness(${bright})`;
-    }
-  }
-
-  function addStickerFromItem(item){
-    const node = document.createElement("div");
-    node.className = "sticker";
-    node.dataset.itemId = item.id;
-    node.dataset.name = item.nome;
-
-    // estado visual
-    node.dataset.tint = "#ffffff";
-    node.dataset.opacity = "100";
-    node.dataset.rotate = "0";
-    node.dataset.scale = "100";
-    node.style.left = "90px";
-    node.style.top = "90px";
-    node.style.zIndex = ++zCounter;
-
-    // imagem
-    const img = document.createElement("img");
-    img.alt = item.nome;
-
-    const candidates = [item.cutout, item.photo, "capa.png", "capa.jpg"].filter(Boolean);
-    let i = 0;
-    function tryNext(){
-      if(i >= candidates.length) return;
-      img.src = candidates[i++];
-    }
-    img.onerror = tryNext;
-    tryNext();
-
-    node.appendChild(img);
-
-    // handles
-    const hTL = document.createElement("div"); hTL.className="handle h-tl"; node.appendChild(hTL);
-    const hTR = document.createElement("div"); hTR.className="handle h-tr"; node.appendChild(hTR);
-    const hBL = document.createElement("div"); hBL.className="handle h-bl"; node.appendChild(hBL);
-    const hBR = document.createElement("div"); hBR.className="handle h-br"; node.appendChild(hBR);
-
-    // eventos
-    node.addEventListener("pointerdown",(e)=>{
-      e.stopPropagation();
-      selectSticker(node);
-    });
-
-    makeDraggable(node);
-    makeResizable(node);
-
-    stage.appendChild(node);
-    selectSticker(node);
-    updateLayerInfo();
-  }
-
-  // Drag
-  function makeDraggable(node){
-    let dragging = false;
-    let startX=0, startY=0, startL=0, startT=0;
-
-    node.addEventListener("pointerdown",(e)=>{
-      // se clicou em handle, não arrasta
-      if(e.target.classList.contains("handle")) return;
-
-      dragging = true;
-      node.setPointerCapture(e.pointerId);
-
-      const rect = node.getBoundingClientRect();
-      startX = e.clientX;
-      startY = e.clientY;
-      startL = rect.left;
-      startT = rect.top;
-
-      node.style.cursor = "grabbing";
-      e.preventDefault();
-    });
-
-    node.addEventListener("pointermove",(e)=>{
-      if(!dragging) return;
-      const stageRect = stage.getBoundingClientRect();
-
-      const dx = e.clientX - startX;
-      const dy = e.clientY - startY;
-
-      // posição relativa ao stage
-      const newLeft = (startL - stageRect.left) + dx;
-      const newTop  = (startT - stageRect.top) + dy;
-
-      node.style.left = clamp(newLeft, -40, stageRect.width - 40) + "px";
-      node.style.top  = clamp(newTop,  -40, stageRect.height - 40) + "px";
-    });
-
-    node.addEventListener("pointerup",(e)=>{
-      dragging = false;
-      node.style.cursor = "grab";
-      try{ node.releasePointerCapture(e.pointerId); }catch(_){}
-    });
-  }
-
-  // Resize (mantém proporção)
-  function makeResizable(node){
-    const handles = node.querySelectorAll(".handle");
-    handles.forEach(h=>{
-      h.addEventListener("pointerdown",(e)=>{
-        e.stopPropagation();
-        selectSticker(node);
-
-        const startW = node.offsetWidth;
-        const startH = node.offsetHeight;
-        const startX = e.clientX;
-        const startY = e.clientY;
-
-        node.setPointerCapture(e.pointerId);
-
-        const onMove = (ev)=>{
-          const dx = ev.clientX - startX;
-          const dy = ev.clientY - startY;
-          const delta = Math.max(dx, dy);
-          const newW = clamp(startW + delta, 70, 520);
-          const ratio = startH / startW;
-          node.style.width = newW + "px";
-          node.style.height = Math.round(newW * ratio) + "px";
-        };
-
-        const onUp = (ev)=>{
-          node.removeEventListener("pointermove", onMove);
-          node.removeEventListener("pointerup", onUp);
-          try{ node.releasePointerCapture(ev.pointerId); }catch(_){}
-          updateControls(); // reflete em sliders
-        };
-
-        node.addEventListener("pointermove", onMove);
-        node.addEventListener("pointerup", onUp);
-      });
-    });
-  }
-
-  function clamp(v, a, b){ return Math.max(a, Math.min(b, v)); }
-
-  // ===================== CONTROLES (painel) =====================
-  const ctrlStatus = el("ctrlStatus");
-  const selectedName = el("selectedName");
-  const layerInfo = el("layerInfo");
-
-  const ctrlColor = el("ctrlColor");
-  const ctrlOpacity = el("ctrlOpacity");
-  const ctrlRotate = el("ctrlRotate");
-  const ctrlSize = el("ctrlSize");
-
-  const colorRead = el("colorRead");
-  const opacityRead = el("opacityRead");
-  const rotateRead = el("rotateRead");
-  const sizeRead = el("sizeRead");
-
-  function updateLayerInfo(){
-    const stickers = [...stage.querySelectorAll(".sticker")];
-    layerInfo.textContent = `${stickers.length} item(ns)`;
-  }
-
-  function updateControls(){
-    if(!selectedSticker){
-      ctrlStatus.textContent = "Nenhum";
-      selectedName.textContent = "nenhum";
-      colorRead.textContent = "—";
-      opacityRead.textContent = "100%";
-      rotateRead.textContent = "0°";
-      sizeRead.textContent = "100%";
-      return;
-    }
-
-    const name = selectedSticker.dataset.name || "Item";
-    ctrlStatus.textContent = "Ativo";
-    selectedName.textContent = name;
-
-    const tint = selectedSticker.dataset.tint || "#ffffff";
-    const opacity = Number(selectedSticker.dataset.opacity || 100);
-    const rotate = Number(selectedSticker.dataset.rotate || 0);
-    const scalePct = Number(selectedSticker.dataset.scale || 100);
-
-    ctrlColor.value = tint;
-    ctrlOpacity.value = String(opacity);
-    ctrlRotate.value = String(rotate);
-    ctrlSize.value = String(scalePct);
-
-    colorRead.textContent = tint.toUpperCase();
-    opacityRead.textContent = opacity + "%";
-    rotateRead.textContent = rotate + "°";
-    sizeRead.textContent = scalePct + "%";
-  }
-
-  ctrlColor.addEventListener("input", ()=>{
-    if(!selectedSticker) return;
-    selectedSticker.dataset.tint = ctrlColor.value;
-    applyStickerVisual(selectedSticker);
-    updateControls();
-  });
-
-  ctrlOpacity.addEventListener("input", ()=>{
-    if(!selectedSticker) return;
-    selectedSticker.dataset.opacity = ctrlOpacity.value;
-    applyStickerVisual(selectedSticker);
-    updateControls();
-  });
-
-  ctrlRotate.addEventListener("input", ()=>{
-    if(!selectedSticker) return;
-    selectedSticker.dataset.rotate = ctrlRotate.value;
-    applyStickerVisual(selectedSticker);
-    updateControls();
-  });
-
-  ctrlSize.addEventListener("input", ()=>{
-    if(!selectedSticker) return;
-    selectedSticker.dataset.scale = ctrlSize.value;
-    applyStickerVisual(selectedSticker);
-    updateControls();
-  });
-
-  el("btnFront").addEventListener("click", ()=>{
-    if(!selectedSticker) return;
-    selectedSticker.style.zIndex = ++zCounter;
-  });
-
-  el("btnBack").addEventListener("click", ()=>{
-    if(!selectedSticker) return;
-    selectedSticker.style.zIndex = 1;
-  });
-
-  el("btnDelete").addEventListener("click", ()=>{
-    if(!selectedSticker) return;
-    selectedSticker.remove();
-    selectedSticker = null;
-    updateLayerInfo();
-    updateControls();
-  });
-
-  el("btnDeselect").addEventListener("click", deselect);
-
-  // ===================== BOTÕES TOP =====================
-  el("btnWhats").addEventListener("click", ()=>{
-    const url = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent("Olá! Quero informações sobre os itens do catálogo da Faz de Conta Decorações.")}`;
-    window.open(url, "_blank");
-  });
-
-  el("btnCart").addEventListener("click", ()=>{
-    const total = [...state.cart.values()].reduce((a,b)=>a+b,0);
-    const ids = [...state.cart.entries()].map(([k,v])=>{
-      const it = ITENS.find(x=>x.id===k);
-      return `• ${it ? it.nome : k} x${v}`;
-    }).join("\n");
-    alert(`Selecionados: ${total} item(ns)\n\n${ids || "(vazio)"}`);
-  });
-
-  el("btnClearStage").addEventListener("click", ()=>{
-    [...stage.querySelectorAll(".sticker")].forEach(n=>n.remove());
-    deselect();
-    updateLayerInfo();
-  });
-
-  el("btnFinish").addEventListener("click", ()=>{
-    const total = [...state.cart.values()].reduce((a,b)=>a+b,0);
-    const stageCount = stage.querySelectorAll(".sticker").length;
-    alert(`Perfeito ✅\n\nSelecionados no catálogo: ${total}\nItens na montagem: ${stageCount}\n\n(Próximo passo: gerar orçamento + mensagem automática pro WhatsApp.)`);
-  });
-
-  // ===================== MODAL CTA =====================
-  el("btnAddCart").addEventListener("click", ()=>{
-    if(!currentItem) return;
-    const n = state.cart.get(currentItem.id) || 0;
-    state.cart.set(currentItem.id, n+1);
-    render();
-    alert("Item selecionado ✅");
-  });
-
-  el("btnAddToStage").addEventListener("click", ()=>{
-    if(!currentItem) return;
-    addStickerFromItem(currentItem);
-    closeItem();
-  });
-
-  // ===================== EXPORTAR “FOTO” DA MONTAGEM =====================
-  el("btnExport").addEventListener("click", async ()=>{
-    // export simples via html2canvas (sem lib externa): fazemos um print básico com canvas manual
-    // pega tamanho do stage e desenha as imagens na ordem de zIndex
-    const rect = stage.getBoundingClientRect();
-    const w = Math.round(rect.width);
-    const h = Math.round(rect.height);
-
-    const canvas = document.createElement("canvas");
-    const dpr = window.devicePixelRatio || 1;
-    canvas.width = Math.round(w * dpr);
-    canvas.height = Math.round(h * dpr);
-    const ctx = canvas.getContext("2d");
-    ctx.setTransform(dpr,0,0,dpr,0,0);
-
-    // fundo leve
-    const grd = ctx.createLinearGradient(0,0,0,h);
-    grd.addColorStop(0, "rgba(0,0,0,.20)");
-    grd.addColorStop(1, "rgba(0,0,0,.32)");
-    ctx.fillStyle = grd;
-    ctx.fillRect(0,0,w,h);
-
-    const nodes = [...stage.querySelectorAll(".sticker")].sort((a,b)=>{
-      const za = Number(a.style.zIndex||0);
-      const zb = Number(b.style.zIndex||0);
-      return za - zb;
-    });
-
-    for(const n of nodes){
-      const img = n.querySelector("img");
-      if(!img || !img.src) continue;
-
-      const x = parseFloat(n.style.left||"0");
-      const y = parseFloat(n.style.top||"0");
-      const bw = n.offsetWidth;
-      const bh = n.offsetHeight;
-
-      const scalePct = Number(n.dataset.scale || 100)/100;
-      const rotate = Number(n.dataset.rotate || 0) * Math.PI/180;
-      const opacity = Number(n.dataset.opacity || 100)/100;
-
-      // carrega imagem
-      const bitmap = await loadImage(img.src).catch(()=>null);
-      if(!bitmap) continue;
-
-      ctx.save();
-      ctx.globalAlpha = opacity;
-
-      // desenha com rotação no centro do sticker
-      const cx = x + bw/2;
-      const cy = y + bh/2;
-
-      ctx.translate(cx, cy);
-      ctx.rotate(rotate);
-      ctx.scale(scalePct, scalePct);
-
-      // desenha contain
-      const iw = bitmap.width, ih = bitmap.height;
-      const scale = Math.min(bw/iw, bh/ih);
-      const dw = iw * scale;
-      const dh = ih * scale;
-      ctx.drawImage(bitmap, -dw/2, -dh/2, dw, dh);
-
-      ctx.restore();
-    }
-
-    // abre em nova aba
-    const url = canvas.toDataURL("image/png");
-    const win = window.open();
-    if(win){
-      win.document.write(`<title>Montagem • Faz de Conta</title><img src="${url}" style="max-width:100%;height:auto;display:block;margin:0 auto;background:#111"/>`);
+  // warn (small)
+  setTimeout(()=>{
+    if(missing.length){
+      $("#imgWarn").style.display="block";
+      $("#imgWarn").textContent =
+        "Algumas imagens não carregaram: " + [...new Set(missing)].join(", ") +
+        " — confira se existem em assets/ e se o nome está idêntico (minúsculas/sem espaços).";
     }else{
-      alert("Seu navegador bloqueou pop-up. Permita pop-up e tente novamente.");
+      $("#imgWarn").style.display="none";
     }
-  });
+  }, 150);
+}
+$("#search").addEventListener("input", renderCatalog);
+$("#catFilter").addEventListener("change", renderCatalog);
+renderCatalog();
 
-  function loadImage(src){
-    return new Promise((resolve,reject)=>{
-      const im = new Image();
-      im.crossOrigin = "anonymous";
-      im.onload = ()=> resolve(im);
-      im.onerror = reject;
-      im.src = src;
+/* =========================
+   ITEMS / STAGE
+   ========================= */
+function stageRect(){ return stage.getBoundingClientRect(); }
+
+function addItemFromCatalog(catId, opts = {}){
+  const cat = CATALOG.find(c=>c.id===catId);
+  if(!cat) return;
+
+  const r = stageRect();
+  const newItem = {
+    id: crypto.randomUUID(),
+    catId: cat.id,
+    name: cat.name,
+    src: cat.src,
+    x: r.width/2,
+    y: r.height/2,
+    scale: opts.scale ?? 1.0,
+    rot: opts.rot ?? 0,
+    op: opts.op ?? 1.0,
+    hue: opts.hue ?? 0,
+    sat: opts.sat ?? 1.0,
+    z: ++zCounter,
+    w: cat.w
+  };
+  items.push(newItem);
+  mountItem(newItem);
+  selectItem(newItem.id);
+  updateSelectedCount();
+}
+
+function mountItem(it){
+  const el = document.createElement("div");
+  el.className="item";
+  el.dataset.id = it.id;
+  el.style.zIndex = it.z;
+
+  const img = document.createElement("img");
+  img.src = it.src;
+  img.alt = it.name;
+  img.style.width = it.w + "px";
+  img.draggable = false;
+
+  img.onerror = ()=>{
+    $("#aiStatus").textContent = "⚠️ Não carregou: " + it.src + " (confira assets/ e nomes).";
+  };
+
+  el.appendChild(img);
+  stage.appendChild(el);
+
+  el.addEventListener("pointerdown", (e)=>startDrag(e, it.id));
+  el.addEventListener("click", ()=>selectItem(it.id));
+
+  applyTransform(it.id);
+}
+
+function getEl(id){ return stage.querySelector(`.item[data-id="${id}"]`); }
+
+function applyTransform(id){
+  const it = items.find(x=>x.id===id);
+  const el = getEl(id);
+  if(!it || !el) return;
+  el.style.left = it.x + "px";
+  el.style.top  = it.y + "px";
+  el.style.zIndex = it.z;
+
+  el.style.transform = `translate(-50%,-50%) rotate(${it.rot}deg) scale(${it.scale})`;
+  el.style.opacity = it.op;
+
+  const img = el.querySelector("img");
+  // Hue + saturation (keeps realism better than recoloring)
+  img.style.filter = `
+    hue-rotate(${it.hue}deg)
+    saturate(${it.sat})
+    drop-shadow(0 18px 28px rgba(0,0,0,.45))
+  `;
+}
+
+function selectItem(id){
+  selectedId = id;
+  stage.querySelectorAll(".item").forEach(n=>n.classList.remove("selected"));
+  const el = getEl(id);
+  if(el) el.classList.add("selected");
+
+  const it = items.find(x=>x.id===id);
+  if(!it){ syncControls(null); return; }
+  syncControls(it);
+}
+
+function syncControls(it){
+  if(!it){
+    $("#rngScale").value = 100;
+    $("#rngRot").value = 0;
+    $("#rngOp").value = 100;
+    $("#rngHue").value = 0;
+    $("#rngSat").value = 100;
+    return;
+  }
+  $("#rngScale").value = Math.round(it.scale*100);
+  $("#rngRot").value = Math.round(it.rot);
+  $("#rngOp").value = Math.round(it.op*100);
+  $("#rngHue").value = Math.round(it.hue);
+  $("#rngSat").value = Math.round(it.sat*100);
+}
+
+function updateSelectedCount(){
+  selCount.textContent = items.length;
+}
+
+function removeSelected(){
+  if(!selectedId) return;
+  const idx = items.findIndex(x=>x.id===selectedId);
+  if(idx<0) return;
+  const el = getEl(selectedId);
+  if(el) el.remove();
+  items.splice(idx,1);
+  selectedId = items.length ? items[items.length-1].id : null;
+  if(selectedId) selectItem(selectedId);
+  updateSelectedCount();
+}
+
+function clearAll(){
+  items = [];
+  selectedId = null;
+  stage.querySelectorAll(".item").forEach(n=>n.remove());
+  updateSelectedCount();
+}
+
+/* drag */
+let drag = null;
+function startDrag(e, id){
+  e.preventDefault();
+  selectItem(id);
+
+  const it = items.find(x=>x.id===id);
+  if(!it) return;
+  const r = stageRect();
+
+  drag = {
+    id,
+    startX: e.clientX,
+    startY: e.clientY,
+    origX: it.x,
+    origY: it.y,
+    rect: r
+  };
+
+  e.currentTarget.setPointerCapture(e.pointerId);
+}
+stage.addEventListener("pointermove", (e)=>{
+  if(!drag) return;
+  const it = items.find(x=>x.id===drag.id);
+  if(!it) return;
+
+  const dx = e.clientX - drag.startX;
+  const dy = e.clientY - drag.startY;
+
+  it.x = Math.max(0, Math.min(drag.rect.width, drag.origX + dx));
+  it.y = Math.max(0, Math.min(drag.rect.height, drag.origY + dy));
+  applyTransform(it.id);
+});
+stage.addEventListener("pointerup", ()=> drag=null);
+stage.addEventListener("pointercancel", ()=> drag=null);
+
+/* controls change */
+function bindRange(id, fn){
+  $(id).addEventListener("input", ()=>{
+    if(!selectedId) return;
+    const it = items.find(x=>x.id===selectedId);
+    if(!it) return;
+    fn(it, Number($(id).value));
+    applyTransform(it.id);
+  });
+}
+bindRange("#rngScale", (it,v)=> it.scale = v/100);
+bindRange("#rngRot", (it,v)=> it.rot = v);
+bindRange("#rngOp", (it,v)=> it.op = v/100);
+bindRange("#rngHue", (it,v)=> it.hue = v);
+bindRange("#rngSat", (it,v)=> it.sat = v/100);
+
+/* buttons */
+$("#btnDel").addEventListener("click", removeSelected);
+$("#btnClearAll").addEventListener("click", clearAll);
+$("#btnDup").addEventListener("click", ()=>{
+  if(!selectedId) return;
+  const it = items.find(x=>x.id===selectedId);
+  if(!it) return;
+  addItemFromCatalog(it.catId, {
+    scale: it.scale,
+    rot: it.rot,
+    op: it.op,
+    hue: it.hue,
+    sat: it.sat
+  });
+  // nudge
+  const n = items[items.length-1];
+  n.x = it.x + 20; n.y = it.y + 20;
+  applyTransform(n.id);
+});
+$("#btnFront").addEventListener("click", ()=>{
+  if(!selectedId) return;
+  const it = items.find(x=>x.id===selectedId);
+  if(!it) return;
+  it.z = ++zCounter;
+  applyTransform(it.id);
+});
+$("#btnBack").addEventListener("click", ()=>{
+  if(!selectedId) return;
+  const it = items.find(x=>x.id===selectedId);
+  if(!it) return;
+  it.z = 1;
+  applyTransform(it.id);
+});
+$("#btnCenter").addEventListener("click", ()=>{
+  if(!selectedId) return;
+  const it = items.find(x=>x.id===selectedId);
+  if(!it) return;
+  const r = stageRect();
+  it.x = r.width/2; it.y = r.height/2;
+  applyTransform(it.id);
+});
+$("#btnReset").addEventListener("click", ()=>{
+  if(!selectedId) return;
+  const it = items.find(x=>x.id===selectedId);
+  if(!it) return;
+  it.scale = 1; it.rot = 0; it.op = 1;
+  applyTransform(it.id);
+  syncControls(it);
+});
+$("#btnResetColor").addEventListener("click", ()=>{
+  if(!selectedId) return;
+  const it = items.find(x=>x.id===selectedId);
+  if(!it) return;
+  it.hue = 0; it.sat = 1;
+  applyTransform(it.id);
+  syncControls(it);
+});
+
+/* Whats / Copy */
+$("#btnCopy").addEventListener("click", async ()=>{
+  try{
+    await navigator.clipboard.writeText($("#phoneText").textContent);
+    $("#aiStatus").textContent = "✅ WhatsApp copiado!";
+  }catch{
+    $("#aiStatus").textContent = "⚠️ Não consegui copiar. Copie manualmente: " + $("#phoneText").textContent;
+  }
+});
+$("#btnWhats").addEventListener("click", ()=>{
+  const phoneDigits = $("#phoneText").textContent.replace(/\D/g,"");
+  // wa.me needs country code
+  const url = "https://wa.me/55" + phoneDigits;
+  window.open(url, "_blank");
+});
+
+/* =========================
+   EXPORT (render to canvas)
+   ========================= */
+async function exportImage(){
+  const r = stageRect();
+  const canvas = document.createElement("canvas");
+  const scale = 2; // export sharper
+  canvas.width = Math.round(r.width*scale);
+  canvas.height = Math.round(r.height*scale);
+  const ctx = canvas.getContext("2d");
+
+  // background (similar to stage)
+  const grd = ctx.createLinearGradient(0,0,canvas.width,canvas.height);
+  grd.addColorStop(0, "#151236");
+  grd.addColorStop(1, "#0b1230");
+  ctx.fillStyle = grd;
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  // sort by z
+  const sorted = [...items].sort((a,b)=>a.z-b.z);
+
+  for(const it of sorted){
+    const img = await loadImg(it.src);
+    // draw centered
+    ctx.save();
+    ctx.globalAlpha = it.op;
+
+    ctx.translate(it.x*scale, it.y*scale);
+    ctx.rotate((it.rot*Math.PI)/180);
+    ctx.scale(it.scale*scale, it.scale*scale);
+
+    // We can’t apply CSS hue-rotate easily in canvas without pixel ops.
+    // So we export without hue (or you can keep hue only for preview).
+    // If you want export with hue later, I implement pixel filter.
+    const w = it.w;
+    const ratio = img.naturalHeight / img.naturalWidth;
+    const h = w * ratio;
+
+    ctx.drawImage(img, -w/2, -h/2, w, h);
+    ctx.restore();
+  }
+
+  const url = canvas.toDataURL("image/png");
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "montagem-faz-de-conta.png";
+  a.click();
+  $("#aiStatus").textContent = "✅ Exportei a imagem (download).";
+}
+function loadImg(src){
+  return new Promise((res, rej)=>{
+    const i = new Image();
+    i.onload = ()=>res(i);
+    i.onerror = ()=>rej(new Error("Erro ao carregar: "+src));
+    i.src = src;
+  });
+}
+$("#btnExport").addEventListener("click", ()=>{
+  exportImage().catch(err=>{
+    $("#aiStatus").textContent = "⚠️ Não consegui exportar. " + err.message;
+  });
+});
+
+/* =========================
+   “IA” LOCAL (auto montagem)
+   ========================= */
+function norm(s){return (s||"").toLowerCase();}
+const COLOR_HINTS = {
+  "azul": 210,
+  "rosa": 320,
+  "pink": 320,
+  "roxo": 270,
+  "lilás": 285,
+  "lilas": 285,
+  "vermelho": 0,
+  "amarelo": 55,
+  "verde": 120,
+  "dourado": 45,
+  "gold": 45,
+  "branco": 0,
+  "preto": 0,
+};
+
+function detectHue(text){
+  text = norm(text);
+  for(const k in COLOR_HINTS){
+    if(text.includes(k)) return COLOR_HINTS[k];
+  }
+  return null;
+}
+
+function generateLayoutFromText(text){
+  const t = norm(text);
+
+  // clear stage first
+  clearAll();
+
+  // base positions
+  const r = stageRect();
+  const leftX  = r.width * 0.30;
+  const midX   = r.width * 0.52;
+  const rightX = r.width * 0.72;
+  const topY   = r.height * 0.28;
+  const midY   = r.height * 0.55;
+  const botY   = r.height * 0.72;
+
+  // choose hue (applied mostly to balloons + LED)
+  const hue = detectHue(t);
+
+  // Add LED if mentioned
+  if(t.includes("led") || t.includes("luz") || t.includes("cortina")){
+    addItemFromCatalog("led", {scale:1.15, rot:0, op:0.95, hue: hue ?? 50, sat:1.15});
+    const it = items[items.length-1];
+    it.x = midX; it.y = midY;
+    it.z = 1; // behind
+    applyTransform(it.id);
+  }
+
+  // Add arco structure if mentioned
+  if(t.includes("arco") || t.includes("estrutura")){
+    addItemFromCatalog("arco", {scale:1.1, rot:0, op:1, hue:0, sat:1});
+    const it = items[items.length-1];
+    it.x = midX; it.y = midY;
+    it.z = 3;
+    applyTransform(it.id);
+  }
+
+  // Add balloons if mentioned (or theme implies)
+  if(t.includes("bal") || t.includes("balo") || t.includes("balão") || t.includes("balao") || t.includes("arco org")){
+    addItemFromCatalog("baloes", {scale:1.05, rot:0, op:1, hue: hue ?? 0, sat:1.2});
+    const it = items[items.length-1];
+
+    // side preference
+    if(t.includes("esquer") || t.includes("lado esquerdo")){
+      it.x = leftX; it.y = midY;
+      it.rot = -6;
+    } else if(t.includes("direit") || t.includes("lado direito")){
+      it.x = rightX; it.y = midY;
+      it.rot = 6;
+    } else {
+      it.x = leftX; it.y = midY;
+      it.rot = -4;
+    }
+    it.z = 6;
+    applyTransform(it.id);
+  }
+
+  // Tapete if mentioned
+  if(t.includes("tapete") || t.includes("carpete") || t.includes("chão") || t.includes("chao")){
+    addItemFromCatalog("tapete", {scale:1.05, rot:0, op:0.95, hue: detectHue(t) ?? 0, sat:1.0});
+    const it = items[items.length-1];
+    it.x = midX; it.y = botY;
+    it.z = 2;
+    applyTransform(it.id);
+  }
+
+  // Cylinders if mentioned
+  if(t.includes("cilind") || t.includes("suporte") || t.includes("mesa") || t.includes("base")){
+    addItemFromCatalog("cilindros", {scale:1.0, rot:0, op:1, hue:0, sat:1});
+    const it = items[items.length-1];
+    it.x = midX; it.y = botY - 20;
+    it.z = 5;
+    applyTransform(it.id);
+  }
+
+  // If user asks "centro", shift main items to center
+  if(t.includes("centro")){
+    items.forEach(it=>{
+      it.x = Math.min(r.width-10, Math.max(10, it.x + (midX - it.x)*0.35));
+      applyTransform(it.id);
     });
   }
 
-  // ===================== VERSÍCULO DO DIA =====================
-  const VERSES = [
-    { ref:"Romanos 12:12", text:"Alegrai-vos na esperança, sede pacientes na tribulação, perseverai na oração." },
-    { ref:"Salmos 23:1", text:"O Senhor é o meu pastor; nada me faltará." },
-    { ref:"Provérbios 3:5", text:"Confia no Senhor de todo o teu coração e não te estribes no teu próprio entendimento." },
-    { ref:"Isaías 41:10", text:"Não temas, porque eu sou contigo; não te assombres, porque eu sou o teu Deus." },
-    { ref:"Filipenses 4:13", text:"Tudo posso naquele que me fortalece." },
-    { ref:"Salmos 46:1", text:"Deus é o nosso refúgio e fortaleza, socorro bem presente na angústia." },
-    { ref:"Mateus 11:28", text:"Vinde a mim, todos os que estais cansados e oprimidos, e eu vos aliviarei." },
-    { ref:"João 14:27", text:"Deixo-vos a paz, a minha paz vos dou; não vo-la dou como o mundo a dá." }
-  ];
-  function dayOfYear(d){
-    const start = new Date(d.getFullYear(), 0, 0);
-    const diff = d - start;
-    return Math.floor(diff / 86400000);
+  // select last item
+  if(items.length) selectItem(items[items.length-1].id);
+  $("#aiStatus").textContent = "✅ Cenário gerado! Agora você pode arrastar e ajustar.";
+}
+
+/* IA buttons */
+$("#btnAi").addEventListener("click", ()=>{
+  const text = $("#aiText").value.trim();
+  if(!text){
+    $("#aiStatus").textContent = "Escreva algo (ou toque em 🎙️ Falar).";
+    return;
   }
-  function setVerseOfDay(){
-    const d = new Date();
-    const idx = dayOfYear(d) % VERSES.length;
-    const v = VERSES[idx];
-    el("verseText").textContent = `"${v.text}"`;
-    el("verseRef").textContent = v.ref;
+  $("#aiStatus").textContent = "Gerando cenário…";
+  setTimeout(()=> generateLayoutFromText(text), 200);
+});
+$("#btnAiClear").addEventListener("click", ()=>{
+  $("#aiText").value = "";
+  $("#aiStatus").textContent = "";
+});
+
+/* =========================
+   VOICE (SpeechRecognition)
+   ========================= */
+let recognizing = false;
+let rec = null;
+
+function initSpeech(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR) return null;
+  const r = new SR();
+  r.lang = "pt-BR";
+  r.interimResults = true;
+  r.continuous = false;
+  return r;
+}
+
+$("#btnMic").addEventListener("click", ()=>{
+  if(recognizing){
+    rec && rec.stop();
+    return;
   }
-  setVerseOfDay();
-
-  // ===================== TINT (hex -> hue) =====================
-  function hexToHue(hex){
-    // converte cor para matiz aproximado (0..360)
-    if(!hex || hex[0] !== "#") return 0;
-    const r = parseInt(hex.slice(1,3),16)/255;
-    const g = parseInt(hex.slice(3,5),16)/255;
-    const b = parseInt(hex.slice(5,7),16)/255;
-
-    const max = Math.max(r,g,b);
-    const min = Math.min(r,g,b);
-    const d = max - min;
-    if(d === 0) return 0;
-
-    let h = 0;
-    if(max === r) h = ((g-b)/d) % 6;
-    else if(max === g) h = (b-r)/d + 2;
-    else h = (r-g)/d + 4;
-
-    h = Math.round(h * 60);
-    if(h < 0) h += 360;
-    return h;
+  rec = initSpeech();
+  if(!rec){
+    $("#micStatus").textContent = "⚠️ Seu navegador não suporta microfone por voz aqui. Use o Chrome no Android.";
+    return;
   }
 
-  // ===================== INIT UI =====================
-  updateLayerInfo();
-  updateControls();
+  recognizing = true;
+  $("#micStatus").textContent = "🎙️ Ouvindo… fale agora (ex.: “arco de balões rosa, led no fundo e tapete”).";
+  $("#btnMic").textContent = "⏹️ Parar";
+
+  rec.onresult = (ev)=>{
+    let finalText = "";
+    let interim = "";
+    for(let i=ev.resultIndex; i<ev.results.length; i++){
+      const txt = ev.results[i][0].transcript;
+      if(ev.results[i].isFinal) finalText += txt + " ";
+      else interim += txt;
+    }
+    const base = $("#aiText").value.trim();
+    const merged = (base ? base + " " : "") + (finalText || interim);
+    $("#aiText").value = merged.trim();
+  };
+
+  rec.onerror = (e)=>{
+    $("#micStatus").textContent = "⚠️ Erro no microfone: " + (e.error || "desconhecido");
+  };
+
+  rec.onend = ()=>{
+    recognizing = false;
+    $("#btnMic").textContent = "🎙️ Falar";
+    $("#micStatus").textContent = "✅ Pronto. Se quiser, toque em “✨ Gerar cenário”.";
+  };
+
+  rec.start();
+});
+
+/* =========================
+   START: add nothing by default
+   ========================= */
+updateSelectedCount();
 </script>
 </body>
 </html>
