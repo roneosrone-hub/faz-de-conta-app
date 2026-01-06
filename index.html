@@ -3,19 +3,25 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Faz de Conta Decorações • Catálogo</title>
+  <title>Faz de Conta Decorações • Catálogo + Montagem</title>
 
   <style>
     :root{
       --bg0:#070916;
       --bg1:#0b1230;
       --card: rgba(255,255,255,.08);
+      --card2: rgba(255,255,255,.06);
       --stroke: rgba(255,255,255,.14);
       --text: rgba(255,255,255,.92);
       --muted: rgba(255,255,255,.65);
+      --muted2: rgba(255,255,255,.45);
       --shadow: 0 18px 50px rgba(0,0,0,.55);
       --radius: 22px;
       --radius2: 18px;
+      --accent: rgba(0,255,213,.28);
+      --good: rgba(125,255,106,.25);
+      --warn: rgba(255,217,74,.20);
+      --danger: rgba(255,75,216,.20);
     }
 
     *{ box-sizing:border-box; }
@@ -43,38 +49,30 @@
       mix-blend-mode: screen;
     }
 
-    .wrap{
-      width:min(1180px, 92vw);
-      margin: 18px auto 48px;
-    }
+    .wrap{ width:min(1180px, 92vw); margin: 18px auto 48px; }
 
-    /* SLOGAN FIXO (TOP) */
+    /* slogan flutuante */
     .floatingSlogan{
       position: sticky;
       top: 10px;
       z-index: 10;
       width: fit-content;
       margin-bottom: 10px;
-      padding: 10px 14px;
+      padding: 8px 12px;
       border-radius: 999px;
       background: rgba(0,0,0,.22);
       border:1px solid rgba(255,255,255,.12);
       box-shadow: 0 12px 30px rgba(0,0,0,.25);
       color: rgba(255,255,255,.92);
-      font-weight: 1000;
+      font-weight: 900;
       letter-spacing:.2px;
       display:flex;
       align-items:center;
-      gap:10px;
-      font-size: 16px; /* aqui aumenta o “Onde a imaginação vira festa” do topo */
+      gap:8px;
     }
-    .floatingSlogan .star{ filter: drop-shadow(0 6px 14px rgba(0,0,0,.55)); }
 
     /* HEADER */
     .header{
-      display:flex;
-      flex-direction:column;
-      gap:14px;
       padding: 18px;
       border-radius: var(--radius);
       background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
@@ -84,7 +82,6 @@
       overflow:hidden;
       position:relative;
     }
-
     .header::before{
       content:"";
       position:absolute; inset:-2px;
@@ -94,28 +91,27 @@
       pointer-events:none;
     }
 
-    .headTop{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:14px;
-      align-items:stretch;
+    .headGrid{
       position:relative;
       z-index:1;
+      display:grid;
+      grid-template-columns: 1fr 370px;
+      gap: 14px;
+      align-items:stretch;
     }
     @media(max-width: 980px){
-      .headTop{ grid-template-columns: 1fr; }
+      .headGrid{ grid-template-columns: 1fr; }
     }
 
-    /* Esquerda: marca */
-    .brandLeft{
+    .brandRow{
       display:flex;
       gap:14px;
       align-items:center;
       justify-content:flex-start;
-      min-width: 280px;
+      flex-wrap:wrap;
     }
 
-    .logo{
+    .logoBox{
       width:190px; height:170px;
       border-radius: 18px;
       background: rgba(0,0,0,.25);
@@ -123,31 +119,22 @@
       overflow:hidden;
       box-shadow: 0 14px 35px rgba(0,0,0,.35);
       flex:0 0 auto;
-      position:relative;
       display:flex;
       align-items:center;
       justify-content:center;
-      font-weight: 1000;
-      letter-spacing:.5px;
-      color: rgba(255,255,255,.85);
+      position:relative;
     }
-    .logo img{
+    .logoBox img{
       width:100%; height:100%;
       object-fit: cover;
-      display:none;
+      display:block;
     }
-    .logo.fallback{
-      background: linear-gradient(135deg, rgba(255,75,216,.25), rgba(0,255,213,.18));
-    }
-    #logoFallbackText{ display:block; }
 
-    .titleBlock{ min-width: 210px; }
-
+    .brandText{ min-width: 240px; }
     .gradTitle{
       font-weight: 1000;
       font-size: 44px;
       line-height: 1.05;
-      text-align:left;
       letter-spacing: .6px;
       text-transform: uppercase;
       background: linear-gradient(
@@ -171,115 +158,22 @@
       0%{ background-position:0% 50%; }
       100%{ background-position:260% 50%; }
     }
-
     .sloganBelow{
       margin-top: 6px;
-      text-align:left;
-      font-size: 16px; /* aqui aumenta o “Onde a imaginação vira festa” do título */
-      font-weight: 1000;
+      font-size: 16px;
+      font-weight: 950;
       color: rgba(255,255,255,.92);
       letter-spacing:.2px;
       text-shadow: 0 10px 26px rgba(0,0,0,.45);
-      display:flex;
-      align-items:center;
-      gap:8px;
     }
 
-    /* Direita: “Monte seu pedido” (foi para o lugar do Jaciara/Whats/Data) */
-    .orderPanel{
-      border-radius: 18px;
-      background: rgba(0,0,0,.18);
-      border:1px solid rgba(255,255,255,.10);
-      padding: 14px;
-      height:100%;
-      box-shadow: 0 14px 35px rgba(0,0,0,.25);
-    }
-    .orderPanel h2{
-      margin: 0 0 8px;
-      font-size: 18px;
-      letter-spacing:.2px;
-    }
-    .orderPanel p{
-      margin: 0 0 12px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height:1.35;
-    }
-
-    .field{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      background: rgba(0,0,0,.22);
-      border:1px solid rgba(255,255,255,.12);
-      margin-bottom: 10px;
-    }
-    .field input, .field select{
-      width:100%;
-      border:none;
-      outline:none;
-      background: transparent;
-      color: rgba(255,255,255,.9);
-      font-size: 13px;
-      font-weight: 800;
-    }
-    .field input::placeholder{ color: rgba(255,255,255,.35); }
-
-    .row{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
-      margin-top: 10px;
-    }
-
-    .toggle{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      color: rgba(255,255,255,.75);
-      font-size: 13px;
-      background: rgba(0,0,0,.20);
-      border:1px solid rgba(255,255,255,.12);
-      border-radius: 14px;
-      padding: 10px 12px;
-      user-select:none;
-      font-weight: 800;
-    }
-    .switch{
-      width: 44px; height: 26px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.14);
-      border:1px solid rgba(255,255,255,.14);
-      position:relative;
-      cursor:pointer;
-      flex:0 0 auto;
-    }
-    .knob{
-      width: 22px; height: 22px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.92);
-      position:absolute;
-      top:1px; left:1px;
-      transition: left .18s ease, background .18s ease;
-    }
-    .switch.on{ background: rgba(0,255,213,.24); }
-    .switch.on .knob{ left: 21px; background: rgba(255,255,255,.96); }
-
-    /* botões */
     .actions{
+      margin-top: 14px;
       display:flex;
       gap:10px;
       flex-wrap:wrap;
       align-items:center;
-      justify-content:flex-start;
-      position:relative;
-      z-index:1;
     }
-
     .btn{
       display:inline-flex;
       align-items:center;
@@ -304,7 +198,6 @@
       background: linear-gradient(90deg, rgba(255,75,216,.38), rgba(0,255,213,.26), rgba(255,217,74,.24));
       border-color: rgba(255,255,255,.18);
     }
-
     .pill{
       display:inline-flex;
       align-items:center;
@@ -320,130 +213,234 @@
       margin-left: 6px;
     }
 
-    /* ====== PALCO (MONTAGEM COM MINIATURAS) ====== */
-    .builderCard{
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
-      border:1px solid var(--stroke);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-      overflow:hidden;
-      position:relative;
-      margin-top: 14px;
-    }
-
-    .builderWrap{
+    /* Painel "Monte seu pedido" */
+    .panelCard{
+      border-radius: var(--radius2);
+      background: linear-gradient(180deg, rgba(0,0,0,.24), rgba(0,0,0,.16));
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow: 0 18px 50px rgba(0,0,0,.28);
       padding: 14px;
+      height:100%;
     }
-
-    .builderStage{
-      height: 420px;
-      border-radius: 22px;
-      border:1px solid rgba(255,255,255,.14);
-      background:
-        radial-gradient(900px 400px at 50% 10%, rgba(255,255,255,.10), transparent 55%),
-        linear-gradient(180deg, rgba(10,14,40,.55), rgba(6,8,22,.75));
-      box-shadow: 0 18px 60px rgba(0,0,0,.45);
-      position: relative;
-      overflow: hidden;
-    }
-    .builderStage::after{
-      content:"";
-      position:absolute;
-      left:0; right:0; bottom:-90px;
-      height: 240px;
-      background: radial-gradient(700px 240px at 50% 0%, rgba(255,255,255,.12), transparent 70%);
-      transform: skewY(-6deg);
-      opacity:.9;
-      pointer-events:none;
-    }
-
-    .stageThemeLight{
-      background:
-        radial-gradient(900px 400px at 50% 10%, rgba(0,0,0,.06), transparent 55%),
-        linear-gradient(180deg, rgba(245,245,255,.95), rgba(220,230,255,.92));
-    }
-    .stageThemeDark{
-      background:
-        radial-gradient(900px 400px at 50% 10%, rgba(255,255,255,.10), transparent 55%),
-        linear-gradient(180deg, rgba(10,14,40,.55), rgba(6,8,22,.75));
-    }
-    .stageThemeParty{
-      background:
-        radial-gradient(900px 400px at 20% 10%, rgba(122,66,255,.25), transparent 60%),
-        radial-gradient(700px 300px at 80% 25%, rgba(0,255,213,.14), transparent 55%),
-        linear-gradient(180deg, rgba(8,10,25,.70), rgba(6,8,22,.90));
-    }
-
-    .piece{
-      position:absolute;
-      left: 50%;
-      top: 45%;
-      transform: translate(-50%,-50%);
-      cursor: grab;
-      user-select: none;
-      touch-action: none;
-      filter: drop-shadow(0 12px 30px rgba(0,0,0,.45));
-    }
-    .piece:active{ cursor: grabbing; }
-    .piece .label{
-      margin-top: 6px;
-      text-align:center;
-      font-size: 12px;
+    .panelCard h3{
+      margin: 0 0 6px;
+      font-size: 15px;
+      letter-spacing:.2px;
       font-weight: 1000;
-      color: rgba(255,255,255,.86);
-      text-shadow: 0 10px 26px rgba(0,0,0,.45);
     }
-    .piece svg{
-      display:block;
-      width: 140px;
-      height: 110px;
+    .panelCard p{
+      margin:0 0 10px;
+      color: rgba(255,255,255,.70);
+      font-size: 12px;
+      line-height:1.35;
     }
-
-    .builderControls{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top: 12px;
-      align-items:center;
-    }
-    .ctrl{
+    .field{
       display:flex;
       align-items:center;
       gap:10px;
       padding: 10px 12px;
       border-radius: 14px;
-      background: rgba(0,0,0,.20);
-      border:1px solid rgba(255,255,255,.12);
-      color: rgba(255,255,255,.80);
-      font-size: 13px;
-      font-weight: 900;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      margin-bottom: 10px;
     }
-    .ctrl select, .ctrl input{
-      background: transparent;
+    .field input, .field select{
+      width:100%;
       border:none;
       outline:none;
+      background: transparent;
       color: rgba(255,255,255,.92);
-      font-weight: 900;
+      font-size: 13px;
     }
-    .ctrl input[type="color"]{
-      width: 42px;
-      height: 30px;
-      padding:0;
-      border-radius: 10px;
-      border:1px solid rgba(255,255,255,.18);
-      cursor:pointer;
-    }
-    .ctrl input[type="range"]{ width: 180px; }
+    .field input::placeholder{ color: rgba(255,255,255,.35); }
 
-    .miniBar{
+    .row{
       display:flex;
       gap:10px;
       flex-wrap:wrap;
-      margin-top: 12px;
+      align-items:center;
+      justify-content:space-between;
+      margin-top: 8px;
+    }
+    .toggle{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color: rgba(255,255,255,.78);
+      font-size: 12px;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: 14px;
+      padding: 10px 12px;
+      user-select:none;
+      flex:1;
+    }
+    .switch{
+      width: 44px; height: 26px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.14);
+      position:relative;
+      cursor:pointer;
+      flex:0 0 auto;
+    }
+    .knob{
+      width: 22px; height: 22px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.92);
+      position:absolute;
+      top:1px; left:1px;
+      transition: left .18s ease;
+    }
+    .switch.on{ background: rgba(0,255,213,.24); }
+    .switch.on .knob{ left: 21px; }
+
+    /* Montagem (quadrao grande) */
+    .montagemCard{
+      margin-top: 14px;
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+      border:1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      backdrop-filter: blur(10px);
     }
 
-    /* SEÇÃO ITENS */
+    .montagemHead{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding: 12px 14px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+    }
+    .montagemHead b{ font-size: 13px; }
+    .hint{ color: rgba(255,255,255,.65); font-size: 12px; }
+
+    .stageWrap{
+      padding: 12px;
+    }
+
+    .stage{
+      position:relative;
+      width:100%;
+      height: 440px;
+      border-radius: 20px;
+      border:1px solid rgba(255,255,255,.12);
+      background:
+        radial-gradient(900px 300px at 20% 20%, rgba(255,255,255,.06), transparent 55%),
+        radial-gradient(700px 280px at 80% 30%, rgba(0,255,213,.08), transparent 55%),
+        radial-gradient(700px 280px at 40% 90%, rgba(255,75,216,.06), transparent 55%),
+        linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.18));
+      overflow:hidden;
+      box-shadow: 0 22px 70px rgba(0,0,0,.45);
+    }
+    @media(max-width: 700px){
+      .stage{ height: 360px; }
+    }
+
+    /* Objetos dentro do stage */
+    .obj{
+      position:absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%,-50%) scale(1) rotate(0deg);
+      transform-origin: center;
+      cursor: grab;
+      user-select:none;
+      touch-action:none;
+      border-radius: 12px;
+      outline: 0;
+    }
+    .obj:active{ cursor: grabbing; }
+
+    /* SUMIR PRETO (efeito profissional) */
+    .obj.blendScreen{
+      mix-blend-mode: screen;
+    }
+
+    .obj.selected{
+      outline: 2px solid rgba(0,255,213,.35);
+      box-shadow: 0 0 0 6px rgba(0,255,213,.10);
+    }
+
+    .obj img{
+      display:block;
+      max-width: 360px;
+      max-height: 360px;
+      width:auto; height:auto;
+      pointer-events:none;
+      filter: var(--objFilter, none);
+    }
+
+    /* Controles */
+    .controls{
+      padding: 12px 14px;
+      border-top:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.16);
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 12px;
+    }
+    @media(max-width: 980px){
+      .controls{ grid-template-columns: 1fr; }
+    }
+
+    .box{
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.16);
+      padding: 12px;
+    }
+    .boxTitle{
+      font-weight: 1000;
+      font-size: 12px;
+      color: rgba(255,255,255,.78);
+      margin-bottom: 10px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .boxTitle span{ color: rgba(255,255,255,.55); font-weight: 800; }
+
+    .sl{
+      width:100%;
+      accent-color: #00ffd5;
+    }
+    .gridBtns{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+    @media(max-width: 700px){
+      .gridBtns{ grid-template-columns: repeat(2, 1fr); }
+    }
+    .miniBtn{
+      padding: 10px 10px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.92);
+      font-weight: 900;
+      font-size: 12px;
+      cursor:pointer;
+    }
+    .miniBtn:hover{ background: rgba(255,255,255,.09); }
+    .miniBtn.danger{ background: var(--danger); }
+    .miniBtn.good{ background: var(--good); }
+    .miniBtn.warn{ background: var(--warn); }
+
+    .note{
+      margin-top:10px;
+      color: rgba(255,255,255,.65);
+      font-size: 12px;
+      line-height:1.35;
+    }
+
+    /* Catálogo */
     .sectionTitle{
       margin: 18px 0 10px;
       display:flex;
@@ -463,7 +460,6 @@
       border-radius: 999px;
       background: rgba(0,0,0,.22);
       border:1px solid rgba(255,255,255,.12);
-      font-weight: 900;
     }
 
     .grid{
@@ -483,7 +479,6 @@
       overflow:hidden;
       position:relative;
     }
-
     .item{ padding: 12px; cursor:pointer; }
     .thumb{
       height: 150px;
@@ -492,7 +487,9 @@
       background: rgba(0,0,0,.22);
       border:1px solid rgba(255,255,255,.10);
       box-shadow: 0 12px 30px rgba(0,0,0,.25);
-      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
     .thumb img{
       width:100%; height:100%;
@@ -500,18 +497,6 @@
       display:block;
       transform: scale(1.02);
       transition: transform .25s ease;
-    }
-    .thumb .ph{
-      position:absolute; inset:0;
-      display:flex;
-      align-items:center; justify-content:center;
-      color: rgba(255,255,255,.70);
-      font-weight: 900;
-      letter-spacing:.2px;
-      background:
-        radial-gradient(300px 140px at 40% 30%, rgba(0,255,213,.14), transparent 60%),
-        radial-gradient(260px 120px at 70% 70%, rgba(255,75,216,.12), transparent 60%),
-        rgba(0,0,0,.22);
     }
     .item:hover .thumb img{ transform: scale(1.06); }
 
@@ -539,7 +524,6 @@
       border-radius: 999px;
       background: rgba(0,0,0,.22);
       border:1px solid rgba(255,255,255,.10);
-      font-weight: 900;
     }
 
     .footer{
@@ -547,91 +531,6 @@
       text-align:center;
       color: rgba(255,255,255,.45);
       font-size: 12px;
-    }
-
-    /* MODAL CONTRATO */
-    .modalBack{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,.6);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding: 16px;
-      z-index: 999;
-    }
-    .modal{
-      width: min(860px, 96vw);
-      border-radius: 22px;
-      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
-      border:1px solid rgba(255,255,255,.16);
-      box-shadow: 0 25px 90px rgba(0,0,0,.7);
-      overflow:hidden;
-      backdrop-filter: blur(12px);
-    }
-    .modalHead{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-      padding: 12px 14px;
-      border-bottom:1px solid rgba(255,255,255,.10);
-    }
-    .modalHead strong{ font-size: 14px; }
-    .x{
-      border:none;
-      width: 40px; height: 40px;
-      border-radius: 14px;
-      background: rgba(0,0,0,.25);
-      border:1px solid rgba(255,255,255,.12);
-      color: rgba(255,255,255,.88);
-      font-weight: 1000;
-      cursor:pointer;
-    }
-    .modalBody{
-      padding: 12px;
-    }
-
-    .side{
-      padding: 12px;
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
-      height: 100%;
-    }
-    .side .line{
-      color: rgba(255,255,255,.70);
-      font-size: 13px;
-      margin-bottom: 10px;
-      line-height:1.35;
-    }
-    .side .line b{ color: rgba(255,255,255,.92); }
-
-    canvas{
-      width:100%;
-      height: 140px;
-      background: rgba(0,0,0,.22);
-      border:1px solid rgba(255,255,255,.12);
-      border-radius: 14px;
-      display:block;
-      touch-action: none;
-    }
-    .checkRow{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      margin-top: 10px;
-      font-size: 12px;
-      color: rgba(255,255,255,.70);
-    }
-    .checkRow input{ margin-top: 2px; }
-
-    /* responsivo */
-    @media(max-width: 560px){
-      .gradTitle{ font-size: 34px; }
-      .sloganBelow{ font-size: 15px; }
-      .logo{ width:120px; height:110px; }
-      .builderStage{ height: 360px; }
-      .floatingSlogan{ font-size: 15px; }
     }
   </style>
 </head>
@@ -641,44 +540,45 @@
 
   <div class="wrap">
     <div class="floatingSlogan">
-      <span class="star">✨</span>
+      <span>✨</span>
       <span>Onde a imaginação vira festa</span>
     </div>
 
-    <!-- HEADER -->
-    <div class="header" id="tiltHeader">
-      <div class="headTop">
-        <!-- ESQUERDA -->
-        <div class="brandLeft">
-          <div class="logo fallback" title="Logo" id="logoBox">
-            <img id="logoImg" alt="Faz de Conta Decorações"/>
-            <span id="logoFallbackText">FC</span>
-          </div>
+    <!-- HEADER (marca + painel monte seu pedido) -->
+    <div class="header">
+      <div class="headGrid">
 
-          <div class="titleBlock">
-            <div class="gradTitle">FAZ DE CONTA<br/>DECORAÇÕES</div>
-            <div class="sloganBelow">✨ Onde a imaginação vira festa</div>
+        <!-- LADO ESQUERDO: marca -->
+        <div>
+          <div class="brandRow">
+            <div class="logoBox">
+              <img src="assets/logo.png" alt="Logo Faz de Conta" onerror="this.style.display='none'">
+            </div>
 
-            <div class="actions" style="margin-top:12px">
-              <button class="btn" id="btnWhats">💬 WhatsApp</button>
-              <button class="btn" id="btnCart">🛒 Carrinho <span class="pill" id="cartCount">0</span></button>
-              <button class="btn" id="btnContract">📝 Contrato</button>
-              <button class="btn primary" id="btnFinish">✅ Finalizar (Pix)</button>
+            <div class="brandText">
+              <div class="gradTitle">FAZ DE CONTA DECORAÇÕES</div>
+              <div class="sloganBelow">✨ Onde a imaginação vira festa</div>
+
+              <div class="actions">
+                <button class="btn" id="btnWhats">💬 WhatsApp</button>
+                <button class="btn" id="btnCart">🛒 Carrinho <span class="pill" id="cartCount">0</span></button>
+                <button class="btn" id="btnResetStage">🧼 Limpar montagem</button>
+                <button class="btn primary" id="btnFinish">✅ Finalizar (Pix)</button>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- DIREITA (MONTE SEU PEDIDO) -->
-        <div class="orderPanel">
-          <h2>Monte seu pedido</h2>
-          <p>Pesquise e clique nos itens para jogar na montagem. Você pode esconder/mostrar os preços.</p>
+        <!-- LADO DIREITO: MONTE SEU PEDIDO (no lugar de Jaciara/Whats/Data) -->
+        <div class="panelCard">
+          <h3>Monte seu pedido</h3>
+          <p>Pesquise e clique nos itens para eles aparecerem na montagem. Depois arraste e ajuste.</p>
 
-          <div class="field">
-            🔎 <input id="q" placeholder="Pesquisar (ex: cilindro, arco, cortina...)"/>
+          <div class="field">🔎
+            <input id="q" placeholder="Pesquisar (ex: cilindro, arco, cortina...)"/>
           </div>
 
-          <div class="field">
-            🧩
+          <div class="field">🧩
             <select id="cat">
               <option value="Todas">Todas as categorias</option>
             </select>
@@ -689,58 +589,90 @@
               🔒 Mostrar preços
               <div class="switch" id="priceSwitch"><div class="knob"></div></div>
             </div>
-            <button class="btn" id="btnClear">🧼 Limpar</button>
+            <button class="btn" id="btnClear">🧼 Limpar filtros</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- QUADRO GRANDE DE MONTAGEM (no lugar do vídeo) -->
+    <div class="montagemCard">
+      <div class="montagemHead">
+        <b>🧩 Montagem do cliente</b>
+        <div class="hint">Clique num item do catálogo → ele entra aqui. Arraste com o dedo/mouse.</div>
+      </div>
+
+      <div class="stageWrap">
+        <div class="stage" id="stage"></div>
+      </div>
+
+      <div class="controls">
+        <div class="box">
+          <div class="boxTitle">
+            <div>Item selecionado: <span id="selName">Nenhum</span></div>
+            <div id="selInfo">—</div>
           </div>
 
-          <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-            <div class="tag">📍 <b id="cityChip">Jaciara/MT</b></div>
-            <div class="tag">💬 <b>WhatsApp:</b> <span id="whatsChip">(66) 99622-3481</span></div>
-            <div class="tag">📅 <span id="today">--/--/----</span> • ⏰ <b id="clock">--:--</b></div>
+          <div style="display:grid; gap:10px;">
+            <label style="font-size:12px; color:rgba(255,255,255,.78); font-weight:900;">
+              Escala: <span id="scaleLabel">100%</span>
+              <input class="sl" id="scale" type="range" min="30" max="220" value="100"/>
+            </label>
+
+            <label style="font-size:12px; color:rgba(255,255,255,.78); font-weight:900;">
+              Rotação: <span id="rotLabel">0°</span>
+              <input class="sl" id="rot" type="range" min="-180" max="180" value="0"/>
+            </label>
+
+            <label style="font-size:12px; color:rgba(255,255,255,.78); font-weight:900;">
+              Opacidade: <span id="opLabel">100%</span>
+              <input class="sl" id="op" type="range" min="20" max="100" value="100"/>
+            </label>
+          </div>
+
+          <div class="gridBtns">
+            <button class="miniBtn good" id="btnFront">⬆️ Frente</button>
+            <button class="miniBtn good" id="btnBack">⬇️ Fundo</button>
+            <button class="miniBtn warn" id="btnDup">📌 Duplicar</button>
+            <button class="miniBtn danger" id="btnDel">🗑️ Apagar</button>
+          </div>
+
+          <div class="note">
+            ✅ Balões / LED com fundo preto: o preto some automaticamente aqui (efeito profissional).<br/>
+            Dica: se o item ficar “forte demais”, diminua a opacidade.
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="boxTitle">
+            <div>🎨 Cor do item (opcional)</div>
+            <span>funciona melhor em balões/LED</span>
+          </div>
+
+          <label style="font-size:12px; color:rgba(255,255,255,.78); font-weight:900;">
+            Matiz (Hue): <span id="hueLabel">0</span>
+            <input class="sl" id="hue" type="range" min="-180" max="180" value="0"/>
+          </label>
+
+          <label style="font-size:12px; color:rgba(255,255,255,.78); font-weight:900; margin-top:10px; display:block;">
+            Saturação: <span id="satLabel">100%</span>
+            <input class="sl" id="sat" type="range" min="0" max="220" value="100"/>
+          </label>
+
+          <div class="gridBtns" style="grid-template-columns: repeat(2, 1fr); margin-top:12px;">
+            <button class="miniBtn" id="btnResetStyle">♻️ Reset cor</button>
+            <button class="miniBtn" id="btnCenter">🎯 Centralizar</button>
+          </div>
+
+          <div class="note">
+            Se no futuro você quiser “cor por balão”, dá pra fazer usando camadas separadas (você já chegou a ter o zip com layers).
           </div>
         </div>
       </div>
     </div>
 
-    <!-- PALCO / MONTAGEM -->
-    <div class="builderCard">
-      <div class="builderWrap">
-        <div class="builderStage stageThemeDark" id="builderStage"></div>
-
-        <div class="builderControls">
-          <div class="ctrl">
-            Fundo:
-            <select id="bgTheme">
-              <option value="dark">Escuro (Premium)</option>
-              <option value="party">Festa (Colorido)</option>
-              <option value="light">Claro (Clean)</option>
-            </select>
-          </div>
-
-          <div class="ctrl">
-            Cor:
-            <input id="colorPicker" type="color" value="#00ffd5">
-          </div>
-
-          <div class="ctrl">
-            Tamanho:
-            <input id="scaleRange" type="range" min="60" max="170" value="100">
-            <span id="scaleLabel">100%</span>
-          </div>
-
-          <button class="btn" id="btnDeletePiece">🗑️ Remover selecionado</button>
-          <button class="btn" id="btnResetStage">🔄 Limpar palco</button>
-        </div>
-
-        <div class="miniBar">
-          <button class="btn" id="addArco">➕ Arco</button>
-          <button class="btn" id="addBaloes">➕ Balões</button>
-          <button class="btn" id="addTapete">➕ Tapete</button>
-          <button class="btn" id="addLed">➕ Cortina LED</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- ITENS -->
+    <!-- CATÁLOGO -->
     <div class="sectionTitle">
       <h3>✨ Itens do catálogo (clique para jogar na montagem)</h3>
       <div class="badge"><span id="itemsCount">0</span> itens</div>
@@ -748,142 +680,83 @@
 
     <div class="grid" id="grid"></div>
 
-    <div class="footer">© Faz de Conta Decorações • Catálogo</div>
-  </div>
-
-  <!-- MODAL CONTRATO -->
-  <div class="modalBack" id="modalContractBack">
-    <div class="modal">
-      <div class="modalHead">
-        <strong>📝 Contrato rápido (assinatura)</strong>
-        <button class="x" id="closeContract">✕</button>
-      </div>
-
-      <div class="modalBody">
-        <div class="side">
-          <div class="line">
-            <b>Resumo do compromisso:</b><br/>
-            Ao contratar, o cliente se compromete a <b>cuidar dos itens</b>, <b>não molhar</b>, <b>não riscar</b>, evitar exposição a calor,
-            e <b>devolver no prazo combinado</b>. Danos e atrasos podem gerar cobrança adicional (conforme combinado no WhatsApp).
-          </div>
-
-          <div class="checkRow">
-            <input type="checkbox" id="agree"/>
-            <label for="agree">Li e concordo com o compromisso acima.</label>
-          </div>
-
-          <div style="margin-top:12px; font-weight:1000; opacity:.95">Assinatura:</div>
-          <canvas id="sign"></canvas>
-
-          <div class="row" style="margin-top:12px">
-            <button class="btn" id="clearSign">🧽 Limpar assinatura</button>
-            <button class="btn primary" id="saveSign">✅ Salvar aceite</button>
-          </div>
-
-          <div class="side" id="signStatus" style="margin-top:12px">
-            <div class="line"><b>Status:</b> Aguardando aceite.</div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div class="footer">© Faz de Conta Decorações • Catálogo + Montagem</div>
   </div>
 
 <script>
-  // ========= CONFIG =========
+  // =========================
+  // CONFIG
+  // =========================
   const CONFIG = {
     whatsappNumber: "5566996223481",
-    whatsappDisplay: "(66) 99622-3481",
-    cidade: "Jaciara/MT"
+    mensagemWhats: "Olá! Quero informações sobre os itens do catálogo da Faz de Conta Decorações.",
   };
 
-  // ========= ITENS (edite seus itens aqui) =========
-  // Se você NÃO tiver as imagens no projeto, não tem problema: vai aparecer um placeholder.
+  // =========================
+  // ITENS (troque src quando quiser)
+  // DICA: itens com fundo preto (balões/LED) use blend:'screen'
+  // =========================
   const ITENS = [
-    { id:"cilindros", nome:"Cilindros (Suporte)", cat:"Estruturas", desc:"Estruturas e suporte para decoração.", preco:180, thumb:"cilindros-1.jpg", piece:"tapete" },
-    { id:"arco", nome:"Arco de balões", cat:"Balões", desc:"Arco orgânico e temático (montagem sob consulta).", preco:450, thumb:"arco-1.jpg", piece:"arco" },
-    { id:"cortina", nome:"Cortina de LED", cat:"Iluminação", desc:"Fundo e acabamento com luz.", preco:120, thumb:"cortina-1.jpg", piece:"led" },
-    { id:"tapete", nome:"Tapete para fotos", cat:"Cenário", desc:"Base para fotos e cenário.", preco:80, thumb:"tapete-1.jpg", piece:"tapete" },
-    { id:"baloes", nome:"Balões (conjunto)", cat:"Balões", desc:"Conjunto de balões (cores configuráveis).", preco:0, thumb:"baloes-1.jpg", piece:"baloes" }
+    { id:"baloes", nome:"Balões (Arco Orgânico)", cat:"Balões", desc:"Balões realistas para montagem. Arraste e ajuste.", preco:450,
+      src:"assets/baloes.png", blend:"screen" },
+
+    { id:"led", nome:"Cortina de LED", cat:"Iluminação", desc:"Cortina de LED para fundo e brilho.", preco:120,
+      src:"assets/led.png", blend:"screen" },
+
+    { id:"arco", nome:"Arco / Estrutura", cat:"Estruturas", desc:"Estrutura (aro/retângulo) para composição.", preco:180,
+      src:"assets/arco.png", blend:"normal" },
+
+    { id:"tapete", nome:"Tapete para fotos", cat:"Cenário", desc:"Base para fotos (ajuste escala e posição).", preco:80,
+      src:"assets/tapete.png", blend:"normal" },
+
+    { id:"cilindros", nome:"Cilindros (Suporte)", cat:"Estruturas", desc:"Cilindros/mesas para compor cenário.", preco:180,
+      src:"assets/cilindros.png", blend:"normal" },
   ];
 
-  // ========= UTIL =========
+  // =========================
+  // UTIL
+  // =========================
   const el = (id)=>document.getElementById(id);
   const money = (v)=> "R$ " + Number(v||0).toFixed(2).replace(".",",");
 
-  // ========= DATA / RELÓGIO =========
-  el("cityChip").textContent = CONFIG.cidade;
-  el("whatsChip").textContent = CONFIG.whatsappDisplay;
-  function tick(){
-    const d = new Date();
-    const dd = String(d.getDate()).padStart(2,"0");
-    const mm = String(d.getMonth()+1).padStart(2,"0");
-    const yy = d.getFullYear();
-    el("today").textContent = `${dd}/${mm}/${yy}`;
-    el("clock").textContent = d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
-  }
-  tick(); setInterval(tick, 1000);
-
-  // ========= LOGO =========
-  function loadLogo(){
-    const img = el("logoImg");
-    const box = el("logoBox");
-    const fb = el("logoFallbackText");
-    const candidates = ["logo.png","logo.jpg","logo.jpeg","logo.webp"];
-    let i = 0;
-
-    function tryNext(){
-      if(i >= candidates.length){
-        img.style.display = "none";
-        fb.style.display = "block";
-        box.classList.add("fallback");
-        return;
-      }
-      img.src = candidates[i++];
-    }
-
-    img.onload = ()=>{
-      img.style.display = "block";
-      fb.style.display = "none";
-      box.classList.remove("fallback");
-    };
-    img.onerror = tryNext;
-    tryNext();
-  }
-  loadLogo();
-
-  // ========= FILTROS / PREÇOS =========
+  // =========================
+  // ESTADO FILTROS/CARRINHO
+  // =========================
   let showPrices = false;
   const state = {
     q: "",
     cat: "Todas",
     cart: new Map(),
-    contractOk: false
   };
 
+  // =========================
+  // FILTROS
+  // =========================
   function setSwitch(on){
     const sw = el("priceSwitch");
     sw.classList.toggle("on", on);
     showPrices = on;
-    render();
+    renderCatalog();
   }
   el("priceSwitch").addEventListener("click", ()=> setSwitch(!showPrices));
 
   el("q").addEventListener("input",(e)=>{
     state.q = (e.target.value||"").toLowerCase().trim();
-    render();
+    renderCatalog();
   });
   el("cat").addEventListener("change",(e)=>{
     state.cat = e.target.value;
-    render();
+    renderCatalog();
   });
   el("btnClear").addEventListener("click", ()=>{
     state.q = "";
     state.cat = "Todas";
     el("q").value = "";
     el("cat").value = "Todas";
-    render();
+    renderCatalog();
   });
 
+  // categorias
   function buildCats(){
     const s = new Set(ITENS.map(i=>i.cat));
     const sel = el("cat");
@@ -902,185 +775,10 @@
     return okCat && okQ;
   }
 
-  // ========= BUILDER (MINIATURAS) =========
-  const stage = el("builderStage");
-  const bgTheme = el("bgTheme");
-  const colorPicker = el("colorPicker");
-  const scaleRange = el("scaleRange");
-  const scaleLabel = el("scaleLabel");
-  const btnDeletePiece = el("btnDeletePiece");
-  const btnResetStage = el("btnResetStage");
-
-  let selectedPiece = null;
-  let zTop = 10;
-
-  function setTheme(v){
-    stage.classList.remove("stageThemeDark","stageThemeParty","stageThemeLight");
-    if(v==="party") stage.classList.add("stageThemeParty");
-    else if(v==="light") stage.classList.add("stageThemeLight");
-    else stage.classList.add("stageThemeDark");
-  }
-  bgTheme.addEventListener("change", e=> setTheme(e.target.value));
-  setTheme(bgTheme.value);
-
-  function svgFor(kind, color){
-    if(kind==="arco"){
-      return `
-      <svg viewBox="0 0 180 130" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20 105 C40 20, 140 20, 160 105" fill="none" stroke="${color}" stroke-width="14" stroke-linecap="round"/>
-        <circle cx="48" cy="74" r="7" fill="${color}" opacity="0.9"/>
-        <circle cx="70" cy="52" r="7" fill="${color}" opacity="0.85"/>
-        <circle cx="92" cy="44" r="7" fill="${color}" opacity="0.8"/>
-        <circle cx="114" cy="52" r="7" fill="${color}" opacity="0.85"/>
-        <circle cx="136" cy="74" r="7" fill="${color}" opacity="0.9"/>
-      </svg>`;
-    }
-    if(kind==="baloes"){
-      return `
-      <svg viewBox="0 0 180 130" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="65" cy="55" rx="26" ry="34" fill="${color}" opacity="0.9"/>
-        <ellipse cx="102" cy="45" rx="24" ry="32" fill="${color}" opacity="0.75"/>
-        <ellipse cx="120" cy="65" rx="22" ry="30" fill="${color}" opacity="0.6"/>
-        <path d="M65 89 C60 100, 58 108, 55 118" stroke="${color}" stroke-width="4" fill="none" opacity="0.8"/>
-        <path d="M102 77 C98 95, 92 106, 88 118" stroke="${color}" stroke-width="4" fill="none" opacity="0.7"/>
-        <path d="M120 94 C118 104, 116 110, 112 118" stroke="${color}" stroke-width="4" fill="none" opacity="0.6"/>
-      </svg>`;
-    }
-    if(kind==="tapete"){
-      return `
-      <svg viewBox="0 0 180 130" xmlns="http://www.w3.org/2000/svg">
-        <rect x="18" y="40" width="144" height="70" rx="18" fill="${color}" opacity="0.75"/>
-        <rect x="28" y="50" width="124" height="50" rx="14" fill="rgba(255,255,255,.12)"/>
-      </svg>`;
-    }
-    return `
-    <svg viewBox="0 0 180 130" xmlns="http://www.w3.org/2000/svg">
-      <rect x="22" y="22" width="136" height="86" rx="16" fill="rgba(255,255,255,.08)" stroke="${color}" stroke-width="4" opacity="0.9"/>
-      ${Array.from({length:7}).map((_,i)=>{
-        const x = 40 + i*18;
-        return `<circle cx="${x}" cy="44" r="4" fill="${color}" opacity="${0.45 + i*0.05}"/>
-                <circle cx="${x}" cy="66" r="4" fill="${color}" opacity="${0.35 + i*0.05}"/>
-                <circle cx="${x}" cy="88" r="4" fill="${color}" opacity="${0.25 + i*0.05}"/>`;
-      }).join("")}
-    </svg>`;
-  }
-
-  function nameFor(kind){
-    if(kind==="arco") return "Arco";
-    if(kind==="baloes") return "Balões";
-    if(kind==="tapete") return "Tapete";
-    return "Cortina LED";
-  }
-
-  function createPiece(kind){
-    const color = colorPicker.value || "#00ffd5";
-    const piece = document.createElement("div");
-    piece.className = "piece";
-    piece.dataset.kind = kind;
-    piece.dataset.color = color;
-    piece.dataset.scale = "1";
-    piece.style.left = "55%";
-    piece.style.top = "55%";
-    piece.style.zIndex = (++zTop).toString();
-
-    piece.innerHTML = `
-      <div class="shape">${svgFor(kind, color)}</div>
-      <div class="label">${nameFor(kind)}</div>
-    `;
-
-    piece.addEventListener("pointerdown", (e)=>{
-      selectPiece(piece);
-      startDrag(e, piece);
-    });
-
-    stage.appendChild(piece);
-    selectPiece(piece);
-  }
-
-  function selectPiece(piece){
-    selectedPiece = piece;
-    colorPicker.value = piece.dataset.color || "#00ffd5";
-    const s = parseFloat(piece.dataset.scale || "1");
-    const pct = Math.round(s * 100);
-    scaleRange.value = String(pct);
-    scaleLabel.textContent = `${pct}%`;
-    piece.style.zIndex = (++zTop).toString();
-  }
-
-  function applyColor(piece, color){
-    piece.dataset.color = color;
-    piece.querySelector(".shape").innerHTML = svgFor(piece.dataset.kind, color);
-  }
-
-  function applyScale(piece, pct){
-    const s = pct / 100;
-    piece.dataset.scale = String(s);
-    piece.style.transform = `translate(-50%,-50%) scale(${s})`;
-  }
-
-  colorPicker.addEventListener("input", ()=>{
-    if(!selectedPiece) return;
-    applyColor(selectedPiece, colorPicker.value);
-  });
-
-  scaleRange.addEventListener("input", ()=>{
-    const pct = Number(scaleRange.value || 100);
-    scaleLabel.textContent = `${pct}%`;
-    if(!selectedPiece) return;
-    applyScale(selectedPiece, pct);
-  });
-
-  btnDeletePiece.addEventListener("click", ()=>{
-    if(!selectedPiece) return;
-    selectedPiece.remove();
-    selectedPiece = null;
-  });
-
-  btnResetStage.addEventListener("click", ()=>{
-    stage.innerHTML = "";
-    selectedPiece = null;
-  });
-
-  el("addArco").addEventListener("click", ()=> createPiece("arco"));
-  el("addBaloes").addEventListener("click", ()=> createPiece("baloes"));
-  el("addTapete").addEventListener("click", ()=> createPiece("tapete"));
-  el("addLed").addEventListener("click", ()=> createPiece("led"));
-
-  function startDrag(e, piece){
-    piece.setPointerCapture(e.pointerId);
-
-    const rect = stage.getBoundingClientRect();
-    const startX = e.clientX;
-    const startY = e.clientY;
-    const pLeft = parseFloat(piece.style.left);
-    const pTop  = parseFloat(piece.style.top);
-
-    function move(ev){
-      const dx = ev.clientX - startX;
-      const dy = ev.clientY - startY;
-
-      const leftPx = (pLeft/100)*rect.width + dx;
-      const topPx  = (pTop/100)*rect.height + dy;
-
-      const leftPct = (leftPx / rect.width) * 100;
-      const topPct  = (topPx  / rect.height) * 100;
-
-      piece.style.left = `${Math.max(5, Math.min(95, leftPct))}%`;
-      piece.style.top  = `${Math.max(8, Math.min(92, topPct))}%`;
-    }
-
-    function up(ev){
-      piece.releasePointerCapture(ev.pointerId);
-      window.removeEventListener("pointermove", move);
-      window.removeEventListener("pointerup", up);
-    }
-
-    window.addEventListener("pointermove", move);
-    window.addEventListener("pointerup", up);
-  }
-
-  // ========= RENDER GRID =========
-  function render(){
+  // =========================
+  // CATÁLOGO
+  // =========================
+  function renderCatalog(){
     const list = ITENS.filter(passFilter);
     el("itemsCount").textContent = list.length;
 
@@ -1095,24 +793,12 @@
       thumb.className = "thumb";
 
       const img = document.createElement("img");
-      img.src = item.thumb || "";
+      img.src = item.src;
       img.alt = item.nome;
-
-      const ph = document.createElement("div");
-      ph.className = "ph";
-      ph.textContent = "Imagem não encontrada";
-
       img.onerror = ()=> {
-        img.style.display = "none";
-        ph.style.display = "flex";
+        img.src = "assets/capa.png";
       };
-      img.onload = ()=>{
-        ph.style.display = "none";
-        img.style.display = "block";
-      };
-
       thumb.appendChild(img);
-      thumb.appendChild(ph);
 
       const name = document.createElement("div");
       name.className = "itemName";
@@ -1141,25 +827,30 @@
       card.appendChild(desc);
       card.appendChild(footer);
 
-      // clique joga na montagem
       card.addEventListener("click", ()=>{
-        createPiece(item.piece || "tapete");
-        // conta carrinho como “selecionado”
+        addToStage(item);
+        // carrinho +1
         const n = state.cart.get(item.id) || 0;
         state.cart.set(item.id, n+1);
-        el("cartCount").textContent = [...state.cart.values()].reduce((a,b)=>a+b,0);
+        updateCartCount();
       });
 
       grid.appendChild(card);
     });
+  }
 
+  function updateCartCount(){
     el("cartCount").textContent = [...state.cart.values()].reduce((a,b)=>a+b,0);
   }
-  render();
 
-  // ========= AÇÕES =========
+  renderCatalog();
+  updateCartCount();
+
+  // =========================
+  // AÇÕES HEADER
+  // =========================
   el("btnWhats").addEventListener("click", ()=>{
-    const url = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent("Olá! Quero informações sobre os itens do catálogo da Faz de Conta Decorações.")}`;
+    const url = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(CONFIG.mensagemWhats)}`;
     window.open(url, "_blank");
   });
 
@@ -1168,100 +859,283 @@
     alert("Carrinho: " + totalItens + " item(ns).");
   });
 
-  // ========= CONTRATO + ASSINATURA =========
-  function openContract(){ el("modalContractBack").style.display="flex"; }
-  function closeContract(){ el("modalContractBack").style.display="none"; }
-  el("btnContract").addEventListener("click", openContract);
-  el("closeContract").addEventListener("click", closeContract);
-  el("modalContractBack").addEventListener("click",(e)=>{
-    if(e.target === el("modalContractBack")) closeContract();
-  });
-
-  const canvas = el("sign");
-  const ctx = canvas.getContext("2d");
-  let drawing = false;
-  let hasStroke = false;
-
-  function resizeCanvas(){
-    const r = canvas.getBoundingClientRect();
-    const dpr = window.devicePixelRatio || 1;
-    canvas.width = Math.floor(r.width * dpr);
-    canvas.height = Math.floor(r.height * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.lineWidth = 2.4;
-    ctx.lineCap = "round";
-    ctx.strokeStyle = "rgba(255,255,255,.92)";
-  }
-  setTimeout(resizeCanvas, 60);
-  window.addEventListener("resize", ()=> setTimeout(resizeCanvas, 60));
-
-  function pos(e){
-    const r = canvas.getBoundingClientRect();
-    const x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
-    const y = (e.touches ? e.touches[0].clientY : e.clientY) - r.top;
-    return {x,y};
-  }
-
-  function down(e){
-    drawing = true;
-    hasStroke = true;
-    const p = pos(e);
-    ctx.beginPath();
-    ctx.moveTo(p.x, p.y);
-    e.preventDefault();
-  }
-  function move(e){
-    if(!drawing) return;
-    const p = pos(e);
-    ctx.lineTo(p.x, p.y);
-    ctx.stroke();
-    e.preventDefault();
-  }
-  function up(){ drawing = false; }
-
-  canvas.addEventListener("mousedown", down);
-  canvas.addEventListener("mousemove", move);
-  window.addEventListener("mouseup", up);
-
-  canvas.addEventListener("touchstart", down, {passive:false});
-  canvas.addEventListener("touchmove", move, {passive:false});
-  window.addEventListener("touchend", up);
-
-  el("clearSign").addEventListener("click", ()=>{
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    hasStroke = false;
-    state.contractOk = false;
-    el("signStatus").innerHTML = '<div class="line"><b>Status:</b> Aguardando aceite.</div>';
-  });
-
-  el("saveSign").addEventListener("click", ()=>{
-    const agreed = el("agree").checked;
-    if(!agreed){
-      el("signStatus").innerHTML = '<div class="line"><b>Status:</b> Marque "Li e concordo" para salvar.</div>';
-      return;
-    }
-    if(!hasStroke){
-      el("signStatus").innerHTML = '<div class="line"><b>Status:</b> Assine no quadro para salvar.</div>';
-      return;
-    }
-    state.contractOk = true;
-    el("signStatus").innerHTML = '<div class="line"><b>Status:</b> Aceite salvo ✅</div>';
-    closeContract();
-  });
-
   el("btnFinish").addEventListener("click", ()=>{
-    if(!state.contractOk){
-      alert("Antes de finalizar, abra o CONTRATO e salve o aceite com assinatura.");
-      openContract();
-      return;
-    }
-    const totalItens = [...state.cart.values()].reduce((a,b)=>a+b,0);
+    const totalItens = [...state.cart.values()].reduce((a,b伴)=>a+b,0);
     if(totalItens<=0){
-      alert("Seu carrinho está vazio. Clique em um item para adicionar.");
+      alert("Seu carrinho está vazio. Clique em um item do catálogo para adicionar.");
       return;
     }
     alert("Finalizar (Pix):\n(Próximo passo: gerar Pix Copia e Cola.)");
   });
+
+  // =========================
+  // MONTAGEM (STAGE)
+  // =========================
+  const stage = el("stage");
+  let selected = null;
+  let zTop = 10;
+
+  function clearSelection(){
+    if(selected) selected.classList.remove("selected");
+    selected = null;
+    syncControls();
+  }
+
+  function selectObj(obj){
+    if(selected) selected.classList.remove("selected");
+    selected = obj;
+    selected.classList.add("selected");
+    syncControls();
+  }
+
+  function makeObj(item){
+    const wrap = document.createElement("div");
+    wrap.className = "obj" + (item.blend === "screen" ? " blendScreen" : "");
+    wrap.dataset.name = item.nome;
+
+    // estado do objeto
+    wrap.dataset.x = "0";
+    wrap.dataset.y = "0";
+    wrap.dataset.scale = "1";
+    wrap.dataset.rot = "0";
+    wrap.dataset.op = "1";
+    wrap.dataset.hue = "0";
+    wrap.dataset.sat = "100";
+
+    wrap.style.zIndex = String(++zTop);
+    wrap.style.opacity = "1";
+
+    const img = document.createElement("img");
+    img.src = item.src;
+    img.alt = item.nome;
+
+    img.onerror = ()=> {
+      img.src = "assets/capa.png";
+    };
+
+    wrap.appendChild(img);
+
+    // clique seleciona
+    wrap.addEventListener("pointerdown", (e)=>{
+      e.stopPropagation();
+      selectObj(wrap);
+      startDrag(e, wrap);
+    });
+
+    return wrap;
+  }
+
+  function applyTransform(obj){
+    const x = Number(obj.dataset.x || 0);
+    const y = Number(obj.dataset.y || 0);
+    const s = Number(obj.dataset.scale || 1);
+    const r = Number(obj.dataset.rot || 0);
+    const op = Number(obj.dataset.op || 1);
+    obj.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) scale(${s}) rotate(${r}deg)`;
+    obj.style.opacity = String(op);
+
+    const hue = Number(obj.dataset.hue || 0);
+    const sat = Number(obj.dataset.sat || 100);
+    obj.querySelector("img").style.filter = `hue-rotate(${hue}deg) saturate(${sat}%)`;
+  }
+
+  function addToStage(item){
+    const obj = makeObj(item);
+    stage.appendChild(obj);
+
+    // posição inicial levemente “inteligente”
+    const offset = Math.floor((Math.random()*60)-30);
+    obj.dataset.x = String(offset);
+    obj.dataset.y = String(offset);
+    obj.dataset.scale = item.id === "tapete" ? "1.25" : "1";
+    obj.dataset.rot = "0";
+    applyTransform(obj);
+
+    selectObj(obj);
+  }
+
+  // clique fora desmarca
+  stage.addEventListener("pointerdown", ()=> clearSelection());
+
+  // DRAG
+  let dragging = false;
+  let dragStart = null;
+
+  function startDrag(e, obj){
+    dragging = true;
+    obj.setPointerCapture(e.pointerId);
+    dragStart = {
+      px: e.clientX,
+      py: e.clientY,
+      x: Number(obj.dataset.x || 0),
+      y: Number(obj.dataset.y || 0),
+      obj
+    };
+  }
+
+  stage.addEventListener("pointermove", (e)=>{
+    if(!dragging || !dragStart) return;
+    const obj = dragStart.obj;
+    const dx = e.clientX - dragStart.px;
+    const dy = e.clientY - dragStart.py;
+    obj.dataset.x = String(dragStart.x + dx);
+    obj.dataset.y = String(dragStart.y + dy);
+    applyTransform(obj);
+    syncControls(false);
+  });
+
+  stage.addEventListener("pointerup", ()=>{
+    dragging = false;
+    dragStart = null;
+  });
+
+  // =========================
+  // CONTROLES
+  // =========================
+  const scaleEl = el("scale");
+  const rotEl = el("rot");
+  const opEl = el("op");
+  const hueEl = el("hue");
+  const satEl = el("sat");
+
+  function syncControls(updateSliders=true){
+    if(!selected){
+      el("selName").textContent = "Nenhum";
+      el("selInfo").textContent = "—";
+      if(updateSliders){
+        scaleEl.value = 100;
+        rotEl.value = 0;
+        opEl.value = 100;
+        hueEl.value = 0;
+        satEl.value = 100;
+        el("scaleLabel").textContent = "100%";
+        el("rotLabel").textContent = "0°";
+        el("opLabel").textContent = "100%";
+        el("hueLabel").textContent = "0";
+        el("satLabel").textContent = "100%";
+      }
+      return;
+    }
+
+    el("selName").textContent = selected.dataset.name || "Item";
+    el("selInfo").textContent = "Arraste no quadro";
+
+    if(updateSliders){
+      const s = Math.round((Number(selected.dataset.scale||1))*100);
+      const r = Math.round(Number(selected.dataset.rot||0));
+      const op = Math.round((Number(selected.dataset.op||1))*100);
+      const hue = Math.round(Number(selected.dataset.hue||0));
+      const sat = Math.round(Number(selected.dataset.sat||100));
+
+      scaleEl.value = s;
+      rotEl.value = r;
+      opEl.value = op;
+      hueEl.value = hue;
+      satEl.value = sat;
+
+      el("scaleLabel").textContent = s + "%";
+      el("rotLabel").textContent = r + "°";
+      el("opLabel").textContent = op + "%";
+      el("hueLabel").textContent = hue;
+      el("satLabel").textContent = sat + "%";
+    }
+  }
+
+  function withSelected(fn){
+    if(!selected) return alert("Selecione um item na montagem.");
+    fn(selected);
+    applyTransform(selected);
+    syncControls();
+  }
+
+  scaleEl.addEventListener("input", ()=>{
+    if(!selected) return;
+    const s = Number(scaleEl.value)/100;
+    selected.dataset.scale = String(s);
+    el("scaleLabel").textContent = scaleEl.value + "%";
+    applyTransform(selected);
+  });
+
+  rotEl.addEventListener("input", ()=>{
+    if(!selected) return;
+    selected.dataset.rot = String(rotEl.value);
+    el("rotLabel").textContent = rotEl.value + "°";
+    applyTransform(selected);
+  });
+
+  opEl.addEventListener("input", ()=>{
+    if(!selected) return;
+    selected.dataset.op = String(Number(opEl.value)/100);
+    el("opLabel").textContent = opEl.value + "%";
+    applyTransform(selected);
+  });
+
+  hueEl.addEventListener("input", ()=>{
+    if(!selected) return;
+    selected.dataset.hue = String(hueEl.value);
+    el("hueLabel").textContent = hueEl.value;
+    applyTransform(selected);
+  });
+
+  satEl.addEventListener("input", ()=>{
+    if(!selected) return;
+    selected.dataset.sat = String(satEl.value);
+    el("satLabel").textContent = satEl.value + "%";
+    applyTransform(selected);
+  });
+
+  el("btnFront").addEventListener("click", ()=> withSelected(obj=>{
+    obj.style.zIndex = String(++zTop);
+  }));
+
+  el("btnBack").addEventListener("click", ()=> withSelected(obj=>{
+    obj.style.zIndex = "1";
+  }));
+
+  el("btnDel").addEventListener("click", ()=> withSelected(obj=>{
+    obj.remove();
+    clearSelection();
+  }));
+
+  el("btnDup").addEventListener("click", ()=> withSelected(obj=>{
+    const clone = obj.cloneNode(true);
+    clone.classList.remove("selected");
+    clone.style.zIndex = String(++zTop);
+
+    // ajusta levemente posição
+    clone.dataset.x = String(Number(obj.dataset.x||0) + 30);
+    clone.dataset.y = String(Number(obj.dataset.y||0) + 20);
+
+    // reatacha eventos
+    clone.addEventListener("pointerdown", (e)=>{
+      e.stopPropagation();
+      selectObj(clone);
+      startDrag(e, clone);
+    });
+
+    stage.appendChild(clone);
+    applyTransform(clone);
+    selectObj(clone);
+  }));
+
+  el("btnResetStyle").addEventListener("click", ()=> withSelected(obj=>{
+    obj.dataset.hue = "0";
+    obj.dataset.sat = "100";
+  }));
+
+  el("btnCenter").addEventListener("click", ()=> withSelected(obj=>{
+    obj.dataset.x = "0";
+    obj.dataset.y = "0";
+  }));
+
+  el("btnResetStage").addEventListener("click", ()=>{
+    if(!confirm("Quer limpar toda a montagem?")) return;
+    stage.innerHTML = "";
+    clearSelection();
+  });
+
+  // inicia
+  syncControls();
 </script>
 
 </body>
